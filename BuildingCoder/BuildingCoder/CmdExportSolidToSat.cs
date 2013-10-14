@@ -65,12 +65,12 @@ namespace BuildingCoder
 
       // Retrieve all floors from the model
 
-  var floors 
-    = new FilteredElementCollector( doc )
-      .OfClass( typeof( Floor ) )
-      .ToElements()
-      .Cast<Floor>()
-      .ToList();
+      var floors 
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( Floor ) )
+          .ToElements()
+          .Cast<Floor>()
+          .ToList();
 
       if( 2 != floors.Count )
       {

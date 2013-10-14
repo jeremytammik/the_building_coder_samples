@@ -218,19 +218,19 @@
     <Compile Include="CmdWallNeighbours.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\README.md">
+    <None Include="..\..\README.md">
       <Link>README.md</Link>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\LICENSE">
+    <None Include="..\..\LICENSE">
       <Link>LICENSE</Link>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\BcSamples.txt">
+    <None Include="..\..\BcSamples.txt">
       <Link>BcSamples.txt</Link>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CmdLinkedFileElementsForm.resx">
