@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    None
+  </ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{12EEC978-8661-44F1-A4BF-B3A1A29DA6AF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BuildingCoder</RootNamespace>
+    <AssemblyName>BuildingCoder</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>
+    </NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="RevitAPI">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIFrameworkServices">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\UIFrameworkServices.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CmdAnalyticalModelGeom.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CmdAzimuth.cs" />
+    <Compile Include="CmdBoundingBox.cs" />
+    <Compile Include="CmdCategories.cs" />
+    <Compile Include="CmdCloseDocument.cs" />
+    <Compile Include="CmdCollectorPerformance.cs" />
+    <Compile Include="CmdColumnRound.cs" />
+    <Compile Include="CmdCoordsOfViewOnSheet.cs" />
+    <Compile Include="CmdCreateGableWall.cs" />
+    <Compile Include="CmdCurtainWallGeom.cs" />
+    <Compile Include="CmdDemoCheck.cs" />
+    <Compile Include="CmdDetailCurves.cs" />
+    <Compile Include="CmdDimensionWallsFindRefs.cs" />
+    <Compile Include="CmdDimensionWallsIterateFaces.cs" />
+    <Compile Include="CmdDisallowJoin.cs" />
+    <Compile Include="CmdDuplicateElements.cs" />
+    <Compile Include="CmdEllipticalArc.cs" />
+    <Compile Include="CmdExportImage.cs" />
+    <Compile Include="CmdExportSolidToSat.cs" />
+    <Compile Include="CmdFamilyParamGuid.cs" />
+    <Compile Include="CmdFamilyParamValue.cs" />
+    <Compile Include="CmdFilledRegionCoords.cs" />
+    <Compile Include="CmdGetSketchElements.cs" />
+    <Compile Include="CmdIdling.cs" />
+    <Compile Include="CmdImportsInFamilies.cs" />
+    <Compile Include="CmdInstallLocation.cs" />
+    <Compile Include="CmdLandXml.cs" />
+    <Compile Include="CmdLibraryPaths.cs" />
+    <Compile Include="CmdLinkedFileElements.cs" />
+    <Compile Include="CmdLinkedFileElementsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CmdLinkedFileElementsForm.Designer.cs">
+      <DependentUpon>CmdLinkedFileElementsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CmdLinq.cs" />
+    <Compile Include="CmdListAllRooms.cs" />
+    <Compile Include="CmdListMarks.cs" />
+    <Compile Include="CmdListRailingTypes.cs" />
+    <Compile Include="CmdListSharedParams.cs" />
+    <Compile Include="CmdMepElementShape.cs" />
+    <Compile Include="CmdMidCurve.cs" />
+    <Compile Include="CmdMirror.cs" />
+    <Compile Include="CmdRoomNeighbours.cs" />
+    <Compile Include="CmdNestedFamilies.cs" />
+    <Compile Include="CmdNestedInstanceGeo.cs" />
+    <Compile Include="CmdNewArea.cs" />
+    <Compile Include="CmdNewBeamTypeInstance.cs" />
+    <Compile Include="CmdNewBlend.cs" />
+    <Compile Include="CmdNewColumnTypeInstance.cs" />
+    <Compile Include="CmdEditFloor.cs" />
+    <Compile Include="CmdGetMaterials.cs" />
+    <Compile Include="CmdLinkedFiles.cs" />
+    <Compile Include="CmdListViews.cs" />
+    <Compile Include="CmdNewDimensionLabel.cs" />
+    <Compile Include="CmdNewLightingFixture.cs" />
+    <Compile Include="CmdNewLineLoad.cs" />
+    <Compile Include="CmdNewDuctSystem.cs" />
+    <Compile Include="CmdNewProjectDoc.cs" />
+    <Compile Include="CmdNewRailing.cs" />
+    <Compile Include="CmdNewSpotElevation.cs" />
+    <Compile Include="CmdNewSprinkler.cs" />
+    <Compile Include="CmdNewSweptBlend.cs" />
+    <Compile Include="CmdNewWallLayer.cs" />
+    <Compile Include="CmdOmniClassParams.cs" />
+    <Compile Include="CmdParameterUnitConverter.cs" />
+    <Compile Include="CmdPartAtom.cs" />
+    <Compile Include="CmdPickPoint3d.cs" />
+    <Compile Include="CmdPlaceFamilyInstance.cs" />
+    <Compile Include="CmdPlanTopology.cs" />
+    <Compile Include="CmdPreprocessFailure.cs" />
+    <Compile Include="CmdPressKeys.cs" />
+    <Compile Include="CmdPreviewImage.cs" />
+    <Compile Include="CmdPurgeTextNoteTypes.cs" />
+    <Compile Include="CmdRectDuctCorners.cs" />
+    <Compile Include="CmdRemoveDwfLinks.cs" />
+    <Compile Include="CmdRemoveImportedJpgs.cs" />
+    <Compile Include="CmdRoomWallAdjacency.cs" />
+    <Compile Include="CmdCreateSharedParams.cs" />
+    <Compile Include="CmdRotatedBeamLocation.cs" />
+    <Compile Include="CmdSetRoomOccupancy.cs" />
+    <Compile Include="CmdSetTagType.cs" />
+    <Compile Include="CmdSheetData.cs" />
+    <Compile Include="CmdSheetSize.cs" />
+    <Compile Include="CmdSlabBoundaryArea.cs" />
+    <Compile Include="CmdSlopedWall.cs" />
+    <Compile Include="CmdSpaceAdjacency.cs" />
+    <Compile Include="CmdStatusBar.cs" />
+    <Compile Include="CmdSteelStairBeams.cs" />
+    <Compile Include="CmdTransformedCoords.cs" />
+    <Compile Include="CmdChangeLinkedFilePath.cs" />
+    <Compile Include="CmdUnrotateNorth.cs" />
+    <Compile Include="CmdUpdateReferencingSheet.cs" />
+    <Compile Include="CmdWallBottomFace.cs" />
+    <Compile Include="CmdWallFooting.cs" />
+    <Compile Include="CmdWallLayerVolumes.cs" />
+    <Compile Include="CmdWallProfileArea.cs" />
+    <Compile Include="CmdListWalls.cs" />
+    <Compile Include="CmdRelationshipInverter.cs" />
+    <Compile Include="CmdSlabSides.cs" />
+    <Compile Include="CmdSlabBoundary.cs" />
+    <Compile Include="CmdWallDimensions.cs" />
+    <Compile Include="CmdWallLayers.cs" />
+    <Compile Include="CmdWallProfile.cs" />
+    <Compile Include="CmdWallTopFaces.cs" />
+    <Compile Include="CmdWindowHandle.cs" />
+    <Compile Include="CmdWindowHandleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CmdWindowHandleForm.Designer.cs">
+      <DependentUpon>CmdWindowHandleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CmdCropToRoom.cs" />
+    <Compile Include="CmdCopyWallType.cs" />
+    <Compile Include="Creator.cs" />
+    <Compile Include="CmdElevationWatcher.cs" />
+    <Compile Include="JtSelectorMulti.cs" />
+    <Compile Include="JtTimer.cs" />
+    <Compile Include="ParameterUnitConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="JtRevision.cs" />
+    <Compile Include="Segment.cs" />
+    <Compile Include="Util.cs" />
+    <Compile Include="CmdWallNeighbours.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\BcSamples.txt">
+      <Link>BcSamples.txt</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CmdLinkedFileElementsForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CmdLinkedFileElementsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CmdWindowHandleForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CmdWindowHandleForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
