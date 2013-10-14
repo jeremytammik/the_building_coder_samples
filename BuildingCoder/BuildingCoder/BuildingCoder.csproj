@@ -218,6 +218,16 @@
     <Compile Include="CmdWallNeighbours.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\README.md">
+      <Link>README.md</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\LICENSE">
+      <Link>LICENSE</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="..\..\BcSamples.txt">
       <Link>BcSamples.txt</Link>
     </Content>

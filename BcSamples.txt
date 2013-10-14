@@ -12,6 +12,7 @@
 # 2011-04-14 initiated migration from Revit 2011 to Revit 2012
 # 2012-04-17 initial migration from Revit 2012 to Revit 2013
 # 2013-04-17 initial migration from Revit 2013 to Revit 2014
+# 2013-10-14 added MIT license and published on GitHub
 #
 # This file is read by the Revit external application RvtSamples, 
 # which is included in the standard Revit SDK.
