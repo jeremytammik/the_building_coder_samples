@@ -8,15 +8,12 @@
 
 #region Namespaces
 using System;
-//using System.Collections.Generic;
-//using System.IO;
 using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System.Diagnostics;
-//using Autodesk.Revit.UI.Selection;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -25,7 +22,6 @@ namespace BuildingCoder
   class CmdDutAbbreviation : IExternalCommand
   {
     const string _s = "unexpected display unit type enumeration sequence";
-
 
     public Result Execute(
       ExternalCommandData commandData,
@@ -68,21 +64,23 @@ namespace BuildingCoder
         + "abbreviation and the valid unit symbols:\n",
         (int) n );
 
-      for( DisplayUnitType i = DisplayUnitType.DUT_METERS;
-        i < n; ++i )
+      string valid_unit_symbols;
+
+      for( DisplayUnitType i = DisplayUnitType
+        .DUT_METERS; i < n; ++i )
       {
-        Debug.Print( "{0,6} {1} valid unit symbols: {2}", 
+        valid_unit_symbols = string.Join( ", ",
+          FormatOptions.GetValidUnitSymbols( i )
+            .Select<UnitSymbolType, string>(
+              u => Util.UnitSymbolTypeString( u ) ) );
+
+        Debug.Print( "{0,6} - {1}: {2}", 
           Util.DisplayUnitTypeAbbreviation[(int)i],
           LabelUtils.GetLabelFor( i ),
           //UnitFormatUtils.Format( UnitType. ???
           //UnitUtils.ConvertFromInternalUnits( 1, i ),
-          string.Join( ", ", FormatOptions
-            .GetValidUnitSymbols( i )
-            .Select<UnitSymbolType,string>( 
-              u => Util.UnitSymbolTypeString( u ) ) ),
-          
+          valid_unit_symbols,
           i );
-
       }
       return Result.Succeeded;
     }

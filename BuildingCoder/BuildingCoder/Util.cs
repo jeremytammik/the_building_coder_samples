@@ -307,7 +307,8 @@ namespace BuildingCoder
     /// Hard coded abbreviations for the first 26
     /// DisplayUnitType enumeration values.
     /// </summary>
-    public static string[] DisplayUnitTypeAbbreviation = new string[] {
+    public static string[] DisplayUnitTypeAbbreviation
+      = new string[] {
       "m", // DUT_METERS = 0,
       "cm", // DUT_CENTIMETERS = 1,
       "mm", // DUT_MILLIMETERS = 2,
@@ -893,6 +894,7 @@ namespace BuildingCoder
     #endregion // Element filtering
   }
 
+  #region Extension Method Classes
   public static class JtPlaneExtensionMethods
   {
     /// <summary>
@@ -998,4 +1000,5 @@ namespace BuildingCoder
         collector.OfClass<T>() );
     }
   }
+  #endregion // Extension Method Classes
 }
