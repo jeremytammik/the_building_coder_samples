@@ -897,3 +897,11 @@ LargeImage:
 Image:
 C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdExportSolidToSat # version 2014.0.104.0
+
+ADN Bc A-M
+Display Unit Type Abbreviation
+Test the display unit type abbreviation array
+LargeImage:
+Image:
+C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdDutAbbreviation # version 2014.0.105.0

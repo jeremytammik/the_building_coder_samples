@@ -302,6 +302,40 @@ namespace BuildingCoder
     {
       return volume * _convertCubicFootToCubicMeter;
     }
+
+    /// <summary>
+    /// Hard coded abbreviations for the first 26
+    /// DisplayUnitType enumeration values.
+    /// </summary>
+    public static string[] DisplayUnitTypeAbbreviation = new string[] {
+      "m", // DUT_METERS = 0,
+      "cm", // DUT_CENTIMETERS = 1,
+      "mm", // DUT_MILLIMETERS = 2,
+      "ft", // DUT_DECIMAL_FEET = 3,
+      "N/A", // DUT_FEET_FRACTIONAL_INCHES = 4,
+      "N/A", // DUT_FRACTIONAL_INCHES = 5,
+      "in", // DUT_DECIMAL_INCHES = 6,
+      "ac", // DUT_ACRES = 7,
+      "ha", // DUT_HECTARES = 8,
+      "N/A", // DUT_METERS_CENTIMETERS = 9,
+      "y^3", // DUT_CUBIC_YARDS = 10,
+      "ft^2", // DUT_SQUARE_FEET = 11,
+      "m^2", // DUT_SQUARE_METERS = 12,
+      "ft^3", // DUT_CUBIC_FEET = 13,
+      "m^3", // DUT_CUBIC_METERS = 14,
+      "deg", // DUT_DECIMAL_DEGREES = 15,
+      "N/A", // DUT_DEGREES_AND_MINUTES = 16,
+      "N/A", // DUT_GENERAL = 17,
+      "N/A", // DUT_FIXED = 18,
+      "%", // DUT_PERCENTAGE = 19,
+      "in^2", // DUT_SQUARE_INCHES = 20,
+      "cm^2", // DUT_SQUARE_CENTIMETERS = 21,
+      "mm^2", // DUT_SQUARE_MILLIMETERS = 22,
+      "in^3", // DUT_CUBIC_INCHES = 23,
+      "cm^3", // DUT_CUBIC_CENTIMETERS = 24,
+      "mm^3", // DUT_CUBIC_MILLIMETERS = 25,
+      "l" // DUT_LITERS = 26,
+    };
     #endregion // Unit Handling
 
     #region Formatting
@@ -502,6 +536,25 @@ namespace BuildingCoder
       return "curve tessellation "
         + PointArrayString( curve.Tessellate() );
     }
+
+    /// <summary>
+    /// Convert a UnitSymbolType enumeration value
+    /// to a brief human readable abbreviation string.
+    /// </summary>
+    public static string UnitSymbolTypeString( 
+      UnitSymbolType u )
+    {
+      string s = u.ToString();
+
+      Debug.Assert( s.StartsWith( "UST_" ), 
+        "expected UnitSymbolType enumeration value to beging with UST_" );
+
+      s = s.Substring( 4 )
+        .Replace( "_SUP_", "^" )
+        .ToLower();
+
+      return s;
+    }
     #endregion // Formatting
 
     #region Display a message
@@ -543,7 +596,7 @@ namespace BuildingCoder
     /// family and symbol name for a family instance,
     /// element id and element name.
     /// </summary>
-    public static string ElementDescription( 
+    public static string ElementDescription(
       Element e )
     {
       if( null == e )
@@ -567,13 +620,13 @@ namespace BuildingCoder
         ? string.Empty
         : fi.Symbol.Family.Name + " ";
 
-      string symbolName = ( null == fi 
+      string symbolName = ( null == fi
         || e.Name.Equals( fi.Symbol.Name ) )
           ? string.Empty
           : fi.Symbol.Name + " ";
 
       return string.Format( "{0} {1}{2}{3}<{4} {5}>",
-        typeName, categoryName, familyName, 
+        typeName, categoryName, familyName,
         symbolName, e.Id.IntegerValue, e.Name );
     }
     #endregion // Display a message
@@ -636,9 +689,9 @@ namespace BuildingCoder
       Element e = null;
       SelElementSet set = doc.Selection.Elements;
 
-      if ( 1 == set.Size )
+      if( 1 == set.Size )
       {
-        foreach ( Element e2 in set )
+        foreach( Element e2 in set )
         {
           e = e2;
         }
@@ -883,7 +936,7 @@ namespace BuildingCoder
         if( 0 < n )
         {
           Debug.Assert( pts[0]
-            .IsAlmostEqualTo( polygon[n-1] ),
+            .IsAlmostEqualTo( polygon[n - 1] ),
             "expected last edge end point to "
             + "equal next edge start point" );
 
@@ -906,22 +959,22 @@ namespace BuildingCoder
 
   public static class JtFamilyParameterExtensionMethods
   {
-    public static bool IsShared( 
+    public static bool IsShared(
       this FamilyParameter familyParameter )
     {
       MethodInfo mi = familyParameter
         .GetType()
-        .GetMethod( "getParameter", 
-          BindingFlags.Instance 
+        .GetMethod( "getParameter",
+          BindingFlags.Instance
           | BindingFlags.NonPublic );
 
       if( null == mi )
       {
-        throw new InvalidOperationException( 
+        throw new InvalidOperationException(
           "Could not find getParameter method" );
       }
 
-      var parameter = mi.Invoke( familyParameter, 
+      var parameter = mi.Invoke( familyParameter,
         new object[] { } ) as Parameter;
 
       return parameter.IsShared;
