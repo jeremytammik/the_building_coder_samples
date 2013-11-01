@@ -21,13 +21,15 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdDutAbbreviation : IExternalCommand
   {
-    const string _s = "unexpected display unit type enumeration sequence";
+    const string _s = "unexpected display unit type "
+      + "enumeration sequence";
 
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
       ElementSet elements )
     {
+      #region Assertions
       Debug.Assert( 0 == (int) DisplayUnitType.DUT_METERS, _s );
       Debug.Assert( 1 == (int) DisplayUnitType.DUT_CENTIMETERS, _s );
       Debug.Assert( 2 == (int) DisplayUnitType.DUT_MILLIMETERS, _s );
@@ -55,14 +57,15 @@ namespace BuildingCoder
       Debug.Assert( 24 == (int) DisplayUnitType.DUT_CUBIC_CENTIMETERS, _s );
       Debug.Assert( 25 == (int) DisplayUnitType.DUT_CUBIC_MILLIMETERS, _s );
       Debug.Assert( 26 == (int) DisplayUnitType.DUT_LITERS, _s );
+      #endregion // Assertions
 
-      DisplayUnitType n 
+      DisplayUnitType n
         = DisplayUnitType.DUT_GALLONS_US;
 
       Debug.Print( "Here is a list of the first {0} "
         + "display unit types with The Building Coder "
         + "abbreviation and the valid unit symbols:\n",
-        (int) n );
+        (int) n - 1 );
 
       string valid_unit_symbols;
 
@@ -74,8 +77,8 @@ namespace BuildingCoder
             .Select<UnitSymbolType, string>(
               u => Util.UnitSymbolTypeString( u ) ) );
 
-        Debug.Print( "{0,6} - {1}: {2}", 
-          Util.DisplayUnitTypeAbbreviation[(int)i],
+        Debug.Print( "{0,6} - {1}: {2}",
+          Util.DisplayUnitTypeAbbreviation[(int) i],
           LabelUtils.GetLabelFor( i ),
           //UnitFormatUtils.Format( UnitType. ???
           //UnitUtils.ConvertFromInternalUnits( 1, i ),

@@ -548,7 +548,8 @@ namespace BuildingCoder
       string s = u.ToString();
 
       Debug.Assert( s.StartsWith( "UST_" ), 
-        "expected UnitSymbolType enumeration value to beging with UST_" );
+        "expected UnitSymbolType enumeration value "
+        + "to begin with 'UST_'" );
 
       s = s.Substring( 4 )
         .Replace( "_SUP_", "^" )
