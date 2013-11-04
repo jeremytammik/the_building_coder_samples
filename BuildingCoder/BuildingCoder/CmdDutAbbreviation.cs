@@ -8,6 +8,7 @@
 
 #region Namespaces
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
@@ -18,6 +19,58 @@ using System.Diagnostics;
 
 namespace BuildingCoder
 {
+  /// <summary>
+  /// Map each DisplayUnitType to a list of all the 
+  /// UnitType values that it might be used for, e.g.
+  /// Meters is mapped to the following 21 values:
+  /// Length, SheetLength, HVAC_DuctSize, HVAC_Roughness, 
+  /// PipeSize, Piping_Roughness, WireSize, DecSheetLength,
+  /// Electrical_CableTraySize, Electrical_ConduitSize, 
+  /// Reinforcement_Length, HVAC_DuctInsulationThickness, 
+  /// HVAC_DuctLiningThickness, PipeInsulationThickness, 
+  /// Bar_Diameter, Crack_Width, Displacement_Deflection, 
+  /// Reinforcement_Cover, Reinforcement_Spacing, 
+  /// Section_Dimension, Section_Property.
+  /// </summary>
+  class MapDutToUt : Dictionary<DisplayUnitType, List<UnitType>>
+  {
+    public MapDutToUt()
+    {
+      IList<DisplayUnitType> duts;
+
+      Array a = Enum.GetValues( typeof( UnitType ) );
+
+      foreach( UnitType ut in a )
+      {
+        // Skip the UT_Undefined and UT_Custom entries; 
+        // GetValidDisplayUnits throws ArgumentException 
+        // on them, saying "unitType is an invalid unit 
+        // type.  See UnitUtils.IsValidUnitType() and 
+        // UnitUtils.GetValidUnitTypes()."
+
+        if( UnitType.UT_Undefined == ut
+          || UnitType.UT_Custom == ut )
+        {
+          continue;
+        }
+
+        duts = UnitUtils.GetValidDisplayUnits( ut );
+
+        foreach( DisplayUnitType dut in duts )
+        {
+          //Debug.Assert( !ContainsKey( dut ), 
+          //  "unexpected duplicate DisplayUnitType key" );
+
+          if( !ContainsKey( dut ) )
+          {
+            Add( dut, new List<UnitType>( 1 ) );
+          }
+          this[dut].Add( ut );
+        }
+      }
+    }
+  }
+
   [Transaction( TransactionMode.ReadOnly )]
   class CmdDutAbbreviation : IExternalCommand
   {
@@ -59,6 +112,8 @@ namespace BuildingCoder
       Debug.Assert( 26 == (int) DisplayUnitType.DUT_LITERS, _s );
       #endregion // Assertions
 
+      MapDutToUt map_dut_to_ut = new MapDutToUt();
+
       DisplayUnitType n
         = DisplayUnitType.DUT_GALLONS_US;
 
@@ -67,23 +122,36 @@ namespace BuildingCoder
         + "abbreviation and the valid unit symbols:\n",
         (int) n - 1 );
 
-      string valid_unit_symbols;
+      string unit_types, valid_unit_symbols;
 
       for( DisplayUnitType i = DisplayUnitType
         .DUT_METERS; i < n; ++i )
       {
+        List<string> uts = new List<string>(
+          map_dut_to_ut[i]
+            .Select<UnitType, string>(
+              u => u.ToString().Substring( 3 ) ) );
+
+        int m = uts.Count;
+
+        unit_types = 4 > m
+          ? string.Join( ", ", uts )
+          : string.Format( "{0}, {1} and {2} more",
+            uts[0], uts[1], m - 2 );
+
         valid_unit_symbols = string.Join( ", ",
           FormatOptions.GetValidUnitSymbols( i )
             .Select<UnitSymbolType, string>(
               u => Util.UnitSymbolTypeString( u ) ) );
 
-        Debug.Print( "{0,6} - {1}: {2}",
+        Debug.Print( "{0,6} - {1} - {2}: {3}",
           Util.DisplayUnitTypeAbbreviation[(int) i],
           LabelUtils.GetLabelFor( i ),
+          unit_types,
+          //i
           //UnitFormatUtils.Format( UnitType. ???
           //UnitUtils.ConvertFromInternalUnits( 1, i ),
-          valid_unit_symbols,
-          i );
+          valid_unit_symbols );
       }
       return Result.Succeeded;
     }
