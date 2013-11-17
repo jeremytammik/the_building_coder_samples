@@ -118,8 +118,9 @@ namespace BuildingCoder
         = DisplayUnitType.DUT_GALLONS_US;
 
       Debug.Print( "Here is a list of the first {0} "
-        + "display unit types with The Building Coder "
-        + "abbreviation and the valid unit symbols:\n",
+        + "display unit types with official Revit API "
+        + "LabelUtils and hard-coded The Building Coder "
+        + "abbreviations and the valid unit symbols:\n",
         (int) n - 1 );
 
       string unit_types, valid_unit_symbols;
@@ -141,8 +142,10 @@ namespace BuildingCoder
 
         valid_unit_symbols = string.Join( ", ",
           FormatOptions.GetValidUnitSymbols( i )
+            .Where( u => UnitSymbolType.UST_NONE != u )
             .Select<UnitSymbolType, string>(
-              u => Util.UnitSymbolTypeString( u ) ) );
+              u => LabelUtils.GetLabelFor( u )
+                + "/" + Util.UnitSymbolTypeString( u ) ) );
 
         Debug.Print( "{0,6} - {1} - {2}: {3}",
           Util.DisplayUnitTypeAbbreviation[(int) i],
