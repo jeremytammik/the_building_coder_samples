@@ -24,6 +24,7 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdListSharedParams : IExternalCommand
   {
+    #region Obsolete code that was never used
     /// <summary>
     /// Get GUID for a given shared param name.
     /// </summary>
@@ -48,8 +49,7 @@ namespace BuildingCoder
       return guid;
     }
 
-
-    public Result Execute(
+    public Result ExecuteObsolete(
       ExternalCommandData commandData,
       ref string message,
       ElementSet elements )
@@ -134,6 +134,58 @@ namespace BuildingCoder
         }
       }
       return Result.Failed;
+    }
+    #endregion // Obsolete code that was never used
+
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      UIApplication app = commandData.Application;
+      UIDocument uidoc = app.ActiveUIDocument;
+      Document doc = uidoc.Document;
+
+      BindingMap bindings = doc.ParameterBindings;
+
+      int n = bindings.Size;
+
+      Debug.Print( "{0} shared parementer{1} defined{2}",
+        n, Util.PluralSuffix( n ), Util.DotOrColon( n ) );
+
+      if( 0 < n )
+      {
+        DefinitionBindingMapIterator it
+          = bindings.ForwardIterator();
+
+        while( it.MoveNext() )
+        {
+          Definition d = it.Key as Definition;
+          Binding b = it.Current as Binding;
+
+          Debug.Assert( b is ElementBinding,
+            "all Binding instances are ElementBinding instances" );
+
+          Debug.Assert( b is InstanceBinding 
+            || b is TypeBinding,
+            "all bindings are either instance or type" );
+
+          // All definitions obtained in this manner
+          // are InternalDefinition instances, even
+          // if they are actually associated with
+          // shared parameters, i.e. external.
+
+          Debug.Assert( d is InternalDefinition,
+            "all definitions obtained from BindingMap are internal" );
+
+          string sbinding = ( b is InstanceBinding )
+            ? "instance"
+            : "type";
+
+          Debug.Print( "{0}: {1}", d.Name, sbinding );
+        }
+      }
+      return Result.Succeeded;
     }
   }
 }

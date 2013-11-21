@@ -119,8 +119,8 @@ namespace BuildingCoder
 
       Debug.Print( "Here is a list of the first {0} "
         + "display unit types with official Revit API "
-        + "LabelUtils and hard-coded The Building Coder "
-        + "abbreviations and the valid unit symbols:\n",
+        + "LabelUtils, hard-coded The Building Coder "
+        + "abbreviations and valid unit symbols:\n",
         (int) n - 1 );
 
       string unit_types, valid_unit_symbols;
