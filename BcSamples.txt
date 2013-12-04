@@ -905,3 +905,11 @@ LargeImage:
 Image:
 C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDutAbbreviation # version 2014.0.105.0
+
+ADN Bc N-Z
+Rolling Offset
+Calculate a rolling offset pipe between two selected pipe segments
+LargeImage:
+Image:
+C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdRollingOffset # version 2014.0.106.0

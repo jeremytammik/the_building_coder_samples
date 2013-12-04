@@ -136,6 +136,7 @@
     <Compile Include="CmdMepElementShape.cs" />
     <Compile Include="CmdMidCurve.cs" />
     <Compile Include="CmdMirror.cs" />
+    <Compile Include="CmdRollingOffset.cs" />
     <Compile Include="CmdRoomNeighbours.cs" />
     <Compile Include="CmdNestedFamilies.cs" />
     <Compile Include="CmdNestedInstanceGeo.cs" />

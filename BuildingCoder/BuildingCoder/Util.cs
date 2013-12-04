@@ -209,7 +209,9 @@ namespace BuildingCoder
       }
       return max;
     }
+    #endregion // Geometrical Comparison
 
+    #region // Geometrical XYZ Calculation
     /// <summary>
     /// Return the midpoint between two points.
     /// </summary>
@@ -241,7 +243,25 @@ namespace BuildingCoder
 
       return v.CrossProduct( XYZ.BasisZ ).Normalize();
     }
-    #endregion // Geometrical Comparison
+
+    /// <summary>
+    /// Return the four XYZ corners of the given 
+    /// bounding box in the XY plane at the minimum 
+    /// Z elevation in the order lower left, lower 
+    /// right, upper right, upper left:
+    /// </summary>
+    public static XYZ[] GetCorners( BoundingBoxXYZ b )
+    {
+      double z = b.Min.Z;
+
+      return new XYZ[] {
+        new XYZ( b.Min.X, b.Min.Y, z ),
+        new XYZ( b.Max.X, b.Min.Y, z ),
+        new XYZ( b.Max.X, b.Max.Y, z ),
+        new XYZ( b.Min.X, b.Max.Y, z ) 
+      };
+    }
+    #endregion // Geometrical XYZ Calculation
 
     #region Unit Handling
     /// <summary>
@@ -542,12 +562,12 @@ namespace BuildingCoder
     /// Convert a UnitSymbolType enumeration value
     /// to a brief human readable abbreviation string.
     /// </summary>
-    public static string UnitSymbolTypeString( 
+    public static string UnitSymbolTypeString(
       UnitSymbolType u )
     {
       string s = u.ToString();
 
-      Debug.Assert( s.StartsWith( "UST_" ), 
+      Debug.Assert( s.StartsWith( "UST_" ),
         "expected UnitSymbolType enumeration value "
         + "to begin with 'UST_'" );
 

@@ -241,29 +241,34 @@ namespace BuildingCoder
         NewSketchPlaneContainCurve( curve ) );
     }
 
-    public void DrawPolygons(
-      List<List<XYZ>> loops )
+    public void DrawPolygon(
+      List<XYZ> loop )
     {
       XYZ p1 = XYZ.Zero;
       XYZ q = XYZ.Zero;
-      bool first;
+      bool first = true;
+      foreach( XYZ p in loop )
+      {
+        if( first )
+        {
+          p1 = p;
+          first = false;
+        }
+        else
+        {
+          CreateModelLine( p, q );
+        }
+        q = p;
+      }
+      CreateModelLine( q, p1 );
+    }
+
+    public void DrawPolygons(
+      List<List<XYZ>> loops )
+    {
       foreach( List<XYZ> loop in loops )
       {
-        first = true;
-        foreach( XYZ p in loop )
-        {
-          if( first )
-          {
-            p1 = p;
-            first = false;
-          }
-          else
-          {
-            CreateModelLine( p, q );
-          }
-          q = p;
-        }
-        CreateModelLine( q, p1 );
+        DrawPolygon( loop );
       }
     }
 
