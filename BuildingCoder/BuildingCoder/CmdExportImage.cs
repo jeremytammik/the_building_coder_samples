@@ -70,6 +70,14 @@ namespace BuildingCoder
 
         if( view3D != null )
         {
+          // Ensure white background.
+
+          Color white = new Color( 255, 255, 255 );
+
+          view3D.SetBackground(
+            ViewDisplayBackground.CreateGradient(
+              white, white, white ) );
+
           views.Add( view3D.Id );
 
           var graphicDisplayOptions
