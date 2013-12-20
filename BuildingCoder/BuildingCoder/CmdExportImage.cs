@@ -25,6 +25,22 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdExportImage : IExternalCommand
   {
+    #region SetWhiteRenderBackground
+    void SetWhiteRenderBackground( View3D view )
+    {
+      RenderingSettings rs = view.GetRenderingSettings();
+      rs.BackgroundStyle = BackgroundStyle.Color;
+
+      ColorBackgroundSettings cbs
+        = (ColorBackgroundSettings) rs
+          .GetBackgroundSettings();
+
+      cbs.Color = new Color( 255, 0, 0 );
+      rs.SetBackgroundSettings( cbs );
+      view.SetRenderingSettings( rs );
+    }
+    #endregion // SetWhiteRenderBackground
+
     static string ExportToImage( Document doc )
     {
       var tempFileName = Path.ChangeExtension(
@@ -63,8 +79,8 @@ namespace BuildingCoder
             x.ViewFamily == ViewFamily.ThreeDimensional );
 
         var view3D = ( viewFamilyType != null )
-          ? View3D.CreateIsometric( doc, viewFamilyType.Id )
-          : null;
+        ? View3D.CreateIsometric( doc, viewFamilyType.Id )
+        : null;
 
 #endif // VERSION2014
 
