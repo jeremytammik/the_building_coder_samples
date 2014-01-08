@@ -90,7 +90,7 @@ namespace BuildingCoder
 
         n = sel.Elements.Size;
 
-        Debug.Print( "{0} pre-selected elements.", 
+        Debug.Print( "{0} pre-selected elements.",
           n );
 
         // If two or more model pipes were pre-
@@ -160,12 +160,12 @@ namespace BuildingCoder
 
       // Extract data from the two selected pipes.
 
-      Curve c0 = (pipes[0].Location as LocationCurve).Curve;
-      Curve c1 = (pipes[1].Location as LocationCurve).Curve;
+      Curve c0 = ( pipes[0].Location as LocationCurve ).Curve;
+      Curve c1 = ( pipes[1].Location as LocationCurve ).Curve;
 
-      if( !(c0 is Line) || !(c1 is Line) )
+      if( !( c0 is Line ) || !( c1 is Line ) )
       {
-        message = _prompt 
+        message = _prompt
           + " Expected straight pipes.";
 
         return Result.Failed;
@@ -182,7 +182,7 @@ namespace BuildingCoder
 
       if( !Util.IsParallel( v0, v1 ) )
       {
-        message = _prompt 
+        message = _prompt
           + " Expected parallel pipes.";
 
         return Result.Failed;
@@ -214,13 +214,13 @@ namespace BuildingCoder
 
       // Offset distance perpendicular to pipe direction
 
-      double distanceAcross = Math.Abs( 
+      double distanceAcross = Math.Abs(
         v.DotProduct( w ) );
 
       // Distance between endpoints parallel 
       // to pipe direction
 
-      double distanceAlong = Math.Abs( 
+      double distanceAlong = Math.Abs(
         v.DotProduct( v1.Normalize() ) );
 
       Debug.Assert( Util.IsEqual( v.GetLength(),
@@ -230,7 +230,7 @@ namespace BuildingCoder
 
       // The required offset pipe angle.
 
-      double angle = 45 * Math.PI / 180.0; 
+      double angle = 45 * Math.PI / 180.0;
 
       // The angle on the other side.
 
@@ -242,8 +242,8 @@ namespace BuildingCoder
 
       // How long should the pipe stubs become?
 
-      double remainingPipeLength 
-        = 0.5 * (distanceAlong - length);
+      double remainingPipeLength
+        = 0.5 * ( distanceAlong - length );
 
       if( 0 > v1.DotProduct( v ) )
       {
@@ -262,10 +262,10 @@ namespace BuildingCoder
 
         // Trim or extend existing pipes
 
-        (pipes[0].Location as LocationCurve).Curve 
+        ( pipes[0].Location as LocationCurve ).Curve
           = Line.CreateBound( p0, q0 );
 
-        (pipes[1].Location as LocationCurve).Curve 
+        ( pipes[1].Location as LocationCurve ).Curve
           = Line.CreateBound( p1, q1 );
 
         // Add a model line for the rolling offset pipe
