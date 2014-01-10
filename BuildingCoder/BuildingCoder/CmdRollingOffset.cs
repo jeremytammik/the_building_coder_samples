@@ -24,6 +24,21 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdRollingOffset : IExternalCommand
   {
+    /// <summary>
+    /// This command can place either a model line
+    /// to represent the rolling offset calculation
+    /// result, or insert a real pipe segment and the 
+    /// associated fittings.
+    /// </summary>
+    static bool _place_model_line = false;
+
+    /// <summary>
+    /// Switch between the new static Pipe.Create
+    /// method and the obsolete 
+    /// Document.Create.NewPipe.
+    /// </summary>
+    static bool _use_static_pipe_create = false;
+
     const string _prompt
       = "Please run this in a model containing "
       + "exactly two parallel offset pipe elements, "
@@ -260,21 +275,78 @@ namespace BuildingCoder
       {
         tx.Start( "Rolling Offset" );
 
-        // Trim or extend existing pipes
+        if( _place_model_line )
+        {
+          // Trim or extend existing pipes
 
-        ( pipes[0].Location as LocationCurve ).Curve
-          = Line.CreateBound( p0, q0 );
+          ( pipes[0].Location as LocationCurve ).Curve
+            = Line.CreateBound( p0, q0 );
 
-        ( pipes[1].Location as LocationCurve ).Curve
-          = Line.CreateBound( p1, q1 );
+          ( pipes[1].Location as LocationCurve ).Curve
+            = Line.CreateBound( p1, q1 );
 
-        // Add a model line for the rolling offset pipe
+          // Add a model line for the rolling offset pipe
 
-        Creator creator = new Creator( doc );
+          Creator creator = new Creator( doc );
 
-        Line line = Line.CreateBound( q0, q1 );
+          Line line = Line.CreateBound( q0, q1 );
 
-        creator.CreateModelCurve( line );
+          creator.CreateModelCurve( line );
+        }
+        else
+        {
+          Pipe pipe = pipes[0];
+
+          if( _use_static_pipe_create )
+          {
+            ElementId idSystem = pipe.MEPSystem.Id; // invalid
+            ElementId idType = pipe.PipeType.Id;
+            ElementId idLevel = pipe.LevelId;
+
+            idSystem = ElementId.InvalidElementId; // invalid
+
+            PipingSystem system = PipingSystem.Create(
+              doc, pipe.MEPSystem.GetTypeId(), "Tbc" );
+
+            idSystem = system.Id; // invalid
+
+            // This throws an argument exception saying
+            // The systemTypeId is not valid piping system type.
+            // Parameter name: systemTypeId
+
+            pipe = Pipe.Create( doc, idSystem,
+              idType, idLevel, q0, q1 );
+          }
+          else
+          {
+            BuiltInParameter bip
+              = BuiltInParameter.RBS_PIPE_DIAMETER_PARAM;
+
+            double diameter = pipe
+              .get_Parameter( bip ) // "Diameter"
+              .AsDouble();
+
+            PipeType pipe_type_standard
+              = new FilteredElementCollector( doc )
+                .OfClass( typeof( PipeType ) )
+                .Cast<PipeType>()
+                .Where<PipeType>( e
+                  => e.Name.Equals( "Standard" ) )
+                .FirstOrDefault<PipeType>();
+
+            Debug.Assert(
+              pipe_type_standard.Id.IntegerValue.Equals(
+                pipe.PipeType.Id.IntegerValue ),
+              "expected all pipes in this simple "
+              + "model to use the same pipe type" );
+
+            pipe = doc.Create.NewPipe( q0, q1,
+              pipe_type_standard );
+
+            pipe.get_Parameter( bip )
+              .Set( diameter );
+          }
+        }
 
         tx.Commit();
       }
@@ -284,3 +356,4 @@ namespace BuildingCoder
 }
 
 // Z:\a\rvt\rolling_offset.rvt
+// /a/j/adn/case/bsd/1264642/attach/PipeTest.cs
