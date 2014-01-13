@@ -474,13 +474,14 @@ namespace BuildingCoder
         return system;
       }
 
-      // copied from sdk - TraverseSystem example
+      //
+      // Copied from Revit SDK TraverseSystem example
       //
       // (C) Copyright 2003-2010 by Autodesk, Inc.
       //
       /// <summary>
       /// Get the mechanical or piping system
-      /// from the connectors of selected element
+      /// from the connectors of selected element.
       /// </summary>
       /// <param name="connectors">Connectors of selected element</param>
       /// <returns>The found mechanical or piping system</returns>

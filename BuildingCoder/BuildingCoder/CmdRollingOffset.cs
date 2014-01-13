@@ -273,6 +273,8 @@ namespace BuildingCoder
 
       using( Transaction tx = new Transaction( doc ) )
       {
+        Pipe pipe = null;
+
         tx.Start( "Rolling Offset" );
 
         if( _place_model_line )
@@ -295,7 +297,7 @@ namespace BuildingCoder
         }
         else
         {
-          Pipe pipe = pipes[0];
+          pipe = pipes[0];
 
           if( _use_static_pipe_create )
           {
@@ -346,6 +348,15 @@ namespace BuildingCoder
             pipe.get_Parameter( bip )
               .Set( diameter );
           }
+        }
+
+        if( null != pipe )
+        {
+          // Connect rolling offset pipe segment
+          // with its neighbours
+
+          Util.Connect( q0, pipes[0], pipe );
+          Util.Connect( q1, pipe, pipes[1] );
         }
 
         tx.Commit();
