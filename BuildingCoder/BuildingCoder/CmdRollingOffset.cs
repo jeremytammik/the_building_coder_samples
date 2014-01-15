@@ -38,7 +38,7 @@ namespace BuildingCoder
     /// them instead of explicitly placing the 
     /// rolling offset pipe segment.
     /// </summary>
-    static bool _place_fittings = true;
+    static bool _place_fittings = false;
 
     /// <summary>
     /// Switch between the new static Pipe.Create
@@ -485,14 +485,35 @@ namespace BuildingCoder
 
             pipe.get_Parameter( bipDiameter )
               .Set( diameter );
-          }
-          if( null != pipe )
-          {
-            // Connect rolling offset pipe segment
-            // with its neighbours
 
-            Util.Connect( q0, pipes[0], pipe );
-            Util.Connect( q1, pipe, pipes[1] );
+            // Connect rolling offset pipe segment
+            // directly with the neighbouring original
+            // pipes
+            //
+            //Util.Connect( q0, pipes[0], pipe );
+            //Util.Connect( q1, pipe, pipes[1] );
+
+            // NewElbowFitting performs the following:
+            // - select appropriate fitting family and type
+            // - place and orient a family instance
+            // - set its parameters appropriately
+            // - connect it with its neighbours
+
+            Connector con0 = Util.GetConnectorClosestTo(
+              pipes[0], q0 );
+
+            Connector con = Util.GetConnectorClosestTo(
+              pipe, q0 );
+
+            doc.Create.NewElbowFitting( con0, con );
+
+            Connector con1 = Util.GetConnectorClosestTo( 
+              pipes[1], q1 );
+
+            con = Util.GetConnectorClosestTo(
+              pipe, q1 );
+
+            doc.Create.NewElbowFitting( con, con1 );
           }
         }
 
