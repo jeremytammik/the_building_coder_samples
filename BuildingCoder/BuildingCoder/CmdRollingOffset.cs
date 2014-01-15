@@ -356,7 +356,7 @@ namespace BuildingCoder
           //uidoc.ActiveView.SketchPlane = sp;
           //uidoc.ActiveView.ShowActiveWorkPlane();
 
-          FamilySymbol symbol 
+          FamilySymbol symbol
             = new FilteredElementCollector( doc )
               .OfClass( typeof( FamilySymbol ) )
               .OfCategory( BuiltInCategory.OST_PipeFitting )
@@ -368,7 +368,7 @@ namespace BuildingCoder
           // Set up first 45 degree elbow fitting
 
           FamilyInstance fitting0 = doc.Create
-            .NewFamilyInstance( q0, symbol, 
+            .NewFamilyInstance( q0, symbol,
               StructuralType.NonStructural );
 
           fitting0.get_Parameter( "Angle" ).Set(
@@ -410,10 +410,10 @@ namespace BuildingCoder
           fitting1.get_Parameter( "Nominal Radius" )
             .Set( 0.5 * diameter );
 
-          axis = Line.CreateBound( 
+          axis = Line.CreateBound(
             q1, q1 + XYZ.BasisZ );
 
-          ElementTransformUtils.RotateElement( 
+          ElementTransformUtils.RotateElement(
             doc, fitting1.Id, axis, Math.PI );
 
           axis = Line.CreateBound( q1, p1 );
@@ -429,10 +429,10 @@ namespace BuildingCoder
 
           Util.Connect( con1.Origin, fitting1, pipes[1] );
 
-          con0 = Util.GetConnectorClosestTo( 
+          con0 = Util.GetConnectorClosestTo(
             fitting0, pm );
 
-          con1 = Util.GetConnectorClosestTo( 
+          con1 = Util.GetConnectorClosestTo(
             fitting1, pm );
 
           // Connecting one fitting to the other does
@@ -444,7 +444,7 @@ namespace BuildingCoder
 
           // Create rolling offset pipe segment
 
-          pipe = doc.Create.NewPipe( con0.Origin, 
+          pipe = doc.Create.NewPipe( con0.Origin,
             con1.Origin, pipe_type_standard );
 
           pipe.get_Parameter( bipDiameter )
@@ -507,7 +507,7 @@ namespace BuildingCoder
 
             doc.Create.NewElbowFitting( con0, con );
 
-            Connector con1 = Util.GetConnectorClosestTo( 
+            Connector con1 = Util.GetConnectorClosestTo(
               pipes[1], q1 );
 
             con = Util.GetConnectorClosestTo(
