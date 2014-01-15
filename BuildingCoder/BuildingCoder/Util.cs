@@ -980,7 +980,7 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Return the connector in the set
+    /// Return the connector set element
     /// closest to the given point.
     /// </summary>
     static Connector GetConnectorClosestTo(
@@ -1007,7 +1007,7 @@ namespace BuildingCoder
     /// Return the connector on the element 
     /// closest to the given point.
     /// </summary>
-    static Connector GetConnectorClosestTo(
+    public static Connector GetConnectorClosestTo(
       Element e,
       XYZ p )
     {

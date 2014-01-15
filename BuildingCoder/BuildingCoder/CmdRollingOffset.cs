@@ -17,6 +17,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using StructuralType = Autodesk.Revit.DB.Structure.StructuralType;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -33,6 +34,13 @@ namespace BuildingCoder
     static bool _place_model_line = false;
 
     /// <summary>
+    /// Place the two 45 degree fittings and connect 
+    /// them instead of explicitly placing the 
+    /// rolling offset pipe segment.
+    /// </summary>
+    static bool _place_fittings = true;
+
+    /// <summary>
     /// Switch between the new static Pipe.Create
     /// method and the obsolete 
     /// Document.Create.NewPipe.
@@ -47,6 +55,10 @@ namespace BuildingCoder
       + "select two pipe elements before launching "
       + "this command, or post-select them when "
       + "prompted.";
+
+    const BuiltInParameter bipDiameter
+      = BuiltInParameter.RBS_PIPE_DIAMETER_PARAM;
+
 
     /// <summary>
     /// Allow selection of curve elements only.
@@ -203,8 +215,8 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      // Select the two pipe endpoints that are 
-      // farthest apart.
+      // Select the two pipe endpoints
+      // that are farthest apart.
 
       XYZ p0 = p00.DistanceTo( p10 ) > p01.DistanceTo( p10 )
         ? p00
@@ -224,7 +236,16 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
+      // Normal vector of the plane defined by the
+      // two parallel and offset pipes, which is
+      // the plane hosting the rolling offset
+
       XYZ z = v.CrossProduct( v1 );
+
+      // Vector perpendicular to v0 and v0 and
+      // z, i.e. vector pointing from the first pipe
+      // to the second in the cross sectional view.
+
       XYZ w = z.CrossProduct( v1 ).Normalize();
 
       // Offset distance perpendicular to pipe direction
@@ -273,7 +294,30 @@ namespace BuildingCoder
 
       using( Transaction tx = new Transaction( doc ) )
       {
-        Pipe pipe = null;
+        // Determine pipe diameter for creating 
+        // matching pipes and fittings
+
+        Pipe pipe = pipes[0];
+
+        double diameter = pipe
+          .get_Parameter( bipDiameter ) // "Diameter"
+          .AsDouble();
+
+        // Pipe type for calls to doc.Create.NewPipe
+
+        PipeType pipe_type_standard
+          = new FilteredElementCollector( doc )
+            .OfClass( typeof( PipeType ) )
+            .Cast<PipeType>()
+            .Where<PipeType>( e
+              => e.Name.Equals( "Standard" ) )
+            .FirstOrDefault<PipeType>();
+
+        Debug.Assert(
+          pipe_type_standard.Id.IntegerValue.Equals(
+            pipe.PipeType.Id.IntegerValue ),
+          "expected all pipes in this simple "
+          + "model to use the same pipe type" );
 
         tx.Start( "Rolling Offset" );
 
@@ -294,11 +338,126 @@ namespace BuildingCoder
           Line line = Line.CreateBound( q0, q1 );
 
           creator.CreateModelCurve( line );
+
+          pipe = null;
+        }
+        else if( _place_fittings )
+        {
+          // Set active work plane to the rolling 
+          // offset plane... removed again, since
+          // this has no effect at all on the 
+          // fitting placement or rotation.
+          //
+          //Plane plane = new Plane( z, q0 );
+          //
+          //SketchPlane sp = SketchPlane.Create( 
+          //  doc, plane );
+          //
+          //uidoc.ActiveView.SketchPlane = sp;
+          //uidoc.ActiveView.ShowActiveWorkPlane();
+
+          FamilySymbol symbol 
+            = new FilteredElementCollector( doc )
+              .OfClass( typeof( FamilySymbol ) )
+              .OfCategory( BuiltInCategory.OST_PipeFitting )
+              .Cast<FamilySymbol>()
+              .Where<FamilySymbol>( e
+                => e.Family.Name.Contains( "Elbow - Generic" ) )
+              .FirstOrDefault<FamilySymbol>();
+
+          // Set up first 45 degree elbow fitting
+
+          FamilyInstance fitting0 = doc.Create
+            .NewFamilyInstance( q0, symbol, 
+              StructuralType.NonStructural );
+
+          fitting0.get_Parameter( "Angle" ).Set(
+            45.0 * Math.PI / 180.0 );
+
+          //fitting0.get_Parameter( bipDiameter ) // does not exist
+          //  .Set( diameter );
+
+          fitting0.get_Parameter( "Nominal Radius" )
+            .Set( 0.5 * diameter );
+
+          Line axis = Line.CreateBound( p0, q0 );
+          angle = z.AngleTo( XYZ.BasisZ );
+
+          ElementTransformUtils.RotateElement(
+            doc, fitting0.Id, axis, Math.PI - angle );
+
+          Connector con0 = Util.GetConnectorClosestTo(
+            fitting0, p0 );
+
+          // Trim or extend existing pipe
+
+          ( pipes[0].Location as LocationCurve ).Curve
+            = Line.CreateBound( p0, con0.Origin );
+
+          // Connect pipe to fitting
+
+          Util.Connect( con0.Origin, pipe, fitting0 );
+
+          // Set up second 45 degree elbow fitting
+
+          FamilyInstance fitting1 = doc.Create
+            .NewFamilyInstance( q1, symbol,
+              StructuralType.NonStructural );
+
+          fitting1.get_Parameter( "Angle" ).Set(
+            45.0 * Math.PI / 180.0 );
+
+          fitting1.get_Parameter( "Nominal Radius" )
+            .Set( 0.5 * diameter );
+
+          axis = Line.CreateBound( 
+            q1, q1 + XYZ.BasisZ );
+
+          ElementTransformUtils.RotateElement( 
+            doc, fitting1.Id, axis, Math.PI );
+
+          axis = Line.CreateBound( q1, p1 );
+
+          ElementTransformUtils.RotateElement(
+            doc, fitting1.Id, axis, Math.PI - angle );
+
+          Connector con1 = Util.GetConnectorClosestTo(
+            fitting1, p1 );
+
+          ( pipes[1].Location as LocationCurve ).Curve
+            = Line.CreateBound( con1.Origin, p1 );
+
+          Util.Connect( con1.Origin, fitting1, pipes[1] );
+
+          con0 = Util.GetConnectorClosestTo( 
+            fitting0, pm );
+
+          con1 = Util.GetConnectorClosestTo( 
+            fitting1, pm );
+
+          // Connecting one fitting to the other does
+          // not insert a pipe in between. If the 
+          // system is edited later, however, the two 
+          // fittings snap together.
+          //
+          //con0.ConnectTo( con1 );
+
+          // Create rolling offset pipe segment
+
+          pipe = doc.Create.NewPipe( con0.Origin, 
+            con1.Origin, pipe_type_standard );
+
+          pipe.get_Parameter( bipDiameter )
+            .Set( diameter );
+
+          // Connect rolling offset pipe segment
+          // with elbow fittings at each end
+
+          Util.Connect( con0.Origin, fitting0, pipe );
+          Util.Connect( con1.Origin, pipe, fitting1 );
         }
         else
         {
-          pipe = pipes[0];
-
           if( _use_static_pipe_create )
           {
             ElementId idSystem = pipe.MEPSystem.Id; // invalid
@@ -321,42 +480,20 @@ namespace BuildingCoder
           }
           else
           {
-            BuiltInParameter bip
-              = BuiltInParameter.RBS_PIPE_DIAMETER_PARAM;
-
-            double diameter = pipe
-              .get_Parameter( bip ) // "Diameter"
-              .AsDouble();
-
-            PipeType pipe_type_standard
-              = new FilteredElementCollector( doc )
-                .OfClass( typeof( PipeType ) )
-                .Cast<PipeType>()
-                .Where<PipeType>( e
-                  => e.Name.Equals( "Standard" ) )
-                .FirstOrDefault<PipeType>();
-
-            Debug.Assert(
-              pipe_type_standard.Id.IntegerValue.Equals(
-                pipe.PipeType.Id.IntegerValue ),
-              "expected all pipes in this simple "
-              + "model to use the same pipe type" );
-
             pipe = doc.Create.NewPipe( q0, q1,
               pipe_type_standard );
 
-            pipe.get_Parameter( bip )
+            pipe.get_Parameter( bipDiameter )
               .Set( diameter );
           }
-        }
+          if( null != pipe )
+          {
+            // Connect rolling offset pipe segment
+            // with its neighbours
 
-        if( null != pipe )
-        {
-          // Connect rolling offset pipe segment
-          // with its neighbours
-
-          Util.Connect( q0, pipes[0], pipe );
-          Util.Connect( q1, pipe, pipes[1] );
+            Util.Connect( q0, pipes[0], pipe );
+            Util.Connect( q1, pipe, pipes[1] );
+          }
         }
 
         tx.Commit();
