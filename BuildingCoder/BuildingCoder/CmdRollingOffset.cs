@@ -2,7 +2,7 @@
 //
 // CmdRollingOffset.cs - calculate a rolling offset pipe segment between two existing pipes and hook them up
 //
-// Copyright (C) 2013 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 
@@ -45,7 +45,7 @@ namespace BuildingCoder
     /// method and the obsolete 
     /// Document.Create.NewPipe.
     /// </summary>
-    static bool _use_static_pipe_create = false;
+    static bool _use_static_pipe_create = true;
 
     const string _prompt
       = "Please run this in a model containing "
@@ -59,9 +59,8 @@ namespace BuildingCoder
     const BuiltInParameter bipDiameter
       = BuiltInParameter.RBS_PIPE_DIAMETER_PARAM;
 
-
     /// <summary>
-    /// Allow selection of curve elements only.
+    /// Allow selection of pipe elements only.
     /// </summary>
     class PipeElementSelectionFilter : ISelectionFilter
     {
@@ -460,67 +459,211 @@ namespace BuildingCoder
         {
           if( _use_static_pipe_create )
           {
-            ElementId idSystem = pipe.MEPSystem.Id; // invalid
-            ElementId idType = pipe.PipeType.Id;
-            ElementId idLevel = pipe.LevelId;
+            // Element id arguments to Pipe.Create.
 
-            idSystem = ElementId.InvalidElementId; // invalid
+            ElementId idSystem;
+            ElementId idType;
+            ElementId idLevel;
 
-            PipingSystem system = PipingSystem.Create(
-              doc, pipe.MEPSystem.GetTypeId(), "Tbc" );
+            // All these values are invalid for idSystem:
 
-            idSystem = system.Id; // invalid
+            ElementId idSystem1 = pipe.MEPSystem.Id;
+            ElementId idSystem2 = ElementId.InvalidElementId;
+            ElementId idSystem3 = PipingSystem.Create(
+              doc, pipe.MEPSystem.GetTypeId(), "Tbc" )
+                .Id;
 
             // This throws an argument exception saying
             // The systemTypeId is not valid piping system type.
             // Parameter name: systemTypeId
 
-            pipe = Pipe.Create( doc, idSystem,
-              idType, idLevel, q0, q1 );
+            //pipe = Pipe.Create( doc, idSystem,
+            //  idType, idLevel, q0, q1 );
+
+            // Retrieve pipe system type, e.g. 
+            // hydronic supply.
+
+            PipingSystemType pipingSystemType
+              = new FilteredElementCollector( doc )
+                .OfClass( typeof( PipingSystemType ) )
+                .OfType<PipingSystemType>()
+                .FirstOrDefault( st
+                  => st.SystemClassification
+                    == MEPSystemClassification
+                      .SupplyHydronic );
+
+            if( null == pipingSystemType )
+            {
+              message = "Could not find hydronic supply piping system type";
+              return Result.Failed;
+            }
+
+            idSystem = pipingSystemType.Id;
+
+            Debug.Assert( pipe.get_Parameter(
+              BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM )
+                .AsElementId().IntegerValue.Equals(
+                  idSystem.IntegerValue ),
+               "expected same piping system element id" );
+
+            // Retrieve the PipeType.
+
+            PipeType pipeType =
+              new FilteredElementCollector( doc )
+                .OfClass( typeof( PipeType ) )
+                .OfType<PipeType>()
+                .FirstOrDefault();
+
+            if( null == pipeType )
+            {
+              message = "Could not find pipe type";
+              return Result.Failed;
+            }
+
+            idType = pipeType.Id;
+
+            Debug.Assert( pipe.get_Parameter(
+              BuiltInParameter.ELEM_TYPE_PARAM )
+                .AsElementId().IntegerValue.Equals(
+                  idType.IntegerValue ),
+              "expected same pipe type element id" );
+
+            Debug.Assert( pipe.PipeType.Id.IntegerValue
+              .Equals( idType.IntegerValue ),
+              "expected same pipe type element id" );
+
+            // Retrieve the reference level.
+            // pipe.LevelId is not the correct source!
+
+            idLevel = pipe.get_Parameter(
+              BuiltInParameter.RBS_START_LEVEL_PARAM )
+                .AsElementId();
+
+            // Create the rolling offset pipe.
+
+            pipe = Pipe.Create( doc, 
+              idSystem, idType, idLevel, q0, q1 );
           }
           else
           {
             pipe = doc.Create.NewPipe( q0, q1,
               pipe_type_standard );
-
-            pipe.get_Parameter( bipDiameter )
-              .Set( diameter );
-
-            // Connect rolling offset pipe segment
-            // directly with the neighbouring original
-            // pipes
-            //
-            //Util.Connect( q0, pipes[0], pipe );
-            //Util.Connect( q1, pipe, pipes[1] );
-
-            // NewElbowFitting performs the following:
-            // - select appropriate fitting family and type
-            // - place and orient a family instance
-            // - set its parameters appropriately
-            // - connect it with its neighbours
-
-            Connector con0 = Util.GetConnectorClosestTo(
-              pipes[0], q0 );
-
-            Connector con = Util.GetConnectorClosestTo(
-              pipe, q0 );
-
-            doc.Create.NewElbowFitting( con0, con );
-
-            Connector con1 = Util.GetConnectorClosestTo(
-              pipes[1], q1 );
-
-            con = Util.GetConnectorClosestTo(
-              pipe, q1 );
-
-            doc.Create.NewElbowFitting( con, con1 );
           }
+
+          pipe.get_Parameter( bipDiameter )
+            .Set( diameter );
+
+          // Connect rolling offset pipe segment
+          // directly with the neighbouring original
+          // pipes
+          //
+          //Util.Connect( q0, pipes[0], pipe );
+          //Util.Connect( q1, pipe, pipes[1] );
+
+          // NewElbowFitting performs the following:
+          // - select appropriate fitting family and type
+          // - place and orient a family instance
+          // - set its parameters appropriately
+          // - connect it with its neighbours
+
+          Connector con0 = Util.GetConnectorClosestTo(
+            pipes[0], q0 );
+
+          Connector con = Util.GetConnectorClosestTo(
+            pipe, q0 );
+
+          doc.Create.NewElbowFitting( con0, con );
+
+          Connector con1 = Util.GetConnectorClosestTo(
+            pipes[1], q1 );
+
+          con = Util.GetConnectorClosestTo(
+            pipe, q1 );
+
+          doc.Create.NewElbowFitting( con, con1 );
         }
 
         tx.Commit();
       }
       return Result.Succeeded;
     }
+
+    #region Victor's Code
+    Result f(
+      UIDocument uidoc,
+      Document doc )
+    {
+      string message = string.Empty;
+
+      // Extract all pipe system types
+
+      var mepSystemTypes
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( PipingSystemType ) )
+          .OfType<PipingSystemType>()
+          .ToList();
+
+      // Get the Domestic hot water type
+
+      var domesticHotWaterSystemType =
+        mepSystemTypes.FirstOrDefault(
+          st => st.SystemClassification ==
+            MEPSystemClassification.DomesticHotWater );
+
+      if( domesticHotWaterSystemType == null )
+      {
+        message = "Could not found Domestic Hot Water System Type";
+        return Result.Failed;
+      }
+
+      // Looking for the PipeType
+
+      var pipeTypes =
+        new FilteredElementCollector( doc )
+          .OfClass( typeof( PipeType ) )
+          .OfType<PipeType>()
+          .ToList();
+
+      // Get the first type from the collection
+
+      var firstPipeType =
+          pipeTypes.FirstOrDefault();
+
+      if( firstPipeType == null )
+      {
+        message = "Could not found Pipe Type";
+        return Result.Failed;
+      }
+
+      var level = uidoc.ActiveView.GenLevel;
+
+      if( level == null )
+      {
+        message = "Wrong Active View";
+        return Result.Failed;
+      }
+
+      var startPoint = XYZ.Zero;
+
+      var endPoint = new XYZ( 100, 0, 0 );
+
+      using( var t = new Transaction( doc ) )
+      {
+        t.Start( "Create pipe using Pipe.Create" );
+
+        var pipe = Pipe.Create( doc,
+          domesticHotWaterSystemType.Id,
+          firstPipeType.Id,
+          level.Id,
+          startPoint,
+          endPoint );
+
+        t.Commit();
+      }
+      Debug.Print( message );
+      return Result.Succeeded;
+    }
+    #endregion // Victor's Code
   }
 }
 
