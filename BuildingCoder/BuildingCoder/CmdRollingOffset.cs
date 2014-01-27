@@ -504,7 +504,7 @@ namespace BuildingCoder
               BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM )
                 .AsElementId().IntegerValue.Equals(
                   idSystem.IntegerValue ),
-               "expected same piping system element id" );
+                "expected same piping system element id" );
 
             // Retrieve the PipeType.
 
@@ -541,7 +541,7 @@ namespace BuildingCoder
 
             // Create the rolling offset pipe.
 
-            pipe = Pipe.Create( doc, 
+            pipe = Pipe.Create( doc,
               idSystem, idType, idLevel, q0, q1 );
           }
           else

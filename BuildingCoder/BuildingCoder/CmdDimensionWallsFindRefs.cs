@@ -88,7 +88,7 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      // select two walls and the dimension line point:
+      // Select two walls and the dimension line point:
 
       Selection sel = uidoc.Selection;
       ReferenceArray refs = new ReferenceArray();
@@ -119,7 +119,7 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      // ensure the two selected walls are straight and
+      // Ensure the two selected walls are straight and
       // parallel; determine their mutual normal vector
       // and a point on each wall for distance
       // calculations:
@@ -144,7 +144,7 @@ namespace BuildingCoder
         walls[i] = wall;
         ids.Add( wall.Id.IntegerValue );
 
-        // obtain location curve and
+        // Obtain location curve and
         // check that it is straight:
 
         LocationCurve lc = wall.Location
@@ -159,7 +159,7 @@ namespace BuildingCoder
           return Result.Failed;
         }
 
-        // obtain normal vectors
+        // Obtain normal vectors
         // and ensure that they are equal,
         // i.e. walls are parallel:
 
@@ -177,7 +177,7 @@ namespace BuildingCoder
           }
         }
 
-        // obtain pick points and project
+        // Obtain pick points and project
         // onto wall location lines:
 
         XYZ p = r.GlobalPoint;
@@ -204,7 +204,7 @@ namespace BuildingCoder
 
         if( 0 < i )
         {
-          // project dimension point selected on second wall
+          // Project dimension point selected on second wall
           // back onto first wall, and ensure that normal
           // points from second wall to first:
 
@@ -231,30 +231,62 @@ namespace BuildingCoder
         normal = -normal;
       }
 
-      // invoke FindReferencesByDirection, shooting ray
-      // back from second picked wall towards first:
+      // Shoot a ray back from the second 
+      // picked wall towards first:
+
+      Debug.Print( 
+        "Shooting ray from {0} in direction {1}",
+        Util.PointString( pts[1] ),
+        Util.PointString( normal ) );
 
       View3D view = Get3DView( doc );
+
+      if( null == view )
+      {
+        message = "No 3D view named '{3D}' found; "
+          + "run the View > 3D View command once "
+          + "to generate it.";
+
+        return Result.Failed;
+      }
 
       //refs = doc.FindReferencesByDirection(
       //  pts[1], normal, view ); // 2011
 
-      IList<ReferenceWithContext> refs2
-        = doc.FindReferencesWithContextByDirection(
-          pts[1], normal, view ); // 2012
+      //IList<ReferenceWithContext> refs2
+      //  = doc.FindReferencesWithContextByDirection(
+      //    pts[1], normal, view ); // 2012
 
-      Debug.Print( "Shooting ray from {0} direction "
-        + "{1} returns {2} references",
-        Util.PointString( pts[1] ),
-        Util.PointString( normal ),
-        refs2.Count );
+      // In the Revit 2014 API, the call to
+      // FindReferencesWithContextByDirection causes a 
+      // warning saying:
+      // "FindReferencesWithContextByDirection is obsolete:
+      // This method is deprecated in Revit 2014.  
+      // Use the ReferenceIntersector class instead."
 
-      // store the references to the wall surfaces:
+      ReferenceIntersector ri
+        = new ReferenceIntersector(
+          walls[0].Id, FindReferenceTarget.Element, view );
+
+      ReferenceWithContext ref2 
+        = ri.FindNearest( pts[1], normal );
+
+      if( null == ref2 )
+      {
+        message = "ReferenceIntersector.FindNearest"
+          + " returned null!";
+
+        return Result.Failed;
+      }
+
+      #region Obsolete code to determine the closest reference
+#if NEED_TO_DETERMINE_CLOSEST_REFERENCE
+      // Store the references to the wall surfaces:
 
       Reference[] surfrefs = new Reference[2] {
         null, null };
 
-      // find the two closest intersection
+      // Find the two closest intersection
       // points on each of the two walls:
 
       double[] minDistance = new double[2] {
@@ -300,10 +332,9 @@ namespace BuildingCoder
                 Util.PointString( face.Normal ),
                 rc.Proximity );
 
-              // first reference: assert it is a face on this wall
-              // and the distance is half the wall thickness
-              //
-              // second reference: the first reference on the other
+              // First reference: assert it is a face on this wall
+              // and the distance is half the wall thickness.
+              // Second reference: the first reference on the other
               // wall; assert the distance between the two references
               // equals the distance between the wall location lines
               // minus half of the sum of the two wall thicknesses.
@@ -337,6 +368,12 @@ namespace BuildingCoder
       CmdDimensionWallsIterateFaces
         .CreateDimensionElement( doc.ActiveView,
         pts[0], surfrefs[0], pts[1], surfrefs[1] );
+#endif // NEED_TO_DETERMINE_CLOSEST_REFERENCE
+      #endregion // Obsolete code to determine the closest reference
+
+      CmdDimensionWallsIterateFaces
+        .CreateDimensionElement( doc.ActiveView,
+        pts[0], ref2.GetReference(), pts[1], refs.get_Item(1) );
 
       return Result.Succeeded;
     }
