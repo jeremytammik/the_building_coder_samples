@@ -2,7 +2,7 @@
 //
 // CmdMidCurve.cs - create a series of model line segments between two curve elements
 //
-// Copyright (C) 2013 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

@@ -3,7 +3,7 @@
 // CmdDimensionWallsIterateFaces.cs - create dimensioning elements
 // between opposing walls by iterating over their faces
 //
-// Copyright (C) 2011-2013 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2011-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

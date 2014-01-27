@@ -2,7 +2,7 @@
 //
 // CmdPickPoint3d.cs - set active work plane to pick a point in 3d
 //
-// Copyright (C) 2011-2013 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2011-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

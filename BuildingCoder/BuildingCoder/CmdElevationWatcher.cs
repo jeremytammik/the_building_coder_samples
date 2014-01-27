@@ -2,7 +2,7 @@
 //
 // CmdElevationWatcher.cs - React to elevation view creation
 //
-// Copyright (C) 2012-2013 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2012-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

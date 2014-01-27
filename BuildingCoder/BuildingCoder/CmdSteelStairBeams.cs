@@ -2,7 +2,7 @@
 //
 // CmdSteelStairBeams.cs - create a series of connected mitered steel beams for a steel stair
 //
-// Copyright (C) 2011-2013 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2011-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

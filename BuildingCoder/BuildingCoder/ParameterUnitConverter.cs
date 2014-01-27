@@ -43,7 +43,7 @@ namespace BuildingCoder
       //FormatOptions fo = document.ProjectUnit // 2013
       //  .get_FormatOptions(ut);
 
-      //DisplayUnitType dut = fo.Units; // 2013
+      //DisplayUnitType dut = fo.Units; // 2014
 
       FormatOptions fo = document.GetUnits() // 2014
         .GetFormatOptions(ut);

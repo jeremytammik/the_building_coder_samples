@@ -2,7 +2,7 @@
 //
 // CmdRoomNeighbours.cs - determine neighbouring room at midpoint of each room boundary segment
 //
-// Copyright (C) 2013 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

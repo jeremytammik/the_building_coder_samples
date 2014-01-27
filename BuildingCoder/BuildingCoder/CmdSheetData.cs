@@ -2,7 +2,7 @@
 //
 // CmdSheetData.cs - export sheet data to XML file
 //
-// Copyright (C) 2010-2013 by Jeremy Tammik,
+// Copyright (C) 2010-2014 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header
