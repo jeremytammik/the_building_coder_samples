@@ -234,7 +234,7 @@ namespace BuildingCoder
       // Shoot a ray back from the second 
       // picked wall towards first:
 
-      Debug.Print( 
+      Debug.Print(
         "Shooting ray from {0} in direction {1}",
         Util.PointString( pts[1] ),
         Util.PointString( normal ) );
@@ -268,7 +268,7 @@ namespace BuildingCoder
         = new ReferenceIntersector(
           walls[0].Id, FindReferenceTarget.Element, view );
 
-      ReferenceWithContext ref2 
+      ReferenceWithContext ref2
         = ri.FindNearest( pts[1], normal );
 
       if( null == ref2 )
@@ -281,99 +281,99 @@ namespace BuildingCoder
 
       #region Obsolete code to determine the closest reference
 #if NEED_TO_DETERMINE_CLOSEST_REFERENCE
-      // Store the references to the wall surfaces:
+  // Store the references to the wall surfaces:
 
-      Reference[] surfrefs = new Reference[2] {
-        null, null };
+  Reference[] surfrefs = new Reference[2] {
+    null, null };
 
-      // Find the two closest intersection
-      // points on each of the two walls:
+  // Find the two closest intersection
+  // points on each of the two walls:
 
-      double[] minDistance = new double[2] {
-        double.MaxValue,
-        double.MaxValue };
+  double[] minDistance = new double[2] {
+    double.MaxValue,
+    double.MaxValue };
 
-      //foreach( Reference r in refs )
-      foreach( ReferenceWithContext rc in refs2 )
+  //foreach( Reference r in refs )
+  foreach( ReferenceWithContext rc in refs2 )
+  {
+    // 'Autodesk.Revit.DB.Reference.Element' is
+    // obsolete: Property will be removed. Use
+    // Document.GetElement(Reference) instead.
+    //Element e = r.Element; // 2011
+
+    Reference r = rc.GetReference();
+    Element e = doc.GetElement( r ); // 2012
+
+    if( e is Wall )
+    {
+      i = ids.IndexOf( e.Id.IntegerValue );
+
+      if( -1 < i
+        && ElementReferenceType.REFERENCE_TYPE_SURFACE
+          == r.ElementReferenceType )
       {
-        // 'Autodesk.Revit.DB.Reference.Element' is
-        // obsolete: Property will be removed. Use
-        // Document.GetElement(Reference) instead.
-        //Element e = r.Element; // 2011
+        //GeometryObject g = r.GeometryObject; // 2011
+        GeometryObject g = e.GetGeometryObjectFromReference( r ); // 2012
 
-        Reference r = rc.GetReference();
-        Element e = doc.GetElement( r ); // 2012
-
-        if( e is Wall )
+        if( g is PlanarFace )
         {
-          i = ids.IndexOf( e.Id.IntegerValue );
+          PlanarFace face = g as PlanarFace;
 
-          if( -1 < i
-            && ElementReferenceType.REFERENCE_TYPE_SURFACE
-              == r.ElementReferenceType )
+          Line line = ( e.Location as LocationCurve )
+            .Curve as Line;
+
+          Debug.Print(
+            "Wall {0} at {1}, {2} surface {3} "
+            + "normal {4} proximity {5}",
+            e.Id.IntegerValue,
+            Util.PointString( line.GetEndPoint( 0 ) ),
+            Util.PointString( line.GetEndPoint( 1 ) ),
+            Util.PointString( face.Origin ),
+            Util.PointString( face.Normal ),
+            rc.Proximity );
+
+          // First reference: assert it is a face on this wall
+          // and the distance is half the wall thickness.
+          // Second reference: the first reference on the other
+          // wall; assert the distance between the two references
+          // equals the distance between the wall location lines
+          // minus half of the sum of the two wall thicknesses.
+
+          if( rc.Proximity < minDistance[i] )
           {
-            //GeometryObject g = r.GeometryObject; // 2011
-            GeometryObject g = e.GetGeometryObjectFromReference( r ); // 2012
-
-            if( g is PlanarFace )
-            {
-              PlanarFace face = g as PlanarFace;
-
-              Line line = ( e.Location as LocationCurve )
-                .Curve as Line;
-
-              Debug.Print(
-                "Wall {0} at {1}, {2} surface {3} "
-                + "normal {4} proximity {5}",
-                e.Id.IntegerValue,
-                Util.PointString( line.GetEndPoint( 0 ) ),
-                Util.PointString( line.GetEndPoint( 1 ) ),
-                Util.PointString( face.Origin ),
-                Util.PointString( face.Normal ),
-                rc.Proximity );
-
-              // First reference: assert it is a face on this wall
-              // and the distance is half the wall thickness.
-              // Second reference: the first reference on the other
-              // wall; assert the distance between the two references
-              // equals the distance between the wall location lines
-              // minus half of the sum of the two wall thicknesses.
-
-              if( rc.Proximity < minDistance[i] )
-              {
-                surfrefs[i] = r;
-                minDistance[i] = rc.Proximity;
-              }
-            }
+            surfrefs[i] = r;
+            minDistance[i] = rc.Proximity;
           }
         }
       }
+    }
+  }
 
-      if( null == surfrefs[0] )
-      {
-        message = "No suitable face intersection "
-          + "points found on first wall.";
+  if( null == surfrefs[0] )
+  {
+    message = "No suitable face intersection "
+      + "points found on first wall.";
 
-        return Result.Failed;
-      }
+    return Result.Failed;
+  }
 
-      if( null == surfrefs[1] )
-      {
-        message = "No suitable face intersection "
-          + "points found on second wall.";
+  if( null == surfrefs[1] )
+  {
+    message = "No suitable face intersection "
+      + "points found on second wall.";
 
-        return Result.Failed;
-      }
+    return Result.Failed;
+  }
 
-      CmdDimensionWallsIterateFaces
-        .CreateDimensionElement( doc.ActiveView,
-        pts[0], surfrefs[0], pts[1], surfrefs[1] );
+  CmdDimensionWallsIterateFaces
+    .CreateDimensionElement( doc.ActiveView,
+    pts[0], surfrefs[0], pts[1], surfrefs[1] );
 #endif // NEED_TO_DETERMINE_CLOSEST_REFERENCE
       #endregion // Obsolete code to determine the closest reference
 
       CmdDimensionWallsIterateFaces
         .CreateDimensionElement( doc.ActiveView,
-        pts[0], ref2.GetReference(), pts[1], refs.get_Item(1) );
+        pts[0], ref2.GetReference(), pts[1], refs.get_Item( 1 ) );
 
       return Result.Succeeded;
     }

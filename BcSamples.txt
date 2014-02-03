@@ -913,3 +913,11 @@ LargeImage:
 Image:
 C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRollingOffset # version 2014.0.106.0
+
+ADN Bc N-Z
+Delete Unused Reference Planes
+Delete unnamed non-hosting reference planes
+LargeImage:
+Image:
+C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdDeleteUnusedRefPlanes # version 2014.0.107.0
