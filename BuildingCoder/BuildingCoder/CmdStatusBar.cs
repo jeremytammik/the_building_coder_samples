@@ -60,5 +60,47 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    #region BalloonTip
+#if BALOON_TIP
+    public static void ShowBalloonTip(
+      string category,
+      string title,
+      string text )
+    {
+      Autodesk.Internal.InfoCenter.ResultItem ri
+        = new Autodesk.Internal.InfoCenter.ResultItem();
+
+      ri.Category = category;
+      ri.Title = title;
+      ri.TooltipText = text;
+
+      // Optional: provide a URL, e.g. a 
+      // website containing further information.
+
+      ri.Uri = new System.Uri(
+        "http://www.yourContextualHelp.de" );
+
+      ri.IsFavorite = true;
+      ri.IsNew = true;
+
+      // You also could add a click event.
+
+      ri.ResultClicked += new EventHandler<
+        Autodesk.Internal.InfoCenter.ResultClickEventArgs>(
+          ri_ResultClicked );
+
+      Autodesk.Windows.ComponentManager
+        .InfoCenterPaletteManager.ShowBalloon( ri );
+    }
+
+    private static void ri_ResultClicked(
+      object sender,
+      Autodesk.Internal.InfoCenter.ResultClickEventArgs e )
+    {
+      // do some stuff...
+    }
+#endif
+    #endregion // BalloonTip
   }
 }

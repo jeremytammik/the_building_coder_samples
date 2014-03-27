@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+//using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -39,8 +40,8 @@ namespace BuildingCoder
         if( null != pf
           && Util.IsHorizontal( pf ) )
         {
-          if( (null == topFace)
-            || (topFace.Origin.Z < pf.Origin.Z) )
+          if( ( null == topFace )
+            || ( topFace.Origin.Z < pf.Origin.Z ) )
           {
             topFace = pf;
           }
@@ -151,7 +152,7 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
 
-      // retrieve selected floors, or all floors, if nothing is selected:
+      // Retrieve selected floors, or all floors, if nothing is selected:
 
       List<Element> floors = new List<Element>();
       if( !Util.GetSelectedElementsOrAll(
@@ -164,7 +165,7 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      // determine top face of each selected floor:
+      // Determine top face of each selected floor:
 
       int nNullFaces = 0;
       List<Face> topFaces = new List<Face>();
@@ -194,7 +195,7 @@ namespace BuildingCoder
         }
       }
 
-      // create new floors from the top faces found
+      // Create new floors from the top faces found
       // before creating the new floor, we would obviously
       // apply whatever modifications are required to the
       // new floor profile:
@@ -232,7 +233,7 @@ namespace BuildingCoder
           {
             profile = new CurveArray();
 
-            // only use first edge array,
+            // Only use first edge array,
             // the outer boundary loop,
             // skip the further items
             // representing holes:
@@ -250,10 +251,10 @@ namespace BuildingCoder
           }
           //Level level = floor.Level; // 2013
 
-          Level level = doc.GetElement( floor.LevelId ) 
+          Level level = doc.GetElement( floor.LevelId )
             as Level; // 2014
 
-          floor = creDoc.NewFloor( profile, 
+          floor = creDoc.NewFloor( profile,
             floor.FloorType, level, true );
 
           XYZ v = new XYZ( 5, 5, 0 );

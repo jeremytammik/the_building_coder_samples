@@ -921,3 +921,11 @@ LargeImage:
 Image:
 C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDeleteUnusedRefPlanes # version 2014.0.107.0
+
+ADN Bc N-Z
+Create Sloped Floor
+Create Sloped Floor
+LargeImage:
+Image:
+C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdCreateSlopedSlab # version 2014.0.108.0

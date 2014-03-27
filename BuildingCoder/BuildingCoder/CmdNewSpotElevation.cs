@@ -119,9 +119,9 @@ namespace BuildingCoder
       ElementId viewFamily3d = ElementId.InvalidElementId;
 
       IEnumerable<ViewFamilyType> viewFamilyTypes
-        = from elem in new FilteredElementCollector( doc )
+        = from e in new FilteredElementCollector( doc )
             .OfClass( typeof( ViewFamilyType ) )
-          let type = elem as ViewFamilyType
+          let type = e as ViewFamilyType
           where type.ViewFamily == ViewFamily.CeilingPlan
           select type;
 

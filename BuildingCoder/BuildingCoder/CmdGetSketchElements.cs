@@ -43,17 +43,17 @@ namespace BuildingCoder
       // 'Autodesk.Revit.DB.Reference.Element' is
       // obsolete: Property will be removed. Use
       // Document.GetElement(Reference) instead.
-      //Element elem = r.Element; // 2011
+      //Element e = r.Element; // 2011
 
-      Element elem = doc.GetElement( r ); // 2012
+      Element e = doc.GetElement( r ); // 2012
 
-      Transaction trans = new Transaction( doc );
+      Transaction tx = new Transaction( doc );
 
-      trans.Start( _caption );
+      tx.Start( _caption );
 
-      ICollection<ElementId> ids = doc.Delete( elem.Id );
+      ICollection<ElementId> ids = doc.Delete( e.Id );
 
-      trans.RollBack();
+      tx.RollBack();
 
       bool showOnlySketchElements = true;
 
@@ -61,7 +61,7 @@ namespace BuildingCoder
       StringBuilder s = new StringBuilder(
         _caption
         + " for host element "
-        + Util.ElementDescription( elem )
+        + Util.ElementDescription( e )
         + ": " );
 
       foreach( ElementId id in ids )
@@ -82,14 +82,14 @@ namespace BuildingCoder
 
       string s = _caption
         + " for host element "
-        + Util.ElementDescription( elem )
+        + Util.ElementDescription( e )
         + ": ";
 
       s += string.Join( ", ",
-        a.Where( e => !showOnlySketchElements
-          || e is Sketch
-          || e is SketchPlane )
-        .Select( e => Util.ElementDescription( e ) )
+        a.Where( e2 => !showOnlySketchElements
+          || e2 is Sketch
+          || e2 is SketchPlane )
+        .Select( e2 => Util.ElementDescription( e2 ) )
         .ToArray() );
 
       Util.InfoMsg( s );

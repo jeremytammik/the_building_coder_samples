@@ -65,9 +65,9 @@ namespace BuildingCoder
         try
         {
           UIApplication uiApp = commandData.Application;
-          UIDocument uiDoc = uiApp.ActiveUIDocument;
+          UIDocument uidoc = uiApp.ActiveUIDocument;
           Application app = uiApp.Application;
-          Document doc = uiDoc.Document;
+          Document doc = uidoc.Document;
 
           Stopwatch sw = Stopwatch.StartNew();
 
@@ -157,8 +157,8 @@ namespace BuildingCoder
       UIApplication app = commandData.Application;
       Document doc = app.ActiveUIDocument.Document;
 
-      Transaction trans = new Transaction( doc, "Test" );
-      trans.Start();
+      Transaction tx = new Transaction( doc, "Test" );
+      tx.Start();
 
       // use the view filter
 
@@ -194,7 +194,7 @@ namespace BuildingCoder
         + " elements in the current view created"
         + " with phase New Construction" );
 
-      trans.Commit();
+      tx.Commit();
 
       return Result.Succeeded;
     }
@@ -925,9 +925,9 @@ namespace BuildingCoder
 
         string s = string.Empty;
 
-        foreach( Element elem in collector )
+        foreach( Element e in collector )
         {
-          s += elem.Name + elem.Category.Name.ToString() + "\n";
+          s += e.Name + e.Category.Name.ToString() + "\n";
 
         }
         System.Windows.Forms.MessageBox.Show( s );

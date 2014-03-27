@@ -53,10 +53,10 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
 
-      Transaction trans = new Transaction( doc,
+      Transaction tx = new Transaction( doc,
         "Duplicate Elements" );
 
-      trans.Start();
+      tx.Start();
 
       //Group group = doc.Create.NewGroup( // 2012
       //  uidoc.Selection.Elements );
@@ -84,7 +84,7 @@ namespace BuildingCoder
       // change the property or parameter values
       // of the member elements as required...
 
-      trans.Commit();
+      tx.Commit();
 
       return Result.Succeeded;
     }

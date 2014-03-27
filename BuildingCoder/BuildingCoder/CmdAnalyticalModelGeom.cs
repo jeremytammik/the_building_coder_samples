@@ -70,39 +70,36 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      Transaction transaction
-        = new Transaction( doc,
-          "Create model curve copies of analytical model curves" );
-
-      transaction.Start();
-
-      Creator creator = new Creator( doc );
-
-      foreach( Wall wall in walls )
+      using( Transaction tx = new Transaction( doc ) )
       {
-        AnalyticalModel am = wall.GetAnalyticalModel();
+        tx.Start( "Create model curve copies of analytical model curves" );
 
-        foreach( AnalyticalCurveType ct in _curveTypes )
+        Creator creator = new Creator( doc );
+
+        foreach( Wall wall in walls )
         {
-          IList<Curve> curves = am.GetCurves( ct );
+          AnalyticalModel am = wall.GetAnalyticalModel();
 
-          int n = curves.Count;
-
-          Debug.Print( "{0} {1} curve{2}.",
-            n, ct, Util.PluralSuffix( n ) );
-
-          foreach( Curve curve in curves )
+          foreach( AnalyticalCurveType ct in _curveTypes )
           {
-            //creator.CreateModelCurve( curve.get_Transformed( _t ) ); // 2013
+            IList<Curve> curves = am.GetCurves( ct );
 
-            creator.CreateModelCurve( curve.CreateTransformed( _t ) ); // 2014
+            int n = curves.Count;
+
+            Debug.Print( "{0} {1} curve{2}.",
+              n, ct, Util.PluralSuffix( n ) );
+
+            foreach( Curve curve in curves )
+            {
+              //creator.CreateModelCurve( curve.get_Transformed( _t ) ); // 2013
+
+              creator.CreateModelCurve( curve.CreateTransformed( _t ) ); // 2014
+            }
           }
         }
+        tx.Commit();
       }
-      transaction.Commit();
-
       return Result.Succeeded;
     }
   }
 }
-

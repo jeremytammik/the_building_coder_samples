@@ -180,6 +180,7 @@
     <Compile Include="CmdSheetData.cs" />
     <Compile Include="CmdSheetSize.cs" />
     <Compile Include="CmdSlabBoundaryArea.cs" />
+    <Compile Include="CmdSlopedFloor.cs" />
     <Compile Include="CmdSlopedWall.cs" />
     <Compile Include="CmdSpaceAdjacency.cs" />
     <Compile Include="CmdStatusBar.cs" />

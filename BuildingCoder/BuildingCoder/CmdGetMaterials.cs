@@ -447,8 +447,8 @@ namespace BuildingCoder
       // Materials.get_Item required transaction
       // Why? I'm just read data
       // ******
-      var trans = new Transaction( doc, "Get Material" );
-      trans.Start();
+      var tx = new Transaction( doc, "Get Material" );
+      tx.Start();
 
       // ******
       // NullReferencException throws here if
@@ -456,7 +456,7 @@ namespace BuildingCoder
       // ******
       var material = doc.Settings.Materials.get_Item( materialName );
 
-      trans.RollBack();
+      tx.RollBack();
 
       return Result.Succeeded;
     }

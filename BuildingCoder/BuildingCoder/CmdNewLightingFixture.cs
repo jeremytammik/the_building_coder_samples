@@ -60,9 +60,9 @@ namespace BuildingCoder
 
       Element ceiling = null;
 
-      foreach( Element elem in uidoc.Selection.Elements )
+      foreach( Element e in uidoc.Selection.Elements )
       {
-        ceiling = elem as Element;
+        ceiling = e as Element;
         break;
       }
 #endif // _2010

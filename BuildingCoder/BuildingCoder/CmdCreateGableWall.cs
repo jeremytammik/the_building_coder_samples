@@ -94,9 +94,9 @@ namespace BuildingCoder
             => e.Name.Equals( "Level 1" ) )
           as Level;
 
-      Transaction trans = new Transaction( doc );
+      Transaction tx = new Transaction( doc );
 
-      trans.Start( "Create Gable Wall" );
+      tx.Start( "Create Gable Wall" );
 
       //Wall wall = doc.Create.NewWall( // 2012
       //  profile, wallType, level, true, normal );
@@ -104,7 +104,7 @@ namespace BuildingCoder
       Wall wall = Wall.Create( // 2013
         doc, profile, wallType.Id, level.Id, true, normal );
 
-      trans.Commit();
+      tx.Commit();
 
       return Result.Succeeded;
     }

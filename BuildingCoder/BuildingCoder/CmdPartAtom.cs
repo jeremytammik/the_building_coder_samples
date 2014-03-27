@@ -43,10 +43,10 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      Transaction trans = new Transaction( doc,
+      Transaction tx = new Transaction( doc,
         "Extract Part Atom" );
 
-      trans.Start();
+      tx.Start();
 
       string familyFilePath
         = "C:/Documents and Settings/All Users"
@@ -58,7 +58,7 @@ namespace BuildingCoder
       app.ExtractPartAtomFromFamilyFile(
         familyFilePath, xmlPath );
 
-      trans.Commit();
+      tx.Commit();
 
       return Result.Succeeded;
     }

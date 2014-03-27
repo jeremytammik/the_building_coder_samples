@@ -29,10 +29,10 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
 
-      Transaction trans = new Transaction( doc,
+      Transaction tx = new Transaction( doc,
         "New Duct System" );
 
-      trans.Start();
+      tx.Start();
 
       ConnectorSet connectorSet = new ConnectorSet();
 
@@ -101,7 +101,7 @@ namespace BuildingCoder
       MechanicalSystem ductSystem = doc.Create.NewMechanicalSystem(
         baseConnector, connectorSet, DuctSystemType.SupplyAir );
 
-      trans.Commit();
+      tx.Commit();
       return Result.Succeeded;
     }
   }
