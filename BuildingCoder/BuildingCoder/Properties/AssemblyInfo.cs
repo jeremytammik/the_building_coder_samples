@@ -31,5 +31,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion( "2014.0.108.0" )]
-[assembly: AssemblyFileVersion( "2014.0.108.0" )]
+// 2014-04-11 2014.0.109.0 renamed CmdSlopedFloor.cs to CmdCreateSlopedSlab.cs, implemented CmdCategorySupportsTypeParameter
+[assembly: AssemblyVersion( "2014.0.109.0" )]
+[assembly: AssemblyFileVersion( "2014.0.109.0" )]

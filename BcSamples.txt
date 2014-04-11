@@ -929,3 +929,12 @@ LargeImage:
 Image:
 C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCreateSlopedSlab # version 2014.0.108.0
+
+ADN Bc A-M
+Category Supports Type Parameter
+Boolean predicate to determine whether a given category supports type parameter
+LargeImage:
+Image:
+C:\a\lib\revit\2014\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdCategorySupportsTypeParameter # version 2014.0.109.0
+

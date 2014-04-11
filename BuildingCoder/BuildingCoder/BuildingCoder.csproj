@@ -96,6 +96,7 @@
     <Compile Include="CmdAzimuth.cs" />
     <Compile Include="CmdBoundingBox.cs" />
     <Compile Include="CmdCategories.cs" />
+    <Compile Include="CmdCategorySupportsTypeParameter.cs" />
     <Compile Include="CmdCloseDocument.cs" />
     <Compile Include="CmdCollectorPerformance.cs" />
     <Compile Include="CmdColumnRound.cs" />
@@ -180,7 +181,7 @@
     <Compile Include="CmdSheetData.cs" />
     <Compile Include="CmdSheetSize.cs" />
     <Compile Include="CmdSlabBoundaryArea.cs" />
-    <Compile Include="CmdSlopedFloor.cs" />
+    <Compile Include="CmdCreateSlopedSlab.cs" />
     <Compile Include="CmdSlopedWall.cs" />
     <Compile Include="CmdSpaceAdjacency.cs" />
     <Compile Include="CmdStatusBar.cs" />
