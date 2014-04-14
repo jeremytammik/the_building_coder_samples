@@ -17,7 +17,7 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.ReadOnly )]
+  [Transaction( TransactionMode.Manual )]
   public class CmdPickPoint3d : IExternalCommand
   {
     /// <summary>

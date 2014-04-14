@@ -73,13 +73,18 @@ namespace BuildingCoder
 
       FilteredElementCollector a;
       Parameter p;
-      string s;
+      int n;
+
+      #region Using the obsolete TitleBlocks property
+#if BEFORE_REVIT_2015
+      // The TitleBlocks property was declared deprecated
+      // in the Revit 2014 API, and removed in Revit 2015.
 
       // Using the obsolete deprecated TitleBlocks property
 
       FamilySymbolSet titleBlocks = doc.TitleBlocks;
 
-      int n = titleBlocks.Size;
+      n = titleBlocks.Size;
 
       Debug.Print(
         "{0} title block element type{1} listed "
@@ -87,6 +92,8 @@ namespace BuildingCoder
         n,
         ( 1 == n ? "" : "s" ),
         ( 0 == n ? "." : ":" ) );
+
+      string s;
 
       foreach( FamilySymbol tb in titleBlocks )
       {
@@ -104,6 +111,8 @@ namespace BuildingCoder
           "Title block element type {0} {1}" + s,
           tb.Name, tb.Id.IntegerValue );
       }
+#endif // BEFORE_REVIT_2015
+      #endregion // Using the obsolete TitleBlocks property
 
       // Using this filter returns the same elements
       // as the doc.TitleBlocks collection:
@@ -111,6 +120,8 @@ namespace BuildingCoder
       a = new FilteredElementCollector( doc )
         .OfCategory( BuiltInCategory.OST_TitleBlocks )
         .OfClass( typeof( FamilySymbol ) );
+
+      n = a.ToElementIds().Count;
 
       Debug.Print( "{0} title block element type{1} "
         + "retrieved by filtered element collector{2}",

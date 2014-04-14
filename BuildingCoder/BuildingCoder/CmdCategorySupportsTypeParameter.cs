@@ -359,7 +359,7 @@ namespace BuildingCoder
           ///<summary>Mass.Mass Skylight</summary>
           BuiltInCategory.OST_MassSkylights,
           ///<summary>Mass.Mass Glazing</summary>
-          BuiltInCategory.OST_MassWindow,
+          //BuiltInCategory.OST_MassWindow, // jeremy - not available in Revit 2015
           ///<summary>Mass.Mass Roof</summary>
           BuiltInCategory.OST_MassRoof,
           ///<summary>Mass.Mass Exterior Wall</summary>
@@ -807,7 +807,7 @@ namespace BuildingCoder
       ///<summary>Mass.Mass Skylight</summary>
       OST_MassSkylights = BuiltInCategory.OST_MassSkylights,
       ///<summary>Mass.Mass Glazing</summary>
-      OST_MassWindow = BuiltInCategory.OST_MassWindow,
+      //OST_MassWindow = BuiltInCategory.OST_MassWindow, // jeremy - not available in Revit 2015
       ///<summary>Mass.Mass Roof</summary>
       OST_MassRoof = BuiltInCategory.OST_MassRoof,
       ///<summary>Mass.Mass Exterior Wall</summary>
