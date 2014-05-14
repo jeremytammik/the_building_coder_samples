@@ -192,6 +192,7 @@
     <Compile Include="CmdChangeLinkedFilePath.cs" />
     <Compile Include="CmdUnrotateNorth.cs" />
     <Compile Include="CmdUpdateReferencingSheet.cs" />
+    <Compile Include="CmdViewsShowingElements.cs" />
     <Compile Include="CmdWallBottomFace.cs" />
     <Compile Include="CmdWallFooting.cs" />
     <Compile Include="CmdWallLayerVolumes.cs" />
