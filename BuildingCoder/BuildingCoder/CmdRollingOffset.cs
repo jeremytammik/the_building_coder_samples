@@ -443,8 +443,11 @@ namespace BuildingCoder
 
           // Create rolling offset pipe segment
 
-          pipe = doc.Create.NewPipe( con0.Origin,
+          pipe = doc.Create.NewPipe( con0.Origin, // 2014
             con1.Origin, pipe_type_standard );
+
+          //pipe = Pipe.Create( doc, pipe_type_standard.Id, con0.Origin, // 2015
+          //  con1.Origin );
 
           pipe.get_Parameter( bipDiameter )
             .Set( diameter );

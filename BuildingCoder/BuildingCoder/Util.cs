@@ -901,8 +901,15 @@ namespace BuildingCoder
       {
         if( f.Name.Equals( familyName ) )
         {
-          foreach( FamilySymbol symbol in f.Symbols )
+          //foreach( FamilySymbol symbol in f.Symbols ) // 2014
+          
+          ISet<ElementId> ids = f.GetFamilySymbolIds(); // 2015
+
+          foreach( ElementId id in ids )
           {
+            FamilySymbol symbol = doc.GetElement( id ) 
+              as FamilySymbol;
+
             if( symbol.Name == symbolName )
             {
               return symbol;

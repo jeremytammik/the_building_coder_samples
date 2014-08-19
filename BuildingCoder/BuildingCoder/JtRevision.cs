@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Autodesk.Revit.DB;
 
 namespace BuildingCoder
@@ -18,7 +19,15 @@ namespace BuildingCoder
     /// </summary>
     Parameter _p( string parameter_name )
     {
-      return _e.get_Parameter( parameter_name );
+      //return _e.get_Parameter( parameter_name ); // 2014
+
+      Debug.Assert( 
+        1 == _e.GetParameters( parameter_name ).Count,
+        string.Format( 
+          "expected only one parameters named '{0}'", 
+          parameter_name ) );
+
+      return _e.LookupParameter( parameter_name ); // 2015
     }
 
     /// <summary>

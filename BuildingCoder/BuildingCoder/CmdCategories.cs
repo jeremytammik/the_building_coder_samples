@@ -32,8 +32,14 @@ namespace BuildingCoder
       DefinitionGroup group = sharedParametersFile
         .Groups.Create( "Reinforcement" );
 
-      Definition def = group.Definitions.Create(
-        "ReinforcementParameter", ParameterType.Text );
+      //Definition def = group.Definitions.Create( // 2014
+      //  "ReinforcementParameter", ParameterType.Text );
+
+      ExternalDefinitonCreationOptions opt 
+        = new ExternalDefinitonCreationOptions( 
+          "ReinforcementParameter", ParameterType.Text );
+
+      Definition def = group.Definitions.Create( opt ); // 2015
 
       List<BuiltInCategory> bics
         = new List<BuiltInCategory>();

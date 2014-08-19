@@ -35,6 +35,7 @@ using System.Runtime.InteropServices;
 // 2014-04-14 2015.0.109.0 migrated to Revit 2015
 // 2014-05-14 2015.0.110.0 CmdViewsShowingElements
 // 2014-07-21 2015.0.110.1 AddFaceBasedFamilyToLinks
+// 2014-08-19 2015.0.110.2 remove obsolete API usage: reduced warning count from 71 to 67
 // 
-[assembly: AssemblyVersion( "2015.0.110.1" )]
-[assembly: AssemblyFileVersion( "2015.0.110.1" )]
+[assembly: AssemblyVersion( "2015.0.110.2" )]
+[assembly: AssemblyFileVersion( "2015.0.110.2" )]

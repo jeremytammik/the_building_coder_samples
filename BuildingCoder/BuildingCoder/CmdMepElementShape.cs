@@ -9,6 +9,7 @@
 #region Namespaces
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
@@ -79,7 +80,14 @@ namespace BuildingCoder
         {
           // simple case, no need to use regular expression
 
-          string size = e.get_Parameter( "Size" )
+          //string size = e.get_Parameter( "Size" ) // 2014
+          //  .AsString();
+
+          Debug.Assert(
+            1 == e.GetParameters( "Size" ).Count,
+            "expected only one parameters named 'Size'" );
+
+          string size = e.LookupParameter( "Size" ) // 2015
             .AsString();
 
           if( size.Split( 'x' ).Length == 2 )
