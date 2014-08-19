@@ -2,7 +2,7 @@
 //
 // CmdViewsShowingElements.cs - determine all views displaying a given set of elements
 //
-// By cshha, 
+// By Colin, cshha, 
 // http://forums.autodesk.com/t5/user/viewprofilepage/user-id/1162312
 // published in 
 // http://forums.autodesk.com/t5/Revit-API/Revision-help-which-views-show-this-object/m-p/5029772
@@ -155,4 +155,198 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
   }
+
+  #region Align two views
+  /// <summary>
+  /// http://forums.autodesk.com/t5/Revit-API/Align-views-on-sheet/td-p/5048740
+  /// </summary>
+  class CmdAlignTwoViews : IExternalCommand
+  {
+    const BuiltInParameter _bipFarOffset
+      = BuiltInParameter.VIEWER_BOUND_OFFSET_FAR;
+
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      UIApplication app = commandData.Application;
+      Document doc = app.ActiveUIDocument.Document;
+
+      using( Transaction trans = new Transaction( doc ) )
+      {
+        trans.Start( "Place views" );
+
+        View frontView = doc.GetElement( new ElementId( 180041 ) ) as View;
+        View leftView = doc.GetElement( new ElementId( 180032 ) ) as View;
+
+        AssemblyInstance assemblyInst = doc.GetElement( new ElementId( 179915 ) ) as AssemblyInstance;
+
+        ViewSheet vSheet = doc.GetElement( new ElementId( 180049 ) ) as ViewSheet;
+
+        // Assume that the scale is the same for both views
+
+        int scale = frontView.Scale;
+        leftView.Scale = scale;
+
+        // Save current crop box values
+
+        BoundingBoxXYZ savedBoxFront = null, savedBoxLeft = null;
+        bool frontCropActive, frontCropVisible, leftCropActive, leftCropVisible;
+        double farClipFront = 0, farClipLeft = 0;
+        Parameter param;
+        Transform transformFront = frontView.CropBox.Transform;
+        Transform transformLeft = leftView.CropBox.Transform;
+
+        // Save old values. I have to store the farclip and reset it later
+
+        savedBoxFront = frontView.CropBox;
+        frontCropActive = frontView.CropBoxActive;
+        frontCropVisible = frontView.CropBoxVisible;
+        param = frontView.get_Parameter( _bipFarOffset );
+        if( param != null )
+        {
+          farClipFront = param.AsDouble();
+        }
+        savedBoxLeft = leftView.CropBox;
+        leftCropActive = leftView.CropBoxActive;
+        leftCropVisible = leftView.CropBoxVisible;
+        param = leftView.get_Parameter( _bipFarOffset );
+        if( param != null )
+        {
+          farClipLeft = param.AsDouble();
+        }
+
+        // Here my approach differs from yours. 
+        // I'm starting from the old bounding box to 
+        // ensure that I get the correct transformation.
+        // I tried to create a new Transformation but 
+        // this didn't work.
+
+        BoundingBoxXYZ newBoxFront = frontView.CropBox;
+        newBoxFront.set_MinEnabled( 0, true );
+        newBoxFront.set_MinEnabled( 1, true );
+        newBoxFront.set_MinEnabled( 2, true );
+        newBoxFront.Min = new XYZ( -2000, -2000, 0 );
+        newBoxFront.set_MaxEnabled( 0, true );
+        newBoxFront.set_MaxEnabled( 1, true );
+        newBoxFront.set_MaxEnabled( 2, true );
+        newBoxFront.Max = new XYZ( 2000, 2000, 0 );
+
+        BoundingBoxXYZ newBoxLeft = leftView.CropBox;
+        newBoxLeft.set_MinEnabled( 0, true );
+        newBoxLeft.set_MinEnabled( 1, true );
+        newBoxLeft.set_MinEnabled( 2, true );
+        newBoxLeft.Min = new XYZ( -2000, -2000, 0 );
+        newBoxLeft.set_MaxEnabled( 0, true );
+        newBoxLeft.set_MaxEnabled( 1, true );
+        newBoxLeft.set_MaxEnabled( 2, true );
+        newBoxLeft.Max = new XYZ( 2000, 2000, 0 );
+
+        frontView.CropBox = newBoxFront;
+        leftView.CropBox = newBoxLeft;
+        doc.Regenerate();
+        frontView.CropBoxActive = true;
+        leftView.CropBoxActive = true;
+
+        doc.Regenerate();
+
+        ElementId vid = vSheet.Id;
+        XYZ p = XYZ.Zero;
+
+        var vpFront = Viewport.Create( doc, vid, frontView.Id, p );
+        var vpLeft = Viewport.Create( doc, vid, leftView.Id, p );
+
+        doc.Regenerate();
+
+        // Align lower left - works 
+        // because crop boxes are same
+
+        Outline outline1 = vpFront.GetBoxOutline();
+        Outline outline2 = vpLeft.GetBoxOutline();
+        XYZ min1 = outline1.MinimumPoint;
+        XYZ min2 = outline2.MinimumPoint;
+        XYZ diffToMove = min1 - min2;
+        ElementTransformUtils.MoveElement( doc, vpLeft.Id, diffToMove );
+
+        // Tranform the view such that the origin 
+        // of the assemblyInstance for each view is 
+        // on the middle of the sheet
+        // 1) Move the views such that the assembly
+        // Origin lies on the same on the origin of sheet
+
+        p = assemblyInst.GetTransform().Origin;
+
+        XYZ v = transformFront.Origin - p;
+
+        XYZ translation = new XYZ(
+          v.DotProduct( transformFront.BasisX ),
+          v.DotProduct( transformFront.BasisY ), 0 )
+            / scale;
+
+        ElementTransformUtils.MoveElement( doc, vpFront.Id, translation );
+
+        v = transformLeft.Origin - p;
+
+        translation = new XYZ(
+          v.DotProduct( transformLeft.BasisX ),
+          v.DotProduct( transformLeft.BasisY ), 0 )
+            / scale;
+
+        ElementTransformUtils.MoveElement( doc, vpLeft.Id, translation );
+
+        // 2) Move the views such that the assembly 
+        // origin lies on the center of the sheet
+
+        double width = 840 * 0.0032808399;
+        double height = 594 * 0.0032808399;
+
+        XYZ sheetMidpoint = ( vSheet.Origin + XYZ.BasisX * width + XYZ.BasisY * height ) / 2.0;
+        ElementTransformUtils.MoveElement( doc, vpFront.Id, sheetMidpoint );
+        ElementTransformUtils.MoveElement( doc, vpLeft.Id, sheetMidpoint );
+
+        // Once the views are on the middle, move the 
+        // left view to the left of the front view:
+        // Do the correct translations to suit the 
+        // defined layout
+
+        translation = XYZ.BasisX * (
+          -( ( outline1.MinimumPoint.X - outline1.MinimumPoint.X )
+          / 2 + ( outline2.MinimumPoint.X - outline2.MinimumPoint.X ) + 1 ) );
+
+        ElementTransformUtils.MoveElement( doc, vpLeft.Id, translation );
+
+        doc.Regenerate();
+
+        // Restore view crop boxes
+
+        frontView.CropBox = savedBoxFront;
+        frontView.CropBoxActive = frontCropActive;
+        frontView.CropBoxVisible = frontCropVisible;
+
+        param = frontView.get_Parameter( _bipFarOffset );
+
+        if( param != null )
+        {
+          param.Set( farClipFront );
+        }
+
+        leftView.CropBox = savedBoxLeft;
+        leftView.CropBoxActive = leftCropActive;
+        leftView.CropBoxVisible = leftCropVisible;
+
+        param = leftView.get_Parameter( _bipFarOffset );
+
+        if( param != null )
+        {
+          param.Set( farClipLeft );
+        }
+
+        trans.Commit();
+      }
+      return Result.Succeeded;
+    }
+  }
+  #endregion // Align two views
+
 }

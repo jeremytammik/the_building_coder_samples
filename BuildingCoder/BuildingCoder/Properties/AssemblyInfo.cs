@@ -34,6 +34,7 @@ using System.Runtime.InteropServices;
 // 2014-04-11 2014.0.109.0 renamed CmdSlopedFloor.cs to CmdCreateSlopedSlab.cs, implemented CmdCategorySupportsTypeParameter
 // 2014-04-14 2015.0.109.0 migrated to Revit 2015
 // 2014-05-14 2015.0.110.0 CmdViewsShowingElements
+// 2014-07-21 2015.0.110.1 AddFaceBasedFamilyToLinks
 // 
-[assembly: AssemblyVersion( "2015.0.110.0" )]
-[assembly: AssemblyFileVersion( "2015.0.110.0" )]
+[assembly: AssemblyVersion( "2015.0.110.1" )]
+[assembly: AssemblyFileVersion( "2015.0.110.1" )]
