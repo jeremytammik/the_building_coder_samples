@@ -953,5 +953,5 @@ List DocumentVersion data, i.e. document GUID and save count
 LargeImage:
 Image:
 C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
-BuildingCoder.CmdDocumentVersion # version 2015.0.110.0
+BuildingCoder.CmdDocumentVersion # version 2015.0.111.0
 
