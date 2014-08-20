@@ -69,6 +69,27 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
 
+      #region Determine true north rotation
+
+      Element projectInfoElement 
+        = new FilteredElementCollector(doc)
+          .OfCategory(BuiltInCategory.OST_ProjectBasePoint)
+          .FirstElement();
+
+      BuiltInParameter bipAtn 
+        = BuiltInParameter.BASEPOINT_ANGLETON_PARAM;
+
+      Parameter patn = projectInfoElement.get_Parameter(
+        bipAtn );
+
+      double atn = patn.AsDouble();
+
+      Debug.Print( 
+        "Angle to north from project info: {0}",
+        Util.AngleString( atn ) );
+
+      #endregion // Determine true north rotation
+
       ElementSet els = uidoc.Selection.Elements;
 
       if( 1 != els.Size )

@@ -36,6 +36,7 @@ using System.Runtime.InteropServices;
 // 2014-05-14 2015.0.110.0 CmdViewsShowingElements
 // 2014-07-21 2015.0.110.1 AddFaceBasedFamilyToLinks
 // 2014-08-19 2015.0.110.2 removed obsolete API usage: reduced warning count from 71 to 67
+// 2014-08-20 2015.0.110.3 added code in CmdUnrotateNorth to determine angle to north from project base point
 // 
-[assembly: AssemblyVersion( "2015.0.110.2" )]
-[assembly: AssemblyFileVersion( "2015.0.110.2" )]
+[assembly: AssemblyVersion( "2015.0.110.3" )]
+[assembly: AssemblyFileVersion( "2015.0.110.3" )]
