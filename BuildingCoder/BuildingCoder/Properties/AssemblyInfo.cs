@@ -38,6 +38,7 @@ using System.Runtime.InteropServices;
 // 2014-08-19 2015.0.110.2 removed obsolete API usage: reduced warning count from 71 to 67
 // 2014-08-20 2015.0.110.3 added code in CmdUnrotateNorth to determine angle to north from project base point
 // 2014-08-20 2015.0.111.0 implemented CmdDocumentVersion
+// 2014-08-27 2015.0.111.1 cleaned up PickFaceSetWorkPlaneAndPickPoint, implemented PickPointsForArea, Plane ProjectOnto and ProjectInto extension methods
 // 
-[assembly: AssemblyVersion( "2015.0.111.0" )]
-[assembly: AssemblyFileVersion( "2015.0.111.0" )]
+[assembly: AssemblyVersion( "2015.0.111.1" )]
+[assembly: AssemblyFileVersion( "2015.0.111.1" )]

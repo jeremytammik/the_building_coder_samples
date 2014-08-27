@@ -211,7 +211,7 @@ namespace BuildingCoder
     }
     #endregion // Geometrical Comparison
 
-    #region // Geometrical XYZ Calculation
+    #region Geometrical XYZ Calculation
     /// <summary>
     /// Return the midpoint between two points.
     /// </summary>
@@ -902,12 +902,12 @@ namespace BuildingCoder
         if( f.Name.Equals( familyName ) )
         {
           //foreach( FamilySymbol symbol in f.Symbols ) // 2014
-          
+
           ISet<ElementId> ids = f.GetFamilySymbolIds(); // 2015
 
           foreach( ElementId id in ids )
           {
-            FamilySymbol symbol = doc.GetElement( id ) 
+            FamilySymbol symbol = doc.GetElement( id )
               as FamilySymbol;
 
             if( symbol.Name == symbolName )
@@ -1081,6 +1081,39 @@ namespace BuildingCoder
       XYZ v = p - plane.Origin;
 
       return plane.Normal.DotProduct( v );
+    }
+
+    /// <summary>
+    /// Project given 3D XYZ point onto plane.
+    /// </summary>
+    public static XYZ ProjectOnto(
+      this Plane plane,
+      XYZ p )
+    {
+      double d = plane.SignedDistanceTo( p );
+
+      XYZ q = p + d * plane.Normal;
+
+      Debug.Assert(
+        Util.IsZero( plane.SignedDistanceTo( q ) ),
+        "expected point on plane to have zero distance to plane" );
+
+      return q;
+    }
+
+    /// <summary>
+    /// Project given 3D XYZ point into plane.
+    /// </summary>
+    public static UV ProjectInto(
+      this Plane plane,
+      XYZ p )
+    {
+      XYZ q = plane.ProjectOnto( p );
+      XYZ o = plane.Origin;
+      XYZ d = q - o;
+      double u = d.DotProduct( plane.XVec );
+      double v = d.DotProduct( plane.YVec );
+      return new UV( u, v );
     }
   }
 
