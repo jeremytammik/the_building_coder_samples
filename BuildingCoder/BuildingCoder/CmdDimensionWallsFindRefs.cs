@@ -113,7 +113,7 @@ namespace BuildingCoder
         //rPoint = sel.PickObject( ObjectType.PointOnElement,
         //  "Please select point on first wall" );
       }
-      catch( OperationCanceledException )
+      catch( Autodesk.Revit.Exceptions.OperationCanceledException )
       {
         message = "No two walls selected";
         return Result.Failed;

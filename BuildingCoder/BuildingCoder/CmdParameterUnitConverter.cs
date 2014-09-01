@@ -36,7 +36,7 @@ namespace BuildingCoder
         r = uidoc.Selection.PickObject(
           ObjectType.Element );
       }
-      catch( OperationCanceledException )
+      catch( Autodesk.Revit.Exceptions.OperationCanceledException )
       {
         return Result.Cancelled;
       }

@@ -731,7 +731,7 @@ namespace BuildingCoder
           e = Util.SelectSingleElementOfType(
             uidoc, typeof( Element ), "an element", true );
         }
-        catch( OperationCanceledException )
+        catch( Autodesk.Revit.Exceptions.OperationCanceledException )
         {
           message = "No element selected";
           break;

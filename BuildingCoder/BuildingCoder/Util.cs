@@ -1068,7 +1068,8 @@ namespace BuildingCoder
   public static class JtPlaneExtensionMethods
   {
     /// <summary>
-    /// Return signed distance from plane to a given point.
+    /// Return the signed distance from 
+    /// a plane to a given point.
     /// </summary>
     public static double SignedDistanceTo(
       this Plane plane,
@@ -1102,7 +1103,9 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Project given 3D XYZ point into plane.
+    /// Project given 3D XYZ point into plane, 
+    /// returning the UV coordinates of the result 
+    /// in the local 2D plane coordinate system.
     /// </summary>
     public static UV ProjectInto(
       this Plane plane,
