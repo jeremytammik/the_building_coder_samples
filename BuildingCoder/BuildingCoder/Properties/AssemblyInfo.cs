@@ -39,6 +39,7 @@ using System.Runtime.InteropServices;
 // 2014-08-20 2015.0.110.3 added code in CmdUnrotateNorth to determine angle to north from project base point
 // 2014-08-20 2015.0.111.0 implemented CmdDocumentVersion
 // 2014-08-27 2015.0.111.1 cleaned up PickFaceSetWorkPlaneAndPickPoint, implemented PickPointsForArea, Plane ProjectOnto and ProjectInto extension methods
+// 2014-09-01 2015.0.111.2 documented CmdPickPoint3d and added Autodesk.Revit.Exceptions namespace prefix to all uses of OperationCanceledException
 // 
-[assembly: AssemblyVersion( "2015.0.111.1" )]
-[assembly: AssemblyFileVersion( "2015.0.111.1" )]
+[assembly: AssemblyVersion( "2015.0.111.2" )]
+[assembly: AssemblyFileVersion( "2015.0.111.2" )]
