@@ -40,6 +40,7 @@ using System.Runtime.InteropServices;
 // 2014-08-20 2015.0.111.0 implemented CmdDocumentVersion
 // 2014-08-27 2015.0.111.1 cleaned up PickFaceSetWorkPlaneAndPickPoint, implemented PickPointsForArea, Plane ProjectOnto and ProjectInto extension methods
 // 2014-09-01 2015.0.111.2 documented CmdPickPoint3d and added Autodesk.Revit.Exceptions namespace prefix to all uses of OperationCanceledException
+// 2014-09-01 2015.0.111.3 added notes on NewFloor refusing floor types that are foundation slab types
 // 
-[assembly: AssemblyVersion( "2015.0.111.2" )]
-[assembly: AssemblyFileVersion( "2015.0.111.2" )]
+[assembly: AssemblyVersion( "2015.0.111.3" )]
+[assembly: AssemblyFileVersion( "2015.0.111.3" )]

@@ -195,8 +195,8 @@ namespace BuildingCoder
         }
       }
 
-      // Create new floors from the top faces found
-      // before creating the new floor, we would obviously
+      // Create new floors from the top faces found.
+      // Before creating the new floor, we would obviously
       // apply whatever modifications are required to the
       // new floor profile:
 
@@ -253,6 +253,11 @@ namespace BuildingCoder
 
           Level level = doc.GetElement( floor.LevelId )
             as Level; // 2014
+
+          // In this case we have a valid floor type given.
+          // In general, not that NewFloor will only accept 
+          // floor types whose IsFoundationSlab predicate
+          // is false.
 
           floor = creDoc.NewFloor( profile,
             floor.FloorType, level, true );
