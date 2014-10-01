@@ -955,3 +955,19 @@ Image:
 C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDocumentVersion # version 2015.0.111.0
 
+ADN Bc J-Q
+New Extrusion Roof
+Create a strangely stair shaped new extrusion roof
+LargeImage:
+Image:
+C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdNewExtrusionRoof # version 2015.0.112.0
+
+ADN Bc A-I
+FaceWall Create
+Demonstrate FaceWall.Create - create and insert a conceptual mass family instance, then create sloped walls on all its faces
+LargeImage:
+Image:
+C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdFaceWall # version 2015.0.113.0
+

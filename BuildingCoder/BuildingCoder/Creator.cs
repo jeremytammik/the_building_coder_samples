@@ -114,51 +114,63 @@ namespace BuildingCoder
       return normal;
     }
 
-    /// <summary>
-    /// Miroslav Schonauer's model line creation method.
-    /// A utility function to create an arbitrary sketch
-    /// plane given the model line end points.
-    /// </summary>
-    /// <param name="app">Revit application</param>
-    /// <param name="p">Model line start point</param>
-    /// <param name="q">Model line end point</param>
-    /// <returns></returns>
-    public static ModelLine CreateModelLine(
-      Document doc,
-      XYZ p,
-      XYZ q )
-    {
-      if( p.DistanceTo( q ) < Util.MinLineLength ) return null;
+  /// <summary>
+  /// Create a model line between the two given points.
+  /// Internally, it creates an arbitrary sketch
+  /// plane given the model line end points.
+  /// </summary>
+  public static ModelLine CreateModelLine(
+    Document doc,
+    XYZ p,
+    XYZ q )
+  {
+    if( p.DistanceTo( q ) < Util.MinLineLength ) return null;
 
-      // Create sketch plane; for non-vertical lines,
-      // use Z-axis to span the plane, otherwise Y-axis:
+    // Create sketch plane; for non-vertical lines,
+    // use Z-axis to span the plane, otherwise Y-axis:
 
-      XYZ v = q - p;
+    XYZ v = q - p;
 
-      double dxy = Math.Abs( v.X ) + Math.Abs( v.Y );
+    double dxy = Math.Abs( v.X ) + Math.Abs( v.Y );
 
-      XYZ w = ( dxy > Util.TolPointOnPlane )
-        ? XYZ.BasisZ
-        : XYZ.BasisY;
+    XYZ w = ( dxy > Util.TolPointOnPlane )
+      ? XYZ.BasisZ
+      : XYZ.BasisY;
 
-      XYZ norm = v.CrossProduct( w ).Normalize();
+    XYZ norm = v.CrossProduct( w ).Normalize();
 
-      Autodesk.Revit.Creation.Application creApp
-        = doc.Application.Create;
+    //Autodesk.Revit.Creation.Application creApp
+    //  = doc.Application.Create;
 
-      Plane plane = creApp.NewPlane( norm, p );
+    //Plane plane = creApp.NewPlane( norm, p ); // 2014
+    Plane plane = new Plane( norm, p ); // 2015
 
-      Autodesk.Revit.Creation.Document creDoc
-        = doc.Create;
+    //SketchPlane sketchPlane = creDoc.NewSketchPlane( plane ); // 2013
+    SketchPlane sketchPlane = SketchPlane.Create( doc, plane ); // 2014
 
-      //SketchPlane sketchPlane = creDoc.NewSketchPlane( plane ); // 2013
-      SketchPlane sketchPlane = SketchPlane.Create( doc, plane ); // 2014
+    //Line line = creApp.NewLine( p, q, true ); // 2013
+    Line line = Line.CreateBound( p, q ); // 2014
 
-      return creDoc.NewModelCurve(
-        //creApp.NewLine( p, q, true ), // 2013
-        Line.CreateBound( p, q ), // 2014
-        sketchPlane ) as ModelLine;
-    }
+    // The following line is only valid in a project 
+    // document. In a family, it will throw an exception 
+    // saying "Document.Create can only be used with 
+    // project documents. Use Document.FamilyCreate 
+    // in the Family Editor."
+
+    //Autodesk.Revit.Creation.Document creDoc
+    //  = doc.Create;
+
+    //return creDoc.NewModelCurve(
+    //  //creApp.NewLine( p, q, true ), // 2013
+    //  Line.CreateBound( p, q ), // 2014
+    //  sketchPlane ) as ModelLine;
+
+    ModelCurve curve = doc.IsFamilyDocument
+      ? doc.FamilyCreate.NewModelCurve( line, sketchPlane )
+      : doc.Create.NewModelCurve( line, sketchPlane );
+
+    return curve as ModelLine;
+  }
 
     SketchPlane NewSketchPlanePassLine(
       Line line )

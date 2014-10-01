@@ -116,6 +116,7 @@
     <Compile Include="CmdEllipticalArc.cs" />
     <Compile Include="CmdExportImage.cs" />
     <Compile Include="CmdExportSolidToSat.cs" />
+    <Compile Include="CmdFaceWall.cs" />
     <Compile Include="CmdFamilyParamGuid.cs" />
     <Compile Include="CmdFamilyParamValue.cs" />
     <Compile Include="CmdFilledRegionCoords.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="CmdMidCurve.cs" />
     <Compile Include="CmdMirror.cs" />
     <Compile Include="CmdDeleteUnusedRefPlanes.cs" />
+    <Compile Include="CmdNewExtrusionRoof.cs" />
     <Compile Include="CmdRollingOffset.cs" />
     <Compile Include="CmdRoomNeighbours.cs" />
     <Compile Include="CmdNestedFamilies.cs" />
