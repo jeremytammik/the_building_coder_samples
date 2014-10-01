@@ -43,6 +43,7 @@ using System.Runtime.InteropServices;
 // 2014-09-01 2015.0.111.3 added notes on NewFloor refusing floor types that are foundation slab types
 // 2014-09-29 2015.0.112.0 implemented CmdNewExtrusionRoof
 // 2014-10-01 2015.0.113.0 implemented CmdFaceWall
+// 2014-10-01 2015.0.113.1 skip horizontal faces
 // 
-[assembly: AssemblyVersion( "2015.0.113.0" )]
-[assembly: AssemblyFileVersion( "2015.0.113.0" )]
+[assembly: AssemblyVersion( "2015.0.113.1" )]
+[assembly: AssemblyFileVersion( "2015.0.113.1" )]
