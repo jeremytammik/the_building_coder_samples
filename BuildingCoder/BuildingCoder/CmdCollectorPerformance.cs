@@ -353,19 +353,19 @@ namespace BuildingCoder
         // Temporarily set project information element 
         // parameter in order to determine param.Id
 
-        FilteredElementCollector collectorPI 
+        FilteredElementCollector collectorPI
           = new FilteredElementCollector( doc );
 
-        collectorPI.OfCategory( 
+        collectorPI.OfCategory(
           BuiltInCategory.OST_ProjectInformation );
 
-        Element projInfoElem 
+        Element projInfoElem
           = collectorPI.FirstElement();
 
         // using http://thebuildingcoder.typepad.com/blog/2012/04/adding-a-category-to-a-shared-parameter-binding.html
 
         Parameter param = null;
-        
+
         //param = HelperParams.GetOrCreateElemSharedParam(
         //     projInfoElem, paramName, paramGroup,
         //     ParameterType.Text, false, true );
@@ -376,18 +376,18 @@ namespace BuildingCoder
 
           tx.RollBack(); // discard project element change
 
-          ParameterValueProvider provider 
+          ParameterValueProvider provider
             = new ParameterValueProvider( paraId );
 
-          FilterRule rule = new FilterStringRule( 
-            provider, new FilterStringEquals(), 
+          FilterRule rule = new FilterStringRule(
+            provider, new FilterStringEquals(),
             paramValue, true );
 
-          ElementParameterFilter filter 
+          ElementParameterFilter filter
             = new ElementParameterFilter( rule );
 
-          FilteredElementCollector collector 
-            = new FilteredElementCollector( 
+          FilteredElementCollector collector
+            = new FilteredElementCollector(
               doc, doc.ActiveView.Id );
 
           elems = collector.WherePasses( filter )
@@ -829,7 +829,6 @@ namespace BuildingCoder
       }
     }
     #endregion // Filter for ramps
-
 
     #region More parameter filter samples
     // 383_param_filter.htm
@@ -1477,7 +1476,7 @@ namespace BuildingCoder
           .OfClass( typeof( FamilyInstance ) )
           .WhereElementIsNotElementType()
           .Cast<FamilyInstance>()
-          // (family, familyInstances):
+        // (family, familyInstances):
           .GroupBy( fi => fi.Symbol.Family )
           .Select( f => f.Key );
 
@@ -1506,6 +1505,113 @@ namespace BuildingCoder
       }
     }
     #endregion // Family tree test
+
+    #region Is element hidden in view by crop box, visibility or category?
+    /// <summary>
+    /// Return true if the given element e is hidden
+    /// in the view v. This might be due to:
+    /// - e lies outside the view crop box
+    /// - e is specifically hidden in the view, by element
+    /// - the category of e or one of its parent 
+    /// categories is hidden in v.
+    /// </summary>
+    bool IsElementHiddenInView(
+      Element e,
+      View v )
+    {
+      if( v.CropBoxActive )
+      {
+        BoundingBoxXYZ viewBox = v.CropBox;
+        BoundingBoxXYZ elBox = e.get_BoundingBox( v );
+
+        Transform transInv = v.CropBox.Transform.Inverse;
+
+        elBox.Max = transInv.OfPoint( elBox.Max );
+        elBox.Min = transInv.OfPoint( elBox.Min );
+
+        // The transform above might switch 
+        // max and min values.
+
+        if( elBox.Min.X > elBox.Max.X )
+        {
+          XYZ tmpP = elBox.Min;
+          elBox.Min = new XYZ( elBox.Max.X, elBox.Min.Y, 0 );
+          elBox.Max = new XYZ( tmpP.X, elBox.Max.Y, 0 );
+        }
+
+        if( elBox.Min.Y > elBox.Max.Y )
+        {
+          XYZ tmpP = elBox.Min;
+          elBox.Min = new XYZ( elBox.Min.X, elBox.Max.Y, 0 );
+          elBox.Max = new XYZ( tmpP.X, elBox.Min.Y, 0 );
+        }
+
+        if( elBox.Min.X > viewBox.Max.X
+          || elBox.Max.X < viewBox.Min.X
+          || elBox.Min.Y > viewBox.Max.Y
+          || elBox.Max.Y < viewBox.Min.Y )
+        {
+          return true;
+        }
+        else
+        {
+          BoundingBoxXYZ inside = new BoundingBoxXYZ();
+
+          double x, y;
+
+          x = elBox.Max.X;
+
+          if( elBox.Max.X > viewBox.Max.X )
+            x = viewBox.Max.X;
+
+          y = elBox.Max.Y;
+
+          if( elBox.Max.Y > viewBox.Max.Y )
+            y = viewBox.Max.Y;
+
+          inside.Max = new XYZ( x, y, 0 );
+
+          x = elBox.Min.X;
+
+          if( elBox.Min.X < viewBox.Min.X )
+            x = viewBox.Min.X;
+
+          y = elBox.Min.Y;
+
+          if( elBox.Min.Y < viewBox.Min.Y )
+            y = viewBox.Min.Y;
+
+          inside.Min = new XYZ( x, y, 0 );
+
+          double eBBArea = ( elBox.Max.X - elBox.Min.X )
+            * ( elBox.Max.Y - elBox.Min.Y );
+
+          double einsideArea =
+            ( inside.Max.X - inside.Min.X )
+            * ( inside.Max.Y - inside.Min.Y );
+
+          double factor = einsideArea / eBBArea;
+
+          if( factor < 0.25 )
+            return true;
+        }
+      }
+
+      bool hidden = e.IsHidden( v );
+
+      if( !hidden )
+      {
+        Category cat = e.Category;
+
+        while( null != cat && !hidden )
+        {
+          hidden = !cat.get_Visible( v );
+          cat = cat.Parent;
+        }
+      }
+      return hidden;
+    }
+    #endregion // Is element hidden in view by crop box, visibility or category?
 
     public Result Execute(
           ExternalCommandData commandData,

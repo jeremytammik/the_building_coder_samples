@@ -44,6 +44,7 @@ using System.Runtime.InteropServices;
 // 2014-09-29 2015.0.112.0 implemented CmdNewExtrusionRoof
 // 2014-10-01 2015.0.113.0 implemented CmdFaceWall
 // 2014-10-01 2015.0.113.1 skip horizontal faces
+// 2014-10-06 2015.0.113.2 implemented IsElementHiddenInView
 // 
-[assembly: AssemblyVersion( "2015.0.113.1" )]
-[assembly: AssemblyFileVersion( "2015.0.113.1" )]
+[assembly: AssemblyVersion( "2015.0.113.2" )]
+[assembly: AssemblyFileVersion( "2015.0.113.2" )]
