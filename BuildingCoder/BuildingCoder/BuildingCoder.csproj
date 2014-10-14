@@ -143,6 +143,7 @@
     <Compile Include="CmdMirror.cs" />
     <Compile Include="CmdDeleteUnusedRefPlanes.cs" />
     <Compile Include="CmdNewExtrusionRoof.cs" />
+    <Compile Include="CmdNewTextNote.cs" />
     <Compile Include="CmdRollingOffset.cs" />
     <Compile Include="CmdRoomNeighbours.cs" />
     <Compile Include="CmdNestedFamilies.cs" />

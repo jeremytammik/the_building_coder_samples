@@ -971,3 +971,10 @@ Image:
 C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdFaceWall # version 2015.0.113.0
 
+ADN Bc J-Q
+New Text Note Width
+Create a new text note and determine its exact width
+LargeImage:
+Image:
+C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdNewTextNote # version 2015.0.114.0
