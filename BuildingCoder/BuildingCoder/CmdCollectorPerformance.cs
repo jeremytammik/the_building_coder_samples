@@ -1508,6 +1508,16 @@ namespace BuildingCoder
 
     #region Is element hidden in view by crop box, visibility or category?
     /// <summary>
+    /// Checks whether a given Revit element 'e' is 
+    /// hidden in a specified view 'v'. 
+    /// If v has a crop box defined, e is 
+    /// considered hidden if its bounding box is 
+    /// outside or less than 25% contained in the 
+    /// crop box. If e is not eliminated as hidden 
+    /// by that test, its IsHidden predicate is 
+    /// checked, followed by the visibility of its 
+    /// category and all its parent categories in 
+    /// the given view.
     /// Return true if the given element e is hidden
     /// in the view v. This might be due to:
     /// - e lies outside the view crop box
