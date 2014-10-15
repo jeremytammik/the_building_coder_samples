@@ -192,9 +192,9 @@ namespace BuildingCoder
       return textWidth;
     }
 
-    public Result Execute( 
-      ExternalCommandData commandData, 
-      ref string message, 
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
       ElementSet elements )
     {
       Result commandResult = Result.Succeeded;
@@ -210,7 +210,7 @@ namespace BuildingCoder
 
         try
         {
-          pLoc = uiDoc.Selection.PickPoint( 
+          pLoc = uiDoc.Selection.PickPoint(
             "Please pick text insertion point" );
         }
         catch( Autodesk.Revit.Exceptions.OperationCanceledException )
@@ -221,7 +221,7 @@ namespace BuildingCoder
           return Result.Succeeded;
         }
 
-        List<TextNoteType> noteTypeList 
+        List<TextNoteType> noteTypeList
           = new FilteredElementCollector( dbDoc )
             .OfClass( typeof( TextNoteType ) )
             .Cast<TextNoteType>()
@@ -229,57 +229,57 @@ namespace BuildingCoder
 
         // Sort note types into ascending text size
 
-        BuiltInParameter bipTextSize 
+        BuiltInParameter bipTextSize
           = BuiltInParameter.TEXT_SIZE;
 
         noteTypeList.Sort( ( a, b )
           => a.get_Parameter( bipTextSize ).AsDouble()
-            .CompareTo( 
+            .CompareTo(
               b.get_Parameter( bipTextSize ).AsDouble() ) );
 
         foreach( TextNoteType textType in noteTypeList )
         {
           Debug.WriteLine( textType.Name );
 
-          Parameter paramTextFont 
-            = textType.get_Parameter( 
+          Parameter paramTextFont
+            = textType.get_Parameter(
               BuiltInParameter.TEXT_FONT );
 
-          Parameter paramTextSize 
-            = textType.get_Parameter( 
+          Parameter paramTextSize
+            = textType.get_Parameter(
               BuiltInParameter.TEXT_SIZE );
 
-          Parameter paramBorderSize 
-            = textType.get_Parameter( 
+          Parameter paramBorderSize
+            = textType.get_Parameter(
               BuiltInParameter.LEADER_OFFSET_SHEET );
 
-          Parameter paramTextBold 
-            = textType.get_Parameter( 
+          Parameter paramTextBold
+            = textType.get_Parameter(
               BuiltInParameter.TEXT_STYLE_BOLD );
 
-          Parameter paramTextItalic 
-            = textType.get_Parameter( 
+          Parameter paramTextItalic
+            = textType.get_Parameter(
               BuiltInParameter.TEXT_STYLE_ITALIC );
 
-          Parameter paramTextUnderline 
-            = textType.get_Parameter( 
+          Parameter paramTextUnderline
+            = textType.get_Parameter(
               BuiltInParameter.TEXT_STYLE_UNDERLINE );
 
-          Parameter paramTextWidthScale 
-            = textType.get_Parameter( 
+          Parameter paramTextWidthScale
+            = textType.get_Parameter(
               BuiltInParameter.TEXT_WIDTH_SCALE );
 
           string fontName = paramTextFont.AsString();
-          
+
           double textHeight = paramTextSize.AsDouble();
 
-          bool textBold = paramTextBold.AsInteger() == 1 
+          bool textBold = paramTextBold.AsInteger() == 1
             ? true : false;
 
-          bool textItalic = paramTextItalic.AsInteger() == 1 
+          bool textItalic = paramTextItalic.AsInteger() == 1
             ? true : false;
 
-          bool textUnderline = paramTextUnderline.AsInteger() == 1 
+          bool textUnderline = paramTextUnderline.AsInteger() == 1
             ? true : false;
 
           double textBorder = paramBorderSize.AsDouble();
@@ -328,19 +328,19 @@ namespace BuildingCoder
 
             double stringWidthIn = stringWidthPx / displayDpiX;
 
-            Debug.WriteLine( "String Width in pixels: " 
+            Debug.WriteLine( "String Width in pixels: "
               + stringWidthPx.ToString( "F3" ) );
-            Debug.WriteLine( ( stringWidthIn * 25.4 * viewScale ).ToString( "F3" ) 
+            Debug.WriteLine( ( stringWidthIn * 25.4 * viewScale ).ToString( "F3" )
               + " mm at 1:" + viewScale.ToString() );
 
             double stringWidthFt = stringWidthIn / 12.0;
 
-            double lineWidth = ( ( stringWidthFt * textWidthScale ) 
+            double lineWidth = ( ( stringWidthFt * textWidthScale )
               + ( textBorder * 2.0 ) ) * viewScale;
 
-            TextNote textNote = dbDoc.Create.NewTextNote( 
-              view, pLoc, XYZ.BasisX, XYZ.BasisY, 0.001, 
-              TextAlignFlags.TEF_ALIGN_LEFT 
+            TextNote textNote = dbDoc.Create.NewTextNote(
+              view, pLoc, XYZ.BasisX, XYZ.BasisY, 0.001,
+              TextAlignFlags.TEF_ALIGN_LEFT
               | TextAlignFlags.TEF_ALIGN_TOP, textString );
 
             textNote.TextNoteType = textType;
@@ -351,15 +351,15 @@ namespace BuildingCoder
 
           // Place next text note below this one with 5 mm gap
 
-          pLoc += view.UpDirection.Multiply( 
-            ( textHeight + ( 5.0 / 304.8 ) ) 
+          pLoc += view.UpDirection.Multiply(
+            ( textHeight + ( 5.0 / 304.8 ) )
               * viewScale ).Negate();
         }
       }
       catch( Autodesk.Revit.Exceptions.ExternalApplicationException e )
       {
         message = e.Message;
-        Debug.WriteLine( "Exception Encountered (Application)\n" 
+        Debug.WriteLine( "Exception Encountered (Application)\n"
           + e.Message + "\nStack Trace: " + e.StackTrace );
 
         commandResult = Result.Failed;
@@ -367,7 +367,7 @@ namespace BuildingCoder
       catch( Exception e )
       {
         message = e.Message;
-        Debug.WriteLine( "Exception Encountered (General)\n" 
+        Debug.WriteLine( "Exception Encountered (General)\n"
           + e.Message + "\nStack Trace: " + e.StackTrace );
 
         commandResult = Result.Failed;
