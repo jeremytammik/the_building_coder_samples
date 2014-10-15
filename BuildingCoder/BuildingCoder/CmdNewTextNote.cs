@@ -2,20 +2,22 @@
 //
 // CmdNewTextNote.cs - Create a new text note and determine its exact width
 //
-// Copyright (C) 2014 by Jeremy Tammik,
+// Copyright (C) 2014 by Scott Wilson and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 
 #region Namespaces
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
+using System.Runtime.InteropServices;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -23,6 +25,7 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdNewTextNote : IExternalCommand
   {
+    #region Solution 1 using TextRenderer.MeasureText
     [DllImport( "user32.dll" )]
     private static extern IntPtr GetDC( IntPtr hwnd );
 
@@ -37,7 +40,7 @@ namespace BuildingCoder
     {
       get
       {
-        Single xDpi, yDpi;
+        float xDpi, yDpi;
 
         IntPtr dc = GetDC( IntPtr.Zero );
 
@@ -55,7 +58,7 @@ namespace BuildingCoder
       }
     }
 
-    public Result Execute(
+    public Result Execute_1(
       ExternalCommandData commandData,
       ref string message,
       ElementSet elements )
@@ -163,5 +166,214 @@ namespace BuildingCoder
       }
       return Result.Succeeded;
     }
+    #endregion // Solution 1 using TextRenderer.MeasureText
+
+    #region Solution 2 using Graphics.MeasureString
+    static float GetDpiX()
+    {
+      float xDpi, yDpi;
+
+      using( Graphics g = Graphics.FromHwnd( IntPtr.Zero ) )
+      {
+        xDpi = g.DpiX;
+        yDpi = g.DpiY;
+      }
+      return xDpi;
+    }
+
+    static double GetStringWidth( string text, Font font )
+    {
+      double textWidth = 0.0;
+
+      using( Graphics g = Graphics.FromHwnd( IntPtr.Zero ) )
+      {
+        textWidth = g.MeasureString( text, font ).Width;
+      }
+      return textWidth;
+    }
+
+    public Result Execute( 
+      ExternalCommandData commandData, 
+      ref string message, 
+      ElementSet elements )
+    {
+      Result commandResult = Result.Succeeded;
+
+      try
+      {
+        UIApplication uiApp = commandData.Application;
+        UIDocument uiDoc = uiApp.ActiveUIDocument;
+        Document dbDoc = uiDoc.Document;
+        View view = uiDoc.ActiveGraphicalView;
+
+        XYZ pLoc = XYZ.Zero;
+
+        try
+        {
+          pLoc = uiDoc.Selection.PickPoint( 
+            "Please pick text insertion point" );
+        }
+        catch( Autodesk.Revit.Exceptions.OperationCanceledException )
+        {
+          Debug.WriteLine( "Operation cancelled." );
+          message = "Operation cancelled.";
+
+          return Result.Succeeded;
+        }
+
+        List<TextNoteType> noteTypeList 
+          = new FilteredElementCollector( dbDoc )
+            .OfClass( typeof( TextNoteType ) )
+            .Cast<TextNoteType>()
+            .ToList();
+
+        // Sort note types into ascending text size
+
+        BuiltInParameter bipTextSize 
+          = BuiltInParameter.TEXT_SIZE;
+
+        noteTypeList.Sort( ( a, b )
+          => a.get_Parameter( bipTextSize ).AsDouble()
+            .CompareTo( 
+              b.get_Parameter( bipTextSize ).AsDouble() ) );
+
+        foreach( TextNoteType textType in noteTypeList )
+        {
+          Debug.WriteLine( textType.Name );
+
+          Parameter paramTextFont 
+            = textType.get_Parameter( 
+              BuiltInParameter.TEXT_FONT );
+
+          Parameter paramTextSize 
+            = textType.get_Parameter( 
+              BuiltInParameter.TEXT_SIZE );
+
+          Parameter paramBorderSize 
+            = textType.get_Parameter( 
+              BuiltInParameter.LEADER_OFFSET_SHEET );
+
+          Parameter paramTextBold 
+            = textType.get_Parameter( 
+              BuiltInParameter.TEXT_STYLE_BOLD );
+
+          Parameter paramTextItalic 
+            = textType.get_Parameter( 
+              BuiltInParameter.TEXT_STYLE_ITALIC );
+
+          Parameter paramTextUnderline 
+            = textType.get_Parameter( 
+              BuiltInParameter.TEXT_STYLE_UNDERLINE );
+
+          Parameter paramTextWidthScale 
+            = textType.get_Parameter( 
+              BuiltInParameter.TEXT_WIDTH_SCALE );
+
+          string fontName = paramTextFont.AsString();
+          
+          double textHeight = paramTextSize.AsDouble();
+
+          bool textBold = paramTextBold.AsInteger() == 1 
+            ? true : false;
+
+          bool textItalic = paramTextItalic.AsInteger() == 1 
+            ? true : false;
+
+          bool textUnderline = paramTextUnderline.AsInteger() == 1 
+            ? true : false;
+
+          double textBorder = paramBorderSize.AsDouble();
+
+          double textWidthScale = paramTextWidthScale.AsDouble();
+
+          FontStyle textStyle = FontStyle.Regular;
+
+          if( textBold )
+          {
+            textStyle |= FontStyle.Bold;
+          }
+
+          if( textItalic )
+          {
+            textStyle |= FontStyle.Italic;
+          }
+
+          if( textUnderline )
+          {
+            textStyle |= FontStyle.Underline;
+          }
+
+          float fontHeightInch = (float) textHeight * 12.0f;
+          float displayDpiX = GetDpiX();
+
+          float fontDpi = 96.0f;
+          float pointSize = (float) ( textHeight * 12.0 * fontDpi );
+
+          Font font = new Font( fontName, pointSize, textStyle );
+
+          int viewScale = view.Scale;
+
+          using( Transaction t = new Transaction( dbDoc ) )
+          {
+            t.Start( "Test TextNote lineWidth calculation" );
+
+            string textString = textType.Name
+              + " (" + fontName + " "
+              + ( textHeight * 304.8 ).ToString( "0.##" ) + "mm, "
+              + textStyle.ToString() + ", "
+              + ( textWidthScale * 100.0 ).ToString( "0.##" )
+              + "%): The quick brown fox jumps over the lazy dog.";
+
+            double stringWidthPx = GetStringWidth( textString, font );
+
+            double stringWidthIn = stringWidthPx / displayDpiX;
+
+            Debug.WriteLine( "String Width in pixels: " 
+              + stringWidthPx.ToString( "F3" ) );
+            Debug.WriteLine( ( stringWidthIn * 25.4 * viewScale ).ToString( "F3" ) 
+              + " mm at 1:" + viewScale.ToString() );
+
+            double stringWidthFt = stringWidthIn / 12.0;
+
+            double lineWidth = ( ( stringWidthFt * textWidthScale ) 
+              + ( textBorder * 2.0 ) ) * viewScale;
+
+            TextNote textNote = dbDoc.Create.NewTextNote( 
+              view, pLoc, XYZ.BasisX, XYZ.BasisY, 0.001, 
+              TextAlignFlags.TEF_ALIGN_LEFT 
+              | TextAlignFlags.TEF_ALIGN_TOP, textString );
+
+            textNote.TextNoteType = textType;
+            textNote.Width = lineWidth;
+
+            t.Commit();
+          }
+
+          // Place next text note below this one with 5 mm gap
+
+          pLoc += view.UpDirection.Multiply( 
+            ( textHeight + ( 5.0 / 304.8 ) ) 
+              * viewScale ).Negate();
+        }
+      }
+      catch( Autodesk.Revit.Exceptions.ExternalApplicationException e )
+      {
+        message = e.Message;
+        Debug.WriteLine( "Exception Encountered (Application)\n" 
+          + e.Message + "\nStack Trace: " + e.StackTrace );
+
+        commandResult = Result.Failed;
+      }
+      catch( Exception e )
+      {
+        message = e.Message;
+        Debug.WriteLine( "Exception Encountered (General)\n" 
+          + e.Message + "\nStack Trace: " + e.StackTrace );
+
+        commandResult = Result.Failed;
+      }
+      return commandResult;
+    }
+    #endregion // Solution 2 using Graphics.MeasureString
   }
 }

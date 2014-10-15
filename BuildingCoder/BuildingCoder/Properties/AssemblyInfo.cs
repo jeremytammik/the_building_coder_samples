@@ -47,6 +47,7 @@ using System.Runtime.InteropServices;
 // 2014-10-06 2015.0.113.2 implemented IsElementHiddenInView
 // 2014-10-11 2015.0.114.0 implemented CmdNewTextNote
 // 2014-10-11 2015.0.114.1 CmdNewTextNote text width enhancements suggested by Scott Wilson
+// 2014-10-15 2015.0.114.2 CmdNewTextNote reimplementation based on Graphics.MeasureString instead of TextRenderer.MeasureText suggested by Scott Wilson
 // 
-[assembly: AssemblyVersion( "2015.0.114.1" )]
-[assembly: AssemblyFileVersion( "2015.0.114.1" )]
+[assembly: AssemblyVersion( "2015.0.114.2" )]
+[assembly: AssemblyFileVersion( "2015.0.114.2" )]
