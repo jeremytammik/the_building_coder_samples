@@ -81,44 +81,41 @@ namespace BuildingCoder
       //  new ElementId( 1212838 ) ) as TextNoteType; // Arial 3/32" Bold
 
       // 1 inch = 72 points
-      // 3/32" = 72*3/32 points = 
+      // 3/32" = 72 * 3/32 points = ...
 
       TextNoteType textType
         = new FilteredElementCollector( doc )
           .OfClass( typeof( TextNoteType ) )
           .FirstElement() as TextNoteType;
 
-      Debug.Print( textType.Name );
+      Debug.Print( "TextNoteType.Name = " + textType.Name );
 
       // 6 mm Arial happens to be the first text type found
-      // 6 mm = 6 / 25.4 inch = 72 * 6 / 25.4 points = 17 pt
-      // The 6 mm Revit font height presumably refers to 
-      // an upper case character such as 'M'. The Font
-      // constructor takes an em size argument, which 
-      // might refer to the height of a lower case 'm'
-      // character. Let's say there is a factor 1.4 
-      // difference between the two:
+      // 6 mm = 6 / 25.4 inch = 72 * 6 / 25.4 points = 17 pt.
+      // Nowadays, Windows does not assume that a point is
+      // 1/72", but moved to 1/96" instead.
 
-      double text_type_height_mm = 6;
+      float text_type_height_mm = 6;
 
-      double mm_per_inch = 25.4;
+      float mm_per_inch = 25.4f;
 
-      double points_per_inch = 72;
+      float points_per_inch = 96; // not 72
 
-      double scale_upper_to_lower = 0.6;
-
-      double em_size 
-        = scale_upper_to_lower * points_per_inch
+      float em_size = points_per_inch
         * ( text_type_height_mm / mm_per_inch );
 
-      Font font = new Font( "Arial", 17, FontStyle.Bold );
+      em_size += 2.5f;
+
+      Font font = new Font( "Arial", em_size,
+        FontStyle.Regular );
 
       using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Create TextNote" );
 
-        string s = "TEST BOLD";
-        //string s = "The quick brown fox jumps over the lazy dog";
+        //string s = "TEST BOLD";
+
+        string s = "The quick brown fox jumps over the lazy dog";
 
         Size txtBox = System.Windows.Forms.TextRenderer
           .MeasureText( s, font );
@@ -127,25 +124,40 @@ namespace BuildingCoder
         double v_scale = view.Scale; // ratio of true model size to paper size
 
         Debug.Print(
-          "Text box width in pixels {0} = {1} inch, scale {2}",
+          "Text box width in pixels {0} = {1} inch, "
+          + "view scale = {2}",
           txtBox.Width, w_inch, v_scale );
-
-        //double newWidth
-        //  = ( (double) txtBox.Width / 86 ) / 12;
 
         double newWidth = w_inch / 12;
 
-        newWidth = newWidth * v_scale;
-
-        newWidth *= 1.4;
-
         TextNote txNote = doc.Create.NewTextNote(
           doc.ActiveView, p, XYZ.BasisX, XYZ.BasisY,
-          0.1, TextAlignFlags.TEF_ALIGN_LEFT
+          newWidth, TextAlignFlags.TEF_ALIGN_LEFT
           | TextAlignFlags.TEF_ALIGN_BOTTOM, s );
 
         txNote.TextNoteType = textType;
-        txNote.Width = newWidth;
+
+        Debug.Print(
+          "NewTextNote lineWidth {0} times view scale "
+          + "{1} = {2} generated TextNote.Width {3}",
+          Util.RealString( newWidth ),
+          Util.RealString( v_scale ),
+          Util.RealString( newWidth * v_scale ),
+          Util.RealString( txNote.Width ) );
+
+        // This fails.
+
+        //Debug.Assert(
+        //  Util.IsEqual( newWidth * v_scale, txNote.Width ),
+        //  "expected the NewTextNote lineWidth "
+        //  + "argument to determine the resulting "
+        //  + "text note width" );
+
+        txNote.Width = newWidth * v_scale;
+
+        //6mm Arial
+        //Text box width in pixels 668 = 6.95833349227905 inch, scale 100
+        //NewTextNote lineWidth 0.58 times view scale 100 = 57.99 generated TextNote.Width 59.32
 
         t.Commit();
       }

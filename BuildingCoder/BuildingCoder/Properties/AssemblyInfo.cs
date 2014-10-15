@@ -46,6 +46,7 @@ using System.Runtime.InteropServices;
 // 2014-10-01 2015.0.113.1 skip horizontal faces
 // 2014-10-06 2015.0.113.2 implemented IsElementHiddenInView
 // 2014-10-11 2015.0.114.0 implemented CmdNewTextNote
+// 2014-10-11 2015.0.114.1 CmdNewTextNote text width enhancements suggested by Scott Wilson
 // 
-[assembly: AssemblyVersion( "2015.0.114.0" )]
-[assembly: AssemblyFileVersion( "2015.0.114.0" )]
+[assembly: AssemblyVersion( "2015.0.114.1" )]
+[assembly: AssemblyFileVersion( "2015.0.114.1" )]
