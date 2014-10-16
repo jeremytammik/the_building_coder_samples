@@ -59,6 +59,25 @@ namespace BuildingCoder
     const BuiltInParameter bipDiameter
       = BuiltInParameter.RBS_PIPE_DIAMETER_PARAM;
 
+    #region Determine Pipe Wall Thickness
+    const BuiltInParameter bipDiameterInner
+      = BuiltInParameter.RBS_PIPE_INNER_DIAM_PARAM;
+
+    const BuiltInParameter bipDiameterOuter
+      = BuiltInParameter.RBS_PIPE_OUTER_DIAMETER;
+
+    static double GetWallThickness( Pipe pipe )
+    {
+      double dinner = pipe.get_Parameter(
+        bipDiameterInner ).AsDouble();
+
+      double douter = pipe.get_Parameter(
+        bipDiameterOuter ).AsDouble();
+
+      return 0.5 * ( douter - dinner );
+    }
+    #endregion // Determine Pipe Wall Thickness
+
     /// <summary>
     /// Allow selection of pipe elements only.
     /// </summary>
@@ -114,7 +133,12 @@ namespace BuildingCoder
 
         Selection sel = uidoc.Selection;
 
-        n = sel.Elements.Size;
+        //n = sel.Elements.Size; // 2014
+
+        ICollection<ElementId> ids
+          = sel.GetElementIds(); // 2015
+
+        n = ids.Count; // 2015
 
         Debug.Print( "{0} pre-selected elements.",
           n );
@@ -124,9 +148,11 @@ namespace BuildingCoder
 
         if( 1 < n )
         {
-          foreach( Element e in sel.Elements )
+          //foreach( Element e in sel.Elements ) // 2014
+
+          foreach( ElementId id in ids ) // 2015
           {
-            Pipe c = e as Pipe;
+            Pipe c = doc.GetElement( id ) as Pipe;
 
             if( null != c )
             {
@@ -185,6 +211,12 @@ namespace BuildingCoder
       }
 
       // Extract data from the two selected pipes.
+
+      double wall_thickness = GetWallThickness( pipes[0] );
+
+      Debug.Print( "{0} has wall thickness {1}",
+        Util.ElementDescription( pipes[0] ),
+        Util.RealString( wall_thickness ) );
 
       Curve c0 = ( pipes[0].Location as LocationCurve ).Curve;
       Curve c1 = ( pipes[1].Location as LocationCurve ).Curve;
@@ -615,7 +647,7 @@ namespace BuildingCoder
 
       if( domesticHotWaterSystemType == null )
       {
-        message = "Could not found Domestic Hot Water System Type";
+        message = "Could not find Domestic Hot Water System Type";
         return Result.Failed;
       }
 
@@ -634,7 +666,7 @@ namespace BuildingCoder
 
       if( firstPipeType == null )
       {
-        message = "Could not found Pipe Type";
+        message = "Could not find Pipe Type";
         return Result.Failed;
       }
 
