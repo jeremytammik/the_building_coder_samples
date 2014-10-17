@@ -214,7 +214,7 @@ namespace BuildingCoder
 
       double wall_thickness = GetWallThickness( pipes[0] );
 
-      Debug.Print( "{0} has wall thickness {1}",
+      Debug.Print( "{0} has wall thickness {1}, so can label it '{2}'",
         Util.ElementDescription( pipes[0] ),
         Util.RealString( wall_thickness ) );
 
