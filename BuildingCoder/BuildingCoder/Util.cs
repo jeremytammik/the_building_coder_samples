@@ -1068,8 +1068,8 @@ namespace BuildingCoder
   public static class JtElementExtensionMethods
   {
     /// <summary>
-    /// Return the signed distance from 
-    /// a plane to a given point.
+    /// Return the curve from a Revit database Element 
+    /// location curve, if it has one.
     /// </summary>
     public static Curve GetCurve( this Element e )
     {
