@@ -142,6 +142,7 @@
     <Compile Include="CmdMidCurve.cs" />
     <Compile Include="CmdMirror.cs" />
     <Compile Include="CmdDeleteUnusedRefPlanes.cs" />
+    <Compile Include="CmdNewCrossFitting.cs" />
     <Compile Include="CmdNewExtrusionRoof.cs" />
     <Compile Include="CmdNewTextNote.cs" />
     <Compile Include="CmdRollingOffset.cs" />

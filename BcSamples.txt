@@ -978,3 +978,11 @@ LargeImage:
 Image:
 C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewTextNote # version 2015.0.114.0
+
+ADN Bc J-Q
+New Cross Fitting
+Create a new pipe cross fitting
+LargeImage:
+Image:
+C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdNewCrossFitting # version 2015.0.115.0
