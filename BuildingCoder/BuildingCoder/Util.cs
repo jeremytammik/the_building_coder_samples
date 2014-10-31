@@ -1065,6 +1065,26 @@ namespace BuildingCoder
   }
 
   #region Extension Method Classes
+  public static class JtElementExtensionMethods
+  {
+    /// <summary>
+    /// Return the signed distance from 
+    /// a plane to a given point.
+    /// </summary>
+    public static Curve GetCurve( this Element e )
+    {
+      Debug.Assert( null != e.Location,
+        "expected an element with a valid Location" );
+
+      LocationCurve lc = e.Location as LocationCurve;
+
+      Debug.Assert( null != lc,
+        "expected an element with a valid LocationCurve" );
+
+      return lc.Curve;
+    }
+  }
+
   public static class JtPlaneExtensionMethods
   {
     /// <summary>
