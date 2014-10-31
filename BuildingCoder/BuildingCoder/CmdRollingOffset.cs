@@ -81,7 +81,7 @@ namespace BuildingCoder
     /// <summary>
     /// Allow selection of pipe elements only.
     /// </summary>
-    class PipeElementSelectionFilter : ISelectionFilter
+    public class PipeElementSelectionFilter : ISelectionFilter
     {
       public bool AllowElement( Element e )
       {
@@ -214,12 +214,12 @@ namespace BuildingCoder
 
       double wall_thickness = GetWallThickness( pipes[0] );
 
-      Debug.Print( "{0} has wall thickness {1}, so can label it '{2}'",
+      Debug.Print( "{0} has wall thickness {1}",
         Util.ElementDescription( pipes[0] ),
         Util.RealString( wall_thickness ) );
 
-      Curve c0 = ( pipes[0].Location as LocationCurve ).Curve;
-      Curve c1 = ( pipes[1].Location as LocationCurve ).Curve;
+      Curve c0 = pipes[0].GetCurve();
+      Curve c1 = pipes[1].GetCurve();
 
       if( !( c0 is Line ) || !( c1 is Line ) )
       {
