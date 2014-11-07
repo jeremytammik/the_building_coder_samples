@@ -50,6 +50,7 @@ using System.Runtime.InteropServices;
 // 2014-10-15 2015.0.114.2 CmdNewTextNote reimplementation based on Graphics.MeasureString instead of TextRenderer.MeasureText suggested by Scott Wilson
 // 2014-10-16 2015.0.114.3 added pipe wall thickness determination to CmdRollingOffset
 // 2014-10-11 2015.0.115.0 implemented CmdNewCrossFitting
+// 2014-10-11 2015.0.115.1 fixed some of the warnings about deprecated use of Selection.Elements collection
 // 
-[assembly: AssemblyVersion( "2015.0.115.0" )]
-[assembly: AssemblyFileVersion( "2015.0.115.0" )]
+[assembly: AssemblyVersion( "2015.0.115.1" )]
+[assembly: AssemblyFileVersion( "2015.0.115.1" )]

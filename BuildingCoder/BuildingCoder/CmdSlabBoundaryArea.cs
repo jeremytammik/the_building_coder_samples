@@ -103,7 +103,7 @@ namespace BuildingCoder
         floors, uidoc, typeof( Floor ) ) )
       {
         Selection sel = uidoc.Selection;
-        message = ( 0 < sel.Elements.Size )
+        message = ( 0 < sel.GetElementIds().Count )
           ? "Please select some floor elements."
           : "No floor elements found.";
         return Result.Failed;

@@ -96,7 +96,7 @@ namespace BuildingCoder
         typeof( FamilyInstance ) ) )
       {
         Selection sel = uidoc.Selection;
-        message = ( 0 < sel.Elements.Size )
+        message = ( 0 < sel.GetElementIds().Count )
           ? "Please select some family instances."
           : "No family instances found.";
         return Result.Failed;

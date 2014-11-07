@@ -102,7 +102,7 @@ namespace BuildingCoder
         rooms, uidoc, typeof( Room ) ) )
       {
         Selection sel = uidoc.Selection;
-        message = ( 0 < sel.Elements.Size )
+        message = ( 0 < sel.GetElementIds().Count )
           ? "Please select some room elements."
           : "No room elements found.";
         return Result.Failed;

@@ -170,7 +170,7 @@ namespace BuildingCoder
         walls, uidoc, typeof( Wall ) ) )
       {
         Selection sel = uidoc.Selection;
-        message = ( 0 < sel.Elements.Size )
+        message = ( 0 < sel.GetElementIds().Count )
           ? "Please select some wall elements."
           : "No wall elements found.";
         return Result.Failed;

@@ -261,7 +261,7 @@ namespace BuildingCoder
         spaces, uidoc, typeof( Space ) ) )
       {
         Selection sel = uidoc.Selection;
-        message = (0 < sel.Elements.Size)
+        message = (0 < sel.GetElementIds().Count)
           ? "Please select some space elements."
           : "No space elements found.";
         return Result.Failed;

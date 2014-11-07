@@ -91,7 +91,7 @@ namespace BuildingCoder
 
         Selection sel = uidoc.Selection;
 
-        n = sel.Elements.Size;
+        n = sel.GetElementIds().Count;
 
         Debug.Print( "{0} pre-selected elements.",
           n );

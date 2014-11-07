@@ -90,7 +90,7 @@ namespace BuildingCoder
       Selection sel = uidoc.Selection;
       Element column = null;
 
-      if( 1 == sel.Elements.Size )
+      if( 1 == sel.GetElementIds().Count )
       {
         foreach( Element e in sel.Elements )
         {

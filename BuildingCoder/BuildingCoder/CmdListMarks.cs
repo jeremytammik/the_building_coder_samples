@@ -88,10 +88,16 @@ namespace BuildingCoder
 
       if( _modify_existing_marks )
       {
-        ElementSet els = uidoc.Selection.Elements;
+        //ElementSet els = uidoc.Selection.Elements; // 2014
 
-        foreach( Element e in els )
+        ICollection<ElementId> ids = uidoc.Selection.GetElementIds(); // 2015
+
+        //foreach( Element e in els ) // 2014
+
+        foreach( ElementId id in ids ) // 2015
         {
+          Element e = doc.GetElement( id ); // 2015
+
           if( e is FamilyInstance
             && null != e.Category
             && (int) BuiltInCategory.OST_Doors

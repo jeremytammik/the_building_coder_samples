@@ -764,7 +764,7 @@ namespace BuildingCoder
       Type t )
     {
       Selection sel = doc.Selection;
-      if( 0 < sel.Elements.Size )
+      if( 0 < sel.GetElementIds().Count )
       {
         foreach( Element e in sel.Elements )
         {
