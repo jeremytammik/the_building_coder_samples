@@ -17,7 +17,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewSweptBlend : IExternalCommand
   {
     /// <summary>
@@ -31,19 +31,23 @@ namespace BuildingCoder
     {
       Application app = doc.Application;
 
-      // create a Geometry.Plane required by the NewSketchPlane() method
+      // Create a Geometry.Plane required by the 
+      // NewSketchPlane() method
 
-      Plane geometryPlane = app.Create.NewPlane( normal, origin );
+      Plane geometryPlane = app.Create.NewPlane(
+        normal, origin );
+
       if( null == geometryPlane )
       {
         throw new Exception( "Geometry plane creation failed." );
       }
 
-      // create a sketch plane using the Geometry.Plane
+      // Create a sketch plane using the Geometry.Plane
 
       //SketchPlane plane = doc.FamilyCreate.NewSketchPlane( geometryPlane ); // 2013 
 
-      SketchPlane plane = SketchPlane.Create( doc, geometryPlane ); // 2014
+      SketchPlane plane = SketchPlane.Create(
+        doc, geometryPlane ); // 2014
 
       if( null == plane )
       {
@@ -125,7 +129,67 @@ namespace BuildingCoder
       {
         Util.ErrorMsg( "NewSweptBlend exception: " + ex.Message );
       }
-      return;
+    }
+
+    /// <summary>
+    /// Create a new swept blend form using arcs to
+    /// define circular start and end profiles and an
+    /// arc path. The NewSweptBlend method requires 
+    /// the input profiles to be in the XY plane.
+    /// </summary>
+    public void CreateNewSweptBlendArc( Document doc )
+    {
+      Debug.Assert( doc.IsFamilyDocument,
+        "this method will only work in a family document" );
+
+      Application app = doc.Application;
+
+      Autodesk.Revit.Creation.Application creapp
+        = app.Create;
+
+      Autodesk.Revit.Creation.FamilyItemFactory credoc
+        = doc.FamilyCreate;
+
+      XYZ px = XYZ.BasisX;
+      XYZ py = XYZ.BasisY;
+      Arc arc1 = Arc.Create( -px, px, -py );
+      Arc arc2 = Arc.Create( px, -px, py );
+      CurveArray arr1 = new CurveArray();
+      arr1.Append( arc1 );
+      arr1.Append( arc2 );
+      CurveArrArray arrarr1 = new CurveArrArray();
+      arrarr1.Append( arr1 );
+
+      SweepProfile bottomProfile
+        = creapp.NewCurveLoopsProfile( arrarr1 );
+
+      px += px;
+      py += py;
+      Arc arc3 = Arc.Create( -px, px, -py );
+      Arc arc4 = Arc.Create( px, -px, py );
+      CurveArray arr2 = new CurveArray();
+      arr2.Append( arc3 );
+      arr2.Append( arc4 );
+      CurveArrArray arrarr2 = new CurveArrArray();
+      arrarr2.Append( arr2 );
+
+      SweepProfile topProfile
+        = creapp.NewCurveLoopsProfile( arrarr2 );
+
+      XYZ p0 = XYZ.Zero;
+      XYZ p5 = 5 * XYZ.BasisY;
+      XYZ pmid = new XYZ( 2.5, 2.5, 0 );
+      Arc testArc = Arc.Create( p0, p5, pmid );
+
+      Plane geometryPlane = creapp.NewPlane(
+        XYZ.BasisZ, XYZ.Zero );
+
+      SketchPlane sketchPlane = SketchPlane.Create(
+        doc, geometryPlane );
+
+      SweptBlend aSweptBlend = credoc.NewSweptBlend(
+        true, testArc, sketchPlane, bottomProfile,
+        topProfile );
     }
 
     public Result Execute(
@@ -138,13 +202,22 @@ namespace BuildingCoder
 
       if( doc.IsFamilyDocument )
       {
-        CreateNewSweptBlend( doc );
+        using( Transaction tx = new Transaction( doc ) )
+        {
+          tx.Start( "Create New Swept Blend" );
 
-        return Result.Succeeded;
+          CreateNewSweptBlend( doc );
+          CreateNewSweptBlendArc( doc );
+
+          tx.Commit();
+
+          return Result.Succeeded;
+        }
       }
       else
       {
-        message = "Please run this command in a family document.";
+        message
+          = "Please run this command in a family document.";
 
         return Result.Failed;
       }
