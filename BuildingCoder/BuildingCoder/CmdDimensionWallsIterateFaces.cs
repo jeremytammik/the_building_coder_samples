@@ -120,21 +120,9 @@ namespace BuildingCoder
     /// <summary>
     /// Create a new dimension element using the given
     /// references and dimension line end points.
-    ///
-    /// This method creates its own transaction.
-    /// It assumes that no transaction is open yet
-    /// and manual transaction mode is being used!
-    ///
-    /// This has only been tested using references to
-    /// surfaces on planar walls in a plan view!
-    ///
-    /// Create a new dimension element using the given
-    /// references and dimension line end points.
-    ///
     /// This method opens and commits its own transaction,
     /// assuming that no transaction is open yet and manual
     /// transaction mode is being used.
-    ///
     /// Note that this has only been tested so far using
     /// references to surfaces on planar walls in a plan
     /// view.
@@ -147,16 +135,6 @@ namespace BuildingCoder
       Reference r2 )
     {
       Document doc = view.Document;
-      Application app = doc.Application;
-
-      // creation objects, or factories, for database
-      // and non-database resident instances:
-
-      Autodesk.Revit.Creation.Application creApp
-        = app.Create;
-
-      Autodesk.Revit.Creation.Document creDoc
-        = doc.Create;
 
       ReferenceArray ra = new ReferenceArray();
 
@@ -169,8 +147,8 @@ namespace BuildingCoder
       {
         t.Start( "Create New Dimension" );
 
-        Dimension dim = creDoc.NewDimension(
-          doc.ActiveView, line, ra );
+        Dimension dim = doc.Create.NewDimension( 
+          view, line, ra );
 
         t.Commit();
       }
