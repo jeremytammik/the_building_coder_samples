@@ -253,8 +253,8 @@ namespace BuildingCoder
     static Options _opt = null;
 
     /// <summary>
-    /// Retrieve the family instance hidden 
-    /// geometry point reference.
+    /// Retrieve the family instance 
+    /// hidden geometry point reference.
     /// </summary>
     static Reference GetFamilyInstancePointReference(
       FamilyInstance fi )
