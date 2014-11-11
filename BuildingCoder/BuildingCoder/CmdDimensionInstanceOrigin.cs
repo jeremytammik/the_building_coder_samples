@@ -250,20 +250,16 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdDimensionInstanceOrigin : IExternalCommand
   {
-    Options _opt = null;
+    static Options _opt = null;
 
     /// <summary>
-    /// Retrieve a dimensioning point and a reference 
-    /// to the origin of a given family instance.
+    /// Retrieve the family instance hidden 
+    /// geometry point reference.
     /// </summary>
-    void GetFamilyInstancePointReference(
-      FamilyInstance fi, 
-      out XYZ p, 
-      out Reference r )
+    static Reference GetFamilyInstancePointReference(
+      FamilyInstance fi )
     {
-      p = ( fi.Location as LocationPoint ).Point;
-
-      r = fi.get_Geometry( _opt )
+      return fi.get_Geometry( _opt )
         .OfType<Point>()
         .Select<Point, Reference>( x => x.Reference )
         .FirstOrDefault();
@@ -298,11 +294,11 @@ namespace BuildingCoder
         XYZ[] pts = new XYZ[2];
         Reference[] refs = new Reference[2];
 
-        GetFamilyInstancePointReference( 
-          a[0], out pts[0], out refs[0] );
+        pts[0] = ( a[0].Location as LocationPoint ).Point;
+        pts[1] = ( a[1].Location as LocationPoint ).Point;
 
-        GetFamilyInstancePointReference( 
-          a[1], out pts[1], out refs[1] );
+        refs[0] = GetFamilyInstancePointReference( a[0] );
+        refs[1] = GetFamilyInstancePointReference( a[1] );
 
         CmdDimensionWallsIterateFaces
           .CreateDimensionElement( doc.ActiveView,
