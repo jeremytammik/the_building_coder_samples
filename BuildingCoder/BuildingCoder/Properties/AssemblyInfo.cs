@@ -52,6 +52,7 @@ using System.Runtime.InteropServices;
 // 2014-10-11 2015.0.115.0 implemented CmdNewCrossFitting
 // 2014-10-11 2015.0.115.1 fixed some of the warnings about deprecated use of Selection.Elements collection
 // 2014-11-10 2015.0.115.2 converted CmdNewSweptBlend to use manual transaction mode and implemented CreateNewSweptBlendArc
+// 2014-11-10 2015.0.116.0 implemented CmdDimensionInstanceOrigin
 // 
-[assembly: AssemblyVersion( "2015.0.115.1" )]
-[assembly: AssemblyFileVersion( "2015.0.115.1" )]
+[assembly: AssemblyVersion( "2015.0.116.0" )]
+[assembly: AssemblyFileVersion( "2015.0.116.0" )]

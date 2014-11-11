@@ -986,3 +986,13 @@ LargeImage:
 Image:
 C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewCrossFitting # version 2015.0.115.0
+
+ADN Bc A-I
+Dimension Family Instance Origin
+Create dimensioning between the origins of family instances
+LargeImage:
+Image:
+C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdDimensionInstanceOrigin # version 2015.0.116.0
+
+

@@ -165,15 +165,15 @@ namespace BuildingCoder
 
       Line line = Line.CreateBound( p1, p2 );
 
-      Transaction t = new Transaction( doc,
-        "Dimension Two Walls" );
+      using( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Create New Dimension" );
 
-      t.Start();
+        Dimension dim = creDoc.NewDimension(
+          doc.ActiveView, line, ra );
 
-      Dimension dim = creDoc.NewDimension(
-        doc.ActiveView, line, ra );
-
-      t.Commit();
+        t.Commit();
+      }
     }
     #endregion // CreateDimensionElement
 

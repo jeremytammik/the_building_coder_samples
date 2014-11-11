@@ -107,6 +107,7 @@
     <Compile Include="CmdCurtainWallGeom.cs" />
     <Compile Include="CmdDemoCheck.cs" />
     <Compile Include="CmdDetailCurves.cs" />
+    <Compile Include="CmdDimensionInstanceOrigin.cs" />
     <Compile Include="CmdDimensionWallsFindRefs.cs" />
     <Compile Include="CmdDimensionWallsIterateFaces.cs" />
     <Compile Include="CmdDisallowJoin.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="CmdCopyWallType.cs" />
     <Compile Include="Creator.cs" />
     <Compile Include="CmdElevationWatcher.cs" />
+    <Compile Include="JtPairPicker.cs" />
     <Compile Include="JtSelectorMulti.cs" />
     <Compile Include="JtTimer.cs" />
     <Compile Include="ParameterUnitConverter.cs" />
