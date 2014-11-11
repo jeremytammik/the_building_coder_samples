@@ -150,6 +150,55 @@ namespace BuildingCoder
       Autodesk.Revit.Creation.FamilyItemFactory credoc
         = doc.FamilyCreate;
 
+      #region Original code for Revit 2012
+      #if COMPILE_ORIGINAL_CODE
+      XYZ pnt1 = new XYZ( 0, -1, 0 );
+      XYZ pnt2 = new XYZ( 1, 0, 0 );
+      XYZ pnt3 = new XYZ( 0, 1, 0 );
+      XYZ pnt4 = new XYZ( -1, 0, 0 );
+      Arc aArc1 = creapp.NewArc( pnt1, pnt3, pnt2 );
+      Arc aArc2 = creapp.NewArc( pnt3, pnt1, pnt4 );
+      CurveArrArray arrarr1 = new CurveArrArray();
+
+      SweepProfile bottomProfile
+        = creapp.NewCurveLoopsProfile( arrarr1 );
+
+      CurveArray arr1 = new CurveArray();
+      arr1.Append( aArc1 );
+      arr1.Append( aArc2 );
+      XYZ pnt6 = new XYZ( 0, -2, 0 );
+      XYZ pnt7 = new XYZ( 2, 0, 0 );
+      XYZ pnt8 = new XYZ( 0, 2, 0 );
+      XYZ pnt9 = new XYZ( -2, 0, 0 );
+      Arc aArc3 = creapp.NewArc( pnt6, pnt8, pnt7 );
+      Arc aArc4 = creapp.NewArc( pnt8, pnt6, pnt9 );
+      CurveArrArray arrarr2 = new CurveArrArray();
+      CurveArray arr2 = new CurveArray();
+      arr2.Append( aArc3 );
+      arr2.Append( aArc4 );
+      arrarr2.Append( arr2 );
+
+      SweepProfile topProfile
+        = creapp.NewCurveLoopsProfile( arrarr2 );
+
+      XYZ pnt10 = new XYZ( 0, 0, 0 );
+      XYZ pnt11 = new XYZ( 0, 5, 0 );
+      XYZ pnt122 = new XYZ( 2.5, 2.5, 0 );
+      Arc testArc = creapp.NewArc( pnt10, pnt11, pnt122 );
+      Curve curve = (Curve) testArc;
+
+      Plane geometryPlane = creapp.NewPlane(
+        XYZ.BasisZ, XYZ.Zero );
+
+      SketchPlane sketchPlane = doc.NewSketchPlane(
+        geometryPlane );
+
+      SweptBlend aSweptBlend = doc.NewSweptBlend(
+        true, curve, sketchPlane, bottomProfile,
+        topProfile );
+      #endif // COMPILE_ORIGINAL_CODE
+      #endregion // Original code for Revit 2012
+
       XYZ px = XYZ.BasisX;
       XYZ py = XYZ.BasisY;
       Arc arc1 = Arc.Create( -px, px, -py );
