@@ -247,64 +247,69 @@ namespace BuildingCoder
   }
   #endregion // Scott's sample code from SPR #201483
 
-[Transaction( TransactionMode.Manual )]
-class CmdDimensionInstanceOrigin : IExternalCommand
-{
-  static Options _opt = null;
-
-  /// <summary>
-  /// Retrieve the given family instance's
-  /// non-visible geometry point reference.
-  /// </summary>
-  static Reference GetFamilyInstancePointReference(
-    FamilyInstance fi )
+  [Transaction( TransactionMode.Manual )]
+  class CmdDimensionInstanceOrigin : IExternalCommand
   {
-    return fi.get_Geometry( _opt )
-      .OfType<Point>()
-      .Select<Point, Reference>( x => x.Reference )
-      .FirstOrDefault();
-  }
+    static Options _opt = null;
 
-  /// <summary>
-  /// External command mainline. Run in the sample 
-  /// model Z:\a\rvt\dimension_case_2015.rvt, e.g.
-  /// </summary>
-  public Result Execute(
-    ExternalCommandData commandData,
-    ref string message,
-    ElementSet elements )
-  {
-    UIApplication app = commandData.Application;
-    UIDocument uidoc = app.ActiveUIDocument;
-    Document doc = uidoc.Document;
-
-    JtPairPicker<FamilyInstance> picker
-      = new JtPairPicker<FamilyInstance>( uidoc );
-
-    Result rc = picker.Pick();
-
-    if( Result.Succeeded == rc )
+    /// <summary>
+    /// Retrieve the given family instance's
+    /// non-visible geometry point reference.
+    /// </summary>
+    static Reference GetFamilyInstancePointReference(
+      FamilyInstance fi )
     {
-      IList<FamilyInstance> a = picker.Selected;
-
-      _opt = new Options();
-      _opt.ComputeReferences = true;
-      _opt.IncludeNonVisibleObjects = true;
-
-      XYZ[] pts = new XYZ[2];
-      Reference[] refs = new Reference[2];
-
-      pts[0] = ( a[0].Location as LocationPoint ).Point;
-      pts[1] = ( a[1].Location as LocationPoint ).Point;
-
-      refs[0] = GetFamilyInstancePointReference( a[0] );
-      refs[1] = GetFamilyInstancePointReference( a[1] );
-
-      CmdDimensionWallsIterateFaces
-        .CreateDimensionElement( doc.ActiveView,
-        pts[0], refs[0], pts[1], refs[1] );
+      return fi.get_Geometry( _opt )
+        .OfType<Point>()
+        .Select<Point, Reference>( x => x.Reference )
+        .FirstOrDefault();
     }
-    return rc;
+
+    /// <summary>
+    /// External command mainline. Run in the sample 
+    /// model Z:\a\rvt\dimension_case_2015.rvt, e.g.
+    /// </summary>
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      UIApplication app = commandData.Application;
+      UIDocument uidoc = app.ActiveUIDocument;
+      Document doc = uidoc.Document;
+
+      JtPairPicker<FamilyInstance> picker
+        = new JtPairPicker<FamilyInstance>( uidoc );
+
+      Result rc = picker.Pick();
+
+      if( Result.Failed == rc )
+      {
+        message = "We need at least two "
+          + "FamilyInstance elements in the model.";
+      }
+      else if( Result.Succeeded == rc )
+      {
+        IList<FamilyInstance> a = picker.Selected;
+
+        _opt = new Options();
+        _opt.ComputeReferences = true;
+        _opt.IncludeNonVisibleObjects = true;
+
+        XYZ[] pts = new XYZ[2];
+        Reference[] refs = new Reference[2];
+
+        pts[0] = ( a[0].Location as LocationPoint ).Point;
+        pts[1] = ( a[1].Location as LocationPoint ).Point;
+
+        refs[0] = GetFamilyInstancePointReference( a[0] );
+        refs[1] = GetFamilyInstancePointReference( a[1] );
+
+        CmdDimensionWallsIterateFaces
+          .CreateDimensionElement( doc.ActiveView,
+          pts[0], refs[0], pts[1], refs[1] );
+      }
+      return rc;
+    }
   }
-}
 }

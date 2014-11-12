@@ -64,7 +64,7 @@ namespace BuildingCoder
 
     public Result Pick()
     {
-      // Select all pipes in the entire model.
+      // Select all T elements in the entire model.
 
       _a = new List<T>(
         new FilteredElementCollector( _doc )
@@ -79,7 +79,6 @@ namespace BuildingCoder
 
       if( 2 > n )
       {
-        //message = _prompt;
         return Result.Failed;
       }
 
@@ -104,7 +103,7 @@ namespace BuildingCoder
 
       Debug.Print( "{0} pre-selected elements.", n );
 
-      // If two or more model pipes were pre-
+      // If two or more T elements were pre-
       // selected, use the first two encountered.
 
       if( 1 < n )
@@ -137,6 +136,8 @@ namespace BuildingCoder
       {
         _a.Clear();
 
+        // Select first element.
+
         try
         {
           Reference r = sel.PickObject(
@@ -152,6 +153,8 @@ namespace BuildingCoder
         {
           return Result.Cancelled;
         }
+
+        // Select second element.
 
         try
         {
