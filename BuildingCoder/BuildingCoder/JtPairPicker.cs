@@ -54,6 +54,9 @@ namespace BuildingCoder
       _doc = _uidoc.Document;
     }
 
+    /// <summary>
+    /// Return selection result.
+    /// </summary>
     public IList<T> Selected
     {
       get
@@ -62,9 +65,13 @@ namespace BuildingCoder
       }
     }
 
+    /// <summary>
+    /// Run the automatic or interactive 
+    /// selection process.
+    /// </summary>
     public Result Pick()
     {
-      // Select all T elements in the entire model.
+      // Retrieve all T elements in the entire model.
 
       _a = new List<T>(
         new FilteredElementCollector( _doc )
