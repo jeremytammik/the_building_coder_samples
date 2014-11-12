@@ -32,22 +32,6 @@ namespace BuildingCoder
     Document _doc;
     List<T> _a;
 
-    /// <summary>
-    /// Allow selection of elements of type T only.
-    /// </summary>
-    class ElementsOfClassSelectionFilter<T2> : ISelectionFilter
-    {
-      public bool AllowElement( Element e )
-      {
-        return e is T2;
-      }
-
-      public bool AllowReference( Reference r, XYZ p )
-      {
-        return true;
-      }
-    }
-
     public JtPairPicker( UIDocument uidoc )
     {
       _uidoc = uidoc;
@@ -145,11 +129,13 @@ namespace BuildingCoder
 
         // Select first element.
 
+        ISelectionFilter filter 
+          = new JtElementsOfClassSelectionFilter<T>();
+
         try
         {
           Reference r = sel.PickObject(
-            ObjectType.Element,
-            new ElementsOfClassSelectionFilter<T>(),
+            ObjectType.Element, filter,
             "Please pick first element." );
 
           _a.Add( _doc.GetElement( r.ElementId )
@@ -166,8 +152,7 @@ namespace BuildingCoder
         try
         {
           Reference r = sel.PickObject(
-            ObjectType.Element,
-            new ElementsOfClassSelectionFilter<T>(),
+            ObjectType.Element, filter,
             "Please pick second element." );
 
           _a.Add( _doc.GetElement( r.ElementId )

@@ -38,20 +38,20 @@ namespace BuildingCoder
       = "Please select two parallel straight walls"
         + " with a partial projected overlap.";
 
-    #region WallSelectionFilter
-    class WallSelectionFilter : ISelectionFilter
-    {
-      public bool AllowElement( Element e )
-      {
-        return e is Wall;
-      }
+    //#region WallSelectionFilter
+    //class WallSelectionFilter : ISelectionFilter
+    //{
+    //  public bool AllowElement( Element e )
+    //  {
+    //    return e is Wall;
+    //  }
 
-      public bool AllowReference( Reference r, XYZ p )
-      {
-        return true;
-      }
-    }
-    #endregion // WallSelectionFilter
+    //  public bool AllowReference( Reference r, XYZ p )
+    //  {
+    //    return true;
+    //  }
+    //}
+    //#endregion // WallSelectionFilter
 
     #region Get3DView
     /// <summary>
@@ -95,8 +95,11 @@ namespace BuildingCoder
 
       try
       {
-        WallSelectionFilter f
-          = new WallSelectionFilter();
+        //WallSelectionFilter f
+        //  = new WallSelectionFilter();
+
+        ISelectionFilter f
+          = new JtElementsOfClassSelectionFilter<Wall>();
 
         refs.Append( sel.PickObject(
           ObjectType.Element, f,

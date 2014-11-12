@@ -52,8 +52,10 @@ using System.Runtime.InteropServices;
 // 2014-10-11 2015.0.115.0 implemented CmdNewCrossFitting
 // 2014-10-11 2015.0.115.1 fixed some of the warnings about deprecated use of Selection.Elements collection
 // 2014-11-10 2015.0.115.2 converted CmdNewSweptBlend to use manual transaction mode and implemented CreateNewSweptBlendArc
-// 2014-11-12 2015.0.116.0 implemented CmdDimensionInstanceOrigin and JtPairPicker
-// 2014-11-13 2015.0.116.1 use JtPairPicker in CmdRollingOffset
+// 2014-11-11 2015.0.116.0 implemented CmdDimensionInstanceOrigin and JtPairPicker
+// 2014-11-12 2015.0.116.1 replace explicit selection code in CmdRollingOffset by new JtPairPicker class
+// 2014-11-12 2015.0.116.2 implement generic JtElementsOfClassSelectionFilter template class
+// 2014-11-12 2015.0.116.3 replace explicit Wall, CurveElement and Pipe selection filters by JtElementsOfClassSelectionFilter
 // 
-[assembly: AssemblyVersion( "2015.0.116.1" )]
-[assembly: AssemblyFileVersion( "2015.0.116.1" )]
+[assembly: AssemblyVersion( "2015.0.116.3" )]
+[assembly: AssemblyFileVersion( "2015.0.116.3" )]

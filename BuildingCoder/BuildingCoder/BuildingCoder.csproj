@@ -222,6 +222,7 @@
     <Compile Include="CmdCopyWallType.cs" />
     <Compile Include="Creator.cs" />
     <Compile Include="CmdElevationWatcher.cs" />
+    <Compile Include="JtElementsOfClassSelectionFilter.cs" />
     <Compile Include="JtPairPicker.cs" />
     <Compile Include="JtSelectorMulti.cs" />
     <Compile Include="JtTimer.cs" />

@@ -25,21 +25,21 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdNewCrossFitting : IExternalCommand
   {
-    /// <summary>
-    /// Allow selection of pipe elements only.
-    /// </summary>
-    class PipeElementSelectionFilter : ISelectionFilter
-    {
-      public bool AllowElement( Element e )
-      {
-        return e is Pipe;
-      }
+    ///// <summary>
+    ///// Allow selection of pipe elements only.
+    ///// </summary>
+    //class PipeElementSelectionFilter : ISelectionFilter
+    //{
+    //  public bool AllowElement( Element e )
+    //  {
+    //    return e is Pipe;
+    //  }
 
-      public bool AllowReference( Reference r, XYZ p )
-      {
-        return true;
-      }
-    }
+    //  public bool AllowReference( Reference r, XYZ p )
+    //  {
+    //    return true;
+    //  }
+    //}
 
     /// <summary>
     /// Return the normalised direction of the given pipe.
@@ -96,7 +96,7 @@ namespace BuildingCoder
           Selection sel = app.ActiveUIDocument.Selection;
 
           pipes = sel.PickElementsByRectangle(
-            new PipeElementSelectionFilter(),
+            new JtElementsOfClassSelectionFilter<Pipe>(),
             "Please pick some pipes." );
         }
         catch( Autodesk.Revit.Exceptions

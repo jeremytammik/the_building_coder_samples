@@ -36,21 +36,21 @@ namespace BuildingCoder
       + "this command, or post-select them when "
       + "prompted.";
 
-    /// <summary>
-    /// Allow selection of curve elements only.
-    /// </summary>
-    class CurveElementSelectionFilter : ISelectionFilter
-    {
-      public bool AllowElement( Element e )
-      {
-        return e is CurveElement;
-      }
+    ///// <summary>
+    ///// Allow selection of curve elements only.
+    ///// </summary>
+    //class CurveElementSelectionFilter : ISelectionFilter
+    //{
+    //  public bool AllowElement( Element e )
+    //  {
+    //    return e is CurveElement;
+    //  }
 
-      public bool AllowReference( Reference r, XYZ p )
-      {
-        return true;
-      }
-    }
+    //  public bool AllowReference( Reference r, XYZ p )
+    //  {
+    //    return true;
+    //  }
+    //}
 
     public Result Execute(
       ExternalCommandData commandData,
@@ -127,11 +127,13 @@ namespace BuildingCoder
         {
           curves.Clear();
 
+          ISelectionFilter f
+            = new JtElementsOfClassSelectionFilter<CurveElement>();
+
           try
           {
             Reference r = sel.PickObject(
-              ObjectType.Element,
-              new CurveElementSelectionFilter(),
+              ObjectType.Element, f,
               "Please pick first model curve." );
 
             curves.Add( doc.GetElement( r.ElementId )
@@ -146,8 +148,7 @@ namespace BuildingCoder
           try
           {
             Reference r = sel.PickObject(
-              ObjectType.Element,
-              new CurveElementSelectionFilter(),
+              ObjectType.Element, f,
               "Please pick second model curve." );
 
             curves.Add( doc.GetElement( r.ElementId )
