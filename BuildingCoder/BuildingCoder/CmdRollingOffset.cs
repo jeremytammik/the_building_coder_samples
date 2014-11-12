@@ -50,11 +50,10 @@ namespace BuildingCoder
     const string _prompt
       = "Please run this in a model containing "
       + "exactly two parallel offset pipe elements, "
-      + "and they will be "
-      + "automatically selected. Alternatively, pre-"
-      + "select two pipe elements before launching "
-      + "this command, or post-select them when "
-      + "prompted.";
+      + "and they will be automatically selected. "
+      + "Alternatively, pre-select two pipe elements "
+      + "before launching this command, or post-select "
+      + "them when prompted.";
 
     const BuiltInParameter bipDiameter
       = BuiltInParameter.RBS_PIPE_DIAMETER_PARAM;
@@ -78,22 +77,6 @@ namespace BuildingCoder
     }
     #endregion // Determine Pipe Wall Thickness
 
-    /// <summary>
-    /// Allow selection of pipe elements only.
-    /// </summary>
-    public class PipeElementSelectionFilter : ISelectionFilter
-    {
-      public bool AllowElement( Element e )
-      {
-        return e is Pipe;
-      }
-
-      public bool AllowReference( Reference r, XYZ p )
-      {
-        return true;
-      }
-    }
-
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
@@ -104,111 +87,128 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      // Select all pipes in the entire model.
+      //// Select all pipes in the entire model.
 
-      List<Pipe> pipes = new List<Pipe>(
-        new FilteredElementCollector( doc )
-          .OfClass( typeof( Pipe ) )
-          .ToElements()
-          .Cast<Pipe>() );
+      //List<Pipe> pipes = new List<Pipe>(
+      //  new FilteredElementCollector( doc )
+      //    .OfClass( typeof( Pipe ) )
+      //    .ToElements()
+      //    .Cast<Pipe>() );
 
-      int n = pipes.Count;
+      //int n = pipes.Count;
 
-      // If there are less than two, 
-      // there is nothing we can do.
+      //// If there are less than two, 
+      //// there is nothing we can do.
 
-      if( 2 > n )
+      //if( 2 > n )
+      //{
+      //  message = _prompt;
+      //  return Result.Failed;
+      //}
+
+      //// If there are exactly two, pick those.
+
+      //if( 2 < n )
+      //{
+      //  // Else, check for a pre-selection.
+
+      //  pipes.Clear();
+
+      //  Selection sel = uidoc.Selection;
+
+      //  //n = sel.Elements.Size; // 2014
+
+      //  ICollection<ElementId> ids
+      //    = sel.GetElementIds(); // 2015
+
+      //  n = ids.Count; // 2015
+
+      //  Debug.Print( "{0} pre-selected elements.",
+      //    n );
+
+      //  // If two or more model pipes were pre-
+      //  // selected, use the first two encountered.
+
+      //  if( 1 < n )
+      //  {
+      //    //foreach( Element e in sel.Elements ) // 2014
+
+      //    foreach( ElementId id in ids ) // 2015
+      //    {
+      //      Pipe c = doc.GetElement( id ) as Pipe;
+
+      //      if( null != c )
+      //      {
+      //        pipes.Add( c );
+
+      //        if( 2 == pipes.Count )
+      //        {
+      //          Debug.Print( "Found two model pipes, "
+      //            + "ignoring everything else." );
+
+      //          break;
+      //        }
+      //      }
+      //    }
+      //  }
+
+      //  // Else, prompt for an 
+      //  // interactive post-selection.
+
+      //  if( 2 != pipes.Count )
+      //  {
+      //    pipes.Clear();
+
+      //    try
+      //    {
+      //      Reference r = sel.PickObject(
+      //        ObjectType.Element,
+      //        new PipeElementSelectionFilter(),
+      //        "Please pick first pipe." );
+
+      //      pipes.Add( doc.GetElement( r.ElementId )
+      //        as Pipe );
+      //    }
+      //    catch( Autodesk.Revit.Exceptions
+      //      .OperationCanceledException )
+      //    {
+      //      return Result.Cancelled;
+      //    }
+
+      //    try
+      //    {
+      //      Reference r = sel.PickObject(
+      //        ObjectType.Element,
+      //        new PipeElementSelectionFilter(),
+      //        "Please pick second pipe." );
+
+      //      pipes.Add( doc.GetElement( r.ElementId )
+      //        as Pipe );
+      //    }
+      //    catch( Autodesk.Revit.Exceptions
+      //      .OperationCanceledException )
+      //    {
+      //      return Result.Cancelled;
+      //    }
+      //  }
+      //}
+
+      JtPairPicker<Pipe> picker
+        = new JtPairPicker<Pipe>( uidoc );
+
+      Result rc = picker.Pick();
+
+      if( Result.Failed == rc )
       {
         message = _prompt;
-        return Result.Failed;
       }
 
-      // If there are exactly two, pick those.
-
-      if( 2 < n )
+      if( Result.Succeeded != rc )
       {
-        // Else, check for a pre-selection.
-
-        pipes.Clear();
-
-        Selection sel = uidoc.Selection;
-
-        //n = sel.Elements.Size; // 2014
-
-        ICollection<ElementId> ids
-          = sel.GetElementIds(); // 2015
-
-        n = ids.Count; // 2015
-
-        Debug.Print( "{0} pre-selected elements.",
-          n );
-
-        // If two or more model pipes were pre-
-        // selected, use the first two encountered.
-
-        if( 1 < n )
-        {
-          //foreach( Element e in sel.Elements ) // 2014
-
-          foreach( ElementId id in ids ) // 2015
-          {
-            Pipe c = doc.GetElement( id ) as Pipe;
-
-            if( null != c )
-            {
-              pipes.Add( c );
-
-              if( 2 == pipes.Count )
-              {
-                Debug.Print( "Found two model pipes, "
-                  + "ignoring everything else." );
-
-                break;
-              }
-            }
-          }
-        }
-
-        // Else, prompt for an 
-        // interactive post-selection.
-
-        if( 2 != pipes.Count )
-        {
-          pipes.Clear();
-
-          try
-          {
-            Reference r = sel.PickObject(
-              ObjectType.Element,
-              new PipeElementSelectionFilter(),
-              "Please pick first pipe." );
-
-            pipes.Add( doc.GetElement( r.ElementId )
-              as Pipe );
-          }
-          catch( Autodesk.Revit.Exceptions
-            .OperationCanceledException )
-          {
-            return Result.Cancelled;
-          }
-
-          try
-          {
-            Reference r = sel.PickObject(
-              ObjectType.Element,
-              new PipeElementSelectionFilter(),
-              "Please pick second pipe." );
-
-            pipes.Add( doc.GetElement( r.ElementId )
-              as Pipe );
-          }
-          catch( Autodesk.Revit.Exceptions
-            .OperationCanceledException )
-          {
-            return Result.Cancelled;
-          }
-        }
+        return rc;
       }
+
+      IList<Pipe> pipes = picker.Selected;
 
       // Extract data from the two selected pipes.
 
