@@ -58,6 +58,7 @@ using System.Runtime.InteropServices;
 // 2014-11-12 2015.0.116.3 replace explicit Wall, CurveElement and Pipe selection filters by JtElementsOfClassSelectionFilter
 // 2014-11-13 2015.0.116.4 eliminated obsolete API usage warning in CmdCollectorPerformance.cs: replace get_Parameter(string) by built-in enumeration value
 // 2014-11-13 2015.0.116.4 eliminated obsolete API usage warning in CmdCollectorPerformance.cs: use Pipe.Create instead of doc.Create.NewPipe
+// 2014-11-13 2015.0.116.4 eliminated obsolete API usage warning in CmdCoordsOfViewOnSheet.cs: use GetAllPlacedViews() instead of Autodesk.Revit.DB.ViewSheet.Views
 // 
 [assembly: AssemblyVersion( "2015.0.116.4" )]
 [assembly: AssemblyFileVersion( "2015.0.116.4" )]

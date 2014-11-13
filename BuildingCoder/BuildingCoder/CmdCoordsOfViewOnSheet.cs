@@ -32,8 +32,12 @@ namespace BuildingCoder
       ViewSheet currentSheet
         = doc.ActiveView as ViewSheet;
 
-      foreach( View v in currentSheet.Views )
+      //foreach( View v in currentSheet.Views ) // 2014 warning	'Autodesk.Revit.DB.ViewSheet.Views' is obsolete.  Use GetAllPlacedViews() instead.
+
+      foreach( ElementId id in currentSheet.GetAllPlacedViews() ) // 2015
       {
+        View v = doc.GetElement( id ) as View;
+
         // the values returned here do not seem to
         // accurately reflect the positions of the
         // views on the sheet:
