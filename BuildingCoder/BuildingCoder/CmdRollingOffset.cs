@@ -210,6 +210,25 @@ namespace BuildingCoder
 
       IList<Pipe> pipes = picker.Selected;
 
+      // Check for same pipe system type.
+
+      ElementId systemTypeId
+        = pipes[0].MEPSystem.GetTypeId();
+
+      Debug.Assert( pipes[1].MEPSystem.GetTypeId()
+        .IntegerValue.Equals(
+          systemTypeId.IntegerValue ),
+        "expected two similar pipes" );
+
+      // Check for same pipe level.
+
+      ElementId levelId = pipes[0].LevelId;
+
+      Debug.Assert( 
+        pipes[1].LevelId.IntegerValue.Equals(
+          levelId.IntegerValue ),
+        "expected two pipes on same level" );
+
       // Extract data from the two selected pipes.
 
       double wall_thickness = GetWallThickness( pipes[0] );
@@ -475,11 +494,11 @@ namespace BuildingCoder
 
           // Create rolling offset pipe segment
 
-          pipe = doc.Create.NewPipe( con0.Origin, // 2014
-            con1.Origin, pipe_type_standard );
+          //pipe = doc.Create.NewPipe( con0.Origin, // 2014
+          //  con1.Origin, pipe_type_standard );
 
-          //pipe = Pipe.Create( doc, pipe_type_standard.Id, con0.Origin, // 2015
-          //  con1.Origin );
+          pipe = Pipe.Create( doc, 
+            pipe_type_standard.Id, levelId, con0, con1 ); // 2015
 
           pipe.get_Parameter( bipDiameter )
             .Set( diameter );

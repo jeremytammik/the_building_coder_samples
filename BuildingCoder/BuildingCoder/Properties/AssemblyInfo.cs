@@ -56,6 +56,8 @@ using System.Runtime.InteropServices;
 // 2014-11-12 2015.0.116.1 replace explicit selection code in CmdRollingOffset by new JtPairPicker class
 // 2014-11-12 2015.0.116.2 implement generic JtElementsOfClassSelectionFilter template class
 // 2014-11-12 2015.0.116.3 replace explicit Wall, CurveElement and Pipe selection filters by JtElementsOfClassSelectionFilter
+// 2014-11-13 2015.0.116.4 eliminated obsolete API usage warning in CmdCollectorPerformance.cs: replace get_Parameter(string) by built-in enumeration value
+// 2014-11-13 2015.0.116.4 eliminated obsolete API usage warning in CmdCollectorPerformance.cs: use Pipe.Create instead of doc.Create.NewPipe
 // 
 [assembly: AssemblyVersion( "2015.0.116.3" )]
 [assembly: AssemblyFileVersion( "2015.0.116.3" )]
