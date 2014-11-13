@@ -244,8 +244,8 @@ namespace BuildingCoder
 
       Wall wall = doc.GetElement( r ) as Wall; // 2012
 
-      Parameter parameter = wall.get_Parameter(
-        "Unconnected Height" );
+      //Parameter parameter = wall.get_Parameter( "Unconnected Height" ); // 2014, causes warning CS0618: 'Autodesk.Revit.DB.Element.get_Parameter(string)' is obsolete: 'This property is obsolete in Revit 2015, as more than one parameter can have the same name on a given element. Use Element.Parameters to obtain a complete list of parameters on this Element, or Element.GetParameters(String) to get a list of all parameters by name, or Element.LookupParameter(String) to return the first available parameter with the given name.'
+      Parameter parameter = wall.get_Parameter( BuiltInParameter.WALL_USER_HEIGHT_PARAM ); // 2015, avoids warning, in language indepependent and more effective to look up
 
       ParameterValueProvider pvp
         = new ParameterValueProvider( parameter.Id );
