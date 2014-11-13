@@ -10,7 +10,9 @@
 
 #region Namespaces
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -90,18 +92,21 @@ namespace BuildingCoder
 
       #endregion // Determine true north rotation
 
-      ElementSet els = uidoc.Selection.Elements;
+      //ElementSet els = uidoc.Selection.Elements; // 2014
 
-      if( 1 != els.Size )
+      ICollection<ElementId> ids = uidoc.Selection.GetElementIds(); // 2015
+
+      if( 1 != ids.Count )
       {
         message = "Please select a single element.";
       }
       else
       {
-        ElementSetIterator it = els.ForwardIterator();
-        it.MoveNext();
+        //ElementSetIterator it = els.ForwardIterator();
+        //it.MoveNext();
+        //Element e = it.Current as Element; // 2014
 
-        Element e = it.Current as Element;
+        Element e = doc.GetElement( ids.First() ); // 2015
 
         XYZ p;
         if( !GetElementLocation( out p, e ) )

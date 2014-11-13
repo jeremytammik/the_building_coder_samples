@@ -91,8 +91,10 @@ namespace BuildingCoder
         bool go = true;
         while( go )
         {
-          SelElementSet ss = sel.Elements;
-          int n = ss.Size;
+          //SelElementSet ss = sel.Elements; // 2014
+          //int n = ss.Size;
+          ICollection<ElementId> ids = sel.GetElementIds(); // 2015
+          int n = ids.Count;
 
           string s = string.Format(
             "{0} element{1} selected{2}",
@@ -101,10 +103,11 @@ namespace BuildingCoder
               ? ";\n" + _prompt
               : ":" ) );
 
-          foreach( Element e in ss )
+          foreach( ElementId id in ids )
           {
             s += "\n";
-            s += Util.ElementDescription( e );
+            s += Util.ElementDescription( 
+              doc.GetElement( id ) );
           }
           f.LabelText = s;
 

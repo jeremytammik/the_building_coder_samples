@@ -44,10 +44,12 @@ namespace BuildingCoder
       // and some Supply Diffusers prior to running
       // this command
 
-      ElementSet selection = uidoc.Selection.Elements;
+      //ElementSet selection = uidoc.Selection.Elements; // 2014
 
-      foreach( Element e in selection )
+      foreach( ElementId id in uidoc.Selection.GetElementIds() ) // 2015
       {
+        Element e = doc.GetElement( id );
+
         if( e is FamilyInstance )
         {
           FamilyInstance fi = e as FamilyInstance;

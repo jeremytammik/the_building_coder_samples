@@ -43,9 +43,11 @@ namespace BuildingCoder
       Options options = app.Application.Create.NewGeometryOptions();
       string s, msg = string.Empty;
       int n;
-      foreach( Element e in sel.Elements )
+      foreach( ElementId id in sel.GetElementIds() )
       {
-        Mullion mullion = e as Mullion;
+        Mullion mullion = doc.GetElement( id ) 
+          as Mullion;
+
         if( null != mullion )
         {
           //Location location = mullion.AsFamilyInstance.Location; // seems to be uninitialised // 2011
