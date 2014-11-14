@@ -668,22 +668,22 @@ namespace BuildingCoder
       }
 
 #if _2010
-      sel.Elements.Clear();
-      Element e = null;
-      sel.StatusbarTip = "Please select " + description;
-      if( sel.PickOne() )
-      {
-        ElementSetIterator elemSetItr
-          = sel.Elements.ForwardIterator();
-        elemSetItr.MoveNext();
-        e = elemSetItr.Current as Element;
-      }
-      return e;
+    sel.Elements.Clear();
+    Element e = null;
+    sel.StatusbarTip = "Please select " + description;
+    if( sel.PickOne() )
+    {
+      ElementSetIterator elemSetItr
+        = sel.Elements.ForwardIterator();
+      elemSetItr.MoveNext();
+      e = elemSetItr.Current as Element;
+    }
+    return e;
 #endif // _2010
 
       try
       {
-        Reference r = uidoc.Selection.PickObject( 
+        Reference r = uidoc.Selection.PickObject(
           ObjectType.Element,
           "Please select " + description );
 
@@ -703,7 +703,7 @@ namespace BuildingCoder
     public static Element GetSingleSelectedElement(
       UIDocument uidoc )
     {
-      ICollection<ElementId> ids 
+      ICollection<ElementId> ids
         = uidoc.Selection.GetElementIds();
 
       Element e = null;
@@ -749,7 +749,7 @@ namespace BuildingCoder
 
       if( !HasRequestedType( e, t, acceptDerivedClass ) )
       {
-        e = Util.SelectSingleElement( 
+        e = Util.SelectSingleElement(
           uidoc, description );
       }
       return HasRequestedType( e, t, acceptDerivedClass )
@@ -773,13 +773,13 @@ namespace BuildingCoder
     {
       Document doc = uidoc.Document;
 
-      ICollection<ElementId> ids 
+      ICollection<ElementId> ids
         = uidoc.Selection.GetElementIds();
 
       if( 0 < ids.Count )
       {
         a.AddRange( ids
-          .Select<ElementId,Element>(
+          .Select<ElementId, Element>(
             id => doc.GetElement( id ) )
           .Where<Element>(
             e => t.IsInstanceOfType( e ) ) );
