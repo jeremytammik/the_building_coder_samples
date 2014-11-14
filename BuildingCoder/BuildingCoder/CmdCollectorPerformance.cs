@@ -282,7 +282,7 @@ namespace BuildingCoder
   }
   #endregion // Parameter filter using display name
 
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdCollectorPerformance : IExternalCommand
   {
     Document _doc;
@@ -747,6 +747,97 @@ namespace BuildingCoder
           => e.Host.Id.Equals( id ) );
     }
     #endregion // Retrieve openings in wall
+
+    #region Retrieve family instances intersecting BIM element
+    /// <summary>
+    /// Retrieve all family instances intersecting a
+    /// given BIM element, e.g. all columns 
+    /// intersecting a wall.
+    /// </summary>
+    void GetInstancesIntersectingElement( Element e )
+    {
+      #region Joe's code
+#if JOE_CODE
+// Find intersections between family instances and a selected element  
+
+Reference Reference = uidoc.Selection.PickObject( 
+ObjectType.Element, "Select element that will "
++ "be checked for intersection with all family "
++ "instances" );
+
+Element e = doc.GetElement( reference );
+
+GeometryElement geomElement = e.get_Geometry( 
+new Options() );
+
+Solid solid = null;
+foreach( GeometryObject geomObj in geomElement )
+{
+solid = geomObj as Solid;
+if( solid = !null ) break;
+}
+
+FilteredElementCollector collector 
+= new FilteredElementCollector( doc )
+  .OfClass( typeof( FamilyInstance ) )
+  .WherePasses( new ElementIntersectsSolidFilter( 
+    solid ) );
+
+TaskDialog.Show( "Revit", collector.Count() + 
+"Family instances intersect with selected element (" 
++ element.Category.Name + "ID:" + element.Id + ")" );
+#endif // JOE_CODE
+      #endregion // Joe's code
+
+      // Test this in these SDK sample models:
+      // C:\a\lib\revit\2015\SDK\Samples\FindReferencesByDirection\FindColumns\FindColumns-Basic.rvt
+      // C:\a\lib\revit\2015\SDK\Samples\FindReferencesByDirection\FindColumns\FindColumns-TestCases.rvt
+
+      Document doc = e.Document;
+
+      Solid solid = e.get_Geometry( new Options() )
+        .OfType<Solid>()
+        .Where<Solid>( s => null != s && !s.Edges.IsEmpty )
+        .FirstOrDefault();
+
+      FilteredElementCollector intersectingInstances
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( FamilyInstance ) )
+          .WherePasses( new ElementIntersectsSolidFilter(
+            solid ) );
+
+      int n1 = intersectingInstances.Count<Element>();
+
+      intersectingInstances
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( FamilyInstance ) )
+          .WherePasses( new ElementIntersectsElementFilter(
+            e ) );
+
+      int n = intersectingInstances.Count<Element>();
+
+      Debug.Assert( n.Equals( n1 ),
+        "expected solid intersection to equal element intersection" );
+
+      string result = string.Format(
+        "{0} family instance{1} intersect{2} the "
+        + "selected element {3}{4}",
+        n, Util.PluralSuffix( n ),
+        ( 1 == n ? "s" : "" ),
+        Util.ElementDescription( e ),
+        Util.DotOrColon( n ) );
+
+      string id_list = 0 == n
+        ? string.Empty
+        : string.Join( ", ",
+            intersectingInstances
+              .Select<Element, string>(
+                x => x.Id.IntegerValue.ToString() ) )
+          + ".";
+
+      Util.InfoMsg2( result, id_list );
+    }
+    #endregion // Retrieve family instances intersecting BIM element
 
     #region Retrieve stairs on level
     /// <summary>
@@ -1623,15 +1714,9 @@ namespace BuildingCoder
     }
     #endregion // Is element hidden in view by crop box, visibility or category?
 
-    public Result Execute(
-          ExternalCommandData commandData,
-          ref string message,
-          ElementSet elements )
+    void RunBenchmark()
     {
-      UIApplication app = commandData.Application;
-      _doc = app.ActiveUIDocument.Document;
-
-      // create a number of levels for us to play with:
+      // Create a number of levels for us to play with:
 
       int maxLevel = 1000;
       for( int i = 3; i < maxLevel; ++i )
@@ -1639,7 +1724,7 @@ namespace BuildingCoder
         CreateLevel( i );
       }
 
-      // run a specified number of tests
+      // Run a specified number of tests
       // to retrieve all levels in different
       // ways:
 
@@ -1661,7 +1746,7 @@ namespace BuildingCoder
 
       totalTimer.Report( "Retrieve all levels:" );
 
-      // run a specified number of tests
+      // Run a specified number of tests
       // to retrieve a randomly selected
       // specific level:
 
@@ -1680,8 +1765,25 @@ namespace BuildingCoder
 
       totalTimer.Report(
         "Retrieve specific named level:" );
+    }
 
-      return Result.Failed;
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      UIApplication app = commandData.Application;
+      UIDocument uidoc = app.ActiveUIDocument;
+      _doc = uidoc.Document;
+
+      //RunBenchmark();
+
+      Element wall = Util.SelectSingleElementOfType(
+        uidoc, typeof( Wall ), "a wall", true );
+
+      GetInstancesIntersectingElement( wall );
+
+      return Result.Succeeded;
     }
   }
 }

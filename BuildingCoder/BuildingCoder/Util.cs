@@ -655,10 +655,17 @@ namespace BuildingCoder
 
     #region Element Selection
     public static Element SelectSingleElement(
-      UIDocument doc,
+      UIDocument uidoc,
       string description )
     {
-      Selection sel = doc.Selection;
+      if( ViewType.Internal == uidoc.ActiveView.ViewType )
+      {
+        TaskDialog.Show( "Error",
+          "Cannot pick element in this view: "
+          + uidoc.ActiveView.Name );
+
+        return null;
+      }
 
 #if _2010
       sel.Elements.Clear();
@@ -674,48 +681,38 @@ namespace BuildingCoder
       return e;
 #endif // _2010
 
-      if( ViewType.Internal == doc.ActiveView.ViewType )
-      {
-        TaskDialog.Show( "Error",
-          "Cannot pick element in this view: "
-          + doc.ActiveView.Name );
-
-        return null;
-      }
-
-      Reference r = null;
-
       try
       {
-        r = sel.PickObject( ObjectType.Element,
+        Reference r = uidoc.Selection.PickObject( 
+          ObjectType.Element,
           "Please select " + description );
+
+        // 'Autodesk.Revit.DB.Reference.Element' is
+        // obsolete: Property will be removed. Use
+        // Document.GetElement(Reference) instead.
+        //return null == r ? null : r.Element; // 2011
+
+        return uidoc.Document.GetElement( r ); // 2012
       }
       catch( Autodesk.Revit.Exceptions.OperationCanceledException )
       {
         return null;
       }
-
-      // 'Autodesk.Revit.DB.Reference.Element' is
-      // obsolete: Property will be removed. Use
-      // Document.GetElement(Reference) instead.
-      //return null == r ? null : r.Element; // 2011
-
-      return null == r
-        ? null
-        : doc.Document.GetElement( r ); // 2012
     }
 
     public static Element GetSingleSelectedElement(
-      UIDocument doc )
+      UIDocument uidoc )
     {
-      Element e = null;
-      SelElementSet set = doc.Selection.Elements;
+      ICollection<ElementId> ids 
+        = uidoc.Selection.GetElementIds();
 
-      if( 1 == set.Size )
+      Element e = null;
+
+      if( 1 == ids.Count )
       {
-        foreach( Element e2 in set )
+        foreach( ElementId id in ids )
         {
-          e = e2;
+          e = uidoc.Document.GetElement( id );
         }
       }
       return e;
@@ -726,25 +723,36 @@ namespace BuildingCoder
       Type t,
       bool acceptDerivedClass )
     {
-      return ( null != e )
-        && ( acceptDerivedClass
-          ? e.GetType().IsSubclassOf( t )
-          : e.GetType().Equals( t ) );
+      bool rc = null != e;
+
+      if( rc )
+      {
+        Type t2 = e.GetType();
+
+        rc = t2.Equals( t );
+
+        if( !rc && acceptDerivedClass )
+        {
+          rc = t2.IsSubclassOf( t );
+        }
+      }
+      return rc;
     }
 
     public static Element SelectSingleElementOfType(
-      UIDocument doc,
+      UIDocument uidoc,
       Type t,
       string description,
       bool acceptDerivedClass )
     {
-      Element e = GetSingleSelectedElement( doc );
+      Element e = GetSingleSelectedElement( uidoc );
 
       if( !HasRequestedType( e, t, acceptDerivedClass ) )
       {
-        e = Util.SelectSingleElement( doc, description );
+        e = Util.SelectSingleElement( 
+          uidoc, description );
       }
-      return ( null == e ) || HasRequestedType( e, t, acceptDerivedClass )
+      return HasRequestedType( e, t, acceptDerivedClass )
         ? e
         : null;
     }
@@ -755,33 +763,31 @@ namespace BuildingCoder
     /// retrieve all elements of specified type in the database.
     /// </summary>
     /// <param name="a">Return value container</param>
-    /// <param name="doc">Active document</param>
+    /// <param name="uidoc">Active document</param>
     /// <param name="t">Specific type</param>
     /// <returns>True if some elements were retrieved</returns>
     public static bool GetSelectedElementsOrAll(
       List<Element> a,
-      UIDocument doc,
+      UIDocument uidoc,
       Type t )
     {
-      Selection sel = doc.Selection;
-      if( 0 < sel.GetElementIds().Count )
+      Document doc = uidoc.Document;
+
+      ICollection<ElementId> ids 
+        = uidoc.Selection.GetElementIds();
+
+      if( 0 < ids.Count )
       {
-        foreach( Element e in sel.Elements )
-        {
-          if( t.IsInstanceOfType( e ) )
-          {
-            a.Add( e );
-          }
-        }
+        a.AddRange( ids
+          .Select<ElementId,Element>(
+            id => doc.GetElement( id ) )
+          .Where<Element>(
+            e => t.IsInstanceOfType( e ) ) );
       }
       else
       {
-        FilteredElementCollector collector
-          = new FilteredElementCollector( doc.Document );
-
-        collector.OfClass( t );
-
-        a.AddRange( collector );
+        a.AddRange( new FilteredElementCollector( doc )
+          .OfClass( t ) );
       }
       return 0 < a.Count;
     }

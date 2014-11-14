@@ -60,6 +60,9 @@ using System.Runtime.InteropServices;
 // 2014-11-13 2015.0.116.4 eliminated obsolete API usage warning in CmdCollectorPerformance.cs: use Pipe.Create instead of doc.Create.NewPipe
 // 2014-11-13 2015.0.116.4 eliminated obsolete API usage warning in CmdCoordsOfViewOnSheet.cs: use GetAllPlacedViews() instead of Autodesk.Revit.DB.ViewSheet.Views
 // 2014-11-13 2015.0.116.4 eliminated various obsolete API usage warnings saying Autodesk.Revit.UI.Selection.Selection.Elements is obsolete: Use GetElementIds instead
+// 2014-11-14 2015.0.116.5 implemented GetInstancesIntersectingElement
+// 2014-11-14 2015.0.116.5 radical rewrite of SelectSingleElement, GetSingleSelectedElement, GetSelectedElementsOrAll to clean up and eliminate obsolete API usage
+// 2014-11-14 2015.0.116.5 radical rewrite of HasRequestedType, which probably never previously worked as intended
 // 
-[assembly: AssemblyVersion( "2015.0.116.4" )]
-[assembly: AssemblyFileVersion( "2015.0.116.4" )]
+[assembly: AssemblyVersion( "2015.0.116.5" )]
+[assembly: AssemblyFileVersion( "2015.0.116.5" )]
