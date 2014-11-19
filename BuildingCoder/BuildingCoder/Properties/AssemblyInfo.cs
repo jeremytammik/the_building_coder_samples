@@ -63,6 +63,7 @@ using System.Runtime.InteropServices;
 // 2014-11-14 2015.0.116.5 implemented GetInstancesIntersectingElement
 // 2014-11-14 2015.0.116.5 radical rewrite of SelectSingleElement, GetSingleSelectedElement, GetSelectedElementsOrAll to clean up and eliminate obsolete API usage
 // 2014-11-14 2015.0.116.5 radical rewrite of HasRequestedType, which probably never previously worked as intended
+// 2014-11-19 2015.0.116.6 implemented GetSortedLevels
 // 
-[assembly: AssemblyVersion( "2015.0.116.5" )]
-[assembly: AssemblyFileVersion( "2015.0.116.5" )]
+[assembly: AssemblyVersion( "2015.0.116.6" )]
+[assembly: AssemblyFileVersion( "2015.0.116.6" )]

@@ -287,6 +287,16 @@ namespace BuildingCoder
   {
     Document _doc;
 
+    #region Retrieve a sorted list of all levels
+    IOrderedEnumerable<Level> GetSortedLevels( Document doc )
+    {
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( Level ) )
+        .Cast<Level>()
+        .OrderBy( lev => lev.Elevation );
+    }
+    #endregion // Filter for detail curves
+
     #region Filter for concrete ramps
     IEnumerable<Element> findConcreteRamps( Document doc )
     {
