@@ -64,6 +64,7 @@ using System.Runtime.InteropServices;
 // 2014-11-14 2015.0.116.5 radical rewrite of SelectSingleElement, GetSingleSelectedElement, GetSelectedElementsOrAll to clean up and eliminate obsolete API usage
 // 2014-11-14 2015.0.116.5 radical rewrite of HasRequestedType, which probably never previously worked as intended
 // 2014-11-19 2015.0.116.6 implemented GetSortedLevels
+// 2015-01-27 2015.0.116.7 added second implementation to CmdWallProfile
 // 
-[assembly: AssemblyVersion( "2015.0.116.6" )]
-[assembly: AssemblyFileVersion( "2015.0.116.6" )]
+[assembly: AssemblyVersion( "2015.0.116.7" )]
+[assembly: AssemblyFileVersion( "2015.0.116.7" )]

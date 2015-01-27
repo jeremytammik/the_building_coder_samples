@@ -70,6 +70,9 @@
       <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="RevitAPIIFC">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPIIFC.dll</HintPath>
+    </Reference>
     <Reference Include="RevitAPIUI">
       <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPIUI.dll</HintPath>
       <Private>False</Private>

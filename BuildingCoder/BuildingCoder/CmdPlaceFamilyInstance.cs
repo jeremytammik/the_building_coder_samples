@@ -51,6 +51,9 @@ namespace BuildingCoder
         += new EventHandler<DocumentChangedEventArgs>(
           OnDocumentChanged );
 
+      //PromptForFamilyInstancePlacementOptions opt 
+      //  = new PromptForFamilyInstancePlacementOptions();
+
       uidoc.PromptForFamilyInstancePlacement( symbol );
 
       app.DocumentChanged
