@@ -2,7 +2,7 @@
 //
 // CmdLinq.cs - test linq.
 //
-// Copyright (C) 2009-2010 by Joel Karr and Jeremy Tammik,
+// Copyright (C) 2009-2015 by Joel Karr and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header
