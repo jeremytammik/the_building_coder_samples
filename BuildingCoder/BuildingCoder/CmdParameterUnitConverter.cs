@@ -2,7 +2,7 @@
 //
 // CmdParameterUnitConverter.cs - test ParameterUnitConverter on all floating point valued parameters on a selected element
 //
-// Copyright (C) 2011 by Victor Chekalin and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2011-2015 by Victor Chekalin and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 
