@@ -2,7 +2,7 @@
 //
 // CmdNewExtrusionRoof.cs - create a strangely stair shaped new extrusion roof
 //
-// Copyright (C) 2014 by Jeremy Tammik,
+// Copyright (C) 2014-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

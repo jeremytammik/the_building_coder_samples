@@ -2,7 +2,7 @@
 //
 // CmdNewSweptBlend.cs - create a new swept blend element
 //
-// Copyright (C) 2010-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2010-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

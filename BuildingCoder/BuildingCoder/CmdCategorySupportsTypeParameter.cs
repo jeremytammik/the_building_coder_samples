@@ -3,7 +3,7 @@
 // CmdCategorySupportsTypeParameter.cs - Boolean predicate to 
 // determine whether a given category supports type parameter
 //
-// Copyright (C) 2008-2014 by Jeremy Tammik,
+// Copyright (C) 2008-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

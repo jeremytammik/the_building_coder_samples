@@ -2,7 +2,7 @@
 //
 // CmdGetSketchElements.cs - retrieve sketch elements for a selected wall, floor, roof, filled region, etc.
 //
-// Copyright (C) 2010-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2010-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

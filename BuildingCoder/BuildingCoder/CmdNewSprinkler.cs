@@ -2,7 +2,7 @@
 //
 // CmdNewSprinkler.cs - insert a new sprinkler family instance
 //
-// Copyright (C) 2010-2014 by Jeremy Tammik,
+// Copyright (C) 2010-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

@@ -2,7 +2,7 @@
 //
 // CmdDeleteUnusedRefPlanes.cs - delete unnamed non-hosting reference planes
 //
-// Copyright (C) 2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2014-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

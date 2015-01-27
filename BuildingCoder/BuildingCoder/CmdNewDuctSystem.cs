@@ -2,7 +2,7 @@
 //
 // CmdNewDuctSystem.cs - create a new duct system via the NewMechanicalSystem API call
 //
-// Copyright (C) 2010-2014 by Jeremy Tammik,
+// Copyright (C) 2010-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

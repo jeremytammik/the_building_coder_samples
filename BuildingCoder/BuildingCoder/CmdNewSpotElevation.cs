@@ -2,7 +2,7 @@
 //
 // CmdNewSpotElevation.cs - insert a new spot elevation on top surface of beam
 //
-// Copyright (C) 2010-2014 by Jeremy Tammik,
+// Copyright (C) 2010-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

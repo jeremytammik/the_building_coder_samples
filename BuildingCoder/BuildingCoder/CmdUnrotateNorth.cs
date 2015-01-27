@@ -3,7 +3,7 @@
 // CmdUnrotateNorth.cs - transform element location back to
 // original coordinates to cancel effect of rotating project north
 //
-// Copyright (C) 2009-2014 by Jeremy Tammik,
+// Copyright (C) 2009-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

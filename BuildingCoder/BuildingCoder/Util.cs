@@ -2,7 +2,7 @@
 //
 // Util.cs - The Building Coder Revit API utility methods
 //
-// Copyright (C) 2008-2014 by Jeremy Tammik,
+// Copyright (C) 2008-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

@@ -2,7 +2,7 @@
 //
 // CmdLinkedFileElements.cs - list elements in linked files
 //
-// Copyright (C) 2009-2014 by Jeremy Tammik,
+// Copyright (C) 2009-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

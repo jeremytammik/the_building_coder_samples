@@ -6,7 +6,7 @@
 // i.e. hosted --> host, and invert it to obtain
 // a map host --> list of hosted elements.
 //
-// Copyright (C) 2008-2014 by Jeremy Tammik,
+// Copyright (C) 2008-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

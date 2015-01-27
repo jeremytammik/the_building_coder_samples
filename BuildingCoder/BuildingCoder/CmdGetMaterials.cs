@@ -3,7 +3,7 @@
 // CmdGetMaterials.cs - determine element materials
 // by iterating over its geometry faces
 //
-// Copyright (C) 2008-2014 by Jeremy Tammik,
+// Copyright (C) 2008-2015 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

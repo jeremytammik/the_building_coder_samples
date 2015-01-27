@@ -2,7 +2,7 @@
 //
 // CmdRemoveDwfLinks.cs - Remove DWF links
 //
-// Copyright (C) 2012-2014 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2012-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 
