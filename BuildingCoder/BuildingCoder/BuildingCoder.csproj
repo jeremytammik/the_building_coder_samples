@@ -140,6 +140,7 @@
     <Compile Include="CmdLinq.cs" />
     <Compile Include="CmdListAllRooms.cs" />
     <Compile Include="CmdListMarks.cs" />
+    <Compile Include="CmdListPipeSizes.cs" />
     <Compile Include="CmdListRailingTypes.cs" />
     <Compile Include="CmdListSharedParams.cs" />
     <Compile Include="CmdMepElementShape.cs" />
