@@ -225,22 +225,28 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
 
-      Selection sel = uidoc.Selection;
       string msg = string.Empty;
 
-      foreach( Element e in sel.Elements )
+      //Selection sel = uidoc.Selection; // 2014
+      //foreach( Element e in sel.Elements ) // 2014
+
+      List<Element> walls = new List<Element>();
+
+      if( Util.GetSelectedElementsOrAll( walls, uidoc, typeof( Wall ) ) )
       {
-        Wall wall = e as Wall;
-        if( null != wall )
+        foreach( Wall wall in walls )
         {
           msg += ProcessWall( wall );
         }
       }
+
       if( 0 == msg.Length )
       {
         msg = "Please select some walls.";
       }
+
       Util.InfoMsg( msg );
+      
       return Result.Succeeded;
     }
   }

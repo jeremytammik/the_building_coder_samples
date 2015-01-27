@@ -183,7 +183,7 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      // name of target wall type that we want to use:
+      // Name of target wall type that we want to use:
 
       string wallTypeName = "Generic - 203";
 
@@ -193,13 +193,19 @@ namespace BuildingCoder
       Wall wall = GetFirstWallUsingType(
         doc, wallType );
 
-      // select the wall in the UI
+      // Select the wall in the UI
 
-      uidoc.Selection.Elements.Add( wall );
+      //uidoc.Selection.Elements.Add( wall ); // 2014
 
-      if( 0 == uidoc.Selection.Elements.Size )
+      List<ElementId> ids = new List<ElementId>( 1 );
+      ids.Add( wall.Id );
+      uidoc.Selection.SetElementIds( ids ); // 2015
+
+      //if( 0 == uidoc.Selection.Elements.Size ) // 2014
+
+      if( 0 == uidoc.Selection.GetElementIds().Count ) // 2015
       {
-        // no wall with the correct wall type found
+        // No wall with the correct wall type found
 
         FilteredElementCollector collector
           = new FilteredElementCollector( doc );
@@ -229,33 +235,41 @@ namespace BuildingCoder
 
         // Select the new wall in the project
 
-        uidoc.Selection.Elements.Add( nw );
+        //uidoc.Selection.Elements.Add( nw ); // 2014
+
+        ids.Clear();
+        ids.Add( nw.Id );
+        uidoc.Selection.SetElementIds( ids ); // 2015
 
         // Start command create similar. In the
         // property menu, our wall type is set current
 
         Press.Keys( "CS" );
 
-        // select the new wall in the project,
+        // Select the new wall in the project,
         // so we can delete it
 
-        uidoc.Selection.Elements.Add( nw );
+        //uidoc.Selection.Elements.Add( nw ); // 2014
 
-        // erase the selected wall (remark:
+        ids.Clear();
+        ids.Add( nw.Id );
+        uidoc.Selection.SetElementIds( ids ); // 2015
+
+        // Erase the selected wall (remark:
         // doc.delete(nw) may not be used,
         // this command will undo)
 
         Press.Keys( "DE" );
 
-        // start up wall command
+        // Start up wall command
 
         Press.Keys( "WA" );
       }
       else
       {
-        // the correct wall is already selected:
+        // The correct wall is already selected:
 
-        Press.Keys( "CS" ); // start "create similar"
+        Press.Keys( "CS" ); // Start "create similar"
       }
       return Result.Succeeded;
     }

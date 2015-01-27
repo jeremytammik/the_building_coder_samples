@@ -92,9 +92,15 @@ namespace BuildingCoder
         }
 
         FamilySymbol sprinklerSymbol = null;
-        foreach( FamilySymbol fs in family.Symbols )
+
+        //foreach( FamilySymbol fs in family.Symbols ) // 2014
+
+        foreach( ElementId id in 
+          family.GetFamilySymbolIds() ) // 2015
         {
-          sprinklerSymbol = fs;
+          sprinklerSymbol = doc.GetElement( id ) 
+            as FamilySymbol;
+
           break;
         }
 

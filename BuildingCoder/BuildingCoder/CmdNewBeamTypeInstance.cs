@@ -97,9 +97,12 @@ namespace BuildingCoder
         // we select the first:
 
         FamilySymbol s = null;
-        foreach( FamilySymbol s2 in f.Symbols )
+
+        //foreach( FamilySymbol s2 in f.Symbols ) // 2014
+
+        foreach( ElementId id in f.GetFamilySymbolIds() ) // 2015
         {
-          s = s2;
+          s = doc.GetElement( id ) as FamilySymbol;
           break;
         }
         Debug.Assert( null != s, "expected at least one symbol to be defined in family" );

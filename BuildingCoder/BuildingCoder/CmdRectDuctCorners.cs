@@ -18,6 +18,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Mechanical;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using System.Collections.Generic;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -165,9 +166,13 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      SelElementSet sel = uidoc.Selection.Elements;
+      //SelElementSet sel = uidoc.Selection.Elements; // 2014
 
-      if( 0 == sel.Size )
+      ICollection<ElementId> ids = uidoc.Selection.GetElementIds(); // 2015
+
+      //if( 0 == sel.Size ) // 2014
+
+      if( 0 == ids.Count ) // 2015
       {
         message = "Please select some rectangular ducts.";
         return Result.Failed;
@@ -195,8 +200,12 @@ namespace BuildingCoder
 
         // loop over all selected ducts:
 
-        foreach( Duct duct in sel )
+        //foreach( Duct duct in sel ) // 2014
+
+        foreach( ElementId id in ids ) // 2015
         {
+          Duct duct = doc.GetElement( id ) as Duct;
+
           if( null == duct )
           {
             Trace.TraceError( "The selection is not a duct!" );

@@ -221,10 +221,19 @@ namespace BuildingCoder
       // obtain the current selection and pick
       // out all walls from it:
 
-      Selection sel = uidoc.Selection;
+      //Selection sel = uidoc.Selection; // 2014
+
+      ICollection<ElementId> ids = uidoc.Selection
+        .GetElementIds(); // 2015
+
       List<Wall> walls = new List<Wall>( 2 );
-      foreach( Element e in sel.Elements )
+
+      //foreach( Element e in sel.Elements ) // 2014
+      
+      foreach( ElementId id in ids ) // 2015
       {
+        Element e = doc.GetElement( id );
+
         if( e is Wall )
         {
           walls.Add( e as Wall );

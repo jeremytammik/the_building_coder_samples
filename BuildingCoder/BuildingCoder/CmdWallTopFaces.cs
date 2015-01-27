@@ -131,10 +131,16 @@ namespace BuildingCoder
 #endif // CREATE_MODEL_CURVES_FOR_TOP_FACE_EDGES
 
       IList<Face> topFaces = new List<Face>();
-      int n;
 
-      foreach( Element e in uidoc.Selection.Elements )
+      int n;
+      int nWalls = 0;
+
+      //foreach( Element e in uidoc.Selection.Elements ) // 2014
+
+      foreach( ElementId id in uidoc.Selection.GetElementIds() ) // 2015
       {
+        Element e = doc.GetElement( id );
+
         Wall wall = e as Wall;
 
         if( null == wall )
@@ -292,20 +298,19 @@ namespace BuildingCoder
         }
 
         Debug.Print( string.Format(
-          "{0} top face{1} found on {2}",
+          "{0} top face{1} found on {2} ({3})",
           n, Util.PluralSuffix( n ),
-          Util.ElementDescription( e ) ) );
+          Util.ElementDescription( e ) ),
+          nWalls++ );
       }
 
 #if CREATE_MODEL_CURVES_FOR_TOP_FACE_EDGES
       t.Commit();
 #endif // CREATE_MODEL_CURVES_FOR_TOP_FACE_EDGES
 
-      n = uidoc.Selection.Elements.Size;
-
       string s = string.Format(
-        "{0} wall{1} selected",
-        n, Util.PluralSuffix( n ) );
+        "{0} wall{1} successfully processed",
+        nWalls, Util.PluralSuffix( nWalls ) );
 
       n = topFaces.Count;
 

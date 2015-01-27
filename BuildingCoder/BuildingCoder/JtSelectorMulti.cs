@@ -140,8 +140,8 @@ namespace BuildingCoder
       // Check for pre-selected elements
 
       Selection sel = uidoc.Selection;
-
-      int n = sel.GetElementIds().Count;
+      ICollection<ElementId> ids = sel.GetElementIds();
+      int n = ids.Count;
 
       if( 0 < n )
       {
@@ -151,8 +151,10 @@ namespace BuildingCoder
         //  _result = Result.Failed;
         //}
 
-        foreach( Element e in sel.Elements )
+        foreach( ElementId id in ids )
         {
+          Element e = doc.GetElement( id );
+
           if( !f( e ) )
           {
             _msg = string.Format(

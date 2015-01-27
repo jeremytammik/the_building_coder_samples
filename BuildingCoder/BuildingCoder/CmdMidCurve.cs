@@ -90,8 +90,8 @@ namespace BuildingCoder
         curves.Clear();
 
         Selection sel = uidoc.Selection;
-
-        n = sel.GetElementIds().Count;
+        ICollection<ElementId> ids = sel.GetElementIds();
+        n = ids.Count;
 
         Debug.Print( "{0} pre-selected elements.",
           n );
@@ -101,9 +101,10 @@ namespace BuildingCoder
 
         if( 1 < n )
         {
-          foreach( Element e in sel.Elements )
+          foreach( ElementId id in ids )
           {
-            CurveElement c = e as CurveElement;
+            CurveElement c = doc.GetElement( id ) 
+              as CurveElement;
 
             if( null != c )
             {

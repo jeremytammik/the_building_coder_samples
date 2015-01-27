@@ -90,8 +90,7 @@ namespace BuildingCoder
       Family f = Util.GetFirstElementOfTypeNamed(
         doc, typeof( Family ), _family_name ) as Family;
 
-
-      // if the family was not already loaded, then do so:
+      // If the family was not already loaded, then do so:
 
       if( null == f )
       {
@@ -105,15 +104,19 @@ namespace BuildingCoder
       {
         Debug.Print( "Family name={0}", f.Name );
 
-        // pick a symbol for duplication, any one will do,
+        // Pick a symbol for duplication, any one will do,
         // we select the first:
 
         FamilySymbol s = null;
-        foreach( FamilySymbol s2 in f.Symbols )
+
+        //foreach( FamilySymbol s2 in f.Symbols ) // 2014
+
+        foreach( ElementId id in f.GetFamilySymbolIds() ) // 2015
         {
-          s = s2;
+          s = doc.GetElement(id) as FamilySymbol;
           break;
         }
+
         Debug.Assert( null != s,
           "expected at least one symbol"
           + " to be defined in family" );

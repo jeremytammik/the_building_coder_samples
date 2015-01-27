@@ -87,56 +87,65 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
 
-      Selection sel = uidoc.Selection;
-      Element column = null;
+      //Element column = null;
+      //Selection sel = uidoc.Selection;
+      //
+      //if( 1 == sel.GetElementIds().Count )
+      //{
+      //  foreach( Element e in sel.Elements )
+      //  {
+      //    column = e;
+      //  }
+      //  if( !IsColumn( column ) )
+      //  {
+      //    column = null;
+      //  }
+      //}
+      //
+      //if( null == column )
+      //{
+      //
+      //#if _2010
+      //  sel.Elements.Clear();
+      //  sel.StatusbarTip = "Please select a column";
+      //  if( sel.PickOne() )
+      //  {
+      //    ElementSetIterator i
+      //      = sel.Elements.ForwardIterator();
+      //    i.MoveNext();
+      //    column = i.Current as Element;
+      //  }
+      //#endif // _2010
+      //
+      //  Reference r = uidoc.Selection.PickObject( ObjectType.Element,
+      //    "Please select a column" );
+      //
+      //  if( null != r )
+      //  {
+      //    // 'Autodesk.Revit.DB.Reference.Element' is
+      //    // obsolete: Property will be removed. Use
+      //    // Document.GetElement(Reference) instead.
+      //    //column = r.Element; // 2011
+      //
+      //    column = doc.GetElement( r ); // 2012
+      //
+      //    if( !IsColumn( column ) )
+      //    {
+      //      message = "Please select a single column instance";
+      //    }
+      //  }
+      //}
 
-      if( 1 == sel.GetElementIds().Count )
+      Result rc = Result.Failed;
+
+      Element column = Util.SelectSingleElementOfType( 
+        uidoc, typeof( FamilyInstance ), "column", true );
+
+      if( null == column || !IsColumn( column ) )
       {
-        foreach( Element e in sel.Elements )
-        {
-          column = e;
-        }
-        if( !IsColumn( column ) )
-        {
-          column = null;
-        }
+        message = "Please select a single column instance";
       }
-
-      if( null == column )
-      {
-
-#if _2010
-        sel.Elements.Clear();
-        sel.StatusbarTip = "Please select a column";
-        if( sel.PickOne() )
-        {
-          ElementSetIterator i
-            = sel.Elements.ForwardIterator();
-          i.MoveNext();
-          column = i.Current as Element;
-        }
-#endif // _2010
-
-        Reference r = uidoc.Selection.PickObject( ObjectType.Element,
-          "Please select a column" );
-
-        if( null != r )
-        {
-          // 'Autodesk.Revit.DB.Reference.Element' is
-          // obsolete: Property will be removed. Use
-          // Document.GetElement(Reference) instead.
-          //column = r.Element; // 2011
-
-          column = doc.GetElement( r ); // 2012
-
-          if( !IsColumn( column ) )
-          {
-            message = "Please select a single column instance";
-          }
-        }
-      }
-
-      if( null != column )
+      else
       {
         Options opt = app.Application.Create.NewGeometryOptions();
         GeometryElement geo = column.get_Geometry( opt );
@@ -184,8 +193,9 @@ namespace BuildingCoder
             "Selected column instance is{0} cylindrical",
             ( isCylindrical ? "" : " NOT" ) );
         }
+        rc = Result.Succeeded;
       }
-      return Result.Failed;
+      return rc;
     }
   }
 

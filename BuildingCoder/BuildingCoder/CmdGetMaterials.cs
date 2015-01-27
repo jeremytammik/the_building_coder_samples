@@ -333,14 +333,17 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
       Selection sel = uidoc.Selection;
+      ICollection<ElementId> ids = sel.GetElementIds();
       Options opt = app.Application.Create.NewGeometryOptions();
       Material mat;
       string msg = string.Empty;
       int i, n;
 
-      foreach( Element e in sel.Elements )
+      foreach( ElementId id in ids )
       {
-        // for 310_ensure_material.htm:
+        Element e = doc.GetElement( id );
+
+        // For 0310_ensure_material.htm:
 
         if( e is FamilyInstance )
         {
@@ -353,7 +356,7 @@ namespace BuildingCoder
 
         GeometryElement geo = e.get_Geometry( opt );
 
-        // if you are not interested in duplicate
+        // If you are not interested in duplicate
         // materials, you can define a class that
         // overloads the Add method to only insert
         // a new entry if its value is not already
@@ -365,6 +368,7 @@ namespace BuildingCoder
         msg += "\n" + Util.ElementDescription( e );
 
         n = materials.Count;
+
         if( 0 == n )
         {
           msg += " has no materials.";
@@ -372,6 +376,7 @@ namespace BuildingCoder
         else
         {
           i = 0;
+
           msg += string.Format(
             " has {0} material{1}:",
             n, Util.PluralSuffix( n ) );
@@ -383,11 +388,14 @@ namespace BuildingCoder
           }
         }
       }
+
       if( 0 == msg.Length )
       {
         msg = "Please select some elements.";
       }
+
       Util.InfoMsg( msg );
+
       return Result.Succeeded;
     }
   }

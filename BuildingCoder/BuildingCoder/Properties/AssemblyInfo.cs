@@ -66,6 +66,7 @@ using System.Runtime.InteropServices;
 // 2014-11-19 2015.0.116.6 implemented GetSortedLevels
 // 2015-01-27 2015.0.116.7 added second implementation to CmdWallProfile
 // 2015-01-27 2015.0.116.8 updated copyright year to 2015
+// 2015-01-27 2015.0.116.9 eliminated obsolete API usage, 15 warnings left
 // 
-[assembly: AssemblyVersion( "2015.0.116.8" )]
-[assembly: AssemblyFileVersion( "2015.0.116.8" )]
+[assembly: AssemblyVersion( "2015.0.116.9" )]
+[assembly: AssemblyFileVersion( "2015.0.116.9" )]
