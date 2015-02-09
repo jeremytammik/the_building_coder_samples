@@ -67,6 +67,8 @@ using System.Runtime.InteropServices;
 // 2015-01-27 2015.0.116.7 added second implementation to CmdWallProfile
 // 2015-01-27 2015.0.116.8 updated copyright year to 2015
 // 2015-01-27 2015.0.116.9 eliminated obsolete API usage, 15 warnings left
+// 2015-01-27 2015.0.117.0 implemented CmdListPipeSizes
+// 2015-02-09 2015.0.117.1 implemented mechanism to abort PromptForFamilyInstancePlacement after placing first instance
 // 
-[assembly: AssemblyVersion( "2015.0.116.9" )]
-[assembly: AssemblyFileVersion( "2015.0.116.9" )]
+[assembly: AssemblyVersion( "2015.0.117.1" )]
+[assembly: AssemblyFileVersion( "2015.0.117.1" )]

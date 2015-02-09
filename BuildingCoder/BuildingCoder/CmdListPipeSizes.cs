@@ -30,14 +30,18 @@ namespace BuildingCoder
         .PadLeft( 8 );
     }
 
-    void GetPipeSegmentSizes( 
+    /// <summary>
+    /// List all the pipe segment sizes in the given document.
+    /// </summary>
+    /// <param name="doc"></param>
+    void GetPipeSegmentSizes(
       Document doc )
     {
-      FilteredElementCollector segments 
+      FilteredElementCollector segments
         = new FilteredElementCollector( doc )
           .OfClass( typeof( Segment ) );
 
-      using( StreamWriter file = new StreamWriter( 
+      using( StreamWriter file = new StreamWriter(
         _filename, true ) )
       {
         foreach( Segment segment in segments )

@@ -63,6 +63,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdWindows">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2015\AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -72,6 +76,7 @@
     </Reference>
     <Reference Include="RevitAPIIFC">
       <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPIIFC.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
       <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPIUI.dll</HintPath>
@@ -230,6 +235,7 @@
     <Compile Include="JtPairPicker.cs" />
     <Compile Include="JtSelectorMulti.cs" />
     <Compile Include="JtTimer.cs" />
+    <Compile Include="JtWindowHandle.cs" />
     <Compile Include="ParameterUnitConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JtRevision.cs" />

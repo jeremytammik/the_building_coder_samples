@@ -36,7 +36,7 @@ namespace BuildingCoder
       KEYUP = 0xC0000001
     }
 
-    enum KEYBOARD_MSG : uint
+    public enum KEYBOARD_MSG : uint
     {
       WM_KEYDOWN = 0x100,
       WM_KEYUP = 0x101
@@ -53,7 +53,7 @@ namespace BuildingCoder
     /// <summary>
     /// Post one single keystroke.
     /// </summary>
-    static void OneKey( IntPtr handle, char letter )
+    static public void OneKey( IntPtr handle, char letter )
     {
       uint scanCode = MapVirtualKey( letter,
         ( uint ) MVK_MAP_TYPE.VKEY_TO_SCANCODE );
@@ -275,6 +275,3 @@ namespace BuildingCoder
     }
   }
 }
-
-// "C:\Program Files\Autodesk\Revit Architecture 2011\Program\Samples\rac_basic_sample_project.rvt"
-// "C:\Program Files\Autodesk\Revit Architecture 2011\Program\Samples\rac_advanced_sample_project.rvt"
