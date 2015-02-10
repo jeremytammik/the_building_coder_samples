@@ -104,7 +104,7 @@ namespace BuildingCoder
       Debug.Print( "{0} id{1} added.",
         n, Util.PluralSuffix( n ) );
 
-      // this does not work, because the handler will
+      // This does not work, because the handler will
       // be called each time a new instance is added,
       // overwriting the previous ones recorded:
 
