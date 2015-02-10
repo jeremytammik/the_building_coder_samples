@@ -600,8 +600,10 @@ namespace BuildingCoder
           }
           else
           {
-            pipe = doc.Create.NewPipe( q0, q1,
-              pipe_type_standard );
+            //pipe = doc.Create.NewPipe( q0, q1, pipe_type_standard ); // 2014
+
+            pipe = Pipe.Create( doc, systemTypeId, 
+              pipe_type_standard.Id, levelId, q0, q1 ); // 2015
           }
 
           pipe.get_Parameter( bipDiameter )
