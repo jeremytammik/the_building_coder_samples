@@ -21,7 +21,7 @@ namespace BuildingCoder
 {
   /// <summary>
   /// This class contains functions for dealing with
-  /// nested families within a Revit family document
+  /// nested families within a Revit family document.
   /// </summary>
   public class NestedFamilyFunctions
   {
@@ -299,15 +299,25 @@ namespace BuildingCoder
 
       Parameter oResult = null;
 
-      //See if the parameter is an Instance parameter
-      oResult = nestedFamilyInstance.get_Parameter(
-        parameterName );
+      // See if the parameter is an Instance parameter
+
+      //oResult = nestedFamilyInstance.get_Parameter( parameterName ); // 2014
+
+      Debug.Assert( 2 > nestedFamilyInstance.GetParameters( parameterName ).Count,
+        "ascertain that there are not more than one parameter of the given name" );
+
+      oResult = nestedFamilyInstance.LookupParameter( parameterName ); // 2015
 
       // No?  See if it's a Type parameter
+
       if( oResult == null )
       {
-        oResult = nestedFamilyInstance.Symbol.get_Parameter(
-          parameterName );
+        //oResult = nestedFamilyInstance.Symbol.get_Parameter( parameterName ); // 2014
+
+        Debug.Assert( 2 > nestedFamilyInstance.Symbol.GetParameters( parameterName ).Count,
+          "ascertain that there are not more than one parameter of the given name" );
+
+        oResult = nestedFamilyInstance.Symbol.LookupParameter( parameterName ); // 2015
       }
       return oResult;
     }
@@ -378,7 +388,7 @@ namespace BuildingCoder
         .AssociateElementParameterToFamilyParameter(
           oNestedFamilyParameter, oHostFamilyParameter );
     }
-    #endregion Public Methods
+    #endregion // Public Methods
 
     #region Private Helper Methods
     /// <summary>

@@ -421,13 +421,13 @@ namespace BuildingCoder
             .NewFamilyInstance( q0, symbol,
               StructuralType.NonStructural );
 
-          fitting0.get_Parameter( "Angle" ).Set(
+          fitting0.LookupParameter( "Angle" ).Set(
             45.0 * Math.PI / 180.0 );
 
           //fitting0.get_Parameter( bipDiameter ) // does not exist
           //  .Set( diameter );
 
-          fitting0.get_Parameter( "Nominal Radius" )
+          fitting0.LookupParameter( "Nominal Radius" )
             .Set( 0.5 * diameter );
 
           Line axis = Line.CreateBound( p0, q0 );
@@ -454,11 +454,11 @@ namespace BuildingCoder
             .NewFamilyInstance( q1, symbol,
               StructuralType.NonStructural );
 
-          fitting1.get_Parameter( "Angle" ).Set(
-            45.0 * Math.PI / 180.0 );
+          //fitting1.get_Parameter( "Angle" ).Set( 45.0 * Math.PI / 180.0 ); // 2014
+          //fitting1.get_Parameter( "Nominal Radius" ).Set( 0.5 * diameter ); // 2014
 
-          fitting1.get_Parameter( "Nominal Radius" )
-            .Set( 0.5 * diameter );
+          fitting1.LookupParameter( "Angle" ).Set( 45.0 * Math.PI / 180.0 ); // 2015
+          fitting1.LookupParameter( "Nominal Radius" ).Set( 0.5 * diameter ); // 2015
 
           axis = Line.CreateBound(
             q1, q1 + XYZ.BasisZ );

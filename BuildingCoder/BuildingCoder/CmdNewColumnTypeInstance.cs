@@ -50,13 +50,12 @@ namespace BuildingCoder
       ref string message,
       ElementSet elements )
     {
-      Result rc
-        = Result.Failed;
+      Result rc = Result.Failed;
 
       UIApplication app = commandData.Application;
       Document doc = app.ActiveUIDocument.Document;
 
-      // check whether the family we are
+      // Check whether the family we are
       // interested in is loaded:
 
 #if _2010
@@ -104,8 +103,8 @@ namespace BuildingCoder
       {
         Debug.Print( "Family name={0}", f.Name );
 
-        // Pick a symbol for duplication, any one will do,
-        // we select the first:
+        // Pick a symbol for duplication, any one
+        // will do, we select the first:
 
         FamilySymbol s = null;
 
@@ -121,12 +120,12 @@ namespace BuildingCoder
           "expected at least one symbol"
           + " to be defined in family" );
 
-        // duplicate the existing symbol:
+        // Duplicate the existing symbol:
 
         ElementType s1 = s.Duplicate( "Nuovo simbolo" );
         s = s1 as FamilySymbol;
 
-        // analyse the symbol parameters:
+        // Analyse the symbol parameters:
 
         foreach( Parameter param in s.Parameters )
         {
@@ -136,30 +135,31 @@ namespace BuildingCoder
             param.AsValueString() );
         }
 
-        // define new dimensions for our new type;
+        // Define new dimensions for our new type;
         // the specified parameter name is case sensitive:
 
-        s.get_Parameter( "Width" ).Set(
-          Util.MmToFoot( 500 ) );
+        //s.get_Parameter( "Width" ).Set( Util.MmToFoot( 500 ) ); // 2014
+        //s.get_Parameter( "Depth" ).Set( Util.MmToFoot( 1000 ) ); // 2014
 
-        s.get_Parameter( "Depth" ).Set(
-          Util.MmToFoot( 1000 ) );
+        s.LookupParameter( "Width" ).Set( Util.MmToFoot( 500 ) ); // 2015
+        s.LookupParameter( "Depth" ).Set( Util.MmToFoot( 1000 ) ); // 2015
 
-        // we can change the symbol name at any time:
+        // We can change the symbol name at any time:
 
         s.Name = "Nuovo simbolo due";
 
-        // insert an instance of our new symbol:
+        // Insert an instance of our new symbol:
 
         XYZ p = XYZ.Zero;
         doc.Create.NewFamilyInstance(
           p, s, nonStructural );
 
-        // for a column, the reference direction is ignored:
+        // For a column, the reference direction is ignored:
 
         //XYZ normal = new XYZ( 1, 2, 3 );
         //doc.Create.NewFamilyInstance(
         //  p, s, normal, null, nonStructural );
+
         rc = Result.Succeeded;
       }
       return rc;

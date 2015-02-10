@@ -51,8 +51,7 @@ namespace BuildingCoder
       UIApplication app = commandData.Application;
       Document doc = app.ActiveUIDocument.Document;
 
-      // check whether the family we are interested in is loaded:
-
+      // Check whether the family we are interested in is loaded:
 
 #if _2010
       List<Element> symbols = new List<Element>();
@@ -79,7 +78,7 @@ namespace BuildingCoder
       Family f = Util.GetFirstElementOfTypeNamed(
         doc, typeof( Family ), _family_name ) as Family;
 
-      // if the family was not already loaded, then do so:
+      // If the family was not already loaded, then do so:
 
       if( null == f )
       {
@@ -93,7 +92,7 @@ namespace BuildingCoder
       {
         Debug.Print( "Family name={0}", f.Name );
 
-        // pick a symbol for duplication, any one will do,
+        // Pick a symbol for duplication, any one will do,
         // we select the first:
 
         FamilySymbol s = null;
@@ -105,28 +104,29 @@ namespace BuildingCoder
           s = doc.GetElement( id ) as FamilySymbol;
           break;
         }
+
         Debug.Assert( null != s, "expected at least one symbol to be defined in family" );
 
-        // duplicate the existing symbol:
+        // Duplicate the existing symbol:
 
         ElementType s1 = s.Duplicate( "Nuovo simbolo" );
         s = s1 as FamilySymbol;
 
-        // analyse the symbol parameters:
+        // Analyse the symbol parameters:
 
         foreach( Parameter param in s.Parameters )
         {
           Debug.Print( "Parameter name={0}, value={1}", param.Definition.Name, param.AsValueString() );
         }
 
-        // define new dimensions for our new type;
+        // Define new dimensions for our new type;
         // the specified parameter name is case sensitive:
 
-        s.get_Parameter( "b" ).Set(
-          Util.MmToFoot( 500 ) );
+        //s.get_Parameter( "b" ).Set( Util.MmToFoot( 500 ) ); // 2014
+        //s.get_Parameter( "h" ).Set( Util.MmToFoot( 1000 ) ); // 2014
 
-        s.get_Parameter( "h" ).Set(
-          Util.MmToFoot( 1000 ) );
+        s.LookupParameter( "b" ).Set( Util.MmToFoot( 500 ) ); // 2015
+        s.LookupParameter( "h" ).Set( Util.MmToFoot( 1000 ) ); // 2015
 
         // we can change the symbol name at any time:
 
@@ -137,8 +137,8 @@ namespace BuildingCoder
         Autodesk.Revit.Creation.Application creApp = app.Application.Create;
         Autodesk.Revit.Creation.Document creDoc = doc.Create;
 
-
-        // it is possible to insert a beam, which normally uses a location line,
+        // It is possible to insert a beam,
+        // which normally uses a location line,
         // by specifying only a location point:
 
         //XYZ p = XYZ.Zero;
@@ -148,13 +148,13 @@ namespace BuildingCoder
         XYZ q = creApp.NewXYZ( 30, 20, 20 ); // feet
         Line line = Line.CreateBound( p, q );
 
-        // specifying a non-structural type here means no beam
+        // Specifying a non-structural type here means no beam
         // is created, and results in a null family instance:
 
         FamilyInstance fi = creDoc.NewFamilyInstance(
           line, s, null, stBeam );
 
-        // this creates a visible family instance,
+        // This creates a visible family instance,
         // but the resulting beam has no location line
         // and behaves strangely, e.g. cannot be selected:
         //FamilyInstance fi = doc.Create.NewFamilyInstance(

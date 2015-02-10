@@ -104,8 +104,12 @@ namespace BuildingCoder
 
           if( fi != null && fi.MEPModel is MechanicalFitting )
           {
-            string size = e.get_Parameter( "Size" )
-              .AsString();
+            //Parameter p = e.get_Parameter( "Size" ); // 2014
+
+            Parameter p = e.get_Parameter( 
+              BuiltInParameter.RBS_CALCULATED_SIZE ); // 2015
+
+            string size = p.AsString();
 
             PartType partType = ( fi.MEPModel as
               MechanicalFitting ).PartType;
