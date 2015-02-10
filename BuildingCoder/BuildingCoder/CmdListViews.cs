@@ -113,7 +113,11 @@ namespace BuildingCoder
 
       foreach( ViewSheet sheet in sheets )
       {
-        int n = sheet.Views.Size;
+        //int n = sheet.Views.Size; // 2014
+
+        ISet<ElementId> viewIds = sheet.GetAllPlacedViews(); // 2015
+
+        int n = viewIds.Count;
 
         Debug.Print(
           "Sheet {0} contains {1} view{2}: ",
@@ -124,8 +128,10 @@ namespace BuildingCoder
 
         int i = 0;
 
-        foreach( View v in sheet.Views )
+        foreach( ElementId id in viewIds )
         {
+          View v = doc.GetElement( id ) as View;
+
           BoundingBoxXYZ bb;
 
           bb = v.get_BoundingBox( doc.ActiveView );
