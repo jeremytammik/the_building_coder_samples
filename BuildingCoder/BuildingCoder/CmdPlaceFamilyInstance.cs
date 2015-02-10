@@ -32,7 +32,7 @@ namespace BuildingCoder
     /// Set this flag to true to abort after 
     /// placing the first instance.
     /// </summary>
-    static bool _place_one_single_instance_then_abort 
+    static bool _place_one_single_instance_then_abort
       = true;
 
     /// <summary>
@@ -40,7 +40,7 @@ namespace BuildingCoder
     /// </summary>
     IWin32Window _revit_window;
 
-    List<ElementId> _added_element_ids 
+    List<ElementId> _added_element_ids
       = new List<ElementId>();
 
     public Result Execute(
@@ -63,7 +63,8 @@ namespace BuildingCoder
       collector.OfCategory( BuiltInCategory.OST_Doors );
       collector.OfClass( typeof( FamilySymbol ) );
 
-      FamilySymbol symbol = collector.FirstElement() as FamilySymbol;
+      FamilySymbol symbol = collector.FirstElement()
+        as FamilySymbol;
 
       _added_element_ids.Clear();
 
@@ -95,12 +96,12 @@ namespace BuildingCoder
       object sender,
       DocumentChangedEventArgs e )
     {
-      ICollection<ElementId> idsAdded 
+      ICollection<ElementId> idsAdded
         = e.GetAddedElementIds();
 
       int n = idsAdded.Count;
 
-      Debug.Print( "{0} id{1} added.", 
+      Debug.Print( "{0} id{1} added.",
         n, Util.PluralSuffix( n ) );
 
       // this does not work, because the handler will
