@@ -119,10 +119,19 @@ namespace BuildingCoder
         // I tried sending it once only, and that does
         // not work. Maybe the proper thing to do would 
         // be something like the Press.OneKey method...
-        // nope, that did not work.
-
+        //
         //Press.OneKey( _revit_window.Handle,
         //  (char) Keys.Escape );
+        //
+        // Nope, that did not work.
+        //
+        // Answer: When you place instances with 
+        // PromptForFamilyInstancePlacement, the previous 
+        // one remains selected just until you drop the 
+        // next one. The first esc key hit removes that 
+        // selection while still allowing you to continue 
+        // adding instances to the model. Only a second 
+        // esc hit aborts the command. 
 
         Press.PostMessage( _revit_window.Handle,
           (uint) Press.KEYBOARD_MSG.WM_KEYDOWN,
