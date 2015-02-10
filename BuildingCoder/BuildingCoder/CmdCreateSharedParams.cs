@@ -196,7 +196,15 @@ namespace BuildingCoder
 
       if( null == definition )
       {
-        definition = group.Definitions.Create( defname, _deftype, visible ); // 2014
+        //definition = group.Definitions.Create( defname, _deftype, visible ); // 2014
+        
+        ExternalDefinitonCreationOptions opt 
+          = new ExternalDefinitonCreationOptions( 
+            defname, _deftype );
+
+        opt.Visible = visible;
+        
+        definition = group.Definitions.Create( opt ); // 2015
       }
       if( null == definition )
       {
