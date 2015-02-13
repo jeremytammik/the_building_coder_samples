@@ -170,7 +170,7 @@ namespace BuildingCoder
         {
           XYZ p = PointOnFace( ceilingBottom );
 
-          // create the sprinkler family instance:
+          // Create the sprinkler family instance:
 
           FamilyInstance fi = doc.Create.NewFamilyInstance(
             ceilingBottom, p, XYZ.BasisX, sprinklerSymbol );

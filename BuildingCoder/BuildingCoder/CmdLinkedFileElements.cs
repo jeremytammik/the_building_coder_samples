@@ -110,8 +110,7 @@ namespace BuildingCoder
       }
       */
 
-
-      // retrieve lighting fixture element
+      // Retrieve lighting fixture element
       // data from linked documents:
 
       List<ElementData> data = new List<ElementData>();
@@ -122,8 +121,8 @@ namespace BuildingCoder
       {
         FilteredElementCollector a
           = Util.GetElementsOfType( doc,
-          typeof( FamilyInstance ),
-          BuiltInCategory.OST_LightingFixtures );
+            typeof( FamilyInstance ),
+            BuiltInCategory.OST_LightingFixtures );
 
         foreach( FamilyInstance e in a )
         {
@@ -138,16 +137,14 @@ namespace BuildingCoder
         }
       }
 
-      // display data:
+      // Display data:
 
       using( CmdLinkedFileElementsForm dlg = new CmdLinkedFileElementsForm( data ) )
       {
         dlg.ShowDialog();
       }
 
-      // this command does not modify the Revit document:
-
-      return Result.Cancelled;
+      return Result.Succeeded;
     }
 
     #region AddFaceBasedFamilyToLinks

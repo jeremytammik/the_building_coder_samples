@@ -97,6 +97,7 @@ namespace BuildingCoder
       XYZ p1 = new XYZ( 17, 0, 0 );
       XYZ p2 = new XYZ( 33, 0, 0 );
       Line line = Line.CreateBound( p1, p2 );
+
       // we need a FamilySymbol instance here, but only have a Symbol:
 
       FamilyInstance Railing1 

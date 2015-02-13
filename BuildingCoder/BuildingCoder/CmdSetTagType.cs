@@ -134,7 +134,7 @@ namespace BuildingCoder
       Autodesk.Revit.Creation.Document createDoc
         = doc.Create;
 
-      // determine the wall endpoints:
+      // Determine the wall endpoints:
 
       double length = 5 * MeterToFeet;
 
@@ -143,7 +143,7 @@ namespace BuildingCoder
       pts[0] = XYZ.Zero;
       pts[1] = new XYZ( length, 0, 0 );
 
-      // determine the levels where
+      // Determine the levels where
       // the wall will be located:
 
       Level levelBottom = null;
@@ -158,7 +158,7 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      // create a wall:
+      // Create a wall:
 
       BuiltInParameter topLevelParam
         = BuiltInParameter.WALL_HEIGHT_TYPE;
@@ -179,17 +179,17 @@ namespace BuildingCoder
 
       param.Set( topLevelId );
 
-      // determine wall thickness for tag
+      // Determine wall thickness for tag
       // offset and profile growth:
 
       //double wallThickness = wall.WallType.CompoundStructure.Layers.get_Item( 0 ).Thickness; // 2011
 
       double wallThickness = wall.WallType.GetCompoundStructure().GetLayers()[0].Width; // 2012
 
-      // add door to wall;
+      // Add door to wall;
       // note that the NewFamilyInstance method
       // does not automatically add a door tag,
-      // like the ui command does:
+      // like the UI command does:
 
       FamilySymbol doorSymbol = GetFirstFamilySymbol(
         doc, BuiltInCategory.OST_Doors );
@@ -207,7 +207,7 @@ namespace BuildingCoder
           midpoint, doorSymbol, wall, levelBottom,
           StructuralType.NonStructural );
 
-      // create door tag:
+      // Create door tag:
 
       View view = doc.ActiveView;
 
@@ -221,7 +221,7 @@ namespace BuildingCoder
         view, door, false, TagMode.TM_ADDBY_CATEGORY,
         TagOrientation.Horizontal, midpoint ); // 2012
 
-      // create and assign new door tag type:
+      // Create and assign new door tag type:
 
       FamilySymbol doorTagType
         = GetFirstFamilySymbol(
@@ -232,7 +232,7 @@ namespace BuildingCoder
 
       tag.ChangeTypeId( doorTagType.Id );
 
-      // demonstrate changing name of
+      // Demonstrate changing name of
       // family instance and family symbol:
 
       door.Name = door.Name + " modified";

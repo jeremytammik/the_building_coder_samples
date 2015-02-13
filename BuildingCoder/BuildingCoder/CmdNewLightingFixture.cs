@@ -33,7 +33,7 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      // get a lighting fixture family symbol:
+      // Get a lighting fixture family symbol:
 
       FilteredElementCollector symbols
         = Util.GetElementsOfType( doc,
@@ -49,8 +49,7 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      // pick the ceiling:
-
+      // Pick the ceiling:
 
 #if _2010
       uidoc.Selection.StatusbarTip
@@ -67,7 +66,8 @@ namespace BuildingCoder
       }
 #endif // _2010
 
-      Reference r = uidoc.Selection.PickObject( ObjectType.Element,
+      Reference r = uidoc.Selection.PickObject( 
+        ObjectType.Element,
         "Please select ceiling to host lighting fixture" );
 
       if( null == r )
@@ -83,7 +83,7 @@ namespace BuildingCoder
 
       Element ceiling = doc.GetElement( r ) as Wall; // 2012
 
-      // get the level 1:
+      // Get the level 1:
 
       Level level = Util.GetFirstElementOfTypeNamed(
         doc, typeof( Level ), "Level 1" ) as Level;
@@ -94,7 +94,7 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      // create the family instance:
+      // Create the family instance:
 
       XYZ p = app.Create.NewXYZ( -43, 28, 0 );
 
