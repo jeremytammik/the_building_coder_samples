@@ -66,7 +66,7 @@ namespace BuildingCoder
       }
 #endif // _2010
 
-      Reference r = uidoc.Selection.PickObject( 
+      Reference r = uidoc.Selection.PickObject(
         ObjectType.Element,
         "Please select ceiling to host lighting fixture" );
 
@@ -106,7 +106,7 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
 
-    #region 
+    #region PlaceFamilyInstanceOnFace
     /// <summary>
     /// Place an instance of the given family symbol
     /// on a selected face of an existing 3D element.
@@ -119,11 +119,11 @@ namespace BuildingCoder
 
       Reference r = uidoc.Selection.PickObject(
         ObjectType.Face, "Please pick a point on "
-        + " a face for family instance insertion");
+        + " a face for family instance insertion" );
 
       Element e = doc.GetElement( r.ElementId );
 
-      GeometryObject obj 
+      GeometryObject obj
         = e.GetGeometryObjectFromReference( r );
 
       XYZ p = r.GlobalPoint;
@@ -134,9 +134,9 @@ namespace BuildingCoder
 
         // Handle planar face case ...
       }
-      else if (obj is CylindricalFace)
+      else if( obj is CylindricalFace )
       {
-        CylindricalFace cylindricalFace = obj 
+        CylindricalFace cylindricalFace = obj
           as CylindricalFace;
 
         // Handle cylindrical face case ...
@@ -152,8 +152,8 @@ namespace BuildingCoder
       Transform t = face.ComputeDerivatives( q );
       XYZ v = t.BasisX; // or BasisY, or whatever...
 
-      return doc.Create.NewFamilyInstance(r, p, v, symbol);
+      return doc.Create.NewFamilyInstance( r, p, v, symbol );
     }
-    #endregion
+    #endregion // PlaceFamilyInstanceOnFace
   }
 }
