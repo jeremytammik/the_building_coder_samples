@@ -105,5 +105,55 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    #region 
+    /// <summary>
+    /// Place an instance of the given family symbol
+    /// on a selected face of an existing 3D element.
+    /// </summary>
+    FamilyInstance PlaceFamilyInstanceOnFace(
+      UIDocument uidoc,
+      FamilySymbol symbol )
+    {
+      Document doc = uidoc.Document;
+
+      Reference r = uidoc.Selection.PickObject(
+        ObjectType.Face, "Please pick a point on "
+        + " a face for family instance insertion");
+
+      Element e = doc.GetElement( r.ElementId );
+
+      GeometryObject obj 
+        = e.GetGeometryObjectFromReference( r );
+
+      XYZ p = r.GlobalPoint;
+
+      if( obj is PlanarFace )
+      {
+        PlanarFace planarFace = obj as PlanarFace;
+
+        // Handle planar face case ...
+      }
+      else if (obj is CylindricalFace)
+      {
+        CylindricalFace cylindricalFace = obj 
+          as CylindricalFace;
+
+        // Handle cylindrical face case ...
+      }
+
+      // Better than specialised individual handlers
+      // for each specific case, handle the general 
+      // case in a generic fashion.
+
+      Face face = obj as Face;
+      IntersectionResult ir = face.Project( p );
+      UV q = ir.UVPoint;
+      Transform t = face.ComputeDerivatives( q );
+      XYZ v = t.BasisX; // or BasisY, or whatever...
+
+      return doc.Create.NewFamilyInstance(r, p, v, symbol);
+    }
+    #endregion
   }
 }
