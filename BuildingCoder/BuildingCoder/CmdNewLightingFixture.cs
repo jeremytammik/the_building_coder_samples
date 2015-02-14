@@ -10,6 +10,7 @@
 #region Namespaces
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -126,8 +127,6 @@ namespace BuildingCoder
       GeometryObject obj
         = e.GetGeometryObjectFromReference( r );
 
-      XYZ p = r.GlobalPoint;
-
       if( obj is PlanarFace )
       {
         PlanarFace planarFace = obj as PlanarFace;
@@ -146,9 +145,23 @@ namespace BuildingCoder
       // for each specific case, handle the general 
       // case in a generic fashion.
 
+      Debug.Assert(
+        ElementReferenceType.REFERENCE_TYPE_SURFACE
+          == r.ElementReferenceType,
+        "expected PickObject with ObjectType.Face to "
+        + "return a surface reference" );
+
       Face face = obj as Face;
+      UV q = r.UVPoint;
+
+#if DEBUG
+      XYZ p = r.GlobalPoint;
       IntersectionResult ir = face.Project( p );
-      UV q = ir.UVPoint;
+      UV q2 = ir.UVPoint;
+      Debug.Assert( q.IsAlmostEqualTo( q2 ),
+        "expected same UV point" );
+#endif // DEBUG
+
       Transform t = face.ComputeDerivatives( q );
       XYZ v = t.BasisX; // or BasisY, or whatever...
 

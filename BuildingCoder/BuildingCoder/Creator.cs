@@ -36,7 +36,7 @@ namespace BuildingCoder
 
     /// <summary>
     /// Determine the plane that a given curve resides in and return its normal vector.
-    /// Ask the curve for its start and end points and some curve in the middle.
+    /// Ask the curve for its start and end points and some point in the middle.
     /// The latter can be obtained by asking the curve for its parameter range and
     /// evaluating it in the middle, or by tessellation. In case of tessellation,
     /// you could iterate through the tessellation points and use each one together
@@ -70,7 +70,7 @@ namespace BuildingCoder
           "expected non-line element to have "
           + "more than two tessellation points" );
 
-        // for non-vertical lines, use Z axis to
+        // For non-vertical lines, use Z axis to
         // span the plane, otherwise Y axis:
 
         double dxy = Math.Abs( v.X ) + Math.Abs( v.Y );
@@ -95,7 +95,7 @@ namespace BuildingCoder
           }
         }
 
-    #if DEBUG
+#if DEBUG
         {
           XYZ normal2;
           while( ++i < n - 1 )
@@ -108,69 +108,69 @@ namespace BuildingCoder
               + "lie in same plane" );
           }
         }
-    #endif // DEBUG
+#endif // DEBUG
 
       }
       return normal;
     }
 
-  /// <summary>
-  /// Create a model line between the two given points.
-  /// Internally, it creates an arbitrary sketch
-  /// plane given the model line end points.
-  /// </summary>
-  public static ModelLine CreateModelLine(
-    Document doc,
-    XYZ p,
-    XYZ q )
-  {
-    if( p.DistanceTo( q ) < Util.MinLineLength ) return null;
+    /// <summary>
+    /// Create a model line between the two given points.
+    /// Internally, it creates an arbitrary sketch
+    /// plane given the model line end points.
+    /// </summary>
+    public static ModelLine CreateModelLine(
+      Document doc,
+      XYZ p,
+      XYZ q )
+    {
+      if( p.DistanceTo( q ) < Util.MinLineLength ) return null;
 
-    // Create sketch plane; for non-vertical lines,
-    // use Z-axis to span the plane, otherwise Y-axis:
+      // Create sketch plane; for non-vertical lines,
+      // use Z-axis to span the plane, otherwise Y-axis:
 
-    XYZ v = q - p;
+      XYZ v = q - p;
 
-    double dxy = Math.Abs( v.X ) + Math.Abs( v.Y );
+      double dxy = Math.Abs( v.X ) + Math.Abs( v.Y );
 
-    XYZ w = ( dxy > Util.TolPointOnPlane )
-      ? XYZ.BasisZ
-      : XYZ.BasisY;
+      XYZ w = ( dxy > Util.TolPointOnPlane )
+        ? XYZ.BasisZ
+        : XYZ.BasisY;
 
-    XYZ norm = v.CrossProduct( w ).Normalize();
+      XYZ norm = v.CrossProduct( w ).Normalize();
 
-    //Autodesk.Revit.Creation.Application creApp
-    //  = doc.Application.Create;
+      //Autodesk.Revit.Creation.Application creApp
+      //  = doc.Application.Create;
 
-    //Plane plane = creApp.NewPlane( norm, p ); // 2014
-    Plane plane = new Plane( norm, p ); // 2015
+      //Plane plane = creApp.NewPlane( norm, p ); // 2014
+      Plane plane = new Plane( norm, p ); // 2015
 
-    //SketchPlane sketchPlane = creDoc.NewSketchPlane( plane ); // 2013
-    SketchPlane sketchPlane = SketchPlane.Create( doc, plane ); // 2014
+      //SketchPlane sketchPlane = creDoc.NewSketchPlane( plane ); // 2013
+      SketchPlane sketchPlane = SketchPlane.Create( doc, plane ); // 2014
 
-    //Line line = creApp.NewLine( p, q, true ); // 2013
-    Line line = Line.CreateBound( p, q ); // 2014
+      //Line line = creApp.NewLine( p, q, true ); // 2013
+      Line line = Line.CreateBound( p, q ); // 2014
 
-    // The following line is only valid in a project 
-    // document. In a family, it will throw an exception 
-    // saying "Document.Create can only be used with 
-    // project documents. Use Document.FamilyCreate 
-    // in the Family Editor."
+      // The following line is only valid in a project 
+      // document. In a family, it will throw an exception 
+      // saying "Document.Create can only be used with 
+      // project documents. Use Document.FamilyCreate 
+      // in the Family Editor."
 
-    //Autodesk.Revit.Creation.Document creDoc
-    //  = doc.Create;
+      //Autodesk.Revit.Creation.Document creDoc
+      //  = doc.Create;
 
-    //return creDoc.NewModelCurve(
-    //  //creApp.NewLine( p, q, true ), // 2013
-    //  Line.CreateBound( p, q ), // 2014
-    //  sketchPlane ) as ModelLine;
+      //return creDoc.NewModelCurve(
+      //  //creApp.NewLine( p, q, true ), // 2013
+      //  Line.CreateBound( p, q ), // 2014
+      //  sketchPlane ) as ModelLine;
 
-    ModelCurve curve = doc.IsFamilyDocument
-      ? doc.FamilyCreate.NewModelCurve( line, sketchPlane )
-      : doc.Create.NewModelCurve( line, sketchPlane );
+      ModelCurve curve = doc.IsFamilyDocument
+        ? doc.FamilyCreate.NewModelCurve( line, sketchPlane )
+        : doc.Create.NewModelCurve( line, sketchPlane );
 
-    return curve as ModelLine;
-  }
+      return curve as ModelLine;
+    }
 
     SketchPlane NewSketchPlanePassLine(
       Line line )
@@ -227,8 +227,8 @@ namespace BuildingCoder
       XYZ normal = GetCurveNormal( curve );
       Plane plane = _creapp.NewPlane( normal, p );
 
-    #if DEBUG
-      if( !(curve is Line) )
+#if DEBUG
+      if( !( curve is Line ) )
       {
         CurveArray a = _creapp.NewCurveArray();
         a.Append( curve );
@@ -240,7 +240,7 @@ namespace BuildingCoder
         Debug.Assert( Util.IsZero( plane2.SignedDistanceTo(
           plane.Origin ) ), "expected equal planes" );
       }
-    #endif // DEBUG
+#endif // DEBUG
 
       //return _credoc.NewSketchPlane( plane ); // 2013
 
