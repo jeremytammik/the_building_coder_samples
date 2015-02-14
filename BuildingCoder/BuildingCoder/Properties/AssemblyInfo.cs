@@ -69,6 +69,8 @@ using System.Runtime.InteropServices;
 // 2015-01-27 2015.0.116.9 eliminated obsolete API usage, 15 warnings left
 // 2015-01-27 2015.0.117.0 implemented CmdListPipeSizes
 // 2015-02-09 2015.0.117.1 implemented mechanism to abort PromptForFamilyInstancePlacement after placing first instance
+// 2015-02-10 2015.0.117.2 eliminated all deprecated API usage to compile with zero warnings now
+// 2015-02-14 2015.0.117.3 implemented PlaceFamilyInstanceOnFace
 // 
-[assembly: AssemblyVersion( "2015.0.117.1" )]
-[assembly: AssemblyFileVersion( "2015.0.117.1" )]
+[assembly: AssemblyVersion( "2015.0.117.3" )]
+[assembly: AssemblyFileVersion( "2015.0.117.3" )]
