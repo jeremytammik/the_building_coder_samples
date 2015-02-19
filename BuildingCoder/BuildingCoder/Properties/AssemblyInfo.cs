@@ -71,6 +71,7 @@ using System.Runtime.InteropServices;
 // 2015-02-09 2015.0.117.1 implemented mechanism to abort PromptForFamilyInstancePlacement after placing first instance
 // 2015-02-10 2015.0.117.2 eliminated all deprecated API usage to compile with zero warnings now
 // 2015-02-14 2015.0.117.3 implemented PlaceFamilyInstanceOnFace
+// 2015-02-19 2015.0.117.4 updated CmdInstallLocation from Revit 2010 to 2015 and replaced TransactionMode.Automatic by ReadOnly
 // 
-[assembly: AssemblyVersion( "2015.0.117.3" )]
-[assembly: AssemblyFileVersion( "2015.0.117.3" )]
+[assembly: AssemblyVersion( "2015.0.117.4" )]
+[assembly: AssemblyFileVersion( "2015.0.117.4" )]

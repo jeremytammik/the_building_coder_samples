@@ -20,22 +20,26 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdInstallLocation : IExternalCommand
   {
     const string _reg_path_uninstall
       = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
 
     const string _reg_path_for_flavour
-      = @"SOFTWARE\Autodesk\Revit\Autodesk Revit {0} 2010";
+      = @"SOFTWARE\Autodesk\Revit\Autodesk {0} {1}";
 
-    string RegPathForFlavour( ProductType flavour )
+    string RegPathForFlavour( 
+      ProductType flavour,
+      string version )
     {
-      return string.Format( _reg_path_for_flavour, flavour );
+      return string.Format( _reg_path_for_flavour, 
+        flavour, version );
     }
 
     /// <summary>
-    /// Return a specific string value from a specific subkey of a given registry key.
+    /// Return a specific string value from a specific 
+    /// subkey of a given registry key.
     /// </summary>
     /// <param name="reg_path_key">Registry key path</param>
     /// <param name="subkey_name">Subkey name.</param>
@@ -93,7 +97,8 @@ namespace BuildingCoder
       Application app = commandData.Application.Application;
 
       string reg_path_product
-        = RegPathForFlavour( app.Product );
+        = RegPathForFlavour( 
+          app.Product, app.VersionNumber );
 
       string product_code
         = GetRevitProductCode( reg_path_product );
@@ -112,7 +117,8 @@ namespace BuildingCoder
       {
         try
         {
-          reg_path_product = RegPathForFlavour( p );
+          reg_path_product = RegPathForFlavour( 
+            p, app.VersionNumber );
 
           product_code = GetRevitProductCode(
             reg_path_product );
