@@ -20,7 +20,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdLibraryPaths : IExternalCommand
   {
     //void PrintMap( StringStringMap map, string description ) // 2011
@@ -53,10 +53,18 @@ namespace BuildingCoder
       PrintMap( map, "Initial application options library paths" );
 
       string key = "ImperialTestCreate";
-      string value = @"C:\Documents and Settings\All Users\Application Data\Autodesk\RAC 2010\Imperial Library\Detail Components";
+      //string value = @"C:\Documents and Settings\All Users\Application Data\Autodesk\RAC 2010\Imperial Library\Detail Components"; // 2010
+      string value = @"C:\ProgramData\Autodesk\RAC 2015\Libraries\Imperial Library\Detail Components"; // 2015
 
-      //map.Insert( key, value ); // 2011
-      map.Add( key, value ); // 2012
+      if( map.ContainsKey( key ) )
+      {
+        map[key] = value;
+      }
+      else
+      {
+        //map.Insert( key, value ); // 2011
+        map.Add( key, value ); // 2012
+      }
 
       PrintMap( map, "After adding 'ImperialTestCreate' key" );
 
@@ -72,6 +80,11 @@ namespace BuildingCoder
 
       //app.LibraryPaths = map; // 2011
       app.SetLibraryPaths( map ); // 2012
+
+      Debug.Print( "You might want to clean up your "
+        + "library paths manually via Revit > Options "
+        + "> File Locations > Places... after running "
+        + "this command..." );
 
       return Result.Succeeded;
     }
