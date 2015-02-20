@@ -73,6 +73,7 @@ using System.Runtime.InteropServices;
 // 2015-02-14 2015.0.117.3 implemented PlaceFamilyInstanceOnFace
 // 2015-02-19 2015.0.117.4 updated CmdInstallLocation from Revit 2010 to 2015 and replaced TransactionMode.Automatic by ReadOnly
 // 2015-02-20 2015.0.117.5 updated CmdListMarks to use TransactionMode.Manual instead of Automatic
+// 2015-02-20 2015.0.118.0 updated CmdListMarks to use TransactionMode.Manual instead of Automatic
 // 
-[assembly: AssemblyVersion( "2015.0.117.5" )]
-[assembly: AssemblyFileVersion( "2015.0.117.5" )]
+[assembly: AssemblyVersion( "2015.0.118.0" )]
+[assembly: AssemblyFileVersion( "2015.0.118.0" )]

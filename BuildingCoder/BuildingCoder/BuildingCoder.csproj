@@ -70,6 +70,7 @@
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="RevitAPI">
       <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPI.dll</HintPath>
       <Private>False</Private>
@@ -133,6 +134,7 @@
     <Compile Include="CmdIdling.cs" />
     <Compile Include="CmdImportsInFamilies.cs" />
     <Compile Include="CmdInstallLocation.cs" />
+    <Compile Include="CmdItemExecuted.cs" />
     <Compile Include="CmdLandXml.cs" />
     <Compile Include="CmdLibraryPaths.cs" />
     <Compile Include="CmdLinkedFileElements.cs" />
