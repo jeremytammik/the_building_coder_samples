@@ -11,16 +11,16 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-
 #endregion // Namespaces
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdListMarks : IExternalCommand
   {
     static bool _modify_existing_marks = true;
@@ -38,10 +38,12 @@ namespace BuildingCoder
       //Autodesk.Revit.Creation.Application creApp = app.Application.Create;
       //Autodesk.Revit.Creation.Document creDoc = doc.Create;
 
-      IList<Element> doors = Util.GetElementsOfType(
-        doc, typeof( FamilyInstance ), BuiltInCategory.OST_Doors ).ToElements();
+      FilteredElementCollector doors 
+        = Util.GetElementsOfType( doc, 
+          typeof( FamilyInstance ), 
+          BuiltInCategory.OST_Doors );
 
-      int n = doors.Count;
+      int n = doors.Count();
 
       Debug.Print( "{0} door{1} found.",
         n, Util.PluralSuffix( n ) );
@@ -88,36 +90,48 @@ namespace BuildingCoder
 
       if( _modify_existing_marks )
       {
-        //ElementSet els = uidoc.Selection.Elements; // 2014
-
-        ICollection<ElementId> ids = uidoc.Selection.GetElementIds(); // 2015
-
-        //foreach( Element e in els ) // 2014
-
-        foreach( ElementId id in ids ) // 2015
+        using( Transaction tx = new Transaction( doc ) )
         {
-          Element e = doc.GetElement( id ); // 2015
+          tx.Start( "Modify Existing Door Marks" );
 
-          if( e is FamilyInstance
-            && null != e.Category
-            && (int) BuiltInCategory.OST_Doors
-              == e.Category.Id.IntegerValue )
+          //ElementSet els = uidoc.Selection.Elements; // 2014
+
+          ICollection<ElementId> ids = uidoc.Selection
+            .GetElementIds(); // 2015
+
+          //foreach( Element e in els ) // 2014
+
+          foreach( ElementId id in ids ) // 2015
           {
-            e.get_Parameter(
-              BuiltInParameter.ALL_MODEL_MARK )
-              .Set( _the_answer );
+            Element e = doc.GetElement( id ); // 2015
 
-            ++n;
+            if( e is FamilyInstance
+              && null != e.Category
+              && (int) BuiltInCategory.OST_Doors
+                == e.Category.Id.IntegerValue )
+            {
+              e.get_Parameter(
+                BuiltInParameter.ALL_MODEL_MARK )
+                .Set( _the_answer );
+
+              ++n;
+            }
           }
+          tx.Commit();
         }
       }
 
       // return Succeeded only if we wish to commit
       // the transaction to modify the database:
+      //
+      //return 0 < n
+      //  ? Result.Succeeded
+      //  : Result.Failed;
+      //
+      // That was only useful before the introduction
+      // of the manual and read-only transaction modes.
 
-      return 0 < n
-        ? Result.Succeeded
-        : Result.Failed;
+      return Result.Succeeded;
     }
 
     /*
