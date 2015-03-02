@@ -34,7 +34,7 @@ namespace BuildingCoder
 
       Autodesk.Windows.RibbonItem parent = e.Parent;
 
-      Debug.Print( 
+      Debug.Print(
         "OnItemExecuted: {0} '{1}' in '{2}' cookie {3}",
         s, parent.AutomationName,
         e.Item.AutomationName, e.Item.Cookie );

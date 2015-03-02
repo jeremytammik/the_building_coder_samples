@@ -157,6 +157,7 @@
     <Compile Include="CmdNewCrossFitting.cs" />
     <Compile Include="CmdNewExtrusionRoof.cs" />
     <Compile Include="CmdNewTextNote.cs" />
+    <Compile Include="CmdPostRequestInstancePlacement.cs" />
     <Compile Include="CmdRollingOffset.cs" />
     <Compile Include="CmdRoomNeighbours.cs" />
     <Compile Include="CmdNestedFamilies.cs" />
