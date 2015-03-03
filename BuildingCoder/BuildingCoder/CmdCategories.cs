@@ -28,6 +28,7 @@ namespace BuildingCoder
     /// Hosts subcategory in the given view, cf.
     /// http://forums.autodesk.com/t5/revit-api/how-to-get-image-of-a-family-model-without-showing-host-element/td-p/5526085
     /// http://forums.autodesk.com/t5/revit-api/how-to-change-visibility-setting/td-p/5526076
+    /// http://forums.autodesk.com/t5/revit-api/how-to-get-family-model-image/td-p/5494839
     /// </summary>
     void HideLightingFixtureHosts( View view )
     {
