@@ -22,7 +22,35 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdCategories : IExternalCommand
   {
-    void f( Document doc )
+    #region HideLightingFixtureHosts
+    /// <summary>
+    /// Hide the LightingFixtures category 
+    /// Hosts subcategory in the given view, cf.
+    /// http://forums.autodesk.com/t5/revit-api/how-to-get-image-of-a-family-model-without-showing-host-element/td-p/5526085
+    /// http://forums.autodesk.com/t5/revit-api/how-to-change-visibility-setting/td-p/5526076
+    /// </summary>
+    void HideLightingFixtureHosts( View view )
+    {
+      Document doc = view.Document;
+
+      Categories categories = doc.Settings.Categories;
+
+      Category catLightingFixtures
+        = categories.get_Item(
+          BuiltInCategory.OST_LightingFixtures );
+
+      CategoryNameMap subcats
+        = catLightingFixtures.SubCategories;
+
+      Category catHosts = subcats.get_Item( "Hosts" );
+
+      view.SetVisibility( catHosts, false );
+    }
+    #endregion // HideLightingFixtureHosts
+
+    #region ProblemAddingParameterBindingForCategory
+    void ProblemAddingParameterBindingForCategory(
+      Document doc )
     {
       Application app = doc.Application;
 
@@ -35,8 +63,8 @@ namespace BuildingCoder
       //Definition def = group.Definitions.Create( // 2014
       //  "ReinforcementParameter", ParameterType.Text );
 
-      ExternalDefinitonCreationOptions opt 
-        = new ExternalDefinitonCreationOptions( 
+      ExternalDefinitonCreationOptions opt
+        = new ExternalDefinitonCreationOptions(
           "ReinforcementParameter", ParameterType.Text );
 
       Definition def = group.Definitions.Create( opt ); // 2015
@@ -67,6 +95,7 @@ namespace BuildingCoder
       doc.ParameterBindings.Insert( def, binding,
         BuiltInParameterGroup.PG_CONSTRUCTION );
     }
+    #endregion // ProblemAddingParameterBindingForCategory
 
     public Result Execute(
       ExternalCommandData commandData,
@@ -80,9 +109,9 @@ namespace BuildingCoder
 
       int nCategories = categories.Size;
 
-      Debug.Print( 
+      Debug.Print(
         "{0} categories and their parents obtained "
-        + "from the Categories collection:", 
+        + "from the Categories collection:",
         nCategories );
 
       foreach( Category c in categories )
@@ -91,7 +120,7 @@ namespace BuildingCoder
 
         Debug.Print( "  {0} ({1}), parent {2}",
           c.Name, c.Id.IntegerValue,
-          (null == p ? "<none>" : p.Name) );
+          ( null == p ? "<none>" : p.Name ) );
       }
 
       Array bics = Enum.GetValues(
@@ -134,14 +163,14 @@ namespace BuildingCoder
 
           s = ex.GetType().Name + " " + ex.Message;
         }
-        Debug.Print( "  {0} --> {1}", 
+        Debug.Print( "  {0} --> {1}",
           bic.ToString(), s );
       }
 
       int nBicsNull = bics_null.Count;
       int nBicsException = bics_exception.Count;
 
-    #if ACCESS_HIDDEN_CATEGORIES_THROUGH_FILTERED_ELEMENT_COLLECTOR
+#if ACCESS_HIDDEN_CATEGORIES_THROUGH_FILTERED_ELEMENT_COLLECTOR
       // Trying to use OfClass( typeof( Category ) )
       // throws an ArgumentException exception saying
       // "Input type Category is not a recognized 
@@ -168,7 +197,7 @@ namespace BuildingCoder
       {
         Debug.Print( "  {0}", c.Name );
       }
-    #endif // ACCESS_HIDDEN_CATEGORIES_THROUGH_FILTERED_ELEMENT_COLLECTOR
+#endif // ACCESS_HIDDEN_CATEGORIES_THROUGH_FILTERED_ELEMENT_COLLECTOR
 
       TaskDialog dlg = new TaskDialog(
         "Hidden Built-in Categories" );

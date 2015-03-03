@@ -75,6 +75,7 @@ using System.Runtime.InteropServices;
 // 2015-02-20 2015.0.117.5 updated CmdListMarks to use TransactionMode.Manual instead of Automatic
 // 2015-02-20 2015.0.118.0 implemented CmdItemExecuted and added reference to PresentationFramework assembly
 // 2015-03-02 2015.0.119.0 implemented CmdPostRequestInstancePlacement
+// 2015-03-03 2015.0.119.1 implemented HideLightingFixtureHosts
 // 
-[assembly: AssemblyVersion( "2015.0.119.0" )]
-[assembly: AssemblyFileVersion( "2015.0.119.0" )]
+[assembly: AssemblyVersion( "2015.0.119.1" )]
+[assembly: AssemblyFileVersion( "2015.0.119.1" )]
