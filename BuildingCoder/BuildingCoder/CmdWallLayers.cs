@@ -21,7 +21,7 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdWallLayers : IExternalCommand
   {
     public Result Execute(
@@ -33,10 +33,11 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = app.ActiveUIDocument.Document;
 
-      // retrieve selected walls, or all walls,
+      // Retrieve selected walls, or all walls,
       // if nothing is selected:
 
       List<Element> walls = new List<Element>();
+
       if( !Util.GetSelectedElementsOrAll(
         walls, uidoc, typeof( Wall ) ) )
       {
@@ -53,88 +54,103 @@ namespace BuildingCoder
       Creator creator = new Creator( doc );
       XYZ lcstart, lcend, v, w, p, q;
 
-      foreach( Wall wall in walls )
+      using( Transaction tx = new Transaction( doc ) )
       {
-        string desc = Util.ElementDescription( wall );
+        tx.Start( "Draw wall layer sepearation lines" );
 
-        LocationCurve curve
-          = wall.Location as LocationCurve;
-
-        if( null == curve )
+        foreach( Wall wall in walls )
         {
-          message = desc + ": No wall curve found.";
-          return Result.Failed;
-        }
+          string desc = Util.ElementDescription( wall );
 
-        // wall centre line and thickness:
+          LocationCurve curve
+            = wall.Location as LocationCurve;
 
-        lcstart = curve.Curve.GetEndPoint( 0 );
-        lcend = curve.Curve.GetEndPoint( 1 );
-        halfThickness = 0.5 * wall.WallType.Width;
-        v = lcend - lcstart;
-        v = v.Normalize(); // one foot long
-        w = XYZ.BasisZ.CrossProduct( v ).Normalize();
-        if( wall.Flipped ) { w = -w; }
-
-        p = lcstart - 2 * v;
-        q = lcend + 2 * v;
-        creator.CreateModelLine( p, q );
-
-        q = p + halfThickness * w;
-        creator.CreateModelLine( p, q );
-
-        // exterior edge
-
-        p = lcstart - v + halfThickness * w;
-        q = lcend + v + halfThickness * w;
-        creator.CreateModelLine( p, q );
-
-        //CompoundStructure structure = wall.WallType.CompoundStructure; // 2011
-        CompoundStructure structure = wall.WallType.GetCompoundStructure(); // 2012
-
-        //CompoundStructureLayerArray layers = structure.Layers; // 2011
-        IList<CompoundStructureLayer> layers = structure.GetLayers(); // 2012
-
-        //i = 0; // 2011
-        //n = layers.Size; // 2011
-        n = layers.Count; // 2012
-
-        Debug.Print(
-          "{0} with thickness {1}"
-          + " has {2} layer{3}{4}",
-          desc,
-          Util.MmString( 2 * halfThickness ),
-          n, Util.PluralSuffix( n ),
-          Util.DotOrColon( n ) );
-
-        if( 0 == n )
-        {
-          // interior edge
-          p = lcstart - v - halfThickness * w;
-          q = lcend + v - halfThickness * w;
-          creator.CreateModelLine( p, q );
-        }
-        else
-        {
-          layerOffset = halfThickness;
-          foreach( CompoundStructureLayer layer
-            in layers )
+          if( null == curve )
           {
-            Debug.Print(
-              "  Layer {0}: function {1}, "
-              + "thickness {2}",
-              //++i, // 2011
-              layers.IndexOf( layer ), // 2012
-              layer.Function,
-              Util.MmString( layer.Width ) );
+            message = desc + ": No wall curve found.";
+            return Result.Failed;
+          }
 
-            //layerOffset -= layer.Thickness; // 2011
-            layerOffset -= layer.Width; // 2012
+          // Wall centre line and thickness:
 
-            p = lcstart - v + layerOffset * w;
-            q = lcend + v + layerOffset * w;
+          lcstart = curve.Curve.GetEndPoint( 0 );
+          lcend = curve.Curve.GetEndPoint( 1 );
+          halfThickness = 0.5 * wall.WallType.Width;
+          v = lcend - lcstart;
+          v = v.Normalize(); // one foot long
+          w = XYZ.BasisZ.CrossProduct( v ).Normalize();
+          if( wall.Flipped ) { w = -w; }
+
+          p = lcstart - 2 * v;
+          q = lcend + 2 * v;
+          creator.CreateModelLine( p, q );
+
+          q = p + halfThickness * w;
+          creator.CreateModelLine( p, q );
+
+          // Exterior edge
+
+          p = lcstart - v + halfThickness * w;
+          q = lcend + v + halfThickness * w;
+          creator.CreateModelLine( p, q );
+
+          //CompoundStructure structure = wall.WallType.CompoundStructure; // 2011
+          CompoundStructure structure = wall.WallType.GetCompoundStructure(); // 2012
+
+          if( null == structure )
+          {
+            message = desc + ": No compound structure "
+              + "found. Is this a stacked wall?";
+
+            return Result.Failed;
+          }
+
+          //CompoundStructureLayerArray layers = structure.Layers; // 2011
+          IList<CompoundStructureLayer> layers = structure.GetLayers(); // 2012
+
+          //i = 0; // 2011
+          //n = layers.Size; // 2011
+          n = layers.Count; // 2012
+
+          Debug.Print(
+            "{0} with thickness {1}"
+            + " has {2} layer{3}{4}",
+            desc,
+            Util.MmString( 2 * halfThickness ),
+            n, Util.PluralSuffix( n ),
+            Util.DotOrColon( n ) );
+
+          if( 0 == n )
+          {
+            // Interior edge
+
+            p = lcstart - v - halfThickness * w;
+            q = lcend + v - halfThickness * w;
             creator.CreateModelLine( p, q );
           }
+          else
+          {
+            layerOffset = halfThickness;
+            foreach( CompoundStructureLayer layer
+              in layers )
+            {
+              Debug.Print(
+                "  Layer {0}: function {1}, "
+                + "thickness {2}",
+                //++i, // 2011
+                layers.IndexOf( layer ), // 2012
+                layer.Function,
+                Util.MmString( layer.Width ) );
+
+              //layerOffset -= layer.Thickness; // 2011
+              layerOffset -= layer.Width; // 2012
+
+              p = lcstart - v + layerOffset * w;
+              q = lcend + v + layerOffset * w;
+              creator.CreateModelLine( p, q );
+            }
+          }
+          tx.Commit();
         }
       }
       return Result.Succeeded;
