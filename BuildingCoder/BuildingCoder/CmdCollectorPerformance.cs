@@ -316,9 +316,29 @@ namespace BuildingCoder
         = new FilteredElementCollector( doc )
           .OfClass( typeof( FamilyInstance ) );
 
-      Dictionary<ElementId, List<ElementId>>
-        categoriesPerLevel = new Dictionary<
-          ElementId, List<ElementId>>();
+      // Top level map.
+
+      Dictionary<ElementId, // level
+        List<ElementId>> // categories
+         mapLevelToCategories = new
+          Dictionary<ElementId,
+            List<ElementId>>();
+
+      // What we really need is something like this.
+      // It will probably simplify things to implement
+      // a custom kind of dictionary for this to add 
+      // new entries very simply.
+
+      Dictionary<ElementId, // level
+        Dictionary<ElementId, // category
+          Dictionary<ElementId, // family
+            Dictionary<ElementId, // type
+              ElementId>>>> // instance
+                map = new Dictionary<ElementId,
+                  Dictionary<ElementId,
+                    Dictionary<ElementId,
+                      Dictionary<ElementId,
+                        ElementId>>>>();
 
       foreach( FamilyInstance inst in instances )
       {
@@ -332,15 +352,15 @@ namespace BuildingCoder
         Debug.Assert( null != sym, "expected valid symbol" );
         Debug.Assert( null != fam, "expected valid family" );
 
-        if( categoriesPerLevel.ContainsKey( lev.Id ) )
+        if( map.ContainsKey( lev.Id ) )
         {
-          categoriesPerLevel[lev.Id].Add( cat.Id );
+          mapLevelToCategories[lev.Id].Add( cat.Id );
         }
         else
         {
           List<ElementId> categories = new List<ElementId>( 1 );
           categories.Add( cat.Id );
-          categoriesPerLevel.Add( lev.Id, categories );
+          mapLevelToCategories.Add( lev.Id, categories );
         }
 
         // Sort into families and types pere level and category...
