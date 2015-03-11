@@ -320,7 +320,7 @@ namespace BuildingCoder
 
       Dictionary<ElementId, // level
         List<ElementId>> // categories
-         mapLevelToCategories = new
+          mapLevelToCategories = new
           Dictionary<ElementId,
             List<ElementId>>();
 
@@ -358,12 +358,19 @@ namespace BuildingCoder
         }
         else
         {
-          List<ElementId> categories = new List<ElementId>( 1 );
-          categories.Add( cat.Id );
-          mapLevelToCategories.Add( lev.Id, categories );
+          // First time we encounter this level, 
+          // so start a new level.
+
+          List<ElementId> categoriesOnLevel
+            = new List<ElementId>( 1 );
+
+          categoriesOnLevel.Add( cat.Id );
+
+          mapLevelToCategories.Add( lev.Id,
+            categoriesOnLevel );
         }
 
-        // Sort into families and types pere level and category...
+        // Sort into families and types per level and category...
       }
     }
     #endregion // Traverse all model elements top down Levels > Category > Family > Type > Instance
