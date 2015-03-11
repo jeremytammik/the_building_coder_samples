@@ -287,6 +287,67 @@ namespace BuildingCoder
   {
     Document _doc;
 
+    #region Traverse all model elements top down Levels > Category > Family > Type > Instance
+    void TraverseInstances( Document doc )
+    {
+      FilteredElementCollector levels
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( Level ) );
+
+      foreach( Level level in levels )
+      {
+        // Now what?
+        // We could set up new filtered element 
+        // collectors for each level, but it would
+        // get complex and we would start repeating
+        // ourselves...
+      }
+
+      // Get all family instances and use those to
+      // set up dictionaries for all the required
+      // mappings in one fell sweep. In the end, we
+      // will need the following mappings:
+      // - level to all categories it hosts instances of
+      // - for each level and category, all families
+      // - family to its types
+      // - family type to instances
+
+      FilteredElementCollector instances
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( FamilyInstance ) );
+
+      Dictionary<ElementId, List<ElementId>>
+        categoriesPerLevel = new Dictionary<
+          ElementId, List<ElementId>>();
+
+      foreach( FamilyInstance inst in instances )
+      {
+        Category cat = inst.Category;
+        Level lev = doc.GetElement( inst.LevelId ) as Level;
+        FamilySymbol sym = inst.Symbol;
+        Family fam = sym.Family;
+
+        Debug.Assert( null != cat, "expected valid category" );
+        Debug.Assert( null != lev, "expected valid level" );
+        Debug.Assert( null != sym, "expected valid symbol" );
+        Debug.Assert( null != fam, "expected valid family" );
+
+        if( categoriesPerLevel.ContainsKey( lev.Id ) )
+        {
+          categoriesPerLevel[lev.Id].Add( cat.Id );
+        }
+        else
+        {
+          List<ElementId> categories = new List<ElementId>( 1 );
+          categories.Add( cat.Id );
+          categoriesPerLevel.Add( lev.Id, categories );
+        }
+
+        // Sort into families and types pere level and category...
+      }
+    }
+    #endregion // Traverse all model elements top down Levels > Category > Family > Type > Instance
+
     #region Retrieve a sorted list of all levels
     IOrderedEnumerable<Level> GetSortedLevels( Document doc )
     {

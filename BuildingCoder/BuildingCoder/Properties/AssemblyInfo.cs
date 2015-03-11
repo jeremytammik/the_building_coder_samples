@@ -76,6 +76,7 @@ using System.Runtime.InteropServices;
 // 2015-02-20 2015.0.118.0 implemented CmdItemExecuted and added reference to PresentationFramework assembly
 // 2015-03-02 2015.0.119.0 implemented CmdPostRequestInstancePlacement
 // 2015-03-03 2015.0.119.1 implemented HideLightingFixtureHosts
+// 2015-03-11 2015.0.119.2 implemented sketch for traversing family instances per level and category
 // 
-[assembly: AssemblyVersion( "2015.0.119.1" )]
-[assembly: AssemblyFileVersion( "2015.0.119.1" )]
+[assembly: AssemblyVersion( "2015.0.119.2" )]
+[assembly: AssemblyFileVersion( "2015.0.119.2" )]
