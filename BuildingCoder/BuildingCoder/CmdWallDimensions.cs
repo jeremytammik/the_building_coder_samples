@@ -33,7 +33,7 @@ namespace BuildingCoder
   /// two pairs of them. This is the wall dimension
   /// in that direction.
   /// </summary>
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdWallDimensions : IExternalCommand
   {
     #region Geometry

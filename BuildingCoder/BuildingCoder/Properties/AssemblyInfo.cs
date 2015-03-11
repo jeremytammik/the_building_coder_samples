@@ -79,6 +79,7 @@ using System.Runtime.InteropServices;
 // 2015-03-11 2015.0.119.2 implemented sketch for traversing family instances per level and category
 // 2015-03-11 2015.0.119.2 replaced automatic transaction mode by manual in CmdWallProfileArea
 // 2015-03-11 2015.0.119.2 replaced automatic transaction mode by manual in CmdWallLayers
+// 2015-03-11 2015.0.119.2 replaced automatic transaction mode by read-only in CmdWallDimensions
 // 
 [assembly: AssemblyVersion( "2015.0.119.2" )]
 [assembly: AssemblyFileVersion( "2015.0.119.2" )]
