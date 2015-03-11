@@ -21,7 +21,7 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdWallProfileArea : IExternalCommand
   {
     #region Three-dimensional polygon area
@@ -308,8 +308,13 @@ namespace BuildingCoder
       }
 
       Creator creator = new Creator( doc );
-      creator.DrawPolygons( polygons );
 
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Draw wall profile loops" );
+        creator.DrawPolygons( polygons );
+        tx.Commit();
+      }
       return Result.Succeeded;
     }
   }

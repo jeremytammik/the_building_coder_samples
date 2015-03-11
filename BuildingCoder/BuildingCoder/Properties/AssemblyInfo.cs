@@ -77,6 +77,7 @@ using System.Runtime.InteropServices;
 // 2015-03-02 2015.0.119.0 implemented CmdPostRequestInstancePlacement
 // 2015-03-03 2015.0.119.1 implemented HideLightingFixtureHosts
 // 2015-03-11 2015.0.119.2 implemented sketch for traversing family instances per level and category
+// 2015-03-11 2015.0.119.2 replaced automatic transaction mode by manual in CmdWallProfileArea
 // 
 [assembly: AssemblyVersion( "2015.0.119.2" )]
 [assembly: AssemblyFileVersion( "2015.0.119.2" )]
