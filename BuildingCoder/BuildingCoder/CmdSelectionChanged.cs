@@ -29,25 +29,25 @@ namespace BuildingCoder
       object sender,
       System.ComponentModel.PropertyChangedEventArgs e )
     {
-      if( sender is Autodesk.Windows.RibbonTab )
+      Debug.Assert( sender is Autodesk.Windows.RibbonTab,
+        "expected sender to be a ribbon tab" );
+
+      if( e.PropertyName == "Title" )
       {
-        if( e.PropertyName == "Title" )
-        {
-          ICollection<ElementId> ids = _uiapp
-            .ActiveUIDocument.Selection.GetElementIds();
+        ICollection<ElementId> ids = _uiapp
+          .ActiveUIDocument.Selection.GetElementIds();
 
-          int n = ids.Count;
+        int n = ids.Count;
 
-          string s = ( 0 == n )
-            ? "<nil>"
-            : string.Join( ", ",
-              ids.Select<ElementId, string>(
-                id => id.IntegerValue.ToString() ) );
+        string s = ( 0 == n )
+          ? "<nil>"
+          : string.Join( ", ",
+            ids.Select<ElementId, string>(
+              id => id.IntegerValue.ToString() ) );
 
-          Debug.Print(
-            "CmdSelectionChanged: selection changed: "
-            + s );
-        }
+        Debug.Print(
+          "CmdSelectionChanged: selection changed: "
+          + s );
       }
     }
 
