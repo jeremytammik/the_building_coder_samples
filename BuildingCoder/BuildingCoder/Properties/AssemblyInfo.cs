@@ -80,6 +80,7 @@ using System.Runtime.InteropServices;
 // 2015-03-11 2015.0.119.2 replaced automatic transaction mode by manual in CmdWallProfileArea
 // 2015-03-11 2015.0.119.2 replaced automatic transaction mode by manual in CmdWallLayers
 // 2015-03-11 2015.0.119.2 replaced automatic transaction mode by read-only in CmdWallDimensions
+// 2015-03-11 2015.0.120.0 implemented CmdSelectionChanged
 // 
-[assembly: AssemblyVersion( "2015.0.119.2" )]
-[assembly: AssemblyFileVersion( "2015.0.119.2" )]
+[assembly: AssemblyVersion( "2015.0.120.0" )]
+[assembly: AssemblyFileVersion( "2015.0.120.0" )]

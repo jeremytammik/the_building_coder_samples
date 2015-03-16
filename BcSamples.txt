@@ -1019,5 +1019,13 @@ Image:
 C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPostRequestInstancePlacement # version 2015.0.119.0
 
+ADN Bc R-Z
+Selection Changed Event
+Implement and subscribe to a custom element selection changed event using UI Automation
+LargeImage:
+Image:
+C:\a\lib\revit\2015\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdSelectionChanged # version 2015.0.120.0
+
 
 
