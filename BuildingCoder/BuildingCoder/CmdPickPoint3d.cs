@@ -20,13 +20,13 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   public class CmdPickPoint3d : IExternalCommand
   {
-  public void PickPointsForArea(
-    UIDocument uidoc )
-  {
-    Document doc = uidoc.Document;
-    View view = doc.ActiveView;
+    public void PickPointsForArea(
+      UIDocument uidoc )
+    {
+      Document doc = uidoc.Document;
+      View view = doc.ActiveView;
 
-    #region COMPLICATED_UNRELIABLE_DOES_NOT_WORK
+      #region COMPLICATED_UNRELIABLE_DOES_NOT_WORK
 #if COMPLICATED_UNRELIABLE_DOES_NOT_WORK
 
 using( Transaction t = new Transaction( doc ) )
@@ -96,40 +96,40 @@ switch( caseSwitch )
     break;
 }
 #endif // COMPLICATED_UNRELIABLE_DOES_NOT_WORK
-    #endregion // COMPLICATED_UNRELIABLE_DOES_NOT_WORK
+      #endregion // COMPLICATED_UNRELIABLE_DOES_NOT_WORK
 
-    XYZ p1, p2;
+      XYZ p1, p2;
 
-    try
-    {
-      p1 = uidoc.Selection.PickPoint(
-        "Please pick first point for area" );
+      try
+      {
+        p1 = uidoc.Selection.PickPoint(
+          "Please pick first point for area" );
 
-      p2 = uidoc.Selection.PickPoint(
-        "Please pick second point for area" );
+        p2 = uidoc.Selection.PickPoint(
+          "Please pick second point for area" );
+      }
+      catch( Autodesk.Revit.Exceptions.OperationCanceledException )
+      {
+        return;
+      }
+
+      Plane plane = view.SketchPlane.GetPlane();
+
+      UV q1 = plane.ProjectInto( p1 );
+      UV q2 = plane.ProjectInto( p2 );
+      UV d = q2 - q1;
+
+      double area = d.U * d.V;
+
+      area = Math.Round( area, 2 );
+
+      if( area < 0 )
+      {
+        area = area * ( -1 );
+      }
+
+      TaskDialog.Show( "Area", area.ToString() );
     }
-    catch( Autodesk.Revit.Exceptions.OperationCanceledException )
-    {
-      return;
-    }
-
-    Plane plane = view.SketchPlane.GetPlane();
-
-    UV q1 = plane.ProjectInto( p1 );
-    UV q2 = plane.ProjectInto( p2 );
-    UV d = q2 - q1;
-
-    double area = d.U * d.V;
-
-    area = Math.Round( area, 2 );
-
-    if( area < 0 )
-    {
-      area = area * ( -1 );
-    }
-
-    TaskDialog.Show( "Area", area.ToString() );
-  }
 
     /// <summary>
     /// Prompt the user to select a face on an element
@@ -201,7 +201,7 @@ switch( caseSwitch )
       UIApplication uiapp = commandData.Application;
       UIDocument uidoc = uiapp.ActiveUIDocument;
 
-      PickPointsForArea( uidoc );
+      //PickPointsForArea( uidoc );
 
       XYZ point_in_3d;
 
