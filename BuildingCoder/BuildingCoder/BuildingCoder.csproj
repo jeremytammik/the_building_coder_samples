@@ -250,6 +250,7 @@
     <None Include="..\..\README.md">
       <Link>README.md</Link>
     </None>
+    <None Include="ClassDiagram_2015.cd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
