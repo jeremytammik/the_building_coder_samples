@@ -247,9 +247,9 @@ namespace BuildingCoder
       return SketchPlane.Create( _doc, plane ); // 2014
     }
 
-    public void CreateModelCurve( Curve curve )
+    public ModelCurve CreateModelCurve( Curve curve )
     {
-      _credoc.NewModelCurve( curve,
+      return _credoc.NewModelCurve( curve,
         NewSketchPlaneContainCurve( curve ) );
     }
 

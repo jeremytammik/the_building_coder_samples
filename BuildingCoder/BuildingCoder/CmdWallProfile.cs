@@ -333,10 +333,25 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
 
+    void SetModelCurveColor( 
+      ModelCurve modelCurve, 
+      View view, 
+      Color color )
+    {
+      OverrideGraphicSettings overrides 
+        = view.GetElementOverrides( modelCurve.Id );
+
+      overrides.SetProjectionLineColor( 
+        color );
+
+      view.SetElementOverrides( 
+        modelCurve.Id, overrides );
+    }
+
     /// <summary>
     /// Improved implementation by Alexander Ignatovich
     /// supporting curved wall with curved window, 
-    /// published April 10, 2015:
+    /// second attempt, published April 10, 2015:
     /// </summary>
     public Result Execute3(
       ExternalCommandData commandData,
@@ -360,8 +375,10 @@ namespace BuildingCoder
 
       Element e = uidoc.Document.GetElement( r );
 
+      Creator creator = new Creator( doc );
+
       Wall wall = e as Wall;
-      
+
       if( wall == null )
       {
         return Result.Cancelled;
@@ -386,7 +403,7 @@ namespace BuildingCoder
 
         XYZ normal = wall.Orientation;
 
-        // Offset curve copies five feet for visibility.
+        // Offset curve copies for visibility.
 
         Transform offset = Transform.CreateTranslation(
           5 * normal );
@@ -406,32 +423,45 @@ namespace BuildingCoder
           CurveArray curves = creapp.NewCurveArray();
 
           foreach( Curve curve in curveLoop )
-            curves.Append( curve.CreateTransformed( offset ) );
+            curves.Append( curve.CreateTransformed( 
+              offset ) );
 
-          // Create model lines for an curve loop.
+          var isCounterClockwise = curveLoop
+            .IsCounterclockwise( normal );
 
-          Plane plane = creapp.NewPlane( curves );
+          // Create model lines for a curve loop 
+          // if it is made 
 
-          SketchPlane sketchPlane
-            = SketchPlane.Create( doc, plane );
-
-          ModelCurveArray curveElements
-            = credoc.NewModelCurveArray( curves,
-              sketchPlane );
-
-          if( curveLoop.IsCounterclockwise( normal ) )
+          if( ( (LocationCurve) wall.Location ).Curve
+            is Line )
           {
-            foreach( ModelCurve mcurve in curveElements )
+            Plane plane = creapp.NewPlane( curves );
+
+            SketchPlane sketchPlane
+              = SketchPlane.Create( doc, plane );
+
+            ModelCurveArray curveElements
+              = credoc.NewModelCurveArray(
+                curves, sketchPlane );
+
+            if( isCounterClockwise )
             {
-              OverrideGraphicSettings overrides
-                = view.GetElementOverrides(
-                  mcurve.Id );
+              foreach( ModelCurve c in curveElements )
+              {
+                SetModelCurveColor( c, view, colorRed );
+              }
+            }
+          }
+          else
+          {
+            foreach( var curve in curves.Cast<Curve>() )
+            {
+              var mc = creator.CreateModelCurve( curve );
 
-              overrides.SetProjectionLineColor(
-                colorRed );
-
-              view.SetElementOverrides(
-                mcurve.Id, overrides );
+              if( isCounterClockwise )
+              {
+                SetModelCurveColor( mc, view, colorRed );
+              }
             }
           }
         }
