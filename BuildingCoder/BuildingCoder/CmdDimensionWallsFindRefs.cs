@@ -38,21 +38,6 @@ namespace BuildingCoder
       = "Please select two parallel straight walls"
         + " with a partial projected overlap.";
 
-    //#region WallSelectionFilter
-    //class WallSelectionFilter : ISelectionFilter
-    //{
-    //  public bool AllowElement( Element e )
-    //  {
-    //    return e is Wall;
-    //  }
-
-    //  public bool AllowReference( Reference r, XYZ p )
-    //  {
-    //    return true;
-    //  }
-    //}
-    //#endregion // WallSelectionFilter
-
     #region Get3DView
     /// <summary>
     /// Return a 3D view from the given document.
@@ -95,9 +80,6 @@ namespace BuildingCoder
 
       try
       {
-        //WallSelectionFilter f
-        //  = new WallSelectionFilter();
-
         ISelectionFilter f
           = new JtElementsOfClassSelectionFilter<Wall>();
 
