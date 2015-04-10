@@ -82,6 +82,7 @@ using System.Runtime.InteropServices;
 // 2015-03-11 2015.0.119.2 replaced automatic transaction mode by read-only in CmdWallDimensions
 // 2015-03-11 2015.0.120.0 implemented CmdSelectionChanged
 // 2015-03-25 2015.0.120.1 added Revit 2015 API class diagram
+// 2015-03-25 2015.0.120.2 before Alexander Ignatovich ai CmdWallProfile enhancement
 // 
-[assembly: AssemblyVersion( "2015.0.120.1" )]
-[assembly: AssemblyFileVersion( "2015.0.120.1" )]
+[assembly: AssemblyVersion( "2015.0.120.2" )]
+[assembly: AssemblyFileVersion( "2015.0.120.2" )]
