@@ -186,7 +186,7 @@ namespace BuildingCoder
         message = ( 0 < sel.GetElementIds().Count )
           ? "Please select some wall elements."
           : "No wall elements found.";
-      
+
         return Result.Failed;
       }
 
@@ -333,19 +333,21 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
 
-    void SetModelCurveColor( 
-      ModelCurve modelCurve, 
-      View view, 
+    void SetModelCurvesColor(
+      ModelCurveArray modelCurves,
+      View view,
       Color color )
     {
-      OverrideGraphicSettings overrides 
-        = view.GetElementOverrides( modelCurve.Id );
+      foreach( var curve in modelCurves
+        .Cast<ModelCurve>() )
+      {
+        var overrides = view.GetElementOverrides(
+          curve.Id );
 
-      overrides.SetProjectionLineColor( 
-        color );
+        overrides.SetProjectionLineColor( color );
 
-      view.SetElementOverrides( 
-        modelCurve.Id, overrides );
+        view.SetElementOverrides( curve.Id, overrides );
+      }
     }
 
     /// <summary>
@@ -391,12 +393,12 @@ namespace BuildingCoder
         // Get the external wall face for the profile
         // a little bit simpler than in the last realization
 
-        Reference sideFaceReference 
-          = HostObjectUtils.GetSideFaces( 
+        Reference sideFaceReference
+          = HostObjectUtils.GetSideFaces(
             wall, ShellLayerType.Exterior )
               .First();
 
-        Face face = wall.GetGeometryObjectFromReference( 
+        Face face = wall.GetGeometryObjectFromReference(
           sideFaceReference ) as Face;
 
         // The normal of the wall external face.
@@ -423,14 +425,13 @@ namespace BuildingCoder
           CurveArray curves = creapp.NewCurveArray();
 
           foreach( Curve curve in curveLoop )
-            curves.Append( curve.CreateTransformed( 
+            curves.Append( curve.CreateTransformed(
               offset ) );
 
-          var isCounterClockwise = curveLoop
+          var isCounterClockwize = curveLoop
             .IsCounterclockwise( normal );
 
-          // Create model lines for a curve loop 
-          // if it is made 
+          // Create model lines for an curve loop if it is made 
 
           if( ( (LocationCurve) wall.Location ).Curve
             is Line )
@@ -440,27 +441,23 @@ namespace BuildingCoder
             SketchPlane sketchPlane
               = SketchPlane.Create( doc, plane );
 
-            ModelCurveArray curveElements
-              = credoc.NewModelCurveArray(
-                curves, sketchPlane );
+            ModelCurveArray curveElements = credoc
+              .NewModelCurveArray( curves, sketchPlane );
 
-            if( isCounterClockwise )
+            if( isCounterClockwize )
             {
-              foreach( ModelCurve c in curveElements )
-              {
-                SetModelCurveColor( c, view, colorRed );
-              }
+              SetModelCurvesColor( curveElements,
+                view, colorRed );
             }
           }
           else
           {
             foreach( var curve in curves.Cast<Curve>() )
             {
-              var mc = creator.CreateModelCurve( curve );
-
-              if( isCounterClockwise )
+              var curveElements = creator.CreateModelCurves( curve );
+              if( isCounterClockwize )
               {
-                SetModelCurveColor( mc, view, colorRed );
+                SetModelCurvesColor( curveElements, view, colorRed );
               }
             }
           }

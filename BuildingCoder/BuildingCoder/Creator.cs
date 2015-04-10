@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 #endregion // Namespaces
@@ -251,6 +252,71 @@ namespace BuildingCoder
     {
       return _credoc.NewModelCurve( curve,
         NewSketchPlaneContainCurve( curve ) );
+    }
+
+    ModelCurve CreateModelCurve(
+      Curve curve,
+      XYZ origin,
+      XYZ normal )
+    {
+      Plane plane = _creapp.NewPlane( normal, origin );
+
+      SketchPlane sketchPlane = SketchPlane.Create(
+        _doc, plane );
+
+      return _credoc.NewModelCurve(
+        curve, sketchPlane );
+    }
+
+    public ModelCurveArray CreateModelCurves(
+      Curve curve )
+    {
+      var array = new ModelCurveArray();
+
+      var line = curve as Line;
+      if( line != null )
+      {
+        array.Append( CreateModelLine( _doc,
+          curve.GetEndPoint( 0 ),
+          curve.GetEndPoint( 1 ) ) );
+
+        return array;
+      }
+
+      var arc = curve as Arc;
+      if( arc != null )
+      {
+        var origin = arc.Center;
+        var normal = arc.Normal;
+
+        array.Append( CreateModelCurve(
+          arc, origin, normal ) );
+
+        return array;
+      }
+
+      var ellipse = curve as Ellipse;
+      if( ellipse != null )
+      {
+        var origin = ellipse.Center;
+        var normal = ellipse.Normal;
+
+        array.Append( CreateModelCurve(
+          ellipse, origin, normal ) );
+
+        return array;
+      }
+
+      var points = curve.Tessellate();
+      var p = points.First();
+
+      foreach( var q in points.Skip( 1 ) )
+      {
+        array.Append( CreateModelLine( _doc, p, q ) );
+        p = q;
+      }
+
+      return array;
     }
 
     public void DrawPolygon(
