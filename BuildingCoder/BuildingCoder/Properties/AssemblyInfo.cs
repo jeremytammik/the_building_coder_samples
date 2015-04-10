@@ -84,6 +84,7 @@ using System.Runtime.InteropServices;
 // 2015-03-25 2015.0.120.1 added Revit 2015 API class diagram
 // 2015-03-25 2015.0.120.2 renamed class diagram adding Revit.DB namespace
 // 2015-03-25 2015.0.120.3 before Alexander Ignatovich ai CmdWallProfile enhancement
+// 2015-03-25 2015.0.120.4 integrated Alexander Ignatovich ai CmdWallProfile - first attempt.cs
 // 
-[assembly: AssemblyVersion( "2015.0.120.3" )]
-[assembly: AssemblyFileVersion( "2015.0.120.3" )]
+[assembly: AssemblyVersion( "2015.0.120.4" )]
+[assembly: AssemblyFileVersion( "2015.0.120.4" )]
