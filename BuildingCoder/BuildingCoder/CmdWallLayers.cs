@@ -51,7 +51,7 @@ namespace BuildingCoder
       //int i; // 2011
       int n;
       double halfThickness, layerOffset;
-      Creator creator = new Creator( doc );
+      //Creator creator = new Creator( doc );
       XYZ lcstart, lcend, v, w, p, q;
 
       using( Transaction tx = new Transaction( doc ) )
@@ -83,16 +83,16 @@ namespace BuildingCoder
 
           p = lcstart - 2 * v;
           q = lcend + 2 * v;
-          creator.CreateModelLine( p, q );
+          Creator.CreateModelLine( doc, p, q );
 
           q = p + halfThickness * w;
-          creator.CreateModelLine( p, q );
+          Creator.CreateModelLine( doc, p, q );
 
           // Exterior edge
 
           p = lcstart - v + halfThickness * w;
           q = lcend + v + halfThickness * w;
-          creator.CreateModelLine( p, q );
+          Creator.CreateModelLine( doc, p, q );
 
           //CompoundStructure structure = wall.WallType.CompoundStructure; // 2011
           CompoundStructure structure = wall.WallType.GetCompoundStructure(); // 2012
@@ -126,7 +126,7 @@ namespace BuildingCoder
 
             p = lcstart - v - halfThickness * w;
             q = lcend + v - halfThickness * w;
-            creator.CreateModelLine( p, q );
+            Creator.CreateModelLine( doc, p, q );
           }
           else
           {
@@ -147,7 +147,7 @@ namespace BuildingCoder
 
               p = lcstart - v + layerOffset * w;
               q = lcend + v + layerOffset * w;
-              creator.CreateModelLine( p, q );
+              Creator.CreateModelLine( doc, p, q );
             }
           }
           tx.Commit();

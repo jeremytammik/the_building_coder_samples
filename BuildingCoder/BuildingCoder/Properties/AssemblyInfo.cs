@@ -87,6 +87,7 @@ using System.Runtime.InteropServices;
 // 2015-03-25 2015.0.120.4 integrated Alexander Ignatovich ai CmdWallProfile - first attempt.cs
 // 2015-03-25 2015.0.120.5 integrated Alexander Ignatovich ai CmdWallProfile - second attempt.cs
 // 2015-03-25 2015.0.120.6 integrated Alexander Ignatovich ai CmdWallProfile - final.cs
+// 2015-03-25 2015.0.120.7 eliminated and replaced non-static Creator.CreateModelLine taking XYZ start and end point by static overload taking Document as well
 // 
-[assembly: AssemblyVersion( "2015.0.120.6" )]
-[assembly: AssemblyFileVersion( "2015.0.120.6" )]
+[assembly: AssemblyVersion( "2015.0.120.7" )]
+[assembly: AssemblyFileVersion( "2015.0.120.7" )]

@@ -198,22 +198,22 @@ namespace BuildingCoder
       return SketchPlane.Create( _doc, plane ); // 2014
     }
 
-    public void CreateModelLine( XYZ p, XYZ q )
-    {
-      if( p.IsAlmostEqualTo( q ) )
-      {
-        throw new ArgumentException(
-          "Expected two different points." );
-      }
-      Line line = Line.CreateBound( p, q );
-      if( null == line )
-      {
-        throw new Exception(
-          "Geometry line creation failed." );
-      }
-      _credoc.NewModelCurve( line,
-        NewSketchPlanePassLine( line ) );
-    }
+    //public void CreateModelLine( XYZ p, XYZ q )
+    //{
+    //  if( p.IsAlmostEqualTo( q ) )
+    //  {
+    //    throw new ArgumentException(
+    //      "Expected two different points." );
+    //  }
+    //  Line line = Line.CreateBound( p, q );
+    //  if( null == line )
+    //  {
+    //    throw new Exception(
+    //      "Geometry line creation failed." );
+    //  }
+    //  _credoc.NewModelCurve( line,
+    //    NewSketchPlanePassLine( line ) );
+    //}
 
     /// <summary>
     /// Return a new sketch plane containing the given curve.
@@ -334,11 +334,11 @@ namespace BuildingCoder
         }
         else
         {
-          CreateModelLine( p, q );
+          CreateModelLine( _doc, p, q );
         }
         q = p;
       }
-      CreateModelLine( q, p1 );
+      CreateModelLine( _doc, q, p1 );
     }
 
     public void DrawPolygons(
@@ -382,7 +382,7 @@ namespace BuildingCoder
           Util.PointString( p ),
           Util.PointString( normal ) );
 
-        CreateModelLine( p, p + normal );
+        CreateModelLine( _doc, p, p + normal );
       }
     }
   }

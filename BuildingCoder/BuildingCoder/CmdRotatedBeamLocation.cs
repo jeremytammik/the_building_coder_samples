@@ -63,8 +63,10 @@ namespace BuildingCoder
         p = p - v;
         q = q + v;
 
-        Creator creator = new Creator( doc );
-        creator.CreateModelLine( p, q );
+        //Creator creator = new Creator( doc );
+        //creator.CreateModelLine( p, q );
+
+        Creator.CreateModelLine( doc, p, q );
       }
       return Result.Succeeded;
     }
