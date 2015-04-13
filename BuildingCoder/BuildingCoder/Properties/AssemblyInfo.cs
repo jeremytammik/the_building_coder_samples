@@ -88,6 +88,7 @@ using System.Runtime.InteropServices;
 // 2015-03-25 2015.0.120.5 integrated Alexander Ignatovich ai CmdWallProfile - second attempt.cs
 // 2015-03-25 2015.0.120.6 integrated Alexander Ignatovich ai CmdWallProfile - final.cs
 // 2015-03-25 2015.0.120.7 eliminated and replaced non-static Creator.CreateModelLine taking XYZ start and end point by static overload taking Document as well
+// 2015-04-13 2015.0.120.9 implemented Plane Compare method
 // 
-[assembly: AssemblyVersion( "2015.0.120.7" )]
-[assembly: AssemblyFileVersion( "2015.0.120.7" )]
+[assembly: AssemblyVersion( "2015.0.120.9" )]
+[assembly: AssemblyFileVersion( "2015.0.120.9" )]

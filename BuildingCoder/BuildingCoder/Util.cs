@@ -98,6 +98,12 @@ namespace BuildingCoder
       {
         d = Compare( a.SignedDistanceTo( XYZ.Zero ),
           b.SignedDistanceTo( XYZ.Zero ) );
+
+        if( 0 == d )
+        {
+          d = Compare( a.XVec.AngleOnPlaneTo(
+            b.XVec, b.Normal ), 0 );
+        }
       }
       return d;
     }
