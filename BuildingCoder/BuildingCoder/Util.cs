@@ -96,7 +96,8 @@ namespace BuildingCoder
 
       if( 0 == d )
       {
-        d = Compare( a.SignedDistanceTo( XYZ.Zero ), b.SignedDistanceTo( XYZ.Zero ) );
+        d = Compare( a.SignedDistanceTo( XYZ.Zero ),
+          b.SignedDistanceTo( XYZ.Zero ) );
       }
       return d;
     }
