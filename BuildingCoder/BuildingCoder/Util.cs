@@ -90,6 +90,17 @@ namespace BuildingCoder
       return d;
     }
 
+    public static int Compare( Plane a, Plane b )
+    {
+      int d = Compare( a.Normal, b.Normal );
+
+      if( 0 == d )
+      {
+        d = Compare( a.SignedDistanceTo( XYZ.Zero ), b.SignedDistanceTo( XYZ.Zero ) );
+      }
+      return d;
+    }
+
     public static bool IsEqual( XYZ p, XYZ q )
     {
       return 0 == Compare( p, q );
