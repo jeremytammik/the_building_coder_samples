@@ -44,7 +44,7 @@ namespace BuildingCoder
 
       // Open source project
 
-      Document docHasFamily = app.OpenDocumentFile( 
+      Document docHasFamily = app.OpenDocumentFile(
         _source_project_path );
 
       // Find system family to copy, e.g. using a named wall type
@@ -64,7 +64,7 @@ namespace BuildingCoder
         string name = wt.Name;
 
         Debug.Print( "  {0} {1}", ++i, name );
-        
+
         if( name.Equals( _wall_type_name ) )
         {
           wallType = wt;
@@ -113,12 +113,12 @@ namespace BuildingCoder
         // Assign parameter values from source wall type:
 
 #if COPY_INDIVIDUAL_PARAMETER_VALUE
-      // Example: individually copy the "Function" parameter value:
+    // Example: individually copy the "Function" parameter value:
 
-      BuiltInParameter bip = BuiltInParameter.FUNCTION_PARAM;
-      string function = wallType.get_Parameter( bip ).AsString();
-      Parameter p = newWallType.get_Parameter( bip );
-      p.Set( function );
+    BuiltInParameter bip = BuiltInParameter.FUNCTION_PARAM;
+    string function = wallType.get_Parameter( bip ).AsString();
+    Parameter p = newWallType.get_Parameter( bip );
+    p.Set( function );
 #endif // COPY_INDIVIDUAL_PARAMETER_VALUE
 
         Parameter p = null;
@@ -192,7 +192,6 @@ namespace BuildingCoder
           // As there are no property writable for
           // Walltype, I ignore this process here.
         }
-
         t.Commit();
       }
       return Result.Succeeded;
