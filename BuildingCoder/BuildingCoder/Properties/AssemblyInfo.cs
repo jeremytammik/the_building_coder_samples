@@ -90,6 +90,7 @@ using System.Runtime.InteropServices;
 // 2015-03-25 2015.0.120.7 eliminated and replaced non-static Creator.CreateModelLine taking XYZ start and end point by static overload taking Document as well
 // 2015-04-13 2015.0.120.9 implemented Plane Compare method
 // 2015-05-05 2015.0.120.10 cleaned up, tested and fixed a bug in CmdCopyWallType
+// 2015-05-15 2015.0.120.11 started integrating version compatibility extension methods by Magson Leone
 // 
-[assembly: AssemblyVersion( "2015.0.120.10" )]
-[assembly: AssemblyFileVersion( "2015.0.120.10" )]
+[assembly: AssemblyVersion( "2015.0.120.11" )]
+[assembly: AssemblyFileVersion( "2015.0.120.11" )]
