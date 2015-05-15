@@ -23,6 +23,25 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdExportSolidToSat : IExternalCommand
   {
+    #region Clone Solid Workaround before new Revit 2016 Solid.Clone API
+    static public Solid Clone( /*this*/ Solid solid )
+    {
+      if( solid == null )
+      {
+        return null;
+      }
+
+      // Better than unioning the solid with itself:
+      // use a small cube contained within the original 
+      // solid instead, e.g. a 1x1x1 cube at the origin 
+      // or something.
+
+      return BooleanOperationsUtils
+        .ExecuteBooleanOperation( solid, solid,
+          BooleanOperationsType.Union );
+    }
+    #endregion // Clone Solid Workaround
+
     /// <summary>
     /// Return the full path of the first file 
     /// found matching the given filename pattern
@@ -65,7 +84,7 @@ namespace BuildingCoder
 
       // Retrieve all floors from the model
 
-      var floors 
+      var floors
         = new FilteredElementCollector( doc )
           .OfClass( typeof( Floor ) )
           .ToElements()
