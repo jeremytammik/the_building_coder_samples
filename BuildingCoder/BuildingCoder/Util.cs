@@ -1264,14 +1264,14 @@ namespace BuildingCoder
   public static class CompatibilityMethods
   {
     #region Autodesk.Revit.DB.Curve
-    public static XYZ GetPoint2( 
+    public static XYZ GetPoint2(
       this Curve curva,
       int i )
     {
       XYZ value = null;
 
-      MethodInfo met = curva.GetType().GetMethod( 
-        "GetEndPoint", 
+      MethodInfo met = curva.GetType().GetMethod(
+        "GetEndPoint",
         new Type[] { typeof( int ) } );
 
       if( met == null )
@@ -1281,19 +1281,19 @@ namespace BuildingCoder
           new Type[] { typeof( int ) } );
       }
 
-      value = met.Invoke( curva, new object[] { i } ) 
+      value = met.Invoke( curva, new object[] { i } )
         as XYZ;
-      
+
       return value;
     }
     #endregion // Autodesk.Revit.DB.Curve
 
     #region Autodesk.Revit.DB.Definitions
-    public static Definition Create2( 
-      this Definitions definitions, 
-      Document doc, 
+    public static Definition Create2(
+      this Definitions definitions,
+      Document doc,
       string nome,
-      ParameterType tipo, 
+      ParameterType tipo,
       bool visibilidade )
     {
       Definition value = null;
@@ -1305,22 +1305,22 @@ namespace BuildingCoder
         Type t = ls[0];
         ConstructorInfo c = t
         .GetConstructor( new Type[] { typeof(string),
-                 typeof(ParameterType) } );
+                typeof(ParameterType) } );
         object ed = c
         .Invoke( new object[] { nome, tipo } );
         ed.GetType().GetProperty( "Visible" )
         .SetValue( ed, visibilidade, null );
         value = definitions.GetType()
         .GetMethod( "Create", new Type[] { t } ).Invoke( definitions,
-         new object[] { ed } ) as Definition;
+          new object[] { ed } ) as Definition;
       }
       else
       {
         value = definitions.GetType()
         .GetMethod( "Create", new Type[] { typeof(string),
-                 typeof(ParameterType), typeof(bool) } ).Invoke( definitions,
-         new object[] { nome, tipo,
-                 visibilidade } ) as Definition;
+                typeof(ParameterType), typeof(bool) } ).Invoke( definitions,
+          new object[] { nome, tipo,
+                visibilidade } ) as Definition;
       }
       return value;
     }
@@ -1337,7 +1337,7 @@ namespace BuildingCoder
         met = doc.GetType()
         .GetMethod( "GetElement", new Type[] { typeof( ElementId ) } );
       value = met.Invoke( doc,
-       new object[] { id } ) as Element;
+        new object[] { id } ) as Element;
       return value;
     }
     public static Element GetElement2( this Document
@@ -1348,27 +1348,27 @@ namespace BuildingCoder
       return value;
     }
     public static Line CreateLine2( this Document doc,
-     XYZ p1, XYZ p2, bool bound = true )
+      XYZ p1, XYZ p2, bool bound = true )
     {
       Line value = null;
       object[] parametros = new object[] { p1,
-             p2 };
+            p2 };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       string metodo = "CreateBound";
       if( bound == false ) metodo =
-       "CreateUnbound";
+        "CreateUnbound";
       MethodInfo met = typeof( Line )
       .GetMethod( metodo, tipos );
       if( met != null )
       {
         value = met.Invoke( null,
-         parametros ) as Line;
+          parametros ) as Line;
       }
       else
       {
         parametros = new object[] { p1, p2,
-                 bound };
+                bound };
         tipos = parametros.Select( a => a
         .GetType() ).ToArray();
         value = doc.Application.Create
@@ -1378,14 +1378,14 @@ namespace BuildingCoder
       return value;
     }
     public static Wall CreateWall2( this Document doc,
-     Curve curve, ElementId wallTypeId,
-     ElementId levelId, double height, double offset, bool flip,
-     bool structural )
+      Curve curve, ElementId wallTypeId,
+      ElementId levelId, double height, double offset, bool flip,
+      bool structural )
     {
       Wall value = null;
       object[] parametros = new object[] { doc,
-             curve, wallTypeId, levelId, height, offset, flip,
-             structural };
+            curve, wallTypeId, levelId, height, offset, flip,
+            structural };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       MethodInfo met = typeof( Wall )
@@ -1393,28 +1393,28 @@ namespace BuildingCoder
       if( met != null )
       {
         value = met.Invoke( null,
-         parametros ) as Wall;
+          parametros ) as Wall;
       }
       else
       {
         parametros = new object[] { curve,
-                 (WallType)doc.GetElement2(wallTypeId), (Level)doc
-                .GetElement2(levelId), height, offset, flip,
-                 structural };
+                (WallType)doc.GetElement2(wallTypeId), (Level)doc
+              .GetElement2(levelId), height, offset, flip,
+                structural };
         tipos = parametros.Select( a => a
         .GetType() ).ToArray();
         value = doc.Create.GetType()
         .GetMethod( "NewWall", tipos ).Invoke( doc.Create,
-         parametros ) as Wall;
+          parametros ) as Wall;
       }
       return value;
     }
     public static Arc CreateArc2( this Document doc,
-     XYZ p1, XYZ p2, XYZ p3 )
+      XYZ p1, XYZ p2, XYZ p3 )
     {
       Arc value = null;
       object[] parametros = new object[] { p1,
-             p2, p3 };
+            p2, p3 };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       string metodo = "Create";
@@ -1423,7 +1423,7 @@ namespace BuildingCoder
       if( met != null )
       {
         value = met.Invoke( null,
-         parametros ) as Arc;
+          parametros ) as Arc;
       }
       else
       {
@@ -1434,7 +1434,7 @@ namespace BuildingCoder
       return value;
     }
     public static char GetDecimalSymbol2( this 
-    Document doc )
+  Document doc )
     {
       char valor = ',';
       MethodInfo met = doc.GetType()
@@ -1471,7 +1471,7 @@ namespace BuildingCoder
       .GetTypes().Where( a => a.IsClass && a
       .Name == "JoinGeometryUtils" ).ToList();
       object[] parametros = new object[] { doc,
-             firstElement, secondElement };
+            firstElement, secondElement };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       if( ls.Count > 0 )
@@ -1489,7 +1489,7 @@ namespace BuildingCoder
       .GetTypes().Where( a => a.IsClass && a
       .Name == "JoinGeometryUtils" ).ToList();
       object[] parametros = new object[] { doc,
-             firstElement, secondElement };
+            firstElement, secondElement };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       if( ls.Count > 0 )
@@ -1501,14 +1501,14 @@ namespace BuildingCoder
       }
     }
     public static bool IsJoined2( this Document doc,
-     Element firstElement, Element secondElement )
+      Element firstElement, Element secondElement )
     {
       bool value = false;
       List<Type> ls = doc.GetType().Assembly
       .GetTypes().Where( a => a.IsClass && a
       .Name == "JoinGeometryUtils" ).ToList();
       object[] parametros = new object[] { doc,
-             firstElement, secondElement };
+            firstElement, secondElement };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       if( ls.Count > 0 )
@@ -1517,12 +1517,12 @@ namespace BuildingCoder
         MethodInfo met = t
         .GetMethod( "AreElementsJoined", tipos );
         value = (bool) met.Invoke( null,
-         parametros );
+          parametros );
       }
       return value;
     }
     public static bool CalculateVolumeArea2( this 
-    Document doc, bool value )
+  Document doc, bool value )
     {
       List<Type> ls = doc.GetType().Assembly
       .GetTypes().Where( a => a.IsClass && a
@@ -1531,13 +1531,13 @@ namespace BuildingCoder
       {
         Type t = ls[0];
         object[] parametros = new object[] { 
-                doc };
+              doc };
         Type[] tipos = parametros
         .Select( a => a.GetType() ).ToArray();
         MethodInfo met = t
         .GetMethod( "GetAreaVolumeSettings", tipos );
         object temp = met.Invoke( null,
-         parametros );
+          parametros );
         temp.GetType()
         .GetProperty( "ComputeVolumes" ).SetValue( temp, value, null );
       }
@@ -1579,12 +1579,12 @@ namespace BuildingCoder
         met = obj.GetType()
         .GetMethod( "NewGroup", new Type[] { eleset.GetType() } );
         met.Invoke( obj,
-         new object[] { eleset } );
+          new object[] { eleset } );
       }
       return value;
     }
     public static void Delete2( this Document doc,
-     Element ele )
+      Element ele )
     {
       object obj = doc;
       MethodInfo met = obj.GetType()
@@ -1598,7 +1598,7 @@ namespace BuildingCoder
         met = obj.GetType()
         .GetMethod( "Delete", new Type[] { typeof( ElementId ) } );
         met.Invoke( obj, new object[] { ele
-                .Id } );
+              .Id } );
       }
     }
     #endregion // Autodesk.Revit.DB.Document
@@ -1618,7 +1618,7 @@ namespace BuildingCoder
       return value;
     }
     public static List<Material> Materiais2( this 
-    Element ele )
+  Element ele )
     {
       List<Material> value = new List<Material>();
       Document doc = ele.Document;
@@ -1638,7 +1638,7 @@ namespace BuildingCoder
       return value;
     }
     public static Parameter GetParameter2( this 
-    Element ele, string nome_paramentro )
+  Element ele, string nome_paramentro )
     {
       Parameter value = null;
       Type t = ele.GetType();
@@ -1646,9 +1646,9 @@ namespace BuildingCoder
       .GetMethod( "LookupParameter", new Type[] { typeof( string ) } );
       if( met == null )
         met = t.GetMethod( "get_Parameter",
-         new Type[] { typeof( string ) } );
+          new Type[] { typeof( string ) } );
       value = met.Invoke( ele,
-       new object[] { nome_paramentro } ) as Parameter;
+        new object[] { nome_paramentro } ) as Parameter;
       if( value == null )
       {
         var pas = ele.Parameters
@@ -1662,7 +1662,7 @@ namespace BuildingCoder
       return value;
     }
     public static Parameter GetParameter2( this 
-    Element ele, BuiltInParameter builtInParameter )
+  Element ele, BuiltInParameter builtInParameter )
     {
       Parameter value = null;
       Type t = ele.GetType();
@@ -1670,52 +1670,52 @@ namespace BuildingCoder
       .GetMethod( "LookupParameter", new Type[] { typeof( BuiltInParameter ) } );
       if( met == null )
         met = t.GetMethod( "get_Parameter",
-         new Type[] { typeof( BuiltInParameter ) } );
+          new Type[] { typeof( BuiltInParameter ) } );
       value = met.Invoke( ele,
-       new object[] { builtInParameter } ) as Parameter;
+        new object[] { builtInParameter } ) as Parameter;
       return value;
     }
     public static double GetMaterialArea2( this 
-    Element ele, Material m )
+  Element ele, Material m )
     {
       double value = 0;
       Type t = ele.GetType();
       MethodInfo met = t
       .GetMethod( "GetMaterialArea", new Type[] { typeof(ElementId),
-             typeof(bool) } );
+            typeof(bool) } );
       if( met != null )
       {
         value = (double) met.Invoke( ele,
-         new object[] { m.Id, false } );
+          new object[] { m.Id, false } );
       }
       else
       {
         met = t.GetMethod( "GetMaterialArea",
-         new Type[] { typeof( Element ) } );
+          new Type[] { typeof( Element ) } );
         value = (double) met.Invoke( ele,
-         new object[] { m } );
+          new object[] { m } );
       }
       return value;
     }
     public static double GetMaterialVolume2( this 
-    Element ele, Material m )
+  Element ele, Material m )
     {
       double value = 0;
       Type t = ele.GetType();
       MethodInfo met = t
       .GetMethod( "GetMaterialVolume", new Type[] { typeof(ElementId),
-             typeof(bool) } );
+            typeof(bool) } );
       if( met != null )
       {
         value = (double) met.Invoke( ele,
-         new object[] { m.Id, false } );
+          new object[] { m.Id, false } );
       }
       else
       {
         met = t
         .GetMethod( "GetMaterialVolume", new Type[] { typeof( ElementId ) } );
         value = (double) met.Invoke( ele,
-         new object[] { m.Id } );
+          new object[] { m.Id } );
       }
       return value;
     }
@@ -1752,7 +1752,7 @@ namespace BuildingCoder
 
     #region Autodesk.Revit.DB.FamilySymbol
     public static void EnableFamilySymbol2( this 
-    FamilySymbol fsymbol )
+  FamilySymbol fsymbol )
     {
       MethodInfo met = fsymbol.GetType()
       .GetMethod( "Activate" );
@@ -1765,10 +1765,10 @@ namespace BuildingCoder
 
     #region Autodesk.Revit.DB.InternalDefinition
     public static void VaryGroup2( this 
-    InternalDefinition def, Document doc )
+  InternalDefinition def, Document doc )
     {
       object[] parametros = new object[] { doc,
-             true };
+            true };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       MethodInfo met = def.GetType()
@@ -1788,7 +1788,7 @@ namespace BuildingCoder
       .GetProperty( "OriginalDividedElementId" );
       if( prop != null )
         value = prop.GetValue( part,
-         null ) as ElementId;
+          null ) as ElementId;
       else
       {
         MethodInfo met = part.GetType()
@@ -1800,7 +1800,7 @@ namespace BuildingCoder
         prop = temp.GetType()
         .GetProperty( "HostElementId" );
         value = prop.GetValue( temp,
-         null ) as ElementId;
+          null ) as ElementId;
       }
       return value;
     }
@@ -1808,7 +1808,7 @@ namespace BuildingCoder
 
     #region Autodesk.Revit.UI.Selection.Selection
     public static List<Element> GetSelection2( this 
-    Selection sel, Document doc )
+  Selection sel, Document doc )
     {
       List<Element> value = new List<Element>();
       sel.GetElementIds();
@@ -1834,7 +1834,7 @@ namespace BuildingCoder
     {
       sel.ClearSelection2();
       object[] parametros = new object[] { 
-            elementos };
+          elementos };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       MethodInfo met = sel.GetType()
@@ -1861,7 +1861,7 @@ namespace BuildingCoder
             Element elemento = doc
             .GetElement2( id );
             parametros = new object[] { 
-                        elemento };
+                      elemento };
             tipos = parametros
             .Select( a => a.GetType() ).ToArray();
             met = temp.GetType()
@@ -1871,7 +1871,7 @@ namespace BuildingCoder
         }
       }
     }
-    public static void ClearSelection2( 
+    public static void ClearSelection2(
       this Selection sel )
     {
       PropertyInfo prop = sel.GetType()
@@ -1885,9 +1885,9 @@ namespace BuildingCoder
       }
       else
       {
-        ICollection<ElementId> ids 
+        ICollection<ElementId> ids
           = new List<ElementId>();
-        MethodInfo met = sel.GetType().GetMethod( 
+        MethodInfo met = sel.GetType().GetMethod(
           "SetElementIds", new Type[] { ids.GetType() } );
         met.Invoke( sel, new object[] { ids } );
       }
@@ -1910,33 +1910,33 @@ namespace BuildingCoder
       ElementId value = null;
       Document doc = view.Document;
       List<Type> ls = doc.GetType().Assembly.GetTypes()
-        .Where( a => a.IsEnum 
+        .Where( a => a.IsEnum
           && a.Name == "ViewDuplicateOption" )
         .ToList();
       if( ls.Count > 0 )
       {
         Type t = ls[0];
         object obj = view;
-        MethodInfo met = view.GetType().GetMethod( 
+        MethodInfo met = view.GetType().GetMethod(
           "Duplicate", new Type[] { t } );
         if( met != null )
         {
           value = met.Invoke( obj,
-           new object[] { 2 } ) as ElementId;
+            new object[] { 2 } ) as ElementId;
         }
       }
       return value;
     }
-    public static void SetOverlayView2( 
-      this View view, 
-      List<ElementId> ids, 
+    public static void SetOverlayView2(
+      this View view,
+      List<ElementId> ids,
       Color cor = null,
       int espessura = -1 )
     {
       Document doc = view.Document;
       List<Type> ls = doc.GetType().Assembly
-        .GetTypes().Where( 
-          a => a.IsClass 
+        .GetTypes().Where(
+          a => a.IsClass
             && a.Name == "OverrideGraphicSettings" )
         .ToList();
       if( ls.Count > 0 )
@@ -1947,17 +1947,17 @@ namespace BuildingCoder
         construtor.Invoke( new object[] { } );
         object obj = construtor.Invoke( new object[] { } );
         MethodInfo met = obj.GetType()
-          .GetMethod( "SetProjectionLineColor", 
+          .GetMethod( "SetProjectionLineColor",
             new Type[] { cor.GetType() } );
         met.Invoke( obj, new object[] { cor } );
         met = obj.GetType()
-          .GetMethod( "SetProjectionLineWeight", 
+          .GetMethod( "SetProjectionLineWeight",
             new Type[] { espessura.GetType() } );
         met.Invoke( obj, new object[] { espessura } );
         met = view.GetType()
-          .GetMethod( "SetElementOverrides", 
+          .GetMethod( "SetElementOverrides",
             new Type[] { typeof(ElementId), 
-              obj.GetType() } );
+            obj.GetType() } );
         foreach( ElementId id in ids )
         {
           met.Invoke( view, new object[] { id, obj } );
@@ -1968,19 +1968,19 @@ namespace BuildingCoder
         MethodInfo met = view.GetType()
           .GetMethod( "set_ProjColorOverrideByElement",
             new Type[] { typeof( ICollection<ElementId> ), 
-              typeof( Color ) } );
+            typeof( Color ) } );
         met.Invoke( view, new object[] { ids, cor } );
         met = view.GetType()
           .GetMethod( "set_ProjLineWeightOverrideByElement",
             new Type[] { typeof( ICollection<ElementId> ), 
-              typeof( int ) } );
+            typeof( int ) } );
         met.Invoke( view, new object[] { ids, espessura } );
       }
     }
     #endregion // Autodesk.Revit.DB.View
 
     #region Autodesk.Revit.DB.Viewplan
-    public static ElementId GetViewTemplateId2( 
+    public static ElementId GetViewTemplateId2(
       this ViewPlan view )
     {
       ElementId value = null;
@@ -1989,12 +1989,12 @@ namespace BuildingCoder
       if( prop != null )
       {
         value = prop.GetValue( view,
-         null ) as ElementId;
+          null ) as ElementId;
       }
       return value;
     }
     public static void SetViewTemplateId2( this 
-    ViewPlan view, ElementId id )
+  ViewPlan view, ElementId id )
     {
       PropertyInfo prop = view.GetType()
         .GetProperty( "ViewTemplateId" );
