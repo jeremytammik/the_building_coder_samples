@@ -1257,17 +1257,26 @@ namespace BuildingCoder
   public static class CompatibilityMethods
   {
     #region Autodesk.Revit.DB.Curve
-    public static XYZ GetPoint2( this Curve curva,
-     int i )
+    public static XYZ GetPoint2( 
+      this Curve curva,
+      int i )
     {
       XYZ value = null;
-      MethodInfo met = curva.GetType()
-      .GetMethod( "GetEndPoint", new Type[] { typeof( int ) } );
+
+      MethodInfo met = curva.GetType().GetMethod( 
+        "GetEndPoint", 
+        new Type[] { typeof( int ) } );
+
       if( met == null )
-        met = curva.GetType()
-        .GetMethod( "get_EndPoint", new Type[] { typeof( int ) } );
-      value = met.Invoke( curva,
-       new object[] { i } ) as XYZ;
+      {
+        met = curva.GetType().GetMethod(
+          "get_EndPoint",
+          new Type[] { typeof( int ) } );
+      }
+
+      value = met.Invoke( curva, new object[] { i } ) 
+        as XYZ;
+      
       return value;
     }
     #endregion // Autodesk.Revit.DB.Curve
@@ -1852,24 +1861,24 @@ namespace BuildingCoder
         }
       }
     }
-    public static void ClearSelection2( this 
-    Selection sel )
+    public static void ClearSelection2( 
+      this Selection sel )
     {
       PropertyInfo prop = sel.GetType()
-      .GetProperty( "Elements" );
+        .GetProperty( "Elements" );
       if( prop != null )
       {
         object obj = prop.GetValue( sel, null );
         MethodInfo met = obj.GetType()
-        .GetMethod( "Clear" );
+          .GetMethod( "Clear" );
         met.Invoke( obj, null );
       }
       else
       {
-        ICollection<ElementId> ids =
-        new List<ElementId>();
-        MethodInfo met = sel.GetType()
-        .GetMethod( "SetElementIds", new Type[] { ids.GetType() } );
+        ICollection<ElementId> ids 
+          = new List<ElementId>();
+        MethodInfo met = sel.GetType().GetMethod( 
+          "SetElementIds", new Type[] { ids.GetType() } );
         met.Invoke( sel, new object[] { ids } );
       }
     }
@@ -1890,15 +1899,16 @@ namespace BuildingCoder
     {
       ElementId value = null;
       Document doc = view.Document;
-      List<Type> ls = doc.GetType().Assembly
-      .GetTypes().Where( a => a.IsEnum && a
-      .Name == "ViewDuplicateOption" ).ToList();
+      List<Type> ls = doc.GetType().Assembly.GetTypes()
+        .Where( a => a.IsEnum 
+          && a.Name == "ViewDuplicateOption" )
+        .ToList();
       if( ls.Count > 0 )
       {
         Type t = ls[0];
         object obj = view;
-        MethodInfo met = view.GetType()
-        .GetMethod( "Duplicate", new Type[] { t } );
+        MethodInfo met = view.GetType().GetMethod( 
+          "Duplicate", new Type[] { t } );
         if( met != null )
         {
           value = met.Invoke( obj,
@@ -1960,8 +1970,8 @@ namespace BuildingCoder
     #endregion // Autodesk.Revit.DB.View
 
     #region Autodesk.Revit.DB.Viewplan
-    public static ElementId GetViewTemplateId2( this 
-    ViewPlan view )
+    public static ElementId GetViewTemplateId2( 
+      this ViewPlan view )
     {
       ElementId value = null;
       PropertyInfo prop = view.GetType()
