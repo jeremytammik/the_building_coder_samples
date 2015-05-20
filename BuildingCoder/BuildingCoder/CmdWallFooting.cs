@@ -63,11 +63,11 @@ namespace BuildingCoder
         }
       }
 
-      ContFooting footing = null;
+      WallFoundation footing = null;
 
       foreach ( ElementId id in delIds )
       {
-        footing = doc.GetElement( id ) as ContFooting;
+        footing = doc.GetElement( id ) as WallFoundation;
 
         if( null != footing )
         {

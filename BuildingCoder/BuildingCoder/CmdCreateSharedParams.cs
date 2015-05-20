@@ -198,8 +198,8 @@ namespace BuildingCoder
       {
         //definition = group.Definitions.Create( defname, _deftype, visible ); // 2014
         
-        ExternalDefinitonCreationOptions opt 
-          = new ExternalDefinitonCreationOptions( 
+        ExternalDefinitionCreationOptions opt 
+          = new ExternalDefinitionCreationOptions( 
             defname, _deftype );
 
         opt.Visible = visible;

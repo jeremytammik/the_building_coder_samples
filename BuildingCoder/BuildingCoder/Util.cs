@@ -1296,6 +1296,10 @@ namespace BuildingCoder
       ParameterType tipo,
       bool visibilidade )
     {
+      // Does this need updating to check for 
+      // ExternalDefinitionCreationOptions with
+      // the additional 'i' in Revit 2016?
+
       Definition value = null;
       List<Type> ls = doc.GetType().Assembly
       .GetTypes().Where( a => a.IsClass && a

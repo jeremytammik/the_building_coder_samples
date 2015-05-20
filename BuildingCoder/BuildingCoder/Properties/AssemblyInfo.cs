@@ -93,6 +93,7 @@ using System.Runtime.InteropServices;
 // 2015-05-15 2015.0.120.11 started integrating version compatibility extension methods by Magson Leone
 // 2015-05-18 2015.0.120.12 second attempt at integrating version compatibility extension methods by Magson Leone
 // 2015-05-19 2015.0.120.13 third version of version compatibility extension methods by Magson Leone
+// 2015-05-20 2016.0.120.13 first successful compilation for the Revit 2016 API
 // 
-[assembly: AssemblyVersion( "2015.0.120.13" )]
-[assembly: AssemblyFileVersion( "2015.0.120.13" )]
+[assembly: AssemblyVersion( "2016.0.120.13" )]
+[assembly: AssemblyFileVersion( "2016.0.120.13" )]
