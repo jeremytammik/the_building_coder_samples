@@ -94,7 +94,7 @@ using System.Runtime.InteropServices;
 // 2015-05-18 2015.0.120.12 second attempt at integrating version compatibility extension methods by Magson Leone
 // 2015-05-19 2015.0.120.13 third version of version compatibility extension methods by Magson Leone
 // 2015-05-20 2016.0.120.0 first successful compilation for the Revit 2016 API
-// 2015-05-26 2016.0.120.1 updated BcSample.txt for Revit 2016 and implemented Util.Intersection method
+// 2015-05-26 2016.0.120.1 updated BcSamples.txt for Revit 2016 and implemented Util.Intersection method
 // 
 [assembly: AssemblyVersion( "2016.0.120.1" )]
 [assembly: AssemblyFileVersion( "2016.0.120.1" )]
