@@ -138,7 +138,7 @@ namespace BuildingCoder
 
       Result rc = Result.Failed;
 
-      Element column = Util.SelectSingleElementOfType( 
+      Element column = Util.SelectSingleElementOfType(
         uidoc, typeof( FamilyInstance ), "column", true );
 
       if( null == column || !IsColumn( column ) )
@@ -150,7 +150,7 @@ namespace BuildingCoder
         Options opt = app.Application.Create.NewGeometryOptions();
         GeometryElement geo = column.get_Geometry( opt );
         GeometryInstance i = null;
-        
+
         //GeometryObjectArray objects = geo.Objects; // 2012
         //foreach( GeometryObject obj in objects ) // 2012
 

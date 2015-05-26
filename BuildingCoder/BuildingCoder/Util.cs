@@ -297,7 +297,7 @@ namespace BuildingCoder
       XYZ v2 = q2 - p2;
       XYZ w = p2 - p1;
 
-      double c = ( v2.X * w.Y - v2.Y * w.X ) 
+      double c = ( v2.X * w.Y - v2.Y * w.X )
         / ( v2.X * v1.Y - v2.Y * v1.X );
 
       double x = p1.X + c * v1.X;
