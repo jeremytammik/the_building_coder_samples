@@ -230,7 +230,7 @@ namespace BuildingCoder
     }
     #endregion // Geometrical Comparison
 
-    #region Geometrical XYZ Calculation
+    #region Geometrical Calculation
     /// <summary>
     /// Return the midpoint between two points.
     /// </summary>
@@ -279,6 +279,33 @@ namespace BuildingCoder
         new XYZ( b.Max.X, b.Max.Y, z ),
         new XYZ( b.Min.X, b.Max.Y, z ) 
       };
+    }
+
+    /// <summary>
+    /// Return the intersection point between two 
+    /// unbounded lines defined by the start and end
+    /// points of the two given curves.
+    /// https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
+    /// </summary>
+    public static XYZ Intersection( Curve c1, Curve c2 )
+    {
+      XYZ p1 = c1.GetEndPoint( 0 );
+      XYZ q1 = c1.GetEndPoint( 1 );
+      XYZ p2 = c2.GetEndPoint( 0 );
+      XYZ q2 = c2.GetEndPoint( 1 );
+      XYZ v1 = q1 - p1;
+      XYZ v2 = q2 - p2;
+      XYZ w = p2 - p1;
+
+      double c = ( v2.X * w.Y - v2.Y * w.X ) 
+        / ( v2.X * v1.Y - v2.Y * v1.X );
+
+      double x = p1.X + c * v1.X;
+      double y = p1.Y + c * v1.Y;
+
+      XYZ p5 = new XYZ( x, y, 0 );
+
+      return p5;
     }
     #endregion // Geometrical XYZ Calculation
 
