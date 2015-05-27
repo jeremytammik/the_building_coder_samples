@@ -307,7 +307,7 @@ namespace BuildingCoder
       double x = p1.X + c * v1.X;
       double y = p1.Y + c * v1.Y;
 
-      XYZ p5 = double.IsInfinity( x ) 
+      XYZ p5 = double.IsInfinity( x )
         || double.IsInfinity( y )
         ? null
         : new XYZ( x, y, 0 );
