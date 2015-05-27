@@ -1366,8 +1366,9 @@ namespace BuildingCoder
     #endregion // Autodesk.Revit.DB.Definitions
 
     #region Autodesk.Revit.DB.Document
-    public static Element GetElement2( this Document
-    doc, ElementId id )
+    public static Element GetElement2( 
+      this Document doc, 
+      ElementId id )
     {
       Element value = null;
       MethodInfo met = doc.GetType()
@@ -1386,8 +1387,10 @@ namespace BuildingCoder
       value = doc.GetElement( refe );
       return value;
     }
-    public static Line CreateLine2( this Document doc,
-      XYZ p1, XYZ p2, bool bound = true )
+    public static Line CreateLine2( 
+      this Document doc,
+      XYZ p1, XYZ p2, 
+      bool bound = true )
     {
       Line value = null;
       object[] parametros = new object[] { p1,
@@ -1416,9 +1419,11 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static Wall CreateWall2( this Document doc,
+    public static Wall CreateWall2( 
+      this Document doc,
       Curve curve, ElementId wallTypeId,
-      ElementId levelId, double height, double offset, bool flip,
+      ElementId levelId, double height, 
+      double offset, bool flip,
       bool structural )
     {
       Wall value = null;
@@ -1448,7 +1453,8 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static Arc CreateArc2( this Document doc,
+    public static Arc CreateArc2( 
+      this Document doc,
       XYZ p1, XYZ p2, XYZ p3 )
     {
       Arc value = null;
@@ -1472,8 +1478,8 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static char GetDecimalSymbol2( this 
-  Document doc )
+    public static char GetDecimalSymbol2( 
+      this Document doc )
     {
       char valor = ',';
       MethodInfo met = doc.GetType()
@@ -1503,8 +1509,10 @@ namespace BuildingCoder
       }
       return valor;
     }
-    public static void UnjoinGeometry2( this Document
-    doc, Element firstElement, Element secondElement )
+    public static void UnjoinGeometry2( 
+      this Document doc, 
+      Element firstElement, 
+      Element secondElement )
     {
       List<Type> ls = doc.GetType().Assembly
       .GetTypes().Where( a => a.IsClass && a
@@ -1521,8 +1529,10 @@ namespace BuildingCoder
         met.Invoke( null, parametros );
       }
     }
-    public static void JoinGeometry2( this Document
-    doc, Element firstElement, Element secondElement )
+    public static void JoinGeometry2( 
+      this Document doc, 
+      Element firstElement, 
+      Element secondElement )
     {
       List<Type> ls = doc.GetType().Assembly
       .GetTypes().Where( a => a.IsClass && a
@@ -1539,8 +1549,10 @@ namespace BuildingCoder
         met.Invoke( null, parametros );
       }
     }
-    public static bool IsJoined2( this Document doc,
-      Element firstElement, Element secondElement )
+    public static bool IsJoined2( 
+      this Document doc,
+      Element firstElement, 
+      Element secondElement )
     {
       bool value = false;
       List<Type> ls = doc.GetType().Assembly
@@ -1560,8 +1572,8 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static bool CalculateVolumeArea2( this 
-  Document doc, bool value )
+    public static bool CalculateVolumeArea2( 
+      this Document doc, bool value )
     {
       List<Type> ls = doc.GetType().Assembly
       .GetTypes().Where( a => a.IsClass && a
@@ -1595,8 +1607,9 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static Group CreateGroup2( this Document
-    doc, List<Element> elementos )
+    public static Group CreateGroup2( 
+      this Document doc, 
+      List<Element> elementos )
     {
       Group value = null;
       ElementSet eleset = new ElementSet();
@@ -1622,7 +1635,8 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static void Delete2( this Document doc,
+    public static void Delete2( 
+      this Document doc,
       Element ele )
     {
       object obj = doc;
@@ -1656,8 +1670,8 @@ namespace BuildingCoder
         .GetProperty( "LevelId" ).GetValue( ele, null ) );
       return value;
     }
-    public static List<Material> Materiais2( this 
-  Element ele )
+    public static List<Material> Materiais2( 
+      this Element ele )
     {
       List<Material> value = new List<Material>();
       Document doc = ele.Document;
@@ -1676,8 +1690,8 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static Parameter GetParameter2( this 
-  Element ele, string nome_paramentro )
+    public static Parameter GetParameter2( 
+      this Element ele, string nome_paramentro )
     {
       Parameter value = null;
       Type t = ele.GetType();
@@ -1700,8 +1714,9 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static Parameter GetParameter2( this 
-  Element ele, BuiltInParameter builtInParameter )
+    public static Parameter GetParameter2( 
+      this Element ele, 
+      BuiltInParameter builtInParameter )
     {
       Parameter value = null;
       Type t = ele.GetType();
@@ -1714,8 +1729,8 @@ namespace BuildingCoder
         new object[] { builtInParameter } ) as Parameter;
       return value;
     }
-    public static double GetMaterialArea2( this 
-  Element ele, Material m )
+    public static double GetMaterialArea2( 
+      this Element ele, Material m )
     {
       double value = 0;
       Type t = ele.GetType();
@@ -1736,8 +1751,8 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static double GetMaterialVolume2( this 
-  Element ele, Material m )
+    public static double GetMaterialVolume2( 
+      this Element ele, Material m )
     {
       double value = 0;
       Type t = ele.GetType();
@@ -1759,7 +1774,7 @@ namespace BuildingCoder
       return value;
     }
     public static List<GeometryObject>
-    GetGeometricObjects2( this Element ele )
+      GetGeometricObjects2( this Element ele )
     {
       List<GeometryObject> value =
       new List<GeometryObject>();
@@ -1790,8 +1805,8 @@ namespace BuildingCoder
     #endregion // Autodesk.Revit.DB.Element
 
     #region Autodesk.Revit.DB.FamilySymbol
-    public static void EnableFamilySymbol2( this 
-  FamilySymbol fsymbol )
+    public static void EnableFamilySymbol2( 
+      this FamilySymbol fsymbol )
     {
       MethodInfo met = fsymbol.GetType()
       .GetMethod( "Activate" );
@@ -1803,8 +1818,8 @@ namespace BuildingCoder
     #endregion // Autodesk.Revit.DB.FamilySymbol
 
     #region Autodesk.Revit.DB.InternalDefinition
-    public static void VaryGroup2( this 
-  InternalDefinition def, Document doc )
+    public static void VaryGroup2( 
+      this InternalDefinition def, Document doc )
     {
       object[] parametros = new object[] { doc,
             true };
@@ -1846,8 +1861,8 @@ namespace BuildingCoder
     #endregion // Autodesk.Revit.DB.Part
 
     #region Autodesk.Revit.UI.Selection.Selection
-    public static List<Element> GetSelection2( this 
-  Selection sel, Document doc )
+    public static List<Element> GetSelection2( 
+      this Selection sel, Document doc )
     {
       List<Element> value = new List<Element>();
       sel.GetElementIds();
@@ -1868,8 +1883,10 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static void SetSelection2( this Selection
-    sel, Document doc, ICollection<ElementId> elementos )
+    public static void SetSelection2( 
+      this Selection sel, 
+      Document doc, 
+      ICollection<ElementId> elementos )
     {
       sel.ClearSelection2();
       object[] parametros = new object[] { 
@@ -1934,8 +1951,8 @@ namespace BuildingCoder
     #endregion // Autodesk.Revit.UI.Selection.Selection
 
     #region Autodesk.Revit.UI.UIApplication
-    public static System.Drawing
-    .Rectangle GetDrawingArea2( this UIApplication ui )
+    public static System.Drawing.Rectangle 
+      GetDrawingArea2( this UIApplication ui )
     {
       System.Drawing.Rectangle value = System
       .Windows.Forms.Screen.PrimaryScreen.Bounds;
@@ -2032,8 +2049,9 @@ namespace BuildingCoder
       }
       return value;
     }
-    public static void SetViewTemplateId2( this 
-  ViewPlan view, ElementId id )
+    public static void SetViewTemplateId2( 
+      this ViewPlan view, 
+      ElementId id )
     {
       PropertyInfo prop = view.GetType()
         .GetProperty( "ViewTemplateId" );
