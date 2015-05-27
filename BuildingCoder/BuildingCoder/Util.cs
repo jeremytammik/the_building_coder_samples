@@ -282,9 +282,10 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Return the intersection point between two 
-    /// unbounded lines defined by the start and end
-    /// points of the two given curves. By Magson Leone.
+    /// Return the 2D intersection point between two 
+    /// unbounded lines defined in the XY plane by the 
+    /// start and end points of the two given curves. 
+    /// By Magson Leone.
     /// Return null if the two lines are coincident,
     /// in which case the intersection is an infinite 
     /// line, or non-coincident and parallel, in which 
