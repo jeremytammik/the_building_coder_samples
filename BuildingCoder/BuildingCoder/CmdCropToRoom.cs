@@ -118,18 +118,19 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      // collect all vertices of room closed shell
+      // Collect all vertices of room closed shell
       // to determine its extents:
 
       GeometryElement e = room.ClosedShell;
       List<XYZ> vertices = new List<XYZ>();
 
       //foreach( GeometryObject o in e.Objects ) // 2012
-      foreach( GeometryObject o in e )// 2013
+
+      foreach( GeometryObject o in e ) // 2013
       {
         if( o is Solid )
         {
-          // iterate over all the edges of all solids:
+          // Iterate over all the edges of all solids:
 
           Solid solid = o as Solid;
 
@@ -137,7 +138,7 @@ namespace BuildingCoder
           {
             foreach( XYZ p in edge.Tessellate() )
             {
-              // collect all vertices,
+              // Collect all vertices,
               // including duplicates:
 
               vertices.Add( p );
@@ -154,7 +155,7 @@ namespace BuildingCoder
           transformInverse.OfPoint( p ) );
       }
 
-      // ignore the Z coorindates and find the
+      // Ignore the Z coorindates and find the
       // min and max X and Y in the 3d view:
 
       double xMin = 0, yMin = 0, xMax = 0, yMax = 0;
@@ -183,7 +184,7 @@ namespace BuildingCoder
         }
       }
 
-      // grow the crop box by one twentieth of its
+      // Grow the crop box by one twentieth of its
       // size to include the walls of the room:
 
       double d = 0.05 * ( xMax - xMin );
@@ -199,7 +200,7 @@ namespace BuildingCoder
 
       view3d.CropBox = bb;
 
-      // change the crop view setting manually or
+      // Change the crop view setting manually or
       // programmatically to see the result:
 
       view3d.CropBoxActive = true;
