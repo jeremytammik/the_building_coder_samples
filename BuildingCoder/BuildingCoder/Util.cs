@@ -284,7 +284,11 @@ namespace BuildingCoder
     /// <summary>
     /// Return the intersection point between two 
     /// unbounded lines defined by the start and end
-    /// points of the two given curves.
+    /// points of the two given curves. By Magson Leone.
+    /// Return null if the two lines are coincident,
+    /// in which case the intersection is an infinite 
+    /// line, or non-coincident and parallel, in which 
+    /// case it is empty.
     /// https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
     /// </summary>
     public static XYZ Intersection( Curve c1, Curve c2 )
@@ -303,7 +307,10 @@ namespace BuildingCoder
       double x = p1.X + c * v1.X;
       double y = p1.Y + c * v1.Y;
 
-      XYZ p5 = new XYZ( x, y, 0 );
+      XYZ p5 = double.IsInfinity( x ) 
+        || double.IsInfinity( y )
+        ? null
+        : new XYZ( x, y, 0 );
 
       return p5;
     }
