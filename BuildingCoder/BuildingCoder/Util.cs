@@ -316,6 +316,87 @@ namespace BuildingCoder
       }
       return p5;
     }
+
+    /// <summary>
+    /// Create and return a solid sphere 
+    /// with a given radius and centre point.
+    /// </summary>
+    static public Solid CreateSphereAt(
+      XYZ centre,
+      double radius )
+    {
+      // Use the standard global coordinate system 
+      // as a frame, translated to the sphere centre.
+
+      Frame frame = new Frame( centre, XYZ.BasisX,
+        XYZ.BasisY, XYZ.BasisZ );
+
+      // Create a vertical half-circle loop 
+      // that must be in the frame location.
+
+      Arc arc = Arc.Create(
+        centre - radius * XYZ.BasisZ,
+        centre + radius * XYZ.BasisZ,
+        centre + radius * XYZ.BasisX );
+
+      Line line = Line.CreateBound(
+        arc.GetEndPoint( 1 ),
+        arc.GetEndPoint( 0 ) );
+
+      CurveLoop halfCircle = new CurveLoop();
+      halfCircle.Append( arc );
+      halfCircle.Append( line );
+
+      List<CurveLoop> loops = new List<CurveLoop>( 1 );
+      loops.Add( halfCircle );
+
+      return GeometryCreationUtilities
+        .CreateRevolvedGeometry( frame, loops,
+          0, 2 * Math.PI );
+    }
+
+    /// <summary>
+    /// Create and return a cube of 
+    /// side length d at the origin.
+    /// </summary>
+    static Solid CreateCube( double d )
+    {
+      return CreateRectangularPrism(
+        XYZ.Zero, d, d, d );
+    }
+
+    /// <summary>
+    /// Create and return a rectangular prism of the
+    /// given side lengths centered at the given point.
+    /// </summary>
+    static Solid CreateRectangularPrism(
+      XYZ center,
+      double d1,
+      double d2,
+      double d3 )
+    {
+      List<Curve> profile = new List<Curve>();
+      XYZ profile00 = new XYZ( -d1 / 2, -d2 / 2, -d3 / 2 );
+      XYZ profile01 = new XYZ( -d1 / 2, d2 / 2, -d3 / 2 );
+      XYZ profile11 = new XYZ( d1 / 2, d2 / 2, -d3 / 2 );
+      XYZ profile10 = new XYZ( d1 / 2, -d2 / 2, -d3 / 2 );
+
+      profile.Add( Line.CreateBound( profile00, profile01 ) );
+      profile.Add( Line.CreateBound( profile01, profile11 ) );
+      profile.Add( Line.CreateBound( profile11, profile10 ) );
+      profile.Add( Line.CreateBound( profile10, profile00 ) );
+
+      CurveLoop curveLoop = CurveLoop.Create( profile );
+
+      SolidOptions options = new SolidOptions(
+        ElementId.InvalidElementId,
+        ElementId.InvalidElementId );
+
+      return GeometryCreationUtilities
+        .CreateExtrusionGeometry(
+          new CurveLoop[] { curveLoop },
+          XYZ.BasisZ, d3, options );
+    }
     #endregion // Geometrical XYZ Calculation
 
     #region Unit Handling

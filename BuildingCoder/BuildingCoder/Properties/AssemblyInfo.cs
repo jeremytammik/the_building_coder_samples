@@ -96,6 +96,7 @@ using System.Runtime.InteropServices;
 // 2015-05-20 2016.0.120.0 first successful compilation for the Revit 2016 API
 // 2015-05-26 2016.0.120.1 updated BcSamples.txt for Revit 2016 and implemented Util.Intersection method
 // 2015-05-27 2016.0.120.2 enhanced Util.Intersection to gracefully handle parallel or coincident lines
+// 2015-07-08 2016.0.120.3 added solid sphere and cube creation utility methods
 // 
-[assembly: AssemblyVersion( "2016.0.120.2" )]
-[assembly: AssemblyFileVersion( "2016.0.120.2" )]
+[assembly: AssemblyVersion( "2016.0.120.3" )]
+[assembly: AssemblyFileVersion( "2016.0.120.3" )]

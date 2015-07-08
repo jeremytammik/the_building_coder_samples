@@ -21,6 +21,7 @@ using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.DB.PointClouds;
 using System.IO;
 using System.Xml;
+using Autodesk.Revit.DB.Analysis;
 #endregion // Namespaces
 
 namespace BuildingCoder
