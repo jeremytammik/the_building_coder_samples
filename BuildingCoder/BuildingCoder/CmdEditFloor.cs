@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-//using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -24,6 +23,45 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Automatic )]
   class CmdEditFloor : IExternalCommand
   {
+    #region Super simple floor creation
+    Result Execute2(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      UIApplication uiapp = commandData.Application;
+      UIDocument uidoc = uiapp.ActiveUIDocument;
+      Document doc = uidoc.Document;
+
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Create a Floor" );
+
+        int n = 4;
+        XYZ[] points = new XYZ[n];
+        points[0] = XYZ.Zero;
+        points[1] = new XYZ( 10.0, 0.0, 0.0 );
+        points[2] = new XYZ( 10.0, 10.0, 0.0 );
+        points[3] = new XYZ( 0.0, 10.0, 0.0 );
+
+        CurveArray curve = new CurveArray();
+
+        for( int i = 0; i < n; i++ )
+        {
+          Line line = Line.CreateBound( points[i],
+            points[( i < n - 1 ) ? i + 1 : 0] );
+
+          curve.Append( line );
+        }
+
+        doc.Create.NewFloor( curve, true );
+
+        tx.Commit();
+      }
+      return Result.Succeeded;
+    }
+    #endregion // Super simple floor creation
+
     /// <summary>
     /// Return the uppermost horizontal face
     /// of a given "horizontal" solid object
