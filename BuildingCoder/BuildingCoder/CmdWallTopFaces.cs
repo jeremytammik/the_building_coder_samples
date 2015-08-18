@@ -37,7 +37,7 @@ namespace BuildingCoder
     static bool IsTopPlanarFace( Face f )
     {
       return f is PlanarFace
-        && Util.PointsUpwards( ( (PlanarFace) f ).Normal );
+        && Util.PointsUpwards( ( (PlanarFace) f ).FaceNormal );
     }
 
     /// <summary>

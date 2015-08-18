@@ -59,8 +59,8 @@ namespace BuildingCoder
               PlanarFace pf = face as PlanarFace;
               if( null != pf )
               {
-                if( Util.IsVertical( pf.Normal, _tolerance )
-                  && pf.Normal.Z < 0 )
+                if( Util.IsVertical( pf.FaceNormal, _tolerance )
+                  && pf.FaceNormal.Z < 0 )
                 {
                   Util.InfoMsg( string.Format(
                     "The bottom face area is {0},"

@@ -101,6 +101,7 @@ using System.Runtime.InteropServices;
 // 2015-08-13 2016.0.120.5 added SetSiteLocationToCity2
 // 2015-08-18 2016.0.120.6 removed obsolete API usage in CmdNewLineLoad.cs
 // 2015-08-18 2016.0.120.7 removed obsolete API usage in CmdCollectorPerformance, CmdCreateSlopedSlab, CmdNewTextNote, CmdRoomNeighbours, CmdRoomWallAdjacency, and CmdSpaceAdjacency
+// 2015-08-18 2016.0.120.8 replaced obsolete PlanarFace.Normal property by PlanarFace.FaceNormal
 // 
-[assembly: AssemblyVersion( "2016.0.120.7" )]
-[assembly: AssemblyFileVersion( "2016.0.120.7" )]
+[assembly: AssemblyVersion( "2016.0.120.8" )]
+[assembly: AssemblyFileVersion( "2016.0.120.8" )]

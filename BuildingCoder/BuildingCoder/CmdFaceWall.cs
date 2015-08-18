@@ -192,7 +192,7 @@ namespace BuildingCoder
 
               if( null != pf )
               {
-                XYZ v = pf.Normal;
+                XYZ v = pf.FaceNormal;
 
                 // Errors:
                 //

@@ -171,12 +171,12 @@ namespace BuildingCoder
 
     public static bool IsHorizontal( PlanarFace f )
     {
-      return IsVertical( f.Normal );
+      return IsVertical( f.FaceNormal );
     }
 
     public static bool IsVertical( PlanarFace f )
     {
-      return IsHorizontal( f.Normal );
+      return IsHorizontal( f.FaceNormal );
     }
 
     public static bool IsVertical( CylindricalFace f )

@@ -62,7 +62,7 @@ namespace BuildingCoder
         PlanarFace pf = f as PlanarFace;
         if( null != pf
           && Util.IsVertical( pf )
-          && Util.IsZero( v.DotProduct( pf.Normal ) ) )
+          && Util.IsZero( v.DotProduct( pf.FaceNormal ) ) )
         {
           d = pf.Origin.DotProduct( w );
           if( ( null == outermost )

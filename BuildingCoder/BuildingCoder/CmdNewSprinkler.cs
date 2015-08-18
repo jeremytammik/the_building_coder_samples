@@ -154,7 +154,7 @@ namespace BuildingCoder
 
               if( null != pf )
               {
-                XYZ normal = pf.Normal.Normalize();
+                XYZ normal = pf.FaceNormal.Normalize();
 
                 if( Util.IsVertical( normal )
                   && 0.0 > normal.Z )

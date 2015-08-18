@@ -188,13 +188,13 @@ namespace BuildingCoder
 
             if( null != pf
               //&& normal.IsAlmostEqualTo( pf.Normal )
-              && Util.IsParallel( normal, pf.Normal ) )
+              && Util.IsParallel( normal, pf.FaceNormal ) )
             {
               //XYZ q = pf.Project( p ).XYZPoint; // Project returned null once
               //double d = q.DistanceTo( p );
 
               XYZ v = p - pf.Origin;
-              double d = v.DotProduct( -pf.Normal );
+              double d = v.DotProduct( -pf.FaceNormal );
               if( d < min_distance )
               {
                 face = f;

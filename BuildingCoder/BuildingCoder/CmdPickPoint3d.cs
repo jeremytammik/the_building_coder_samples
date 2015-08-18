@@ -163,7 +163,7 @@ switch( caseSwitch )
           if( face != null )
           {
             Plane plane = new Plane(
-              face.Normal, face.Origin );
+              face.FaceNormal, face.Origin );
 
             using( Transaction t = new Transaction( doc ) )
             {

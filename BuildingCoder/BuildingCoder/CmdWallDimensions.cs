@@ -78,7 +78,7 @@ namespace BuildingCoder
         PlanarFace planarFace = face as PlanarFace;
         if( null != planarFace )
         {
-          XYZ normal = planarFace.Normal;
+          XYZ normal = planarFace.FaceNormal;
           XYZ origin = planarFace.Origin;
           List<XYZ> normals = new List<XYZ>( naos.Keys );
           int i = normals.FindIndex(
