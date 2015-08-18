@@ -133,12 +133,14 @@ namespace BuildingCoder
 
         double newWidth = w_inch / 12;
 
-        TextNote txNote = doc.Create.NewTextNote(
-          doc.ActiveView, p, XYZ.BasisX, XYZ.BasisY,
-          newWidth, TextAlignFlags.TEF_ALIGN_LEFT
-          | TextAlignFlags.TEF_ALIGN_BOTTOM, s );
+        //TextNote txNote = doc.Create.NewTextNote(
+        //  doc.ActiveView, p, XYZ.BasisX, XYZ.BasisY,
+        //  newWidth, TextAlignFlags.TEF_ALIGN_LEFT
+        //  | TextAlignFlags.TEF_ALIGN_BOTTOM, s ); // 2015
+        //txNote.TextNoteType = textType; // 2015
 
-        txNote.TextNoteType = textType;
+        TextNote txNote = TextNote.Create( doc,
+          doc.ActiveView.Id, p, s, textType.Id ); // 2016
 
         Debug.Print(
           "NewTextNote lineWidth {0} times view scale "
@@ -338,12 +340,15 @@ namespace BuildingCoder
             double lineWidth = ( ( stringWidthFt * textWidthScale )
               + ( textBorder * 2.0 ) ) * viewScale;
 
-            TextNote textNote = dbDoc.Create.NewTextNote(
-              view, pLoc, XYZ.BasisX, XYZ.BasisY, 0.001,
-              TextAlignFlags.TEF_ALIGN_LEFT
-              | TextAlignFlags.TEF_ALIGN_TOP, textString );
+            //TextNote textNote = dbDoc.Create.NewTextNote(
+            //  view, pLoc, XYZ.BasisX, XYZ.BasisY, 0.001,
+            //  TextAlignFlags.TEF_ALIGN_LEFT
+            //  | TextAlignFlags.TEF_ALIGN_TOP, textString ); // 2015
+            //textNote.TextNoteType = textType; // 2015
 
-            textNote.TextNoteType = textType;
+            TextNote textNote = TextNote.Create( dbDoc,
+              view.Id, pLoc, textString, textType.Id); // 2016
+
             textNote.Width = lineWidth;
 
             t.Commit();

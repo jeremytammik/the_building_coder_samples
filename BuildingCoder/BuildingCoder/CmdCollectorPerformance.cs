@@ -1249,7 +1249,8 @@ TaskDialog.Show( "Revit", collector.Count() +
     /// </summary>
     Level CreateLevel( int elevation )
     {
-      Level level = _doc.Create.NewLevel( elevation );
+      //Level level = _doc.Create.NewLevel( elevation ); // 2015
+      Level level = Level.Create( _doc, elevation ); // 2016
       level.Name = "Level " + elevation.ToString();
       return level;
     }

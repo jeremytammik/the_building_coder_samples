@@ -100,6 +100,7 @@ using System.Runtime.InteropServices;
 // 2015-07-13 2016.0.120.4 added super simple floor creation code
 // 2015-08-13 2016.0.120.5 added SetSiteLocationToCity2
 // 2015-08-18 2016.0.120.6 removed obsolete API usage in CmdNewLineLoad.cs
+// 2015-08-18 2016.0.120.7 removed obsolete API usage in CmdCollectorPerformance, CmdCreateSlopedSlab, CmdNewTextNote, CmdRoomNeighbours, CmdRoomWallAdjacency, and CmdSpaceAdjacency
 // 
-[assembly: AssemblyVersion( "2016.0.120.6" )]
-[assembly: AssemblyFileVersion( "2016.0.120.6" )]
+[assembly: AssemblyVersion( "2016.0.120.7" )]
+[assembly: AssemblyFileVersion( "2016.0.120.7" )]
