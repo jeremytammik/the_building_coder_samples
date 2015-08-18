@@ -98,6 +98,8 @@ using System.Runtime.InteropServices;
 // 2015-05-27 2016.0.120.2 enhanced Util.Intersection to gracefully handle parallel or coincident lines
 // 2015-07-08 2016.0.120.3 added solid sphere and cube creation utility methods
 // 2015-07-13 2016.0.120.4 added super simple floor creation code
+// 2015-08-13 2016.0.120.5 added SetSiteLocationToCity2
+// 2015-08-18 2016.0.120.6 removed obsolete API usage in CmdNewLineLoad.cs
 // 
-[assembly: AssemblyVersion( "2016.0.120.4" )]
-[assembly: AssemblyFileVersion( "2016.0.120.4" )]
+[assembly: AssemblyVersion( "2016.0.120.6" )]
+[assembly: AssemblyFileVersion( "2016.0.120.6" )]

@@ -24,6 +24,18 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Automatic )]
   class CmdLinkedFiles : IExternalCommand
   {
+    /// <summary>
+    /// Return DWF links
+    /// </summary>
+    //FilteredElementCollector GetDwfLinks(
+    //  Document doc )
+    //{
+    //  // http://forums.autodesk.com/t5/revit-api/get-all-linked-dwfx-files-from-in-revit-document/td-p/5769622
+
+    //  return Util.GetElementsOfType( doc,
+    //    typeof( ImportInstance ) );
+    //}
+
     FilteredElementCollector GetLinkedFiles(
       Document doc )
     {

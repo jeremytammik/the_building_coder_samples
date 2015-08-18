@@ -24,6 +24,73 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdUnrotateNorth : IExternalCommand
   {
+    #region Set project location to city location
+    void SetSiteLocationToCity1( Document doc )
+    {
+      Autodesk.Revit.DB.CitySet cities = doc.Application.Cities;
+      int nCount = cities.Size;
+      try
+      {
+        CitySetIterator item = cities.ForwardIterator();
+        while( item != null )
+        {
+          item.MoveNext();
+          City city = item.Current as City;
+          if( city.Name.Contains( "中国" ) ||
+          city.Name.Contains( "China" ) )
+          {
+            Transaction transaction = new Transaction( doc, "Create Wall" );
+            transaction.Start();
+
+            ProjectLocation projectLocation = doc.ActiveProjectLocation;
+            SiteLocation site = projectLocation.SiteLocation;
+            // site.PlaceName = city.Name;
+            site.Latitude = city.Latitude; // latitude information
+            site.Longitude = city.Longitude; // longitude information
+            site.TimeZone = city.TimeZone; // TimeZone information
+            transaction.Commit();
+            break;
+          }
+        }
+      }
+      catch( Exception ret )
+      {
+        Debug.Print( ret.Message );
+      }
+    }
+
+    void SetSiteLocationToCity2( Document doc )
+    {
+      CitySet cities = doc.Application.Cities;
+
+      foreach( City city in cities )
+      {
+        string s = city.Name;
+
+        if( s.Contains( "中国" ) || s.Contains( "China" ) )
+        {
+          using( Transaction t = new Transaction( doc ) )
+          {
+            t.Start( "Set Site Location to City" );
+
+            ProjectLocation projectLocation = doc.ActiveProjectLocation;
+            SiteLocation site = projectLocation.SiteLocation;
+            // site.PlaceName = city.Name;
+            site.Latitude = city.Latitude; // latitude information
+            site.Longitude = city.Longitude; // longitude information
+            site.TimeZone = city.TimeZone; // TimeZone information
+
+            // SiteLocation property is read-only:
+            //projectLocation.SiteLocation = site;
+
+            t.Commit();
+          }
+          break;
+        }
+      }
+    }
+    #endregion // Set project location to city location
+
     /// <summary>
     /// Return a location for the given element.
     /// Use either the element's LocationPoint Point property,
@@ -73,12 +140,12 @@ namespace BuildingCoder
 
       #region Determine true north rotation
 
-      Element projectInfoElement 
-        = new FilteredElementCollector(doc)
-          .OfCategory(BuiltInCategory.OST_ProjectBasePoint)
+      Element projectInfoElement
+        = new FilteredElementCollector( doc )
+          .OfCategory( BuiltInCategory.OST_ProjectBasePoint )
           .FirstElement();
 
-      BuiltInParameter bipAtn 
+      BuiltInParameter bipAtn
         = BuiltInParameter.BASEPOINT_ANGLETON_PARAM;
 
       Parameter patn = projectInfoElement.get_Parameter(
@@ -86,7 +153,7 @@ namespace BuildingCoder
 
       double atn = patn.AsDouble();
 
-      Debug.Print( 
+      Debug.Print(
         "Angle to north from project info: {0}",
         Util.AngleString( atn ) );
 

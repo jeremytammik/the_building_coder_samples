@@ -79,16 +79,20 @@ namespace BuildingCoder
 
       XYZ p1 = new XYZ( 0, 0, 0 );
       XYZ p2 = new XYZ( 3, 0, 0 );
-      List<XYZ> points = new List<XYZ>();
-      points.Add( p1 );
-      points.Add( p2 );
+      //List<XYZ> points = new List<XYZ>();
+      //points.Add( p1 );
+      //points.Add( p2 );
 
       // create a new unhosted line load on points:
 
-      LineLoad lineLoadNoHost = cd.NewLineLoad(
-        points, forces, moments,
-        false, false, false,
-        loadSymbol, skplane );
+      //LineLoad lineLoadNoHost = cd.NewLineLoad(
+      //  points, forces, moments,
+      //  false, false, false,
+      //  loadSymbol, skplane ); // 2015
+
+      LineLoad lineLoadNoHost = LineLoad.Create( doc,
+        p1, p2, forces[0], moments[0],
+        loadSymbol, skplane ); // 2016
 
       Debug.Print( "Unhosted line load works." );
 
@@ -98,10 +102,16 @@ namespace BuildingCoder
       {
         try
         {
-          LineLoad lineLoad = cd.NewLineLoad(
-            e, forces, moments,
-            false, false, false,
-            loadSymbol, skplane );
+          //LineLoad lineLoad = cd.NewLineLoad(
+          //  e, forces, moments,
+          //  false, false, false,
+          //  loadSymbol, skplane ); // 2015
+
+          AnalyticalModelSurface amsurf = e.GetAnalyticalModel()
+            as AnalyticalModelSurface;
+
+          LineLoad lineLoad = LineLoad.Create( doc, 
+            amsurf, 0, forces[0], moments[0], loadSymbol ); // 2016
 
           Debug.Print( "Hosted line load on beam works." );
         }
@@ -120,10 +130,16 @@ namespace BuildingCoder
         {
           try
           {
-            LineLoad lineLoad = cd.NewLineLoad(
-              curve.Reference, forces, moments,
-              false, false, false,
-              loadSymbol, skplane );
+            //LineLoad lineLoad = cd.NewLineLoad(
+            //  curve.Reference, forces, moments,
+            //  false, false, false,
+            //  loadSymbol, skplane ); // 2015
+
+            AnalyticalModelStick amstick = e.GetAnalyticalModel()
+              as AnalyticalModelStick;
+
+            LineLoad lineLoad = LineLoad.Create( doc,
+              amstick, forces[0], moments[0], loadSymbol ); // 2016
 
             Debug.Print( "Hosted line load on "
               + "AnalyticalModelFrame curve works." );
