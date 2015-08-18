@@ -36,21 +36,22 @@ namespace BuildingCoder
     {
       Document doc = r.Document;
 
-      Wall w = bs.Element as Wall;
+      //Wall w = bs.Element as Wall;// 2015
+      Wall w = doc.GetElement( bs.ElementId ) as Wall;// 2016
 
       double wallThickness = w.Width;
 
       double wallLength = ( w.Location as 
         LocationCurve ).Curve.Length;
 
-      Transform derivatives = bs.Curve
+      Transform derivatives = bs.GetCurve()
         .ComputeDerivatives(  0.5, true );
 
       XYZ midPoint = derivatives.Origin;
       
       Debug.Assert( 
-        midPoint.IsAlmostEqualTo( 
-          bs.Curve.Evaluate( 0.5, true ) ),
+        midPoint.IsAlmostEqualTo(
+          bs.GetCurve().Evaluate( 0.5, true ) ),
         "expected same result from Evaluate and derivatives" );
 
       XYZ tangent = derivatives.BasisX.Normalize();

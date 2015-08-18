@@ -142,7 +142,8 @@ namespace BuildingCoder
       {
         foreach( BoundarySegment s in b )
         {
-          Curve curve = s.Curve;
+          //Curve curve = s.Curve; // 2015
+          Curve curve = s.GetCurve(); // 2016
           IList<XYZ> a = curve.Tessellate();
           for( int i = 1; i < a.Count; ++i )
           {

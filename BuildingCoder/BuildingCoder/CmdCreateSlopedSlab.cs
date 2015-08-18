@@ -78,7 +78,8 @@ namespace BuildingCoder
 
         if( null == level )
         {
-          level = doc.Create.NewLevel( height );
+          //level = doc.Create.NewLevel( height ); // 2015
+          level = Level.Create( doc, height ); // 2016
           level.Name = "Sloped Slab";
         }
 

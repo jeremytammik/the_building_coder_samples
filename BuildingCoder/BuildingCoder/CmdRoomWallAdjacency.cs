@@ -75,8 +75,13 @@ namespace BuildingCoder
           foreach( BoundarySegment s in b )
           {
             ++iSegment;
-            Element neighbour = s.Element;
-            Curve curve = s.Curve;
+
+            //Element neighbour = s.Element; // 2015
+            Element neighbour = doc.GetElement( s.ElementId ); // 2016
+
+            //Curve curve = s.Curve; // 2015
+            Curve curve = s.GetCurve(); // 2016
+
             double length = curve.Length;
 
             Debug.Print(
