@@ -50,8 +50,11 @@ namespace BuildingCoder
       ICollection<ElementId> elementIds
         = uidoc.Selection.GetElementIds(); // 2012
 
+      //ElementTransformUtils.MirrorElements(
+      //  doc, elementIds, plane ); // 2012-2015
+
       ElementTransformUtils.MirrorElements(
-        doc, elementIds, plane ); // 2012
+        doc, elementIds, plane, true ); // 2016
 
       return Result.Succeeded;
     }
@@ -204,8 +207,11 @@ namespace BuildingCoder
 
         //doc.Mirror( els, line ); // 2011
 
+        //ElementTransformUtils.MirrorElements(
+        //  doc, elementIds, plane ); // 2012-2015
+
         ElementTransformUtils.MirrorElements(
-          doc, elementIds, plane ); // 2012
+          doc, elementIds, plane, true ); // 2016
 
         List<Element> a = GetElementsAfter( n, doc );
 
@@ -227,8 +233,11 @@ namespace BuildingCoder
 
         // doc.Mirror( els, line ); // 2011
 
+        //ElementTransformUtils.MirrorElements(
+        //  doc, elementIds, plane ); // 2012-2015
+
         ElementTransformUtils.MirrorElements(
-          doc, elementIds, plane ); // 2012
+          doc, elementIds, plane, true ); // 2016
 
         // get all elements in document with an
         // element id greater than maxId:
@@ -254,8 +263,11 @@ namespace BuildingCoder
 
         //doc.Mirror( els, line ); // 2011
 
+        //ElementTransformUtils.MirrorElements(
+        //  doc, elementIds, plane ); // 2012-2015
+
         ElementTransformUtils.MirrorElements(
-          doc, elementIds, plane ); // 2012
+          doc, elementIds, plane, true ); // 2016
 
         // only look at non-ElementType elements
         // instead of all document elements:
@@ -289,8 +301,11 @@ namespace BuildingCoder
 
         //doc.Mirror( els, line ); // 2011
 
+        //ElementTransformUtils.MirrorElements(
+        //  doc, elementIds, plane ); // 2012-2015
+
         ElementTransformUtils.MirrorElements(
-          doc, elementIds, plane ); // 2012
+          doc, elementIds, plane, true ); // 2016
 
         app.DocumentChanged
           -= new EventHandler<DocumentChangedEventArgs>(
