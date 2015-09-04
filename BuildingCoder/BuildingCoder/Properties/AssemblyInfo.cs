@@ -105,6 +105,7 @@ using System.Runtime.InteropServices;
 // 2015-08-18 2016.0.120.9 eliminated obsolete API calls to ElementTransformUtils.MirrorElements by adding bool mirrorCopies argument
 // 2015-09-04 2016.0.120.10 added original EditFilledRegion to show code improvements
 // 2015-09-04 2016.0.120.11 in EditFilledRegion: foreach iter, using tx, single tx, XYZ static member
+// 2015-09-04 2016.0.120.12 in EditFilledRegion: use MoveElements instead of MoveElement
 // 
-[assembly: AssemblyVersion( "2016.0.120.10" )]
-[assembly: AssemblyFileVersion( "2016.0.120.10" )]
+[assembly: AssemblyVersion( "2016.0.120.12" )]
+[assembly: AssemblyFileVersion( "2016.0.120.12" )]

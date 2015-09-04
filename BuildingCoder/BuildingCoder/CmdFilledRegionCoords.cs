@@ -22,6 +22,7 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdFilledRegionCoords : IExternalCommand
   {
+    #region EditFilledRegion
     /// <summary>
     /// Edit filled region by moving it back and forth 
     /// to make its boundary lines reappear after 
@@ -30,23 +31,23 @@ namespace BuildingCoder
     /// </summary>
     public void EditFilledRegion( Document doc )
     {
-      FilteredElementCollector fillRegions 
+      ICollection<ElementId> fillRegionIds
         = new FilteredElementCollector( doc )
-          .OfClass( typeof( FilledRegion ) );
+          .OfClass( typeof( FilledRegion ) )
+          .ToElementIds();
 
       using( Transaction tx = new Transaction( doc ) )
       {
         tx.Start( "Move all Filled Regions" );
 
-        foreach( FilledRegion filledRegion in fillRegions )
-        {
-          XYZ v = XYZ.BasisX;
-          ElementTransformUtils.MoveElement( doc, filledRegion.Id, v );
-          ElementTransformUtils.MoveElement( doc, filledRegion.Id, -v );
-        }
+        XYZ v = XYZ.BasisX;
+        ElementTransformUtils.MoveElements( doc, fillRegionIds, v );
+        ElementTransformUtils.MoveElements( doc, fillRegionIds, -v );
+
         tx.Commit();
       }
     }
+    #endregion // EditFilledRegion
 
     List<XYZ> GetBoundaryCorners( FilledRegion region )
     {
