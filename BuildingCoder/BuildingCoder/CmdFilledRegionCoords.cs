@@ -28,21 +28,22 @@ namespace BuildingCoder
     /// deleting the line style. From:
     /// http://forums.autodesk.com/t5/revit-api/filled-region/td-p/5796463
     /// </summary>
-    public void EditFilledRegion( Document doc, UIDocument uidoc )
+    public void EditFilledRegion( Document doc )
     {
-      FilteredElementCollector fillRegionTypes = new FilteredElementCollector( doc ).OfClass( typeof( FilledRegion ) );
-      FilteredElementIterator itr = fillRegionTypes.GetElementIterator();
-      while( itr.MoveNext() )
-      {
-        Element element = (Element) itr.Current;
-        FilledRegion filledRegion = doc.GetElement( element.Id ) as FilledRegion;
+      FilteredElementCollector fillRegions 
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( FilledRegion ) );
 
-        Transaction tx = new Transaction( doc );
-        tx.Start( "move" );
-        XYZ xyznew = new XYZ( 1, 0, 0 );
-        XYZ xyzOld = new XYZ( -1, 0, 0 );
-        ElementTransformUtils.MoveElement( doc, filledRegion.Id, xyznew );
-        ElementTransformUtils.MoveElement( doc, filledRegion.Id, xyzOld );
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Move all Filled Regions" );
+
+        foreach( FilledRegion filledRegion in fillRegions )
+        {
+          XYZ v = XYZ.BasisX;
+          ElementTransformUtils.MoveElement( doc, filledRegion.Id, v );
+          ElementTransformUtils.MoveElement( doc, filledRegion.Id, -v );
+        }
         tx.Commit();
       }
     }
