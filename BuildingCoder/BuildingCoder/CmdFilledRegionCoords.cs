@@ -93,7 +93,7 @@ namespace BuildingCoder
       {
         int n = filledRegions.Count;
 
-        string[] results = new string [n];
+        string[] results = new string[n];
 
         int i = 0;
 
