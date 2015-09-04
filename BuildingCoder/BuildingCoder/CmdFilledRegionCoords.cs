@@ -22,6 +22,31 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdFilledRegionCoords : IExternalCommand
   {
+    /// <summary>
+    /// Edit filled region by moving it back and forth 
+    /// to make its boundary lines reappear after 
+    /// deleting the line style. From:
+    /// http://forums.autodesk.com/t5/revit-api/filled-region/td-p/5796463
+    /// </summary>
+    public void EditFilledRegion( Document doc, UIDocument uidoc )
+    {
+      FilteredElementCollector fillRegionTypes = new FilteredElementCollector( doc ).OfClass( typeof( FilledRegion ) );
+      FilteredElementIterator itr = fillRegionTypes.GetElementIterator();
+      while( itr.MoveNext() )
+      {
+        Element element = (Element) itr.Current;
+        FilledRegion filledRegion = doc.GetElement( element.Id ) as FilledRegion;
+
+        Transaction tx = new Transaction( doc );
+        tx.Start( "move" );
+        XYZ xyznew = new XYZ( 1, 0, 0 );
+        XYZ xyzOld = new XYZ( -1, 0, 0 );
+        ElementTransformUtils.MoveElement( doc, filledRegion.Id, xyznew );
+        ElementTransformUtils.MoveElement( doc, filledRegion.Id, xyzOld );
+        tx.Commit();
+      }
+    }
+
     List<XYZ> GetBoundaryCorners( FilledRegion region )
     {
       List<XYZ> result = new List<XYZ>();
