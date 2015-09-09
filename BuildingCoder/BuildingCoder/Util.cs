@@ -236,7 +236,7 @@ namespace BuildingCoder
     /// </summary>
     public static XYZ Midpoint( XYZ p, XYZ q )
     {
-      return p + 0.5 * ( q - p );
+      return 0.5 * ( p + q );
     }
 
     /// <summary>
