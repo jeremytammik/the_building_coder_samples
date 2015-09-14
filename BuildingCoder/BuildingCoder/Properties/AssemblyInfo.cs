@@ -106,7 +106,7 @@ using System.Runtime.InteropServices;
 // 2015-09-04 2016.0.120.10 added original EditFilledRegion to show code improvements
 // 2015-09-04 2016.0.120.11 in EditFilledRegion: foreach iter, using tx, single tx, XYZ static member
 // 2015-09-04 2016.0.120.12 in EditFilledRegion: use MoveElements instead of MoveElement
-// 2015-09-14 2016.0.120.13 implemented GetAllModelElements
+// 2015-09-14 2016.0.120.14 implemented GetAllModelElements
 // 
-[assembly: AssemblyVersion( "2016.0.120.13" )]
-[assembly: AssemblyFileVersion( "2016.0.120.13" )]
+[assembly: AssemblyVersion( "2016.0.120.14" )]
+[assembly: AssemblyFileVersion( "2016.0.120.14" )]
