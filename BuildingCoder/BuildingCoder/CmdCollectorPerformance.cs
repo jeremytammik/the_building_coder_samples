@@ -287,6 +287,25 @@ namespace BuildingCoder
   {
     Document _doc;
 
+    #region Get all model elements
+    /// <summary>
+    /// Return all model elements, cf.
+    /// http://forums.autodesk.com/t5/revit-api/traverse-all-model-elements-in-a-project-top-down-approach/m-p/5815247
+    /// </summary>
+    IEnumerable<Element> GetAllModelElements( 
+      Document doc )
+    {
+      Options opt = new Options();
+
+      return new FilteredElementCollector( doc )
+        .WhereElementIsNotElementType()
+        .WhereElementIsViewIndependent()
+        .Where<Element>( e 
+          => null != e.Category
+          && null != e.get_Geometry( opt ) );
+    }
+    #endregion // Get all model elements
+
     #region Traverse all model elements top down Levels > Category > Family > Type > Instance
     void TraverseInstances( Document doc )
     {
