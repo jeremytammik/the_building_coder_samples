@@ -287,12 +287,67 @@ namespace BuildingCoder
   {
     Document _doc;
 
+    #region Collector is iterable without ToElements
+    /// <summary>
+    /// Iterate directly over the filtered element collector.
+    /// In general, there is no need to create a copy of it.
+    /// Calling ToElements creates a copy, allocating space 
+    /// for that and wasting both memory and time.
+    /// No need to cast either, foreach can do that 
+    /// automatically.
+    /// </summary>
+    IEnumerable<Element> IterateOverCollector(
+      Document doc )
+    {
+      // Do not do this!
+
+      FilteredElementCollector collector 
+        = new FilteredElementCollector( doc );
+
+      collector.OfClass( typeof( Family ) ).ToElements();
+
+      IEnumerable<Family> nestedFamilies 
+        = collector.Cast<Family>();
+
+      String str = "";
+
+      foreach( Family f in nestedFamilies )
+      {
+        str = str + f.Name + "\n";
+
+        foreach( ElementId symbolId in f.GetFamilySymbolIds() )
+        {
+          Element symbolElem = doc.GetElement( symbolId );
+
+          str = str + " family type： " + symbolElem.Name + "\n";
+        }
+      }
+
+      // Iterate directly over the collector instead.
+      // No need for ToElements, which creates a copy.
+      // The copy wastes memory and time.
+      // No need for a cast, even.
+
+      FilteredElementCollector families
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( Family ) );
+
+      foreach( Family f in families )
+      {
+        str = str + f.Name + "\n";
+
+        // ...
+      }
+      return families;
+    }
+    #endregion // Get all model elements
+
     #region Get all model elements
     /// <summary>
     /// Return all model elements, cf.
     /// http://forums.autodesk.com/t5/revit-api/traverse-all-model-elements-in-a-project-top-down-approach/m-p/5815247
     /// </summary>
-    IEnumerable<Element> GetAllModelElements( 
+    IEnumerable<Element> GetAllModelElements(
       Document doc )
     {
       Options opt = new Options();
@@ -300,7 +355,7 @@ namespace BuildingCoder
       return new FilteredElementCollector( doc )
         .WhereElementIsNotElementType()
         .WhereElementIsViewIndependent()
-        .Where<Element>( e 
+        .Where<Element>( e
           => null != e.Category
           && null != e.get_Geometry( opt ) );
     }
