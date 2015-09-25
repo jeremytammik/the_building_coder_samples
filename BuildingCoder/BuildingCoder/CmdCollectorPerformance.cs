@@ -301,12 +301,12 @@ namespace BuildingCoder
     {
       // Do not do this!
 
-      FilteredElementCollector collector 
+      FilteredElementCollector collector
         = new FilteredElementCollector( doc );
 
       collector.OfClass( typeof( Family ) ).ToElements();
 
-      IEnumerable<Family> nestedFamilies 
+      IEnumerable<Family> nestedFamilies
         = collector.Cast<Family>();
 
       String str = "";
@@ -315,11 +315,14 @@ namespace BuildingCoder
       {
         str = str + f.Name + "\n";
 
-        foreach( ElementId symbolId in f.GetFamilySymbolIds() )
+        foreach( ElementId symbolId in
+          f.GetFamilySymbolIds() )
         {
-          Element symbolElem = doc.GetElement( symbolId );
+          Element symbolElem = doc.GetElement(
+            symbolId );
 
-          str = str + " family type： " + symbolElem.Name + "\n";
+          str = str + " family type： "
+            + symbolElem.Name + "\n";
         }
       }
 
