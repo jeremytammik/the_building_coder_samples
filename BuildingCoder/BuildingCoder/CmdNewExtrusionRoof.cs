@@ -23,6 +23,87 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdNewExtrusionRoof : IExternalCommand
   {
+    #region Revit Online Help sample code from the section on Roofs
+    void f( Document doc )
+    {
+      // Before invoking this sample, select some walls 
+      // to add a roof over. Make sure there is a level 
+      // named "Roof" in the document.
+
+      Level level
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( Level ) )
+          .Where<Element>( e =>
+            !string.IsNullOrEmpty( e.Name )
+            && e.Name.Equals( "Roof" ) )
+          .FirstOrDefault<Element>() as Level;
+
+      RoofType roofType
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( RoofType ) )
+          .FirstOrDefault<Element>() as RoofType;
+
+      // Get the handle of the application
+      Application application = doc.Application;
+
+      // Define the footprint for the roof based on user selection
+      CurveArray footprint = application.Create
+        .NewCurveArray();
+
+      UIDocument uidoc = new UIDocument( doc );
+
+      ICollection<ElementId> selectedIds
+        = uidoc.Selection.GetElementIds();
+
+      if( selectedIds.Count != 0 )
+      {
+        foreach( ElementId id in selectedIds )
+        {
+          Element element = doc.GetElement( id );
+          Wall wall = element as Wall;
+          if( wall != null )
+          {
+            LocationCurve wallCurve = wall.Location as LocationCurve;
+            footprint.Append( wallCurve.Curve );
+            continue;
+          }
+
+          ModelCurve modelCurve = element as ModelCurve;
+          if( modelCurve != null )
+          {
+            footprint.Append( modelCurve.GeometryCurve );
+          }
+        }
+      }
+      else
+      {
+        throw new Exception(
+          "Please select a curve loop, wall loop or "
+          + "combination of walls and curves to "
+          + "create a footprint roof." );
+      }
+
+      ModelCurveArray footPrintToModelCurveMapping
+        = new ModelCurveArray();
+
+      FootPrintRoof footprintRoof
+        = doc.Create.NewFootPrintRoof(
+          footprint, level, roofType,
+          out footPrintToModelCurveMapping );
+
+      ModelCurveArrayIterator iterator
+        = footPrintToModelCurveMapping.ForwardIterator();
+
+      iterator.Reset();
+      while( iterator.MoveNext() )
+      {
+        ModelCurve modelCurve = iterator.Current as ModelCurve;
+        footprintRoof.set_DefinesSlope( modelCurve, true );
+        footprintRoof.set_SlopeAngle( modelCurve, 0.5 );
+      }
+    }
+    #endregion // Revit Online Help sample code from the section on Roofs
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
