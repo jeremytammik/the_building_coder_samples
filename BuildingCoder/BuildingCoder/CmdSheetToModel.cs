@@ -21,75 +21,51 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdSheetToModel : IExternalCommand
   {
-    //double DegreesToRadians( double deg )
-    //{
-    //  return deg / 180 * Math.PI;
-    //}
-
-    //double RadiansToDegrees( double rad )
-    //{
-    //  return rad * 180 / Math.PI;
-    //}
-
-    //double MtoFeet( double m )
-    //{
-    //  return m / 0.3048;
-    //}
-
-    //double MMtoFeet( double mm )
-    //{
-    //  return mm / 304.8;
-    //}
-
-    //double FeetToM( double ft )
-    //{
-    //  return ft * 0.3048;
-    //}
-
-    //double FeetTomm( double ft )
-    //{
-    //  return ft * 304.8;
-    //}
-
     public void QTO_2_PlaceHoldersFromDWFMarkups(
       Document doc,
       string activityId )
     {
-      //UIDocument uidoc = this.ActiveUIDocument;
-
-      //Document doc = uidoc.Document;
-
       View activeView = doc.ActiveView;
 
       if( !( activeView is ViewSheet ) )
       {
-        TaskDialog.Show( "QTO", "The current view must be a Sheet View with DWF markups" );
+        TaskDialog.Show( "QTO", 
+          "The current view must be a Sheet View with DWF markups" );
         return;
       }
 
       ViewSheet vs = activeView as ViewSheet;
 
-      Viewport vp = doc.GetElement( vs.GetAllViewports().First() ) as Viewport;
+      Viewport vp = doc.GetElement( 
+        vs.GetAllViewports().First() ) as Viewport;
 
       View plan = doc.GetElement( vp.ViewId ) as View;
 
-      int scale = vp.Parameters.Cast<Parameter>().First( x => x.Id.IntegerValue.Equals( (int) BuiltInParameter.VIEW_SCALE ) ).AsInteger();
+      int scale = vp.Parameters.Cast<Parameter>()
+        .First( x => x.Id.IntegerValue.Equals( 
+          (int) BuiltInParameter.VIEW_SCALE ) )
+        .AsInteger();
 
-      IList<Element> dwfMarkups = new FilteredElementCollector( doc )
-        .OfClass( typeof( ImportInstance ) )
-        .WhereElementIsNotElementType()
-        .Where( x => x.Name.StartsWith( "Markup" ) && x.OwnerViewId.IntegerValue.Equals( activeView.Id.IntegerValue ) )
-        .ToList();
+      IEnumerable<Element> dwfMarkups 
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( ImportInstance ) )
+          .WhereElementIsNotElementType()
+          .Where( x => x.Name.StartsWith( "Markup" ) 
+            && x.OwnerViewId.IntegerValue.Equals( 
+              activeView.Id.IntegerValue ) );
 
-      using( TransactionGroup tg = new TransactionGroup( doc, "DWF markups placeholders" ) )
+      using( TransactionGroup tg = new TransactionGroup( doc ) )
       {
-        tg.Start();
+        tg.Start( "DWF markups placeholders" );
 
-        using( Transaction t = new Transaction( doc, "DWF transfer" ) )
+        using( Transaction t = new Transaction( doc ) )
         {
-          t.Start();
+          t.Start( "DWF Transfer" );
 
-          plan.Parameters.Cast<Parameter>().First( x => x.Id.IntegerValue.Equals( (int) BuiltInParameter.VIEWER_CROP_REGION ) ).Set( 1 );
+          plan.Parameters.Cast<Parameter>()
+            .First( x => x.Id.IntegerValue.Equals( 
+              (int) BuiltInParameter.VIEWER_CROP_REGION ) )
+            .Set( 1 );
 
           XYZ VC = ( plan.CropBox.Min + plan.CropBox.Max ) / 2;
 
@@ -139,7 +115,7 @@ namespace BuildingCoder
             }
           }
 
-          t.Start();
+          t.Start( "DWF Transfer" );
 
           foreach( Element e in dwfMarkups )
           {
