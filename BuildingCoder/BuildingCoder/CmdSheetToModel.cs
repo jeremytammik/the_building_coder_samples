@@ -21,35 +21,35 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdSheetToModel : IExternalCommand
   {
-    double DegreesToRadians( double deg )
-    {
-      return deg / 180 * Math.PI;
-    }
+    //double DegreesToRadians( double deg )
+    //{
+    //  return deg / 180 * Math.PI;
+    //}
 
-    double RadiansToDegrees( double rad )
-    {
-      return rad * 180 / Math.PI;
-    }
+    //double RadiansToDegrees( double rad )
+    //{
+    //  return rad * 180 / Math.PI;
+    //}
 
-    double MtoFeet( double m )
-    {
-      return m / 0.3048;
-    }
+    //double MtoFeet( double m )
+    //{
+    //  return m / 0.3048;
+    //}
 
-    double MMtoFeet( double mm )
-    {
-      return mm / 304.8;
-    }
+    //double MMtoFeet( double mm )
+    //{
+    //  return mm / 304.8;
+    //}
 
-    double FeetToM( double ft )
-    {
-      return ft * 0.3048;
-    }
+    //double FeetToM( double ft )
+    //{
+    //  return ft * 0.3048;
+    //}
 
-    double FeetTomm( double ft )
-    {
-      return ft * 304.8;
-    }
+    //double FeetTomm( double ft )
+    //{
+    //  return ft * 304.8;
+    //}
 
     public void QTO_2_PlaceHoldersFromDWFMarkups(
       Document doc,
@@ -175,13 +175,13 @@ namespace BuildingCoder
                 // This method is deprecated in Revit 2016. 
                 // Please use one of the TextNote.Create methods instead.
 
-                doc.Create.NewTextNote( plan,
-                                       a,
-                                       XYZ.BasisX,
-                                       XYZ.BasisY,
-                                       MMtoFeet( 5 ),
-                                       TextAlignFlags.TEF_ALIGN_CENTER,
-                                       activityId );
+                //doc.Create.NewTextNote( plan,
+                //                       a,
+                //                       XYZ.BasisX,
+                //                       XYZ.BasisY,
+                //                       MMtoFeet( 5 ),
+                //                       TextAlignFlags.TEF_ALIGN_CENTER,
+                //                       activityId );
 
                 ElementId textTypeId = new FilteredElementCollector( doc )
                   .OfClass( typeof( TextNoteType ) )
