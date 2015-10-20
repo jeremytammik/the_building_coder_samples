@@ -201,6 +201,7 @@
     <Compile Include="CmdSetTagType.cs" />
     <Compile Include="CmdSheetData.cs" />
     <Compile Include="CmdSheetSize.cs" />
+    <Compile Include="CmdSheetToModel.cs" />
     <Compile Include="CmdSlabBoundaryArea.cs" />
     <Compile Include="CmdCreateSlopedSlab.cs" />
     <Compile Include="CmdSlopedWall.cs" />
