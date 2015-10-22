@@ -7,8 +7,14 @@ Please refer to [The Building Coder](http://thebuildingcoder.typepad.com) for al
 
 ## Author
 
-Mainly implemented and maintained by Jeremy Tammik,
-[The Building Coder](http://thebuildingcoder.typepad.com) of Autodesk Inc., with lots of help from the entire
+Mainly implemented and maintained by
+Jeremy Tammik,
+[The Building Coder](http://thebuildingcoder.typepad.com) and
+[The 3D Web Coder](http://the3dwebcoder.typepad.com),
+[ADN](http://www.autodesk.com/adn)
+[Open](http://www.autodesk.com/adnopen),
+[Autodesk Inc.](http://www.autodesk.com),
+with lots of help from the entire
 [Revit add-in developer community](http://forums.autodesk.com/t5/revit-api/bd-p/160).
 
 
