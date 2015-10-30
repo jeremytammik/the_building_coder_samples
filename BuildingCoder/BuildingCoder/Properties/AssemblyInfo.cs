@@ -111,6 +111,7 @@ using System.Runtime.InteropServices;
 // 2015-09-28 2016.0.120.16 added rof creation sample code from Revit online help sample
 // 2015-10-20 2016.0.121.0 implemented CmdSheetToModel using code provided by Paolo Serra
 // 2015-10-22 2016.0.121.1 added miros sample code
+// 2015-10-30 2016.0.121.2 implemented Util.NewExternalDefinitionCreationOptions method
 // 
-[assembly: AssemblyVersion( "2016.0.121.1" )]
-[assembly: AssemblyFileVersion( "2016.0.121.1" )]
+[assembly: AssemblyVersion( "2016.0.121.2" )]
+[assembly: AssemblyFileVersion( "2016.0.121.2" )]

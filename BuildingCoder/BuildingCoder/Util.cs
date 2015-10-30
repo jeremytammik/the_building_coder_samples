@@ -1204,6 +1204,21 @@ namespace BuildingCoder
       //cb.ConnectTo( ca );
     }
     #endregion // MEP utilities
+
+
+    #region Compatibility fix for spelling error change
+    ExternalDefinitionCreationOptions
+      NewExternalDefinitionCreationOptions(
+        string name,
+        ParameterType parameterType )
+    {
+#if REVIT2015
+      return new ExternalDefinitonCreationOptions(name, parameterType);
+#else // if not REVIT2015
+      return new ExternalDefinitionCreationOptions( name, parameterType );
+#endif // REVIT2015
+    }
+    #endregion // Compatibility fix for spelling error change
   }
 
   #region Extension Method Classes
