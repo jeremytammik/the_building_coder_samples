@@ -1207,6 +1207,9 @@ namespace BuildingCoder
 
 
     #region Compatibility fix for spelling error change
+    /// <summary>
+    /// Wrapper to fix a spelling error prior to Revit 2016.
+    /// </summary>
     ExternalDefinitionCreationOptions
       NewExternalDefinitionCreationOptions(
         string name,
