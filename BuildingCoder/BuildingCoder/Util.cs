@@ -1205,21 +1205,61 @@ namespace BuildingCoder
     }
     #endregion // MEP utilities
 
-
     #region Compatibility fix for spelling error change
     /// <summary>
     /// Wrapper to fix a spelling error prior to Revit 2016.
     /// </summary>
-    ExternalDefinitionCreationOptions
-      NewExternalDefinitionCreationOptions(
+    public class SpellingErrorCorrector
+    {
+      static bool _in_revit_2015_or_earlier;
+      static Type _external_definition_creation_options_type;
+
+      public SpellingErrorCorrector( Application app )
+      {
+        _in_revit_2015_or_earlier = 0
+          <= app.VersionNumber.CompareTo( "2015" );
+
+        string s
+          = _in_revit_2015_or_earlier
+            ? "ExternalDefinitonCreationOptions"
+            : "ExternalDefinitionCreationOptions";
+
+        _external_definition_creation_options_type
+          = System.Reflection.Assembly
+            .GetExecutingAssembly().GetType( s );
+      }
+
+      object NewExternalDefinitionCreationOptions(
         string name,
         ParameterType parameterType )
-    {
-#if REVIT2015
-      return new ExternalDefinitonCreationOptions(name, parameterType);
-#else // if not REVIT2015
-      return new ExternalDefinitionCreationOptions( name, parameterType );
-#endif // REVIT2015
+      {
+        object[] args = new object[] { 
+          name, parameterType };
+
+        return _external_definition_creation_options_type
+          .GetConstructor( new Type[] { 
+            _external_definition_creation_options_type } )
+          .Invoke( args );
+      }
+
+      public Definition NewDefinition(
+        Definitions definitions,
+        string name,
+        ParameterType parameterType )
+      {
+        //return definitions.Create( 
+        //  NewExternalDefinitionCreationOptions() );
+
+        object opt
+          = NewExternalDefinitionCreationOptions(
+            name,
+            parameterType );
+
+        return typeof( Definitions ).InvokeMember(
+          "Create", BindingFlags.InvokeMethod, null,
+          definitions, new object[] { opt } )
+          as Definition;
+      }
     }
     #endregion // Compatibility fix for spelling error change
   }

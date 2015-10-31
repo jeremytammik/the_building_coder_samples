@@ -112,6 +112,7 @@ using System.Runtime.InteropServices;
 // 2015-10-20 2016.0.121.0 implemented CmdSheetToModel using code provided by Paolo Serra
 // 2015-10-22 2016.0.121.1 added miros sample code
 // 2015-10-30 2016.0.121.2 implemented Util.NewExternalDefinitionCreationOptions method
+// 2015-10-31 2016.0.121.3 implemented SpellingErrorCorrector
 // 
-[assembly: AssemblyVersion( "2016.0.121.2" )]
-[assembly: AssemblyFileVersion( "2016.0.121.2" )]
+[assembly: AssemblyVersion( "2016.0.121.3" )]
+[assembly: AssemblyFileVersion( "2016.0.121.3" )]
