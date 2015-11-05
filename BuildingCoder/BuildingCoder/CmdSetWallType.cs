@@ -46,16 +46,14 @@ namespace BuildingCoder
       List<ElementId> ids = new List<ElementId>( 1 );
       ids.Add( wall_id );
 
-      // Now for the automatic stuff
-
-      // Retrieve a wall from the database by element id.
+      // Retrieve the wall from the database by element id
 
       Wall wall
         = new FilteredElementCollector( doc, ids )
           .OfClass( typeof( Wall ) )
           .FirstElement() as Wall;
 
-      // Retrtieve the first wall type found
+      // Retrieve the first wall type found
 
       WallType wallType
         = new FilteredElementCollector( doc )
