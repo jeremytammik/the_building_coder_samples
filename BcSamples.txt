@@ -1036,5 +1036,13 @@ Image:
 C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSheetToModel # version 2016.0.121.0
 
+ADN Bc R-Z
+Set Wall Type
+Set the wall type of a selected wall 
+LargeImage:
+Image:
+C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdSetWallType # version 2016.0.122.0
+
 
 
