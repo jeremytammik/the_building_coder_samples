@@ -2,7 +2,10 @@
 //
 // CmdSetWallType.cs - Set the wall type of a selected wall
 //
-// Copyright (C) 2015 by Paolo Serra and Jeremy Tammik,
+// This answers the Revit API discussion forum thread
+// https://forums.autodesk.com/t5/revit-api/change-the-selection-of-a-wall/m-p/5890510
+//
+// Copyright (C) 2015 by Jeremy Tammik, 
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header
