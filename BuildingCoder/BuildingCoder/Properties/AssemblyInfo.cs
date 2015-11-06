@@ -114,6 +114,7 @@ using System.Runtime.InteropServices;
 // 2015-10-30 2016.0.121.2 implemented Util.NewExternalDefinitionCreationOptions method
 // 2015-10-31 2016.0.121.3 implemented SpellingErrorCorrector
 // 2015-11-05 2016.0.122.0 implemented CmdSetWallType
+// 2015-11-05 2016.0.122.1 implemented GetAllDetailComponentCustomParamValues
 // 
-[assembly: AssemblyVersion( "2016.0.122.0" )]
-[assembly: AssemblyFileVersion( "2016.0.122.0" )]
+[assembly: AssemblyVersion( "2016.0.122.1" )]
+[assembly: AssemblyFileVersion( "2016.0.122.1" )]

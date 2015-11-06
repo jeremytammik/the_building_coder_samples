@@ -287,6 +287,42 @@ namespace BuildingCoder
   {
     Document _doc;
 
+    #region Get parameter values from all Detail Component family instances
+    // cf. http://forums.autodesk.com/t5/revit-api/get-parameter-value-for-a-collection-of-family-instances/m-p/5896191
+    /// <summary>
+    /// Retrieve all Detail Component family instances,
+    /// read the custom parameter value from each, 
+    /// assuming it is a real number, and return a 
+    /// dictionary mapping all element ids to the 
+    /// corresponding param values.
+    /// </summary>
+    Dictionary<int, double> GetAllDetailComponentCustomParamValues( Document doc )
+    {
+      FilteredElementCollector dcs = new FilteredElementCollector( doc )
+        .OfClass( typeof( FamilyInstance ) )
+        .OfCategory( BuiltInCategory.OST_DetailComponents );
+
+      int n = dcs.GetElementCount();
+
+      const string param_name = "Custom_Param";
+
+      Dictionary<int, double> d = new Dictionary<int, double>( n );
+
+      foreach( Element dc in dcs )
+      {
+        IList<Parameter> ps = dc.GetParameters(param_name);
+
+        if( 1 != ps.Count ) 
+        {
+          throw new Exception("expected exactly one custom parameter");
+        }
+
+        d.Add( dc.Id.IntegerValue, ps[0].AsDouble() );
+      }
+      return d;
+    }
+    #endregion //Get parameter values from all Detail Component family instances
+
     #region Collector is iterable without ToElements
     /// <summary>
     /// Iterate directly over the filtered element collector.
