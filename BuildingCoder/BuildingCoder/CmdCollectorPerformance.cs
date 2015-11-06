@@ -296,25 +296,32 @@ namespace BuildingCoder
     /// dictionary mapping all element ids to the 
     /// corresponding param values.
     /// </summary>
-    Dictionary<int, double> GetAllDetailComponentCustomParamValues( Document doc )
+    Dictionary<int, double>
+      GetAllDetailComponentCustomParamValues(
+        Document doc )
     {
-      FilteredElementCollector dcs = new FilteredElementCollector( doc )
-        .OfClass( typeof( FamilyInstance ) )
-        .OfCategory( BuiltInCategory.OST_DetailComponents );
+      FilteredElementCollector dcs
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( FamilyInstance ) )
+          .OfCategory( BuiltInCategory
+            .OST_DetailComponents );
 
       int n = dcs.GetElementCount();
 
       const string param_name = "Custom_Param";
 
-      Dictionary<int, double> d = new Dictionary<int, double>( n );
+      Dictionary<int, double> d
+        = new Dictionary<int, double>( n );
 
       foreach( Element dc in dcs )
       {
-        IList<Parameter> ps = dc.GetParameters(param_name);
+        IList<Parameter> ps = dc.GetParameters( 
+          param_name );
 
-        if( 1 != ps.Count ) 
+        if( 1 != ps.Count )
         {
-          throw new Exception("expected exactly one custom parameter");
+          throw new Exception( 
+            "expected exactly one custom parameter" );
         }
 
         d.Add( dc.Id.IntegerValue, ps[0].AsDouble() );
