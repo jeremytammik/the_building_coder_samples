@@ -120,7 +120,7 @@ namespace BuildingCoder
     }
     #endregion // Using ExportAsDirectShape class
 
-    private Result Flatten2(
+    Result Flatten2(
       Document doc,
       ElementId viewId )
     {
@@ -137,15 +137,25 @@ namespace BuildingCoder
         {
           foreach( Element e in col )
           {
-            GeometryElement gelt = e.get_Geometry( geometryOptions );
+            GeometryElement gelt = e.get_Geometry( 
+              geometryOptions );
 
             if( null != gelt )
             {
               string appDataGUID = e.Id.ToString();
 
-              DirectShape ds = DirectShape.CreateElement(
-                doc, e.Category.Id, _direct_shape_appGUID,
-                appDataGUID );
+              // Currently create direct shape 
+              // replacement element in the original 
+              // document – no API to properly transfer 
+              // graphic styles to a new document.
+              // A possible enhancement: make a copy 
+              // of the current project and operate 
+              // on the copy.
+
+              DirectShape ds 
+                = DirectShape.CreateElement( doc,
+                  e.Category.Id, _direct_shape_appGUID,
+                  appDataGUID );
 
               try
               {
