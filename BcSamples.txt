@@ -1044,5 +1044,13 @@ Image:
 C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSetWallType # version 2016.0.122.0
 
+ADN Bc A-I
+Flatten Model to DirectShape
+Convert all Revit elements to DirectShapes retaining shape and category
+LargeImage:
+Image:
+C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdFlatten # version 2016.0.123.0
+
 
 

@@ -130,6 +130,7 @@
     <Compile Include="CmdFamilyParamGuid.cs" />
     <Compile Include="CmdFamilyParamValue.cs" />
     <Compile Include="CmdFilledRegionCoords.cs" />
+    <Compile Include="CmdFlatten.cs" />
     <Compile Include="CmdGetSketchElements.cs" />
     <Compile Include="CmdIdling.cs" />
     <Compile Include="CmdImportsInFamilies.cs" />

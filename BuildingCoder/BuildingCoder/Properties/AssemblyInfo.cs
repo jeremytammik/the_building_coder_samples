@@ -115,6 +115,7 @@ using System.Runtime.InteropServices;
 // 2015-10-31 2016.0.121.3 implemented SpellingErrorCorrector
 // 2015-11-05 2016.0.122.0 implemented CmdSetWallType
 // 2015-11-05 2016.0.122.1 implemented GetAllDetailComponentCustomParamValues
+// 2015-11-16 2016.0.123.0 implemented CmdFlatten
 // 
-[assembly: AssemblyVersion( "2016.0.122.1" )]
-[assembly: AssemblyFileVersion( "2016.0.122.1" )]
+[assembly: AssemblyVersion( "2016.0.123.0" )]
+[assembly: AssemblyFileVersion( "2016.0.123.0" )]
