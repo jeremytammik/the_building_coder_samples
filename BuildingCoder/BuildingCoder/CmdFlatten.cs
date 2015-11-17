@@ -28,99 +28,12 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  #region ExportAsDirectShape class
-  class ExportAsDirectShape
-  {
-    // The document we will output to. Currently must be the original document – no API to properly transfer graphic styles to a new document.
-    Document _projectAsDirectShapes;
-
-    public ExportAsDirectShape( Document doc )
-    {
-      _projectAsDirectShapes = doc; // for now use the source doc. A possible enhancement: make a copy of the current project and operate on the copy.
-    }
-
-    public bool AddShape( IList<GeometryObject> nodes, ElementId categoryId, string elementId )
-    {
-      bool status = false;
-      if( DirectShape.IsValidCategoryId( categoryId, _projectAsDirectShapes ) )
-      {
-        string appGUID = "Flatten";
-        string appDataGUID = elementId;
-        DirectShape ds = DirectShape.CreateElement( _projectAsDirectShapes, categoryId, appGUID, appDataGUID );
-
-        //ds.ApplicationId = "Flatten";
-        //ds.ApplicationDataId = elementId;
-        //if( ds.IsValidShape( nodes ) )
-
-        {
-          ds.AppendShape( nodes );
-          status = true;
-        }
-      }
-      return status;
-    }
-
-    public bool AddShape( IEnumerator<GeometryObject> shapeAsEnumerator, ElementId categoryId, string elementId )
-    {
-      List<GeometryObject> shapes = new List<GeometryObject>();
-
-      while( shapeAsEnumerator.MoveNext() )
-      {
-        shapes.Add( shapeAsEnumerator.Current );
-      }
-
-      return AddShape( shapes, categoryId, elementId );
-    }
-  }
-  #endregion // ExportAsDirectShape class
-
   [Transaction( TransactionMode.Manual )]
   class CmdFlatten : IExternalCommand
   {
     const string _direct_shape_appGUID = "Flatten";
 
-    #region Using ExportAsDirectShape class
-    private Result Flatten1( Document myDoc, ElementId viewId )
-    {
-      ExportAsDirectShape exporter = new ExportAsDirectShape( myDoc );
-
-      FilteredElementCollector col = new FilteredElementCollector( myDoc, viewId ).WhereElementIsNotElementType();
-
-      Options geometryOptions = new Options();
-
-      using( Transaction transaction = new Transaction( myDoc ) )
-      {
-        if( transaction.Start( "Convert elements to DirectShapes" ) == TransactionStatus.Started )
-        {
-          foreach( Element elt in col )
-          {
-            try
-            {
-              GeometryElement gelt = elt.get_Geometry( geometryOptions );
-
-              if( null != gelt )
-              {
-                IEnumerator<GeometryObject> shapeAsEnumerator = gelt.GetEnumerator();
-                if( exporter.AddShape( shapeAsEnumerator, elt.Category.Id, elt.Id.ToString() ) )
-                {
-                  // delete old one
-                  myDoc.Delete( elt.Id );
-                }
-              }
-            }
-            catch( Autodesk.Revit.Exceptions.ArgumentException )
-            {
-
-            }
-          }
-          transaction.Commit();
-        }
-      }
-      return Result.Succeeded;
-    }
-    #endregion // Using ExportAsDirectShape class
-
-    Result Flatten2(
+    Result Flatten(
       Document doc,
       ElementId viewId )
     {
@@ -137,7 +50,7 @@ namespace BuildingCoder
         {
           foreach( Element e in col )
           {
-            GeometryElement gelt = e.get_Geometry( 
+            GeometryElement gelt = e.get_Geometry(
               geometryOptions );
 
             if( null != gelt )
@@ -152,7 +65,7 @@ namespace BuildingCoder
               // of the current project and operate 
               // on the copy.
 
-              DirectShape ds 
+              DirectShape ds
                 = DirectShape.CreateElement( doc,
                   e.Category.Id, _direct_shape_appGUID,
                   appDataGUID );
@@ -169,7 +82,11 @@ namespace BuildingCoder
               catch( Autodesk.Revit.Exceptions
                 .ArgumentException ex )
               {
-                Debug.Print( ex.Message );
+                Debug.Print(
+                  "Failed to replace {0}; exception {1} {2}",
+                  Util.ElementDescription( e ),
+                  ex.GetType().FullName,
+                  ex.Message );
               }
             }
           }
@@ -193,7 +110,7 @@ namespace BuildingCoder
       // referenced by element shape without doing 
       // anything special.
 
-      return Flatten2( doc, uidoc.ActiveView.Id );
+      return Flatten( doc, uidoc.ActiveView.Id );
     }
   }
 }
