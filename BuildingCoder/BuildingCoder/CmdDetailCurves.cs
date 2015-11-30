@@ -8,16 +8,18 @@
 #endregion // Header
 
 #region Namespaces
+using System.Collections.Generic;
+using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-
+using Autodesk.Revit.UI.Selection;
 #endregion // Namespaces
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdDetailCurves : IExternalCommand
   {
     /// <summary>
@@ -45,11 +47,35 @@ namespace BuildingCoder
       ElementSet elements )
     {
       UIApplication app = commandData.Application;
-      Document doc = app.ActiveUIDocument.Document;
+      UIDocument uidoc = app.ActiveUIDocument;
+      Document doc = uidoc.Document;
       View view = doc.ActiveView;
-      
-      //Autodesk.Revit.Creation.Application creApp = app.Application.Create;
-      Autodesk.Revit.Creation.Document creDoc = doc.Create;
+
+      Autodesk.Revit.Creation.Document creDoc
+        = doc.Create;
+
+      #region Check for pre-selected wall element
+      Selection sel = uidoc.Selection;
+      ICollection<ElementId> ids = sel.GetElementIds();
+
+      if( 1 == ids.Count )
+      {
+        Element e = doc.GetElement( ids.First<ElementId>() );
+        if( e is Wall )
+        {
+          LocationCurve lc = e.Location as LocationCurve;
+          Curve curve = lc.Curve;
+
+          using( Transaction tx = new Transaction( doc ) )
+          {
+            tx.Start( "Create Detail Line in Wall Centre" );
+            creDoc.NewDetailCurve( view, curve );
+            tx.Commit();
+          }
+          return Result.Succeeded;
+        }
+      }
+      #endregion // Check for pre-selected wall element
 
       // Create a geometry line
 
@@ -85,29 +111,35 @@ namespace BuildingCoder
         geomPlane );
 #endif // NEED_PLANE
 
-      // Create a DetailLine element using the
-      // newly created geometry line and sketch plane
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Create Detail Line and Arc" );
 
-      DetailLine line = creDoc.NewDetailCurve(
-        view, geomLine ) as DetailLine;
+        // Create a DetailLine element using the
+        // newly created geometry line and sketch plane
 
-      // Create a DetailArc element using the
-      // newly created geometry arc and sketch plane
+        DetailLine line = creDoc.NewDetailCurve(
+          view, geomLine ) as DetailLine;
 
-      DetailArc arc = creDoc.NewDetailCurve(
-        view, geomArc ) as DetailArc;
+        // Create a DetailArc element using the
+        // newly created geometry arc and sketch plane
 
-      // Change detail curve colour.
-      // Initially, this only affects the newly
-      // created curves. However, when the view
-      // is refreshed, all detail curves will
-      // be updated.
+        DetailArc arc = creDoc.NewDetailCurve(
+          view, geomArc ) as DetailArc;
 
-      GraphicsStyle gs = arc.LineStyle as GraphicsStyle;
+        // Change detail curve colour.
+        // Initially, this only affects the newly
+        // created curves. However, when the view
+        // is refreshed, all detail curves will
+        // be updated.
 
-      gs.GraphicsStyleCategory.LineColor
-        = new Color( 250, 10, 10 );
+        GraphicsStyle gs = arc.LineStyle as GraphicsStyle;
 
+        gs.GraphicsStyleCategory.LineColor
+          = new Color( 250, 10, 10 );
+
+        tx.Commit();
+      }
       return Result.Succeeded;
     }
   }
