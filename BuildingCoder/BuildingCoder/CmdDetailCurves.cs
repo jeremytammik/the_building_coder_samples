@@ -47,8 +47,8 @@ namespace BuildingCoder
       UIApplication app = commandData.Application;
       Document doc = app.ActiveUIDocument.Document;
       View view = doc.ActiveView;
-
-      Autodesk.Revit.Creation.Application creApp = app.Application.Create;
+      
+      //Autodesk.Revit.Creation.Application creApp = app.Application.Create;
       Autodesk.Revit.Creation.Document creDoc = doc.Create;
 
       // Create a geometry line
