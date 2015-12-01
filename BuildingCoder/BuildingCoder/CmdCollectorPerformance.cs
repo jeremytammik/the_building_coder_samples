@@ -315,12 +315,12 @@ namespace BuildingCoder
 
       foreach( Element dc in dcs )
       {
-        IList<Parameter> ps = dc.GetParameters( 
+        IList<Parameter> ps = dc.GetParameters(
           param_name );
 
         if( 1 != ps.Count )
         {
-          throw new Exception( 
+          throw new Exception(
             "expected exactly one custom parameter" );
         }
 
@@ -2005,4 +2005,83 @@ TaskDialog.Show( "Revit", collector.Count() +
       return Result.Succeeded;
     }
   }
+
+  #region YBExporteContext
+  #if YBExporteContext
+  internal class YBExporteContext : IExportContext
+  {
+    private Document _host_document;
+    private IEnumerable<View> _2D_views_that_can_display_elements;
+
+    public YBExporteContext(
+      Document document,
+      View activeView )
+    {
+      this._host_document = document;
+      this._2D_views_that_can_display_elements
+        = YbUtil.FindAllViewsThatCanDisplayElements(
+          document );
+    }
+
+    /*
+      * Lot of code here implementing the 
+      * "IExportContext" interface...
+      */
+
+    private GeometryElement _get2DRepresentation(
+      Element element )
+    {
+      View view = this._get2DViewForElement( element );
+      if( view == null )
+        return null;
+
+      Options options = new Options();
+      options.View = view;
+      return element.get_Geometry( options );
+    }
+
+    /// <summary>
+    /// Gets any 2D view where the element is displayed
+    /// </summary>
+    /// <param name="element"></param>
+    /// <returns>A 2D view where the element is displayed</returns>
+    private View _get2DViewForElement( Element element )
+    {
+      FilteredElementCollector collector;
+      ICollection<ElementId> elements_in_view;
+
+      foreach( View view in
+        this._2D_views_that_can_display_elements )
+      {
+        collector = new FilteredElementCollector(
+          this._host_document, view.Id )
+            .WhereElementIsNotElementType();
+
+        elements_in_view = collector.ToElementIds();
+
+        if( elements_in_view.Contains( element.Id ) )
+          return view;
+      }
+
+      return null;
+    }
+  }
+
+  public static class YbUtil
+  {
+    public static IEnumerable<View>
+      FindAllViewsThatCanDisplayElements(
+        Document doc )
+    {
+      ElementMulticlassFilter filter
+        = new ElementMulticlassFilter( new List<Type> { typeof( ViewPlan ) } );
+
+      return new FilteredElementCollector( doc )
+        .WherePasses( filter )
+        .Cast<View>()
+        .Where( v => !v.IsTemplate && v.CanBePrinted );
+    }
+  }
+  #endif // YBExporteContext
+  #endregion // YBExporteContext
 }

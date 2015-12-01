@@ -117,6 +117,7 @@ using System.Runtime.InteropServices;
 // 2015-11-05 2016.0.122.1 implemented GetAllDetailComponentCustomParamValues
 // 2015-11-16 2016.0.123.0 implemented CmdFlatten
 // 2015-11-29 2016.0.123.1 updated CmdDetailCurves to create detail curve along pre-selected wall centre location curve
+// 2015-11-30 2016.0.123.2 YbExporteContext
 // 
-[assembly: AssemblyVersion( "2016.0.123.1" )]
-[assembly: AssemblyFileVersion( "2016.0.123.1" )]
+[assembly: AssemblyVersion( "2016.0.123.2" )]
+[assembly: AssemblyFileVersion( "2016.0.123.2" )]
