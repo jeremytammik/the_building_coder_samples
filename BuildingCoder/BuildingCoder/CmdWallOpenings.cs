@@ -26,6 +26,12 @@ namespace BuildingCoder
   {
     public XYZ Start { get; set; }
     public XYZ End { get; set; }
+    override public string ToString()
+    {
+      return "("
+        + Util.PointString( Start ) + "-"
+        + Util.PointString( End ) + ")";
+    }
   }
 
   [Transaction( TransactionMode.Manual )]
@@ -81,30 +87,52 @@ namespace BuildingCoder
         .Select<ReferenceWithContext, XYZ>( r 
           => r.GetReference().GlobalPoint ) );
 
-      // Check if first point is not at wall start.
-      // If so, the wall begins with an opening, so 
-      // add its start point.
+      // Check if first point is at the wall start.
+      // If so, the wall does not begin with an opening,
+      // so that point can be removed. Else, add it.
 
-      if( !pointList.First().IsAlmostEqualTo( wallOrigin ) )
+      XYZ p = pointList[0];
+
+      if( Util.IsEqual( p, wallOrigin ) )
       {
-        pointList.Insert( 0, wallOrigin );
+        pointList.RemoveAt( 0 );
       }
       else
       {
-        pointList.Remove( pointList.First() );
+        pointList.Insert( 0, wallOrigin );
       }
 
-      // If the point count in not even, the wall 
-      // ends with an opening, so add its end as 
-      // a new last point.
+      // Check if last point is not at wall end.
+      // If so, the wall ends with an opening, so 
+      // add its end point.
 
-      if( !IsEven( pointList.Count ) )
+      p = pointList.Last();
+
+      if( Util.IsEqual( p, wallEndPoint ) )
+      {
+        pointList.Remove( pointList.Last() );
+      }
+      else
       {
         pointList.Add( wallEndPoint );
       }
 
+      //// If the point count in not even, the wall 
+      //// ends with an opening, so add its end as 
+      //// a new last point.
+      //if( !IsEven( pointList.Count ) )
+      //{
+      //  pointList.Add( wallEndPoint );
+      //}
+
       int n = pointList.Count;
-      var wallOpenings = new List<WallOpening2D>( n / 2 );
+
+      Debug.Assert( IsEven( n ), 
+        "expected an even number of opening sides" );
+
+      var wallOpenings = new List<WallOpening2D>( 
+        n / 2 );
+
       for( int i = 0; i < n; i += 2 )
       {
         wallOpenings.Add( new WallOpening2D
@@ -144,6 +172,18 @@ namespace BuildingCoder
 
       List<WallOpening2D> openings = GetWallOpenings(
         e as Wall, view );
+
+      int n = openings.Count;
+      TaskDialog dlg = new TaskDialog( "Wall Openings" );
+
+      dlg.MainInstruction =
+        string.Format( "{0} opening{1} found{2}",
+          n, Util.PluralSuffix( n ), 
+          Util.DotOrColon( n ) );
+
+      dlg.MainContent = string.Join( "\r\n", openings );
+
+      dlg.Show();
 
       return Result.Succeeded;
     }
