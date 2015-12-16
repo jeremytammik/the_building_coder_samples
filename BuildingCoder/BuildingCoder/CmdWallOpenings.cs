@@ -24,11 +24,13 @@ namespace BuildingCoder
   /// </summary>
   class WallOpening2D
   {
+    //public ElementId Id { get; set; }
     public XYZ Start { get; set; }
     public XYZ End { get; set; }
     override public string ToString()
     {
       return "("
+        //+ Id.ToString() + "@"
         + Util.PointString( Start ) + "-"
         + Util.PointString( End ) + ")";
     }
@@ -118,7 +120,8 @@ namespace BuildingCoder
         wallOrigin.Y - offsetOut.V, elevation + _offset );
 
       ReferenceIntersector intersector
-        = new ReferenceIntersector( view );
+        = new ReferenceIntersector( wall.Id, 
+          FindReferenceTarget.Face, view );
 
       IList<ReferenceWithContext> refs
         = intersector.Find( rayStart, wallDirection );
@@ -235,14 +238,6 @@ namespace BuildingCoder
 
       Util.InfoMsg2( msg, string.Join( 
         "\r\n", openings ) );
-
-      //TaskDialog dlg = new TaskDialog( "Wall Openings" );
-      //dlg.MainInstruction =
-      //  string.Format( "{0} opening{1} found{2}",
-      //    n, Util.PluralSuffix( n ),
-      //    Util.DotOrColon( n ) );
-      //dlg.MainContent = string.Join( "\r\n", openings );
-      //dlg.Show();
 
       return Result.Succeeded;
     }
