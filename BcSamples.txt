@@ -1052,5 +1052,10 @@ Image:
 C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdFlatten # version 2016.0.123.0
 
-
-
+ADN Bc R-Z
+Wall Openings
+Report wall opening start and end points along location line
+LargeImage:
+Image:
+C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdWallOpenings # version 2016.0.124.0

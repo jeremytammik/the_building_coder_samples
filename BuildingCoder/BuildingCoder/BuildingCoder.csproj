@@ -218,6 +218,7 @@
     <Compile Include="CmdWallBottomFace.cs" />
     <Compile Include="CmdWallFooting.cs" />
     <Compile Include="CmdWallLayerVolumes.cs" />
+    <Compile Include="CmdWallOpenings.cs" />
     <Compile Include="CmdWallProfileArea.cs" />
     <Compile Include="CmdListWalls.cs" />
     <Compile Include="CmdRelationshipInverter.cs" />
