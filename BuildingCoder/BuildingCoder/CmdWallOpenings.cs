@@ -95,6 +95,10 @@ namespace BuildingCoder
       }
     }
 
+    /// <summary>
+    /// Retrieve all wall openings, 
+    /// including at start and end of wall.
+    /// </summary>
     List<WallOpening2D> GetWallOpenings(
       Wall wall,
       View3D view )
@@ -109,7 +113,6 @@ namespace BuildingCoder
       double wallLength = wallDirection.GetLength();
       wallDirection = wallDirection.Normalize();
       UV offsetOut = _offset * new UV( wallDirection.X, wallDirection.Y );
-      //double step_outside = offset.GetLength();
 
       XYZ rayStart = new XYZ( wallOrigin.X - offsetOut.U,
         wallOrigin.Y - offsetOut.V, elevation + _offset );
@@ -119,6 +122,12 @@ namespace BuildingCoder
 
       IList<ReferenceWithContext> refs
         = intersector.Find( rayStart, wallDirection );
+
+      // Extract the intersection points:
+      // - only surfaces
+      // - within wall length plus offset at each end
+      // - sorted by proximity
+      // - eliminating duplicates
 
       List<XYZ> pointList = new List<XYZ>( refs
         .Where<ReferenceWithContext>( r => IsSurface(
@@ -150,9 +159,9 @@ namespace BuildingCoder
         pointList.Insert( 0, wallOrigin );
       }
 
-      // Check if last point is not at wall end.
-      // If so, the wall ends with an opening, so 
-      // add its end point.
+      // Check if last point is at the wall end.
+      // If so, the wall does not end with an opening, 
+      // so that point can be removed. Else, add it.
 
       q = wallEndPoint + _offset * XYZ.BasisZ;
 
@@ -166,19 +175,8 @@ namespace BuildingCoder
       }
       else
       {
-        if( !IsEven( pointList.Count ) )
-        {
-          pointList.Add( wallEndPoint );
-        }
+        pointList.Add( wallEndPoint );
       }
-
-      //// If the point count in not even, the wall 
-      //// ends with an opening, so add its end as 
-      //// a new last point.
-      //if( !IsEven( pointList.Count ) )
-      //{
-      //  pointList.Add( wallEndPoint );
-      //}
 
       int n = pointList.Count;
 
