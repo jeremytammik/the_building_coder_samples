@@ -1059,3 +1059,11 @@ LargeImage:
 Image:
 C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallOpenings # version 2016.0.124.0
+
+ADN Bc J-Q
+Project Parameter GUIDs
+Determine and report all project parameter GUIDs
+LargeImage:
+Image:
+C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdProjectParameterGuids # version 2016.0.125.0
