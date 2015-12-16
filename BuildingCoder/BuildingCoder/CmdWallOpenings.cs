@@ -38,6 +38,16 @@ namespace BuildingCoder
   class CmdWallOpenings : IExternalCommand
   {
     /// <summary>
+    /// Move out of wall and up from floor a bit
+    /// </summary>
+    const double _offset = 0.1; // feet
+
+    /// <summary>
+    /// A small number
+    /// </summary>
+    const double _eps = .1e-5;
+
+    /// <summary>
     /// Predicate: is the given number even?
     /// </summary>
     static bool IsEven( int i )
@@ -54,6 +64,37 @@ namespace BuildingCoder
         == r.ElementReferenceType;
     }
 
+    class XyzProximityComparer : IComparer<XYZ>
+    {
+      XYZ _p;
+
+      public XyzProximityComparer( XYZ p )
+      {
+        _p = p;
+      }
+
+      public int Compare( XYZ x, XYZ y )
+      {
+        double dx = x.DistanceTo( _p );
+        double dy = y.DistanceTo( _p );
+        return Util.IsEqual( dx, dy ) ? 0
+          : ( dx < dy ? -1 : 1 );
+      }
+    }
+    
+    class XyzEqualityComparer : IEqualityComparer<XYZ>
+    {
+      public bool Equals( XYZ a, XYZ b )
+      {
+        return _eps > a.DistanceTo( b );
+      }
+
+      public int GetHashCode( XYZ a )
+      {
+        return Util.PointString( a ).GetHashCode();
+      }
+    }
+
     List<WallOpening2D> GetWallOpenings(
       Wall wall,
       View3D view )
@@ -67,35 +108,42 @@ namespace BuildingCoder
       XYZ wallDirection = wallEndPoint - wallOrigin;
       double wallLength = wallDirection.GetLength();
       wallDirection = wallDirection.Normalize();
-      UV offset = new UV( wallDirection.X, wallDirection.Y );
-      double step_outside = offset.GetLength();
+      UV offsetOut = _offset * new UV( wallDirection.X, wallDirection.Y );
+      //double step_outside = offset.GetLength();
 
-      XYZ rayStart = new XYZ( wallOrigin.X - offset.U,
-        wallOrigin.Y - offset.V, elevation );
+      XYZ rayStart = new XYZ( wallOrigin.X - offsetOut.U,
+        wallOrigin.Y - offsetOut.V, elevation + _offset );
 
-      ReferenceIntersector intersector 
+      ReferenceIntersector intersector
         = new ReferenceIntersector( view );
 
-      IList<ReferenceWithContext> refs 
+      IList<ReferenceWithContext> refs
         = intersector.Find( rayStart, wallDirection );
 
       List<XYZ> pointList = new List<XYZ>( refs
-        .Where<ReferenceWithContext>( r => IsSurface( 
+        .Where<ReferenceWithContext>( r => IsSurface(
           r.GetReference() ) )
-        .Where<ReferenceWithContext>( r => r.Proximity 
-          < wallLength + step_outside )
-        .Select<ReferenceWithContext, XYZ>( r 
-          => r.GetReference().GlobalPoint ) );
+        .Where<ReferenceWithContext>( r => r.Proximity
+          < wallLength + _offset + _offset )
+        .OrderBy<ReferenceWithContext, double>(
+          r => r.Proximity )
+        .Select<ReferenceWithContext, XYZ>( r
+          => r.GetReference().GlobalPoint )
+        .Distinct<XYZ>( new XyzEqualityComparer() ) );
 
       // Check if first point is at the wall start.
       // If so, the wall does not begin with an opening,
       // so that point can be removed. Else, add it.
 
-      XYZ p = pointList[0];
+      XYZ q = wallOrigin + _offset * XYZ.BasisZ;
 
-      if( Util.IsEqual( p, wallOrigin ) )
+      bool wallHasFaceAtStart = Util.IsEqual( 
+        pointList[0], q );
+
+      if( wallHasFaceAtStart )
       {
-        pointList.RemoveAt( 0 );
+        pointList.RemoveAll( p
+          => _eps > p.DistanceTo( q ) );
       }
       else
       {
@@ -106,15 +154,22 @@ namespace BuildingCoder
       // If so, the wall ends with an opening, so 
       // add its end point.
 
-      p = pointList.Last();
+      q = wallEndPoint + _offset * XYZ.BasisZ;
 
-      if( Util.IsEqual( p, wallEndPoint ) )
+      bool wallHasFaceAtEnd = Util.IsEqual(
+        pointList.Last(), q );
+
+      if( wallHasFaceAtEnd )
       {
-        pointList.Remove( pointList.Last() );
+        pointList.RemoveAll( p
+          => _eps > p.DistanceTo( q ) );
       }
       else
       {
-        pointList.Add( wallEndPoint );
+        if( !IsEven( pointList.Count ) )
+        {
+          pointList.Add( wallEndPoint );
+        }
       }
 
       //// If the point count in not even, the wall 
@@ -127,10 +182,10 @@ namespace BuildingCoder
 
       int n = pointList.Count;
 
-      Debug.Assert( IsEven( n ), 
+      Debug.Assert( IsEven( n ),
         "expected an even number of opening sides" );
 
-      var wallOpenings = new List<WallOpening2D>( 
+      var wallOpenings = new List<WallOpening2D>(
         n / 2 );
 
       for( int i = 0; i < n; i += 2 )
@@ -174,16 +229,22 @@ namespace BuildingCoder
         e as Wall, view );
 
       int n = openings.Count;
-      TaskDialog dlg = new TaskDialog( "Wall Openings" );
 
-      dlg.MainInstruction =
-        string.Format( "{0} opening{1} found{2}",
-          n, Util.PluralSuffix( n ), 
-          Util.DotOrColon( n ) );
+      string msg = string.Format(
+        "{0} opening{1} found{2}",
+        n, Util.PluralSuffix( n ),
+        Util.DotOrColon( n ) );
 
-      dlg.MainContent = string.Join( "\r\n", openings );
+      Util.InfoMsg2( msg, string.Join( 
+        "\r\n", openings ) );
 
-      dlg.Show();
+      //TaskDialog dlg = new TaskDialog( "Wall Openings" );
+      //dlg.MainInstruction =
+      //  string.Format( "{0} opening{1} found{2}",
+      //    n, Util.PluralSuffix( n ),
+      //    Util.DotOrColon( n ) );
+      //dlg.MainContent = string.Join( "\r\n", openings );
+      //dlg.Show();
 
       return Result.Succeeded;
     }
