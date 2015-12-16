@@ -1,6 +1,6 @@
 ﻿#region Header
 //
-// CmdWallOpenings.cs - peport wall opening start and end points along location line
+// CmdWallOpenings.cs - report wall opening start and end points along location line
 //
 // Copyright (C) 2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
