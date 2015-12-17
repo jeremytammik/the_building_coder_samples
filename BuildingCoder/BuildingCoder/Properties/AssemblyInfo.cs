@@ -120,6 +120,7 @@ using System.Runtime.InteropServices;
 // 2015-11-30 2016.0.123.2 YbExporteContext
 // 2015-12-16 2016.0.124.0 implemented CmdWallOpenings
 // 2015-12-17 2016.0.125.0 integrated CmdProjectParameterGuids by CoderBoy
+// 2015-12-17 2016.0.125.1 cleaned up CmdWallOpenings
 // 
-[assembly: AssemblyVersion( "2016.0.125.0" )]
-[assembly: AssemblyFileVersion( "2016.0.125.0" )]
+[assembly: AssemblyVersion( "2016.0.125.1" )]
+[assembly: AssemblyFileVersion( "2016.0.125.1" )]

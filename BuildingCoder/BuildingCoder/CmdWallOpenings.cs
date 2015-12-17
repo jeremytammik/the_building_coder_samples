@@ -22,7 +22,7 @@ namespace BuildingCoder
   /// A simple class with two coordinates 
   /// and some other basic info.
   /// </summary>
-  class WallOpening2D
+  class WallOpening2d
   {
     //public ElementId Id { get; set; }
     public XYZ Start { get; set; }
@@ -66,11 +66,11 @@ namespace BuildingCoder
         == r.ElementReferenceType;
     }
 
-    class XyzProximityComparer : IComparer<XYZ>
+    class XyzProximityComparerNotUsed : IComparer<XYZ>
     {
       XYZ _p;
 
-      public XyzProximityComparer( XYZ p )
+      public XyzProximityComparerNotUsed( XYZ p )
       {
         _p = p;
       }
@@ -98,151 +98,151 @@ namespace BuildingCoder
       }
     }
 
-    /// <summary>
-    /// Retrieve all wall openings, 
-    /// including at start and end of wall.
-    /// </summary>
-    List<WallOpening2D> GetWallOpenings(
-      Wall wall,
-      View3D view )
+/// <summary>
+/// Retrieve all wall openings, 
+/// including at start and end of wall.
+/// </summary>
+List<WallOpening2d> GetWallOpenings(
+  Wall wall,
+  View3D view )
+{
+  Document doc = wall.Document;
+  Level level = doc.GetElement( wall.LevelId ) as Level;
+  double elevation = level.Elevation;
+  Curve c = ( wall.Location as LocationCurve ).Curve;
+  XYZ wallOrigin = c.GetEndPoint( 0 );
+  XYZ wallEndPoint = c.GetEndPoint( 1 );
+  XYZ wallDirection = wallEndPoint - wallOrigin;
+  double wallLength = wallDirection.GetLength();
+  wallDirection = wallDirection.Normalize();
+  UV offsetOut = _offset * new UV( wallDirection.X, wallDirection.Y );
+
+  XYZ rayStart = new XYZ( wallOrigin.X - offsetOut.U,
+    wallOrigin.Y - offsetOut.V, elevation + _offset );
+
+  ReferenceIntersector intersector
+    = new ReferenceIntersector( wall.Id, 
+      FindReferenceTarget.Face, view );
+
+  IList<ReferenceWithContext> refs
+    = intersector.Find( rayStart, wallDirection );
+
+  // Extract the intersection points:
+  // - only surfaces
+  // - within wall length plus offset at each end
+  // - sorted by proximity
+  // - eliminating duplicates
+
+  List<XYZ> pointList = new List<XYZ>( refs
+    .Where<ReferenceWithContext>( r => IsSurface(
+      r.GetReference() ) )
+    .Where<ReferenceWithContext>( r => r.Proximity
+      < wallLength + _offset + _offset )
+    .OrderBy<ReferenceWithContext, double>(
+      r => r.Proximity )
+    .Select<ReferenceWithContext, XYZ>( r
+      => r.GetReference().GlobalPoint )
+    .Distinct<XYZ>( new XyzEqualityComparer() ) );
+
+  // Check if first point is at the wall start.
+  // If so, the wall does not begin with an opening,
+  // so that point can be removed. Else, add it.
+
+  XYZ q = wallOrigin + _offset * XYZ.BasisZ;
+
+  bool wallHasFaceAtStart = Util.IsEqual( 
+    pointList[0], q );
+
+  if( wallHasFaceAtStart )
+  {
+    pointList.RemoveAll( p
+      //=> _eps > p.DistanceTo( q ) );
+      => Util.IsEqual( p, q ) );
+  }
+  else
+  {
+    pointList.Insert( 0, wallOrigin );
+  }
+
+  // Check if last point is at the wall end.
+  // If so, the wall does not end with an opening, 
+  // so that point can be removed. Else, add it.
+
+  q = wallEndPoint + _offset * XYZ.BasisZ;
+
+  bool wallHasFaceAtEnd = Util.IsEqual(
+    pointList.Last(), q );
+
+  if( wallHasFaceAtEnd )
+  {
+    pointList.RemoveAll( p
+      //=> _eps > p.DistanceTo( q ) );
+      => Util.IsEqual( p, q ) );
+  }
+  else
+  {
+    pointList.Add( wallEndPoint );
+  }
+
+  int n = pointList.Count;
+
+  Debug.Assert( IsEven( n ),
+    "expected an even number of opening sides" );
+
+  var wallOpenings = new List<WallOpening2d>(
+    n / 2 );
+
+  for( int i = 0; i < n; i += 2 )
+  {
+    wallOpenings.Add( new WallOpening2d
     {
-      Document doc = wall.Document;
-      Level level = doc.GetElement( wall.LevelId ) as Level;
-      double elevation = level.Elevation;
-      Curve c = ( wall.Location as LocationCurve ).Curve;
-      XYZ wallOrigin = c.GetEndPoint( 0 );
-      XYZ wallEndPoint = c.GetEndPoint( 1 );
-      XYZ wallDirection = wallEndPoint - wallOrigin;
-      double wallLength = wallDirection.GetLength();
-      wallDirection = wallDirection.Normalize();
-      UV offsetOut = _offset * new UV( wallDirection.X, wallDirection.Y );
+      Start = pointList[i],
+      End = pointList[i + 1]
+    } );
+  }
+  return wallOpenings;
+}
 
-      XYZ rayStart = new XYZ( wallOrigin.X - offsetOut.U,
-        wallOrigin.Y - offsetOut.V, elevation + _offset );
+public Result Execute(
+  ExternalCommandData commandData,
+  ref string message,
+  ElementSet elements )
+{
+  UIApplication uiapp = commandData.Application;
+  UIDocument uidoc = uiapp.ActiveUIDocument;
+  Document doc = uidoc.Document;
 
-      ReferenceIntersector intersector
-        = new ReferenceIntersector( wall.Id, 
-          FindReferenceTarget.Face, view );
+  if( null == doc )
+  {
+    message = "Please run this command in a valid document.";
+    return Result.Failed;
+  }
 
-      IList<ReferenceWithContext> refs
-        = intersector.Find( rayStart, wallDirection );
+  View3D view = doc.ActiveView as View3D;
 
-      // Extract the intersection points:
-      // - only surfaces
-      // - within wall length plus offset at each end
-      // - sorted by proximity
-      // - eliminating duplicates
+  if( null == view )
+  {
+    message = "Please run this command in a 3D view.";
+    return Result.Failed;
+  }
 
-      List<XYZ> pointList = new List<XYZ>( refs
-        .Where<ReferenceWithContext>( r => IsSurface(
-          r.GetReference() ) )
-        .Where<ReferenceWithContext>( r => r.Proximity
-          < wallLength + _offset + _offset )
-        .OrderBy<ReferenceWithContext, double>(
-          r => r.Proximity )
-        .Select<ReferenceWithContext, XYZ>( r
-          => r.GetReference().GlobalPoint )
-        .Distinct<XYZ>( new XyzEqualityComparer() ) );
+  Element e = Util.SelectSingleElementOfType(
+    uidoc, typeof( Wall ), "wall", true );
 
-      // Check if first point is at the wall start.
-      // If so, the wall does not begin with an opening,
-      // so that point can be removed. Else, add it.
+  List<WallOpening2d> openings = GetWallOpenings(
+    e as Wall, view );
 
-      XYZ q = wallOrigin + _offset * XYZ.BasisZ;
+  int n = openings.Count;
 
-      bool wallHasFaceAtStart = Util.IsEqual( 
-        pointList[0], q );
+  string msg = string.Format(
+    "{0} opening{1} found{2}",
+    n, Util.PluralSuffix( n ),
+    Util.DotOrColon( n ) );
 
-      if( wallHasFaceAtStart )
-      {
-        pointList.RemoveAll( p
-          //=> _eps > p.DistanceTo( q ) );
-          => Util.IsEqual( p, q ) );
-      }
-      else
-      {
-        pointList.Insert( 0, wallOrigin );
-      }
+  Util.InfoMsg2( msg, string.Join( 
+    "\r\n", openings ) );
 
-      // Check if last point is at the wall end.
-      // If so, the wall does not end with an opening, 
-      // so that point can be removed. Else, add it.
-
-      q = wallEndPoint + _offset * XYZ.BasisZ;
-
-      bool wallHasFaceAtEnd = Util.IsEqual(
-        pointList.Last(), q );
-
-      if( wallHasFaceAtEnd )
-      {
-        pointList.RemoveAll( p
-          //=> _eps > p.DistanceTo( q ) );
-          => Util.IsEqual( p, q ) );
-      }
-      else
-      {
-        pointList.Add( wallEndPoint );
-      }
-
-      int n = pointList.Count;
-
-      Debug.Assert( IsEven( n ),
-        "expected an even number of opening sides" );
-
-      var wallOpenings = new List<WallOpening2D>(
-        n / 2 );
-
-      for( int i = 0; i < n; i += 2 )
-      {
-        wallOpenings.Add( new WallOpening2D
-        {
-          Start = pointList[i],
-          End = pointList[i + 1]
-        } );
-      }
-      return wallOpenings;
-    }
-
-    public Result Execute(
-      ExternalCommandData commandData,
-      ref string message,
-      ElementSet elements )
-    {
-      UIApplication uiapp = commandData.Application;
-      UIDocument uidoc = uiapp.ActiveUIDocument;
-      Document doc = uidoc.Document;
-
-      if( null == doc )
-      {
-        message = "Please run this command in a valid document.";
-        return Result.Failed;
-      }
-
-      View3D view = doc.ActiveView as View3D;
-
-      if( null == view )
-      {
-        message = "Please run this command in a 3D view.";
-        return Result.Failed;
-      }
-
-      Element e = Util.SelectSingleElementOfType(
-        uidoc, typeof( Wall ), "wall", true );
-
-      List<WallOpening2D> openings = GetWallOpenings(
-        e as Wall, view );
-
-      int n = openings.Count;
-
-      string msg = string.Format(
-        "{0} opening{1} found{2}",
-        n, Util.PluralSuffix( n ),
-        Util.DotOrColon( n ) );
-
-      Util.InfoMsg2( msg, string.Join( 
-        "\r\n", openings ) );
-
-      return Result.Succeeded;
-    }
+  return Result.Succeeded;
+}
   }
 }
