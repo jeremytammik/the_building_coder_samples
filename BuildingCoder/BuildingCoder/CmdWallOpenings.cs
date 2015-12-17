@@ -47,7 +47,7 @@ namespace BuildingCoder
     /// <summary>
     /// A small number
     /// </summary>
-    const double _eps = .1e-5;
+    //const double _eps = .1e-5;
 
     /// <summary>
     /// Predicate: is the given number even?
@@ -88,7 +88,8 @@ namespace BuildingCoder
     {
       public bool Equals( XYZ a, XYZ b )
       {
-        return _eps > a.DistanceTo( b );
+        //return _eps > a.DistanceTo( b );
+        return Util.IsEqual( a, b );
       }
 
       public int GetHashCode( XYZ a )
@@ -155,7 +156,8 @@ namespace BuildingCoder
       if( wallHasFaceAtStart )
       {
         pointList.RemoveAll( p
-          => _eps > p.DistanceTo( q ) );
+          //=> _eps > p.DistanceTo( q ) );
+          => Util.IsEqual( p, q ) );
       }
       else
       {
@@ -174,7 +176,8 @@ namespace BuildingCoder
       if( wallHasFaceAtEnd )
       {
         pointList.RemoveAll( p
-          => _eps > p.DistanceTo( q ) );
+          //=> _eps > p.DistanceTo( q ) );
+          => Util.IsEqual( p, q ) );
       }
       else
       {
