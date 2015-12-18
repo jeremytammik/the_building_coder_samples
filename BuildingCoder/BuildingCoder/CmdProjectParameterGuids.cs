@@ -47,8 +47,8 @@ namespace BuildingCoder
     /// </summary>
     /// <param name="doc">The project document being quereied</param>
     /// <returns></returns>
-    static List<ProjectParameterData> 
-      GetProjectParameterData( 
+    static List<ProjectParameterData>
+      GetProjectParameterData(
         Document doc )
     {
       // Following good SOA practices, first validate incoming parameters
@@ -63,16 +63,23 @@ namespace BuildingCoder
         throw new Exception( "doc can not be a family document." );
       }
 
-      List<ProjectParameterData> result = new List<ProjectParameterData>();
+      List<ProjectParameterData> result
+        = new List<ProjectParameterData>();
+
       BindingMap map = doc.ParameterBindings;
-      DefinitionBindingMapIterator it = map.ForwardIterator();
+      DefinitionBindingMapIterator it
+        = map.ForwardIterator();
       it.Reset();
       while( it.MoveNext() )
       {
-        ProjectParameterData newProjectParameterData = new ProjectParameterData();
+        ProjectParameterData newProjectParameterData
+          = new ProjectParameterData();
+
         newProjectParameterData.Definition = it.Key;
         newProjectParameterData.Name = it.Key.Name;
-        newProjectParameterData.Binding = it.Current as ElementBinding;
+        newProjectParameterData.Binding = it.Current
+          as ElementBinding;
+
         result.Add( newProjectParameterData );
       }
       return result;
@@ -92,7 +99,7 @@ namespace BuildingCoder
     /// <param name="projectParameterData">Information about the project parameter</param>
     /// <param name="category">The additional category to which to bind the project parameter</param>
     /// <returns></returns>
-    static bool AddProjectParameterBinding( 
+    static bool AddProjectParameterBinding(
       Document doc,
       ProjectParameterData projectParameterData,
       Category category )
@@ -106,12 +113,14 @@ namespace BuildingCoder
 
       if( doc.IsFamilyDocument )
       {
-        throw new Exception( "doc can not be a family document." );
+        throw new Exception(
+          "doc can not be a family document." );
       }
 
       if( projectParameterData == null )
       {
-        throw new ArgumentNullException( "projectParameterData" );
+        throw new ArgumentNullException(
+          "projectParameterData" );
       }
 
       if( category == null )
@@ -120,13 +129,15 @@ namespace BuildingCoder
       }
 
       bool result = false;
-      CategorySet cats = projectParameterData.Binding.Categories;
+
+      CategorySet cats = projectParameterData.Binding
+        .Categories;
 
       if( cats.Contains( category ) )
       {
         // It's already bound to the desired category.  
         // Nothing to do.
-        string errorMessage = string.Format( 
+        string errorMessage = string.Format(
           "The project parameter '{0}' is already bound to the '{1}' category.",
           projectParameterData.Definition.Name,
           category.Name );
@@ -138,19 +149,19 @@ namespace BuildingCoder
 
       // See if the parameter is an instance or type parameter.
 
-      InstanceBinding instanceBinding 
+      InstanceBinding instanceBinding
         = projectParameterData.Binding as InstanceBinding;
 
       if( instanceBinding != null )
       {
         // Is an Instance parameter
 
-        InstanceBinding newInstanceBinding 
+        InstanceBinding newInstanceBinding
           = doc.Application.Create
             .NewInstanceBinding( cats );
 
-        if( doc.ParameterBindings.ReInsert( 
-          projectParameterData.Definition, 
+        if( doc.ParameterBindings.ReInsert(
+          projectParameterData.Definition,
           newInstanceBinding ) )
         {
           result = true;
@@ -159,11 +170,11 @@ namespace BuildingCoder
       else
       {
         // Is a type parameter
-        TypeBinding typeBinding 
+        TypeBinding typeBinding
           = doc.Application.Create
             .NewTypeBinding( cats );
 
-        if( doc.ParameterBindings.ReInsert( 
+        if( doc.ParameterBindings.ReInsert(
           projectParameterData.Definition, typeBinding ) )
         {
           result = true;
@@ -179,11 +190,11 @@ namespace BuildingCoder
     /// </summary>
     /// <param name="parameter">The Parameter object with source information</param>
     /// <param name="projectParameterDataToFill">The ProjectParameterData object to fill</param>
-    static void PopulateProjectParameterData( 
+    static void PopulateProjectParameterData(
       Parameter parameter,
       ProjectParameterData projectParameterDataToFill )
     {
-      // Following good SOA practices, validat incoming parameters first.
+      // Following good SOA practices, validate incoming parameters first.
 
       if( parameter == null )
       {
@@ -192,7 +203,8 @@ namespace BuildingCoder
 
       if( projectParameterDataToFill == null )
       {
-        throw new ArgumentNullException( "projectParameterDataToFill" );
+        throw new ArgumentNullException(
+          "projectParameterDataToFill" );
       }
 
       projectParameterDataToFill.IsSharedStatusKnown = true;
@@ -207,9 +219,9 @@ namespace BuildingCoder
     }  // end of PopulateProjectParameterData
     #endregion // Private helper methods
 
-    public Result Execute( 
-      ExternalCommandData commandData, 
-      ref string message, 
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
       ElementSet elements )
     {
       UIApplication uiapp = commandData.Application;
@@ -227,7 +239,7 @@ namespace BuildingCoder
       // instance parameters bound to it, and it is 
       // always guaranteed to exist.
 
-      Element projectInfoElement 
+      Element projectInfoElement
         = new FilteredElementCollector( doc )
           .OfCategory( BuiltInCategory.OST_ProjectInformation )
           .FirstElement();
@@ -236,7 +248,7 @@ namespace BuildingCoder
       // have type parameters bound to it, and there is 
       // always guaranteed to be at least one of these.
 
-      Element firstWallTypeElement 
+      Element firstWallTypeElement
         = new FilteredElementCollector( doc )
           .OfCategory( BuiltInCategory.OST_Walls )
           .WhereElementIsElementType()
@@ -248,7 +260,7 @@ namespace BuildingCoder
       // Get the list of information about all project 
       // parameters, calling our helper method, below.  
 
-      List<ProjectParameterData> projectParametersData 
+      List<ProjectParameterData> projectParametersData
         = GetProjectParameterData( doc );
 
       // In order to be able to query whether or not a 
@@ -265,7 +277,7 @@ namespace BuildingCoder
       // and can be queried for this additional 
       // information.
 
-      foreach( ProjectParameterData projectParameterData 
+      foreach( ProjectParameterData projectParameterData
         in projectParametersData )
       {
         if( projectParameterData.Definition != null )
@@ -278,7 +290,7 @@ namespace BuildingCoder
             // so we must temporarily bind it so we can 
             // query that object for it.
 
-            using( Transaction tempTransaction 
+            using( Transaction tempTransaction
               = new Transaction( doc ) )
             {
               tempTransaction.Start( "Temporary" );
@@ -287,13 +299,13 @@ namespace BuildingCoder
               // the project information category, 
               // calling our helper method, below.
 
-              if( AddProjectParameterBinding( 
+              if( AddProjectParameterBinding(
                 doc, projectParameterData,
                 projectInfoElement.Category ) )
               {
                 // successfully bound
-                foundParameter 
-                  = projectInfoElement.get_Parameter( 
+                foundParameter
+                  = projectInfoElement.get_Parameter(
                     projectParameterData.Definition );
 
                 if( foundParameter == null )
@@ -309,7 +321,7 @@ namespace BuildingCoder
                   // based object known to exist, and 
                   // try again.
 
-                  if( !categories.Contains( 
+                  if( !categories.Contains(
                     firstWallTypeElement.Category ) )
                   {
                     // Add it to walls category as we 
@@ -317,13 +329,13 @@ namespace BuildingCoder
                     // others, calling our helper 
                     // method, below.
 
-                    if( AddProjectParameterBinding( 
+                    if( AddProjectParameterBinding(
                       doc, projectParameterData,
                       firstWallTypeElement.Category ) )
                     {
                       // Successfully bound
-                      foundParameter 
-                        = firstWallTypeElement.get_Parameter( 
+                      foundParameter
+                        = firstWallTypeElement.get_Parameter(
                           projectParameterData.Definition );
                     }
                   }
@@ -331,15 +343,15 @@ namespace BuildingCoder
                   {
                     // The project parameter was already 
                     // bound to the Walls category.
-                    foundParameter 
-                      = firstWallTypeElement.get_Parameter( 
+                    foundParameter
+                      = firstWallTypeElement.get_Parameter(
                         projectParameterData.Definition );
                   }
 
                   if( foundParameter != null )
                   {
-                    PopulateProjectParameterData( 
-                      foundParameter, 
+                    PopulateProjectParameterData(
+                      foundParameter,
                       projectParameterData );
                   }
                   else
@@ -349,7 +361,7 @@ namespace BuildingCoder
                     // already bound.
                     // This should probably never happen?
 
-                    projectParameterData.IsSharedStatusKnown 
+                    projectParameterData.IsSharedStatusKnown
                       = false;  // Throw exception?
                   }
                 }
@@ -359,8 +371,8 @@ namespace BuildingCoder
                   // instance on the Project 
                   // Information object, so use it.
 
-                  PopulateProjectParameterData( 
-                    foundParameter, 
+                  PopulateProjectParameterData(
+                    foundParameter,
                     projectParameterData );
                 }
               }
@@ -384,20 +396,20 @@ namespace BuildingCoder
             // The project parameter was already bound 
             // to the Project Information category.
 
-            foundParameter 
-              = projectInfoElement.get_Parameter( 
+            foundParameter
+              = projectInfoElement.get_Parameter(
                 projectParameterData.Definition );
 
             if( foundParameter != null )
             {
-              PopulateProjectParameterData( 
+              PopulateProjectParameterData(
                 foundParameter, projectParameterData );
             }
             else
             {
               // This will probably never happen.
 
-              projectParameterData.IsSharedStatusKnown 
+              projectParameterData.IsSharedStatusKnown
                 = false;  // Throw exception?
             }
           }
@@ -414,7 +426,7 @@ namespace BuildingCoder
 
       // Add each row.
 
-      foreach( ProjectParameterData projectParameterData 
+      foreach( ProjectParameterData projectParameterData
         in projectParametersData )
       {
         sb.Append( projectParameterData.Name );
@@ -441,9 +453,15 @@ namespace BuildingCoder
       System.Windows.Clipboard.Clear();
       System.Windows.Clipboard.SetText( sb.ToString() );
 
-      TaskDialog resultsDialog = new TaskDialog( "Results are in the Clipboard" );
-      resultsDialog.MainInstruction = "Results are in the Clipboard";
-      resultsDialog.MainContent = "Paste the clipboard into a spreadsheet program to see the results.";
+      TaskDialog resultsDialog = new TaskDialog(
+        "Results are in the Clipboard" );
+
+      resultsDialog.MainInstruction
+        = "Results are in the Clipboard";
+
+      resultsDialog.MainContent
+        = "Paste the clipboard into a spreadsheet "
+          + "program to see the results.";
 
       resultsDialog.Show();
 
