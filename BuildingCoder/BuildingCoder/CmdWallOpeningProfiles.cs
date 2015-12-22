@@ -1,6 +1,6 @@
 ﻿#region Header
 //
-// CmdWallOpeningProfiles.cs - determine and display all wall opening edges including elevation profile lines
+// CmdWallOpeningProfiles.cs - determine and display all wall opening face edges including elevation profile lines
 //
 // Copyright (C) 2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
@@ -19,8 +19,12 @@ using Autodesk.Revit.UI;
 namespace BuildingCoder
 {
   [Transaction( TransactionMode.Manual )]
-  class CmdWallOpeningProfiles
+  class CmdWallOpeningProfiles : IExternalCommand
   {
+    /// <summary>
+    /// Retrieve all planar faces belonging to the 
+    /// specified opening in the given wall.
+    /// </summary>
     static List<PlanarFace> GetWallOpeningPlanarFaces(
       Wall wall,
       ElementId openingId )
@@ -33,9 +37,9 @@ namespace BuildingCoder
 
       if( geomOptions != null )
       {
-        geomOptions.ComputeReferences = true;
-        geomOptions.DetailLevel = ViewDetailLevel.Fine;
-        geomOptions.IncludeNonVisibleObjects = false;
+        //geomOptions.ComputeReferences = true; // expensive, avoid if not needed
+        //geomOptions.DetailLevel = ViewDetailLevel.Fine;
+        //geomOptions.IncludeNonVisibleObjects = false;
 
         GeometryElement geoElem = wall.get_Geometry( geomOptions );
 
@@ -57,7 +61,8 @@ namespace BuildingCoder
         {
           if( face is PlanarFace )
           {
-            if( wall.GetGeneratingElementIds( face ).Any( x => x == openingId ) )
+            if( wall.GetGeneratingElementIds( face )
+              .Any( x => x == openingId ) )
             {
               faceList.Add( face as PlanarFace );
             }
@@ -75,17 +80,21 @@ namespace BuildingCoder
       UIApplication uiapp = commandData.Application;
       UIDocument uidoc = uiapp.ActiveUIDocument;
       Document doc = uidoc.Document;
-
       Result commandResult = Result.Succeeded;
+      Categories cats = doc.Settings.Categories;
+
+      ElementId catDoorsId = cats.get_Item(
+        BuiltInCategory.OST_Doors ).Id;
+
+      ElementId catWindowsId = cats.get_Item(
+        BuiltInCategory.OST_Windows ).Id;
 
       try
       {
-        UIDocument uiDoc = commandData.Application.ActiveUIDocument;
-        Document dbDoc = uiDoc.Document;
+        List<ElementId> selectedIds = uidoc.Selection
+          .GetElementIds().ToList();
 
-        List<ElementId> selectedIds = uiDoc.Selection.GetElementIds().ToList();
-
-        using( Transaction trans = new Transaction( dbDoc ) )
+        using( Transaction trans = new Transaction( doc ) )
         {
           trans.Start( "Cmd: GetOpeningProfiles" );
 
@@ -93,46 +102,62 @@ namespace BuildingCoder
 
           foreach( ElementId selectedId in selectedIds )
           {
-            Wall wall = dbDoc.GetElement( selectedId ) as Wall;
+            Wall wall = doc.GetElement( selectedId ) as Wall;
 
             if( wall != null )
             {
               List<PlanarFace> faceList = new List<PlanarFace>();
 
-              List<ElementId> insertIds = wall.FindInserts( true, false, false, false ).ToList();
+              List<ElementId> insertIds = wall.FindInserts(
+                true, false, false, false ).ToList();
 
               foreach( ElementId insertId in insertIds )
               {
-                Element elem = dbDoc.GetElement( insertId );
+                Element elem = doc.GetElement( insertId );
 
                 if( elem is FamilyInstance )
                 {
                   FamilyInstance inst = elem as FamilyInstance;
 
-                  CategoryType catType = inst.Category.CategoryType;
+                  CategoryType catType = inst.Category
+                    .CategoryType;
+
                   Category cat = inst.Category;
 
-                  if( catType == CategoryType.Model && ( cat.Id == dbDoc.Settings.Categories.get_Item( BuiltInCategory.OST_Doors ).Id || cat.Id == dbDoc.Settings.Categories.get_Item( BuiltInCategory.OST_Windows ).Id ) )
+                  if( catType == CategoryType.Model
+                    && ( cat.Id == catDoorsId
+                      || cat.Id == catWindowsId ) )
                   {
-                    faceList.AddRange( GetWallOpeningPlanarFaces( wall, insertId ) );
+                    faceList.AddRange(
+                      GetWallOpeningPlanarFaces(
+                        wall, insertId ) );
                   }
                 }
                 else if( elem is Opening )
                 {
-                  faceList.AddRange( GetWallOpeningPlanarFaces( wall, insertId ) );
+                  faceList.AddRange(
+                    GetWallOpeningPlanarFaces(
+                      wall, insertId ) );
                 }
               }
 
               foreach( PlanarFace face in faceList )
               {
-                Plane facePlane = new Plane( face.ComputeNormal( UV.Zero ), face.Origin );
-                SketchPlane sketchPlane = SketchPlane.Create( dbDoc, facePlane );
+                Plane facePlane = new Plane(
+                  face.ComputeNormal( UV.Zero ),
+                    face.Origin );
 
-                foreach( CurveLoop curveLoop in face.GetEdgesAsCurveLoops() )
+                SketchPlane sketchPlane
+                  = SketchPlane.Create( doc, facePlane );
+
+                foreach( CurveLoop curveLoop in
+                  face.GetEdgesAsCurveLoops() )
                 {
                   foreach( Curve curve in curveLoop )
                   {
-                    ModelCurve modelCurve = dbDoc.Create.NewModelCurve( curve, sketchPlane );
+                    ModelCurve modelCurve = doc.Create
+                      .NewModelCurve( curve, sketchPlane );
+
                     newIds.Add( modelCurve.Id );
                   }
                 }
@@ -142,7 +167,7 @@ namespace BuildingCoder
 
           if( newIds.Count > 0 )
           {
-            View activeView = uiDoc.ActiveGraphicalView;
+            View activeView = uidoc.ActiveGraphicalView;
             activeView.IsolateElementsTemporary( newIds );
           }
           trans.Commit();
@@ -151,16 +176,23 @@ namespace BuildingCoder
 
       #region Exception Handling
 
-      catch( Autodesk.Revit.Exceptions.ExternalApplicationException e )
+      catch( Autodesk.Revit.Exceptions
+        .ExternalApplicationException e )
       {
         message = e.Message;
-        Debug.WriteLine( "Exception Encountered (Application)\n" + e.Message + "\nStack Trace: " + e.StackTrace );
+        Debug.WriteLine(
+          "Exception Encountered (Application)\n"
+          + e.Message + "\nStack Trace: "
+          + e.StackTrace );
 
         commandResult = Result.Failed;
       }
-      catch( Autodesk.Revit.Exceptions.OperationCanceledException e )
+      catch( Autodesk.Revit.Exceptions
+        .OperationCanceledException e )
       {
-        Debug.WriteLine( "Operation cancelled. " + e.Message );
+        Debug.WriteLine( "Operation cancelled. "
+          + e.Message );
+
         message = "Operation cancelled.";
 
         commandResult = Result.Succeeded;
@@ -168,7 +200,10 @@ namespace BuildingCoder
       catch( Exception e )
       {
         message = e.Message;
-        Debug.WriteLine( "Exception Encountered (General)\n" + e.Message + "\nStack Trace: " + e.StackTrace );
+        Debug.WriteLine(
+          "Exception Encountered (General)\n"
+          + e.Message + "\nStack Trace: "
+          + e.StackTrace );
 
         commandResult = Result.Failed;
       }

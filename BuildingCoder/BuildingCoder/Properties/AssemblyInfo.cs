@@ -122,7 +122,8 @@ using System.Runtime.InteropServices;
 // 2015-12-17 2016.0.125.0 integrated CmdProjectParameterGuids by CoderBoy
 // 2015-12-17 2016.0.125.1 cleaned up CmdWallOpenings
 // 2015-12-18 2016.0.125.2 cleaned up CmdProjectParameterGuids
-// 2015-12-18 2016.0.126.0 integrated CmdWallOpeningProfiles by Scott Wilson
+// 2015-12-22 2016.0.126.0 integrated CmdWallOpeningProfiles by Scott Wilson
+// 2015-12-22 2016.0.126.1 cleaned up for publication
 // 
-[assembly: AssemblyVersion( "2016.0.126.0" )]
-[assembly: AssemblyFileVersion( "2016.0.126.0" )]
+[assembly: AssemblyVersion( "2016.0.126.1" )]
+[assembly: AssemblyFileVersion( "2016.0.126.1" )]
