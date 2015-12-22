@@ -1053,8 +1053,8 @@ C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdFlatten # version 2016.0.123.0
 
 ADN Bc R-Z
-Wall Openings
-Report wall opening start and end points along location line
+Wall Opening Side Faces
+Determine wall opening side faces and report their start and end points along location line
 LargeImage:
 Image:
 C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
@@ -1067,3 +1067,12 @@ LargeImage:
 Image:
 C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdProjectParameterGuids # version 2016.0.125.0
+
+ADN Bc R-Z
+Wall Opening Profiles
+Determine and display all wall opening edges including elevation profile lines
+LargeImage:
+Image:
+C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdWallOpeningProfiles # version 2016.0.126.0
+
