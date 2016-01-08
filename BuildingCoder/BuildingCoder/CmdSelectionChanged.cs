@@ -2,7 +2,7 @@
 //
 // CmdSelectionChanged.cs - Implement and subscribe to a custom element selection changed event using UI Automation
 //
-// Copyright (C) 2015 by Vilo and Jeremy Tammik,
+// Copyright (C) 2015-2016 by Vilo and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

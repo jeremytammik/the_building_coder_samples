@@ -2,7 +2,7 @@
 //
 // CmdDutAbbreviation.cs - Test the display unit type abbreviation array
 //
-// Copyright (C) 2013-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

@@ -2,7 +2,7 @@
 //
 // CmdProjectParameterGuids.cs - determine and report all project parameter GUIDs
 //
-// Copyright (C) 2015 by CoderBoy and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2015-2016 by CoderBoy and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Written by CoderBoy, cf.
 // http://forums.autodesk.com/t5/revit-api/reporting-on-project-parameter-definitions-need-guids/m-p/5947552

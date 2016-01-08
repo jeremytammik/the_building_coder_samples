@@ -2,7 +2,7 @@
 //
 // CmdSetTagType.cs - create a wall, door, door tag, then create and set a new door tag type
 //
-// Copyright (C) 2010-2015 by Jeremy Tammik,
+// Copyright (C) 2010-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

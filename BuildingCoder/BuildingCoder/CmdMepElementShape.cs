@@ -2,7 +2,7 @@
 //
 // CmdMepElementShape.cs - determine element shape, i.e. MEP element cross section
 //
-// Copyright (C) 2011-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2011-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

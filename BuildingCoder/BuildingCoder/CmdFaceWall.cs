@@ -5,7 +5,7 @@
 // Create and insert a conceptual mass family instance, 
 // then create sloped walls on all its faces.
 //
-// Copyright (C) 2014-2015 by Jeremy Tammik,
+// Copyright (C) 2014-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

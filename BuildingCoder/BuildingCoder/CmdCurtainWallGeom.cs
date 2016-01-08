@@ -2,7 +2,7 @@
 //
 // CmdCurtainWallGeom.cs - retrieve curtain wall geometry
 //
-// Copyright (C) 2010-2015 by Jeremy Tammik,
+// Copyright (C) 2010-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

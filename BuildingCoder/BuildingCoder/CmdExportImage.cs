@@ -2,7 +2,7 @@
 //
 // CmdExportImage.cs - export a preview JPG 3D image of the family or project
 //
-// Copyright (C) 2013-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

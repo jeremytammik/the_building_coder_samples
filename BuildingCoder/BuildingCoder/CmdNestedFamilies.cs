@@ -2,7 +2,7 @@
 //
 // CmdNestedFamilies.cs - list nested family files and instances in a family document
 //
-// Copyright (C) 2010-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2010-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

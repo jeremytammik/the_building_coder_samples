@@ -2,7 +2,7 @@
 //
 // CmdDemoCheck.cs - Check whether the running Revit application is a demo version
 //
-// Copyright (C) 2013-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

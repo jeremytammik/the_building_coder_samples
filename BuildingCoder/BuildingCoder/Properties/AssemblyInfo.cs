@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Autodesk, Inc." )]
 [assembly: AssemblyProduct( "BuildingCoder" )]
-[assembly: AssemblyCopyright( "Copyright © 2008-2015 by Jeremy Tammik, Autodesk, Inc." )]
+[assembly: AssemblyCopyright( "Copyright © 2008-2016 by Jeremy Tammik, Autodesk, Inc." )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -124,6 +124,7 @@ using System.Runtime.InteropServices;
 // 2015-12-18 2016.0.125.2 cleaned up CmdProjectParameterGuids
 // 2015-12-22 2016.0.126.0 integrated CmdWallOpeningProfiles by Scott Wilson
 // 2015-12-22 2016.0.126.1 cleaned up for publication
+// 2016-01-08 2016.0.126.2 incremented copyright year
 // 
-[assembly: AssemblyVersion( "2016.0.126.1" )]
-[assembly: AssemblyFileVersion( "2016.0.126.1" )]
+[assembly: AssemblyVersion( "2016.0.126.2" )]
+[assembly: AssemblyFileVersion( "2016.0.126.2" )]

@@ -7,7 +7,7 @@
 // published in 
 // http://forums.autodesk.com/t5/Revit-API/Revision-help-which-views-show-this-object/m-p/5029772
 //
-// Copyright (C) 2014-2015 by Jeremy Tammik,
+// Copyright (C) 2014-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

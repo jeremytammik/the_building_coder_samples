@@ -2,7 +2,7 @@
 //
 // CmdExportSolidToSat.cs - Create a solid in memory and export it to a SAT file
 //
-// Copyright (C) 2013-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 #endregion // Header
 

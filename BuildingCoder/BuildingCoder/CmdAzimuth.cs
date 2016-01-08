@@ -3,7 +3,7 @@
 // CmdAzimuth.cs - determine direction
 // of a line with regard to the north
 //
-// Copyright (C) 2008-2015 by Jeremy Tammik,
+// Copyright (C) 2008-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

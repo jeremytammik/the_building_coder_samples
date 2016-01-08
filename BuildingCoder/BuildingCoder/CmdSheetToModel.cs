@@ -2,7 +2,7 @@
 //
 // CmdSheetToModel.cs - Convert sheet to model coordinates and convert DWF markup to model elements
 //
-// Copyright (C) 2015 by Paolo Serra and Jeremy Tammik,
+// Copyright (C) 2015-2016 by Paolo Serra and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

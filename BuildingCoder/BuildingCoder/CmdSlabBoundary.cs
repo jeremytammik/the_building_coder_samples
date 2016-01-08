@@ -2,7 +2,7 @@
 //
 // CmdSlabBoundary.cs - determine polygonal slab boundary loops
 //
-// Copyright (C) 2008-2015 by Jeremy Tammik,
+// Copyright (C) 2008-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

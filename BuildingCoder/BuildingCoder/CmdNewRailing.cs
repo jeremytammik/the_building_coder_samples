@@ -4,7 +4,7 @@
 // in response to queries from Berria at
 // http://thebuildingcoder.typepad.com/blog/2009/02/list-railing-types.html#comments
 //
-// Copyright (C) 2009-2015 by Jeremy Tammik,
+// Copyright (C) 2009-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

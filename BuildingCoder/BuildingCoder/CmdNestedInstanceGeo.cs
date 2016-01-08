@@ -3,7 +3,7 @@
 // CmdNestedInstanceGeo.cs - analyse
 // nested instance geometry and structure
 //
-// Copyright (C) 2009-2015 by Jeremy Tammik,
+// Copyright (C) 2009-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header

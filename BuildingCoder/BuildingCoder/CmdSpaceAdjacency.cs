@@ -2,7 +2,7 @@
 //
 // CmdSpaceAdjacency.cs - determine space adjacencies.
 //
-// Copyright (C) 2009-2015 by Martin Schmid and Jeremy Tammik,
+// Copyright (C) 2009-2016 by Martin Schmid and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 #endregion // Header
