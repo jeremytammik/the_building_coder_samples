@@ -127,6 +127,7 @@ using System.Runtime.InteropServices;
 // 2016-01-08 2016.0.126.2 incremented copyright year
 // 2016-02-24 2016.0.126.3 implemented CmdMepElementShape.GetElementShape4 and break selection loop if element is preselected
 // 2016-02-24 2016.0.126.4 implemented CmdMepElementShape.GetProfileTypes returing all duct connector shapes
+// 2016-02-24 2016.0.126.5 updated reasme and added keywords to all modules to improve global internet search results
 // 
-[assembly: AssemblyVersion( "2016.0.126.4" )]
-[assembly: AssemblyFileVersion( "2016.0.126.4" )]
+[assembly: AssemblyVersion( "2016.0.126.5" )]
+[assembly: AssemblyFileVersion( "2016.0.126.5" )]
