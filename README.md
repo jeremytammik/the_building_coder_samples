@@ -2,7 +2,25 @@
 
 The Building Coder Samples illustrate numerous aspects and example usages of the Revit API.
 
-Please refer to [The Building Coder](http://thebuildingcoder.typepad.com) for all further information.
+Please refer to [The Building Coder](http://thebuildingcoder.typepad.com) for further information.
+
+Keywords: Revit API C# .NET add-in.
+
+## Installation
+
+You can install each individual command separately by creating an add-in manifest file for it,
+e.g. [TheBuildingCoderSingleSample.addin](TheBuildingCoderSingleSample.addin) is
+set up to load the external command CmdDemoCheck.
+
+Simply copy both `BuildingCoder.dll` and `TheBuildingCoderSingleSample.addin` to
+the [Revit Add-Ins folder](http://help.autodesk.com/view/RVT/2015/ENU/?guid=GUID-4FFDB03E-6936-417C-9772-8FC258A261F7).
+
+To save implementing a separate add-in manifest file entry for each individual command, you can also use the Revit SDK sample RvtSamples.
+
+It is an external application that reads a list of external commands from a text file and creates a ribbon memnu to launch them all.
+
+[BcSamples.txt](BcSamples.txt) lists all The Building Coder sample commands in the required format and can be sued as
+an [RvtSamples include file](http://thebuildingcoder.typepad.com/blog/2008/11/loading-the-building-coder-samples.html).
 
 
 ## Author
