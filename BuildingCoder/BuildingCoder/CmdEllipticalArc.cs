@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdEllipticalArc.cs - create an elliptical arc geometry object
 //
 // Copyright (C) 2010-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

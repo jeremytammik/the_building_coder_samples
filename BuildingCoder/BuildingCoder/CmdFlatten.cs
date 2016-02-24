@@ -1,10 +1,12 @@
-﻿#region Header
+#region Header
 //
 // CmdFlatten.cs - convert all Revit elements to DirectShapes retaining shape and category
 //
 // Written by Nikolay Shulga.
 // Copyright (C) 2015-2016 by Nikolay Shulga and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 // Name: Flatten
 // Motivation: I wanted to see whether DirectShapes could be used to lock down a Revit design – remove most intelligence, make it read-only, perhaps improve performance.

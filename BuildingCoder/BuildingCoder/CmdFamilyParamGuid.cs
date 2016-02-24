@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdFamilyParamGuid.cs - determine family parameter IsShared and GUID properties using System.Reflection
 //
 // Copyright (C) 2011-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

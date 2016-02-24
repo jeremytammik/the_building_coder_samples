@@ -1,9 +1,11 @@
-﻿#region Header
+#region Header
 //
 // CmdNewCrossFitting.cs - Create a new pipe cross fitting
 //
 // Copyright (C) 2014-2016 by Joe Ye and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

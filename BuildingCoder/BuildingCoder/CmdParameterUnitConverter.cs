@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdParameterUnitConverter.cs - test ParameterUnitConverter on all floating point valued parameters on a selected element
 //
 // Copyright (C) 2011-2016 by Victor Chekalin and Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

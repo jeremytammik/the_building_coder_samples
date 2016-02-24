@@ -1,9 +1,11 @@
-﻿#region Header
+#region Header
 //
 // CmdNewTextNote.cs - Create a new text note and determine its exact width
 //
 // Copyright (C) 2014-2016 by Scott Wilson and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

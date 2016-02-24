@@ -1,9 +1,11 @@
-﻿#region Header
+#region Header
 //
 // CmdItemExecuted.cs - list all ribbon panel command buttons and subscribe to Autodesk.Windows.ComponentManager.ItemExecuted
 //
 // Copyright (C) 2015-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

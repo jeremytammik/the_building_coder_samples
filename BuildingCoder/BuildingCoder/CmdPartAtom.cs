@@ -1,9 +1,11 @@
-﻿#region Header
+#region Header
 //
 // CmdPartAtom.cs - extract part atom from family file
 //
 // Copyright (C) 2010-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

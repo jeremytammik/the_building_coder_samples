@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdPressKeys.cs - press keys to launch 'Create Similar' and other Revit commands
 //
 // Copyright (C) 2010-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

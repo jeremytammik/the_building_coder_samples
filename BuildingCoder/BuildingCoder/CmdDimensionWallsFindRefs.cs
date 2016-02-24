@@ -1,9 +1,11 @@
-﻿#region Header
+#region Header
 //
 // CmdDimensionWallsFindRefs.cs - create dimensioning elements
 // between opposing walls using FindReferencesByDirection
 //
 // Copyright (C) 2011-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

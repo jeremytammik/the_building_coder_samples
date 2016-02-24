@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdExportSolidToSat.cs - Create a solid in memory and export it to a SAT file
 //
 // Copyright (C) 2013-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

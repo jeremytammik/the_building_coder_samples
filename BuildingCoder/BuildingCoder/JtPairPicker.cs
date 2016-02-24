@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // JtPairPicker.cs - helper class to pick a pair of elements
 //
 // Copyright (C) 2014-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

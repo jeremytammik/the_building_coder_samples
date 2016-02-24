@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdGetSketchElements.cs - retrieve sketch elements for a selected wall, floor, roof, filled region, etc.
 //
 // Copyright (C) 2010-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

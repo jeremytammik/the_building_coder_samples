@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdRemoveDwfLinks.cs - Remove DWF links
 //
 // Copyright (C) 2012-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

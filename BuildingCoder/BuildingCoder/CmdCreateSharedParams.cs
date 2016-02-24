@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 //
 // CmdSharedParamModelGroup.cs - create a shared
 // parameter for the doors, walls, inserted DWG,
@@ -6,6 +6,8 @@
 //
 // Copyright (C) 2009-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

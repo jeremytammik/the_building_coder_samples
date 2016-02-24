@@ -1,9 +1,11 @@
-﻿#region Header
+#region Header
 //
 // CmdNewSprinkler.cs - insert a new sprinkler family instance
 //
 // Copyright (C) 2010-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

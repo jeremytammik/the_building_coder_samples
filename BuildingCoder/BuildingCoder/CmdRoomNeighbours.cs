@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdRoomNeighbours.cs - determine neighbouring room at midpoint of each room boundary segment
 //
 // Copyright (C) 2013-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

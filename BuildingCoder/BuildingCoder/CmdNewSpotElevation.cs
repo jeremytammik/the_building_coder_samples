@@ -1,9 +1,11 @@
-﻿#region Header
+#region Header
 //
 // CmdNewSpotElevation.cs - insert a new spot elevation on top surface of beam
 //
 // Copyright (C) 2010-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

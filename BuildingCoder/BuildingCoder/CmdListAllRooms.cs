@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdListAllRooms.cs - list properties from all rooms
 //
 // Copyright (C) 2011-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

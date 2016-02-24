@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CopyWallType.cs - duplicate a system type from on project to another to partially transfer project standards
 //
 // Copyright (C) 2011-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

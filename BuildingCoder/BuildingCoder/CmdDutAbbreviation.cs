@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdDutAbbreviation.cs - Test the display unit type abbreviation array
 //
 // Copyright (C) 2013-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

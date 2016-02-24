@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdExportImage.cs - export a preview JPG 3D image of the family or project
 //
 // Copyright (C) 2013-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

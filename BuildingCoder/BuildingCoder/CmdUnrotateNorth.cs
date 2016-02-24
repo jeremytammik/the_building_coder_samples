@@ -1,10 +1,12 @@
-﻿#region Header
+#region Header
 //
 // CmdUnrotateNorth.cs - transform element location back to
 // original coordinates to cancel effect of rotating project north
 //
 // Copyright (C) 2009-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

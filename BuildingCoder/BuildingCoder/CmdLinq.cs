@@ -1,9 +1,11 @@
-﻿#region Header
+#region Header
 //
 // CmdLinq.cs - test linq.
 //
 // Copyright (C) 2009-2016 by Joel Karr and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 //
 // CmdFaceWall.cs - demonstrate FaceWall.Create
 //
@@ -7,6 +7,8 @@
 //
 // Copyright (C) 2014-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

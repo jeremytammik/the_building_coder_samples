@@ -1,9 +1,11 @@
-﻿#region Header
+#region Header
 //
 // CmdSetRoomOccupancy.cs - read and set room occupancy
 //
 // Copyright (C) 2009-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

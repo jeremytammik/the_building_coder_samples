@@ -1,8 +1,10 @@
-﻿#region Header
+#region Header
 //
 // CmdCollectorPerformance.cs - benchmark Revit 2011 API collector performance
 //
-// Copyright (C) 2010-2015 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2010-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

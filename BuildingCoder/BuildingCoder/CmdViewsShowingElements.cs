@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 //
 // CmdViewsShowingElements.cs - determine all views displaying a given set of elements
 //
@@ -9,6 +9,8 @@
 //
 // Copyright (C) 2014-2016 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 

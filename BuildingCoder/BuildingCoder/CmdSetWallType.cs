@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 //
 // CmdSetWallType.cs - Set the wall type of a selected wall
 //
@@ -7,6 +7,8 @@
 //
 // Copyright (C) 2015-2016 by Jeremy Tammik, 
 // Autodesk Inc. All rights reserved.
+//
+// Keywords: The Building Coder Revit API C# .NET add-in.
 //
 #endregion // Header
 
