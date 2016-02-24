@@ -125,6 +125,7 @@ using System.Runtime.InteropServices;
 // 2015-12-22 2016.0.126.0 integrated CmdWallOpeningProfiles by Scott Wilson
 // 2015-12-22 2016.0.126.1 cleaned up for publication
 // 2016-01-08 2016.0.126.2 incremented copyright year
+// 2016-02-24 2016.0.126.3 implemented CmdMepElementShape.GetElementShape4 and break loop if preselected
 // 
-[assembly: AssemblyVersion( "2016.0.126.2" )]
-[assembly: AssemblyFileVersion( "2016.0.126.2" )]
+[assembly: AssemblyVersion( "2016.0.126.3" )]
+[assembly: AssemblyFileVersion( "2016.0.126.3" )]

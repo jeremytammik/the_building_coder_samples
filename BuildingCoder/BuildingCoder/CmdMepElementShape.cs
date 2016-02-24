@@ -106,7 +106,7 @@ namespace BuildingCoder
           {
             //Parameter p = e.get_Parameter( "Size" ); // 2014
 
-            Parameter p = e.get_Parameter( 
+            Parameter p = e.get_Parameter(
               BuiltInParameter.RBS_CALCULATED_SIZE ); // 2015
 
             string size = p.AsString();
@@ -716,6 +716,33 @@ namespace BuildingCoder
     }
     #endregion // MEP Element Shape Version 3
 
+    #region MEP Element Shape Version 4
+    /// <summary>
+    /// Determine element shape from its parameters.
+    /// </summary>
+    static public string GetElementShape4(
+      Element e )
+    {
+      string shape = "unknown";
+
+      ElementId tid = e.GetTypeId();
+
+      if( ElementId.InvalidElementId != tid )
+      {
+        Document doc = e.Document;
+
+        ElementType etyp = doc.GetElement( tid )
+          as ElementType;
+
+        if( null != etyp )
+        {
+          shape = etyp.FamilyName;
+        }
+      }
+      return shape;
+    }
+    #endregion // MEP Element Shape Version 4
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
@@ -725,6 +752,10 @@ namespace BuildingCoder
       UIDocument uidoc = uiapp.ActiveUIDocument;
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
+
+      int n = uidoc.Selection.GetElementIds().Count;
+
+      bool preselected = 0 < n;
 
       Element e = null;
 
@@ -747,11 +778,14 @@ namespace BuildingCoder
 
         Util.InfoMsg( string.Format(
           //"{0} is {1} {2} ({3})",
-          "{0} is {1} ({2})",
+          "{0} is {1}-{2} ({3})",
           Util.ElementDescription( e ),
           //MepElementShapeVersion3.GetElementShape( e ),
+          GetElementShape4( e ),
           MepElementShapeVersion2.GetElementShape( e ),
           MepElementShapeV1.GetElementShape( e ) ) );
+
+        if( preselected ) { break; }
       }
       return Result.Succeeded;
     }
