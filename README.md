@@ -15,7 +15,7 @@ set up to load the external command CmdDemoCheck.
 Simply copy both `BuildingCoder.dll` and `TheBuildingCoderSingleSample.addin` to
 the [Revit Add-Ins folder](http://help.autodesk.com/view/RVT/2015/ENU/?guid=GUID-4FFDB03E-6936-417C-9772-8FC258A261F7).
 
-To save implementing a separate add-in manifest file entry for each individual command, you can also use the Revit SDK sample RvtSamples.
+To save implementing a separate add-in manifest entry for each individual command, you can also use the Revit SDK sample RvtSamples.
 
 It is an external application that reads a list of external commands from a text file and creates a ribbon memnu to launch them all.
 
