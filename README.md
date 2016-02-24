@@ -17,7 +17,7 @@ the [Revit Add-Ins folder](http://help.autodesk.com/view/RVT/2015/ENU/?guid=GUID
 
 To save implementing a separate add-in manifest entry for each individual command, you can also use the Revit SDK sample RvtSamples.
 
-It is an external application that reads a list of external commands from a text file and creates a ribbon memnu to launch them all.
+It is an external application that reads a list of external commands from a text file and creates a ribbon memu to launch them all.
 
 [BcSamples.txt](BcSamples.txt) lists all The Building Coder sample commands in the required format and can be sued as
 an [RvtSamples include file](http://thebuildingcoder.typepad.com/blog/2008/11/loading-the-building-coder-samples.html).
