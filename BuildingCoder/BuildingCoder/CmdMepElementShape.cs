@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
@@ -721,7 +722,7 @@ namespace BuildingCoder
     /// Determine element shape from its 
     /// element type's family name property.
     /// </summary>
-    static public string GetElementShape4(
+    static string GetElementShape4(
       Element e )
     {
       string shape = "unknown";
@@ -741,6 +742,49 @@ namespace BuildingCoder
         }
       }
       return shape;
+    }
+
+    /// <summary>
+    /// Return shape of first end connector on given duct.
+    /// </summary>
+    static ConnectorProfileType GetShape( Duct duct )
+    {
+      ConnectorProfileType ductShape
+        = ConnectorProfileType.Invalid;
+
+      foreach( Connector c
+        in duct.ConnectorManager.Connectors )
+      {
+        if( c.ConnectorType == ConnectorType.End )
+        {
+          ductShape = c.Shape;
+          break;
+        }
+      }
+      return ductShape;
+    }
+
+    /// <summary>
+    /// Return shape of all duct connectors.
+    /// </summary>
+    static ConnectorProfileType[] GetProfileTypes(
+      Duct duct )
+    {
+      ConnectorSet connectors
+        = duct.ConnectorManager.Connectors;
+
+      int n = connectors.Size;
+
+      ConnectorProfileType[] profileTypes
+        = new ConnectorProfileType[n];
+
+      int i = 0;
+
+      foreach( Connector c in connectors )
+      {
+        profileTypes[i++] = c.Shape;
+      }
+      return profileTypes;
     }
     #endregion // MEP Element Shape Version 4
 
@@ -777,14 +821,33 @@ namespace BuildingCoder
           break;
         }
 
-        Util.InfoMsg( string.Format(
+        string s = "Not a duct.";
+
+        Duct duct = e as Duct;
+
+        if( null != duct )
+        {
+          ConnectorProfileType[] profileTypes
+            = GetProfileTypes( duct );
+
+          n = profileTypes.GetLength( 0 );
+
+          s = string.Format( "{0} connectors:\r\n", n )
+            + string.Join( "\r\n", profileTypes
+              .Select<ConnectorProfileType, string>(
+                a => a.ToString() ) );
+        }
+
+        string msg = string.Format(
           //"{0} is {1} {2} ({3})",
           "{0} is {1}-{2} ({3})",
           Util.ElementDescription( e ),
           //MepElementShapeVersion3.GetElementShape( e ),
           GetElementShape4( e ),
           MepElementShapeVersion2.GetElementShape( e ),
-          MepElementShapeV1.GetElementShape( e ) ) );
+          MepElementShapeV1.GetElementShape( e ) );
+
+        Util.InfoMsg2( msg, s );
 
         if( preselected ) { break; }
       }
