@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Demo Version Check</Text>
+    <Description>Check whether the running Revit application is a demo version</Description>
+    <Assembly>BuildingCoder.dll</Assembly>
+    <FullClassName>BuildingCoder.CmdDemoCheck</FullClassName>
+    <ClientId></ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
