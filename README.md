@@ -19,7 +19,7 @@ To save implementing a separate add-in manifest entry for each individual comman
 
 It is an external application that reads a list of external commands from a text file and creates a ribbon menu to launch them all.
 
-[BcSamples.txt](BcSamples.txt) lists all The Building Coder sample commands in the required format and can be sued as
+[BcSamples.txt](BcSamples.txt) lists all The Building Coder sample commands in the required format to be used as
 an [RvtSamples include file](http://thebuildingcoder.typepad.com/blog/2008/11/loading-the-building-coder-samples.html).
 
 
