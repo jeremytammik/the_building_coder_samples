@@ -717,30 +717,31 @@ namespace BuildingCoder
     #endregion // MEP Element Shape Version 3
 
     #region MEP Element Shape Version 4
-    /// <summary>
-    /// Determine element shape from its parameters.
-    /// </summary>
-    static public string GetElementShape4(
-      Element e )
+  /// <summary>
+  /// Determine element shape from its 
+  /// element type's family name property.
+  /// </summary>
+  static public string GetElementShape4(
+    Element e )
+  {
+    string shape = "unknown";
+
+    ElementId tid = e.GetTypeId();
+
+    if( ElementId.InvalidElementId != tid )
     {
-      string shape = "unknown";
+      Document doc = e.Document;
 
-      ElementId tid = e.GetTypeId();
+      ElementType etyp = doc.GetElement( tid )
+        as ElementType;
 
-      if( ElementId.InvalidElementId != tid )
+      if( null != etyp )
       {
-        Document doc = e.Document;
-
-        ElementType etyp = doc.GetElement( tid )
-          as ElementType;
-
-        if( null != etyp )
-        {
-          shape = etyp.FamilyName;
-        }
+        shape = etyp.FamilyName;
       }
-      return shape;
     }
+    return shape;
+  }
     #endregion // MEP Element Shape Version 4
 
     public Result Execute(
