@@ -29,6 +29,58 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdFamilyParamValue : IExternalCommand
   {
+    #region SetFamilyParameterValue
+    /// <summary>
+    /// Non-working sample code for
+    /// http://forums.autodesk.com/t5/revit-api/family-types-amp-shared-parameter-values/m-p/6218767
+    /// </summary>
+    void SetFamilyParameterValueFails(
+      Document doc,
+      string paramNameToAmend )
+    {
+      FamilyManager mgr = doc.FamilyManager;
+      FamilyTypeSet familyTypes = mgr.Types;
+      FamilyTypeSetIterator familyTypeItor
+        = familyTypes.ForwardIterator();
+      familyTypeItor.Reset();
+      while( familyTypeItor.MoveNext() )
+      {
+        FamilyParameter familyParam
+          = mgr.get_Parameter( paramNameToAmend );
+
+        if( familyParam != null )
+        {
+          FamilyType familyType = familyTypeItor.Current as FamilyType;
+          Debug.Print( familyType.Name );
+          mgr.Set( familyParam, 2 );
+        }
+      }
+    }
+
+    /// <summary>
+    /// Working sample code for
+    /// http://forums.autodesk.com/t5/revit-api/family-types-amp-shared-parameter-values/m-p/6218767
+    /// </summary>
+    void SetFamilyParameterValueWorks(
+      Document doc,
+      string paramNameToAmend )
+    {
+      FamilyManager mgr = doc.FamilyManager;
+      FamilyParameter familyParam
+        = mgr.get_Parameter( paramNameToAmend );
+
+      if( familyParam != null )
+      {
+        foreach( FamilyType familyType in mgr.Types )
+        {
+          Debug.Print( familyType.Name );
+          mgr.CurrentType = familyType;
+          mgr.Set( familyParam, 2 );
+        }
+      }
+    }
+    #endregion // SetFamilyParameterValue
+
     static string FamilyParamValueString(
       FamilyType t,
       FamilyParameter fp,
@@ -39,7 +91,7 @@ namespace BuildingCoder
       {
         case StorageType.Double:
           value = Util.RealString(
-            ( double ) t.AsDouble( fp ) )
+            (double) t.AsDouble( fp ) )
             + " (double)";
           break;
 
