@@ -129,6 +129,7 @@ using System.Runtime.InteropServices;
 // 2016-02-24 2016.0.126.4 implemented CmdMepElementShape.GetProfileTypes returing all duct connector shapes
 // 2016-02-24 2016.0.126.5 updated readme and added keywords to all modules to improve global internet search results
 // 2016-03-16 2016.0.126.6 implemented SetFamilyParameterValue sample code
+// 2016-03-22 2016.0.126.7 implemented GetBeamsIntersectingTwoColumns
 // 
-[assembly: AssemblyVersion( "2016.0.126.6" )]
-[assembly: AssemblyFileVersion( "2016.0.126.6" )]
+[assembly: AssemblyVersion( "2016.0.126.7" )]
+[assembly: AssemblyFileVersion( "2016.0.126.7" )]

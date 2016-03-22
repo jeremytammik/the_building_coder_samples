@@ -1057,6 +1057,53 @@ TaskDialog.Show( "Revit", collector.Count() +
 
       Util.InfoMsg2( result, id_list );
     }
+
+    /// <summary>
+    /// Retrieve all beam family instances 
+    /// intersecting two columns, cf.
+    /// http://forums.autodesk.com/t5/revit-api/check-to-see-if-beam-exists/m-p/6223562
+    /// </summary>
+    FilteredElementCollector
+      GetBeamsIntersectingTwoColumns(
+        Element column1,
+        Element column2 )
+    {
+      Document doc = column1.Document;
+
+      if( column2.Document.GetHashCode() != doc.GetHashCode() )
+      {
+        throw new ArgumentException(
+          "Expected two columns from same document." );
+      }
+
+      FilteredElementCollector intersectingStructuralFramingElements
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( FamilyInstance ) )
+          .OfCategory( BuiltInCategory.OST_StructuralFraming )
+          .WherePasses( new ElementIntersectsElementFilter( column1 ) )
+          .WherePasses( new ElementIntersectsElementFilter( column2 ) );
+
+      int n = intersectingStructuralFramingElements.Count<Element>();
+
+      string result = string.Format(
+        "{0} structural framing family instance{1} "
+        + "intersect{2} the two beams{3}",
+        n, Util.PluralSuffix( n ),
+        ( 1 == n ? "s" : "" ),
+        Util.DotOrColon( n ) );
+
+      string id_list = 0 == n
+        ? string.Empty
+        : string.Join( ", ",
+            intersectingStructuralFramingElements
+              .Select<Element, string>(
+                x => x.Id.IntegerValue.ToString() ) )
+          + ".";
+
+      Util.InfoMsg2( result, id_list );
+
+      return intersectingStructuralFramingElements;
+    }
     #endregion // Retrieve family instances intersecting BIM element
 
     #region Retrieve stairs on level
@@ -2009,7 +2056,7 @@ TaskDialog.Show( "Revit", collector.Count() +
   }
 
   #region YBExporteContext
-  #if YBExporteContext
+#if YBExporteContext
   internal class YBExporteContext : IExportContext
   {
     private Document _host_document;
@@ -2084,6 +2131,6 @@ TaskDialog.Show( "Revit", collector.Count() +
         .Where( v => !v.IsTemplate && v.CanBePrinted );
     }
   }
-  #endif // YBExporteContext
+#endif // YBExporteContext
   #endregion // YBExporteContext
 }
