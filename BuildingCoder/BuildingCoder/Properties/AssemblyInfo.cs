@@ -130,6 +130,7 @@ using System.Runtime.InteropServices;
 // 2016-02-24 2016.0.126.5 updated readme and added keywords to all modules to improve global internet search results
 // 2016-03-16 2016.0.126.6 implemented SetFamilyParameterValue sample code
 // 2016-03-22 2016.0.126.7 implemented GetBeamsIntersectingTwoColumns
+// 2016-04-05 2016.0.126.8 implemented DistinguishRooms
 // 
-[assembly: AssemblyVersion( "2016.0.126.7" )]
-[assembly: AssemblyFileVersion( "2016.0.126.7" )]
+[assembly: AssemblyVersion( "2016.0.126.8" )]
+[assembly: AssemblyFileVersion( "2016.0.126.8" )]

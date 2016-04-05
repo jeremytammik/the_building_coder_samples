@@ -19,6 +19,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.UI;
 using BoundarySegment = Autodesk.Revit.DB.BoundarySegment;
+using System.Text;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -26,6 +27,43 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdListAllRooms : IExternalCommand
   {
+    /// <summary>
+    /// Distinguish 'Not Placed', 'Redundant' and 'Not Enclosed' rooms.
+    /// </summary>
+    void DistinguishRooms(
+      Document doc,
+      ref StringBuilder sb, 
+      ref int numErr, 
+      ref int numWarn )
+    {
+      sb = new StringBuilder();
+
+      FilteredElementCollector rooms 
+        = new FilteredElementCollector( doc );
+
+      rooms.WherePasses( new RoomFilter() );
+
+      foreach( Room r in rooms )
+      {
+        sb.AppendFormat( "\r\n  Room {0}:'{1}': ", 
+          r.Id.ToString(), r.Name );
+
+        if( r.Area > 0 ) // OK if having Area
+        {
+          sb.AppendFormat( "OK (A={0}[ft3])", r.Area );
+        }
+        else if( null == r.Location ) // Unplaced if no Location
+        {
+          sb.AppendFormat( "UnPlaced (Location is null)" );
+        }
+        else
+        {
+          sb.AppendFormat( "NotEnclosed or Redundant "
+            + "- how to distinguish?" );
+        }
+      }
+    }
+
     /// <summary>
     /// Return a string for a bounding box
     /// which may potentially be null
