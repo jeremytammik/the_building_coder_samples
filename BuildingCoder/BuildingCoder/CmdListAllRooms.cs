@@ -32,20 +32,20 @@ namespace BuildingCoder
     /// </summary>
     void DistinguishRooms(
       Document doc,
-      ref StringBuilder sb, 
-      ref int numErr, 
+      ref StringBuilder sb,
+      ref int numErr,
       ref int numWarn )
     {
       sb = new StringBuilder();
 
-      FilteredElementCollector rooms 
+      FilteredElementCollector rooms
         = new FilteredElementCollector( doc );
 
       rooms.WherePasses( new RoomFilter() );
 
       foreach( Room r in rooms )
       {
-        sb.AppendFormat( "\r\n  Room {0}:'{1}': ", 
+        sb.AppendFormat( "\r\n  Room {0}:'{1}': ",
           r.Id.ToString(), r.Name );
 
         if( r.Area > 0 ) // OK if having Area
