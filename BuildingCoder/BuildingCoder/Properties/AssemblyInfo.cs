@@ -131,6 +131,7 @@ using System.Runtime.InteropServices;
 // 2016-03-16 2016.0.126.6 implemented SetFamilyParameterValue sample code
 // 2016-03-22 2016.0.126.7 implemented GetBeamsIntersectingTwoColumns
 // 2016-04-05 2016.0.126.8 implemented DistinguishRooms
+// 2016-04-06 2016.0.126.8 updated DistinguishRooms
 // 
 [assembly: AssemblyVersion( "2016.0.126.8" )]
 [assembly: AssemblyFileVersion( "2016.0.126.8" )]

@@ -28,16 +28,15 @@ namespace BuildingCoder
   class CmdListAllRooms : IExternalCommand
   {
     /// <summary>
-    /// Distinguish 'Not Placed', 'Redundant' and 'Not Enclosed' rooms.
+    /// Draft for method to distinguish 'Not Placed', 
+    /// 'Redundant' and 'Not Enclosed' rooms.
     /// </summary>
-    void DistinguishRooms(
+    void DistinguishRoomsDraft(
       Document doc,
       ref StringBuilder sb,
       ref int numErr,
       ref int numWarn )
     {
-      sb = new StringBuilder();
-
       FilteredElementCollector rooms
         = new FilteredElementCollector( doc );
 
@@ -62,6 +61,52 @@ namespace BuildingCoder
             + "- how to distinguish?" );
         }
       }
+    }
+
+    public enum RoomState
+    {
+      Unknown,
+      Placed,
+      NotPlaced,
+      NotEnclosed,
+      Redundant
+    }
+
+    /// <summary>
+    /// Distinguish 'Not Placed',  'Redundant' 
+    /// and 'Not Enclosed' rooms.
+    /// </summary>
+    RoomState DistinguishRoom( Room room )
+    {
+      RoomState res = RoomState.Unknown;
+
+      if( room.Area > 0 )
+      {
+        // Placed if having Area
+
+        res = RoomState.Placed;
+      }
+      else if( null == room.Location )
+      {
+        // No Area and No Location => Unplaced
+
+        res = RoomState.NotPlaced;
+      }
+      else
+      {
+        // must be Redundant or NotEnclosed
+
+        SpatialElementBoundaryOptions opt
+          = new SpatialElementBoundaryOptions();
+
+        IList<IList<BoundarySegment>> segs
+          = room.GetBoundarySegments( opt );
+
+        res = ( null == segs || segs.Count == 0 )
+          ? RoomState.NotEnclosed
+          : RoomState.Redundant;
+      }
+      return res;
     }
 
     /// <summary>
