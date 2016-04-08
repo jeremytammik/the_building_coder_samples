@@ -60,7 +60,7 @@ namespace BuildingCoder
       // Four corners: lower left, lower right, 
       // upper right, upper left:
 
-      XYZ[] corners = Util.GetCorners( b );
+      XYZ[] corners = Util.GetBottomCorners( b );
 
       XyzComparable[] cornersTransformed
         = corners.Select<XYZ, XyzComparable>(
@@ -140,7 +140,7 @@ namespace BuildingCoder
           Creator creator = new Creator( doc );
 
           creator.DrawPolygon( new List<XYZ>(
-            Util.GetCorners( b ) ) );
+            Util.GetBottomCorners( b ) ) );
 
           Transform rotation = Transform.CreateRotation(
             XYZ.BasisZ, 60 * Math.PI / 180.0 );
@@ -154,7 +154,7 @@ namespace BuildingCoder
             Util.PointString( b.Max ) ) );
 
           creator.DrawPolygon( new List<XYZ>(
-            Util.GetCorners( b ) ) );
+            Util.GetBottomCorners( b ) ) );
 
           tx.Commit();
         }

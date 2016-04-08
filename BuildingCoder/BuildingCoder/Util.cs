@@ -266,12 +266,13 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Return the four XYZ corners of the given 
+    /// Return the bottom four XYZ corners of the given 
     /// bounding box in the XY plane at the minimum 
     /// Z elevation in the order lower left, lower 
     /// right, upper right, upper left:
     /// </summary>
-    public static XYZ[] GetCorners( BoundingBoxXYZ b )
+    public static XYZ[] GetBottomCorners( 
+      BoundingBoxXYZ b )
     {
       double z = b.Min.Z;
 

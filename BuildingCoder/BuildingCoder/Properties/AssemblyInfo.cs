@@ -132,6 +132,7 @@ using System.Runtime.InteropServices;
 // 2016-03-22 2016.0.126.7 implemented GetBeamsIntersectingTwoColumns
 // 2016-04-05 2016.0.126.8 implemented DistinguishRooms
 // 2016-04-06 2016.0.126.8 updated DistinguishRooms
+// 2016-04-08 2016.0.126.9 renamed GetCorners to GetBottomCorners
 // 
-[assembly: AssemblyVersion( "2016.0.126.8" )]
-[assembly: AssemblyFileVersion( "2016.0.126.8" )]
+[assembly: AssemblyVersion( "2016.0.126.9" )]
+[assembly: AssemblyFileVersion( "2016.0.126.9" )]
