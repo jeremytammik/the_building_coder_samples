@@ -29,8 +29,43 @@ namespace BuildingCoder
       UIApplication uiapp = commandData.Application;
       UIDocument uidoc = uiapp.ActiveUIDocument;
       Document doc = uidoc.Document;
-      Result commandResult = Result.Succeeded;
-      return commandResult;
+      Result rslt = Result.Failed;
+
+      string name = "TrackChanges_project_identifier";
+      Guid named_guid;
+
+      bool rc = JtNamedGuiStorage.Get( doc,
+        name, out named_guid, false );
+
+      if( rc )
+      {
+        Util.InfoMsg( string.Format(
+          "This document already has a project "
+          + "identifier: {0} = {1}",
+          name, named_guid.ToString() ) );
+
+        rslt = Result.Succeeded;
+      }
+      else
+      {
+        rc = JtNamedGuiStorage.Get( doc,
+          name, out named_guid, true );
+
+        if( rc )
+        {
+          Util.InfoMsg( string.Format(
+            "Created a new project identifier "
+            + "for this document: {0} = {1}",
+            name, named_guid.ToString() ) );
+
+          rslt = Result.Succeeded;
+        }
+        else
+        {
+          Util.ErrorMsg( "Something went wrong" );
+        }
+      }
+      return rslt;
     }
   }
 }

@@ -34,7 +34,7 @@ namespace BuildingCoder
       /// or optionally create a new one if it does
       /// not yet exist.
       /// </summary>
-      public static Schema GetSchema( 
+      public static Schema GetSchema(
         bool create = true )
       {
         Schema schema = Schema.Lookup( SchemaGuid );
@@ -62,10 +62,10 @@ namespace BuildingCoder
     /// optionally create and return a new
     /// one if it does not yet exist.
     /// </summary>
-    static bool Get( 
+    public static bool Get(
       Document doc,
-      string name, 
-      out Guid guid, 
+      string name,
+      out Guid guid,
       bool create = true )
     {
       bool rc = false;
@@ -76,8 +76,8 @@ namespace BuildingCoder
       // extensible storage entity attached to it
       // and the specified element name.
 
-      ExtensibleStorageFilter f 
-        = new ExtensibleStorageFilter( 
+      ExtensibleStorageFilter f
+        = new ExtensibleStorageFilter(
           JtNamedGuiStorageSchema.SchemaGuid );
 
       DataStorage dataStorage
@@ -125,7 +125,7 @@ namespace BuildingCoder
         Entity entity = dataStorage.GetEntity(
           JtNamedGuiStorageSchema.GetSchema( false ) );
 
-        Debug.Assert( entity.IsValid(), 
+        Debug.Assert( entity.IsValid(),
           "expected a valid extensible storage entity" );
 
         if( entity.IsValid() )

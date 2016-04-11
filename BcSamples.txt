@@ -1077,10 +1077,10 @@ C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallOpeningProfiles # version 2016.0.126.0
 
 ADN Bc J-Q
-Named Guid STorage
+Named Guid Storage
 Test the named Guid storage class
 LargeImage:
 Image:
 C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
-BuildingCoder.CmdNamedGuidStorage # version 2016.0.125.0
+BuildingCoder.CmdNamedGuidStorage # version 2016.0.127.0
 
