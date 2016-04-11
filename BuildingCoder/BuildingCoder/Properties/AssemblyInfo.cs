@@ -136,6 +136,7 @@ using System.Runtime.InteropServices;
 // 2016-04-11 2016.0.126.10 implemeneted JtNamedGuiStorage skeleton
 // 2016-04-11 2016.0.126.10 fleshed out the JtNamedGuiStorage class
 // 2016-04-11 2016.0.127.0 implemented CmdNamedGuidStorage to test JtNamedGuiStorage
+// 2016-04-12 2016.0.127.1 fixed typo in JtNamedGuidStorage
 // 
-[assembly: AssemblyVersion( "2016.0.127.0" )]
-[assembly: AssemblyFileVersion( "2016.0.127.0" )]
+[assembly: AssemblyVersion( "2016.0.127.1" )]
+[assembly: AssemblyFileVersion( "2016.0.127.1" )]

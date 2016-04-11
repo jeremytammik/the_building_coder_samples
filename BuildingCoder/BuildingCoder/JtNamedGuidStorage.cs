@@ -1,6 +1,6 @@
 ﻿#region Header
 //
-// JtNamedGuiStorage.cs - implement named Guid storage, e.g. for a globally unique project identifier
+// JtNamedGuidStorage.cs - implement named Guid storage, e.g. for a globally unique project identifier
 //
 // Copyright (C) 2010-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
@@ -18,7 +18,7 @@ using Autodesk.Revit.DB.ExtensibleStorage;
 
 namespace BuildingCoder
 {
-  class JtNamedGuiStorage
+  class JtNamedGuidStorage
   {
     /// <summary>
     /// The extensible storage schema, 

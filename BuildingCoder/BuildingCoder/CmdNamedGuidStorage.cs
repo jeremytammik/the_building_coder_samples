@@ -34,7 +34,7 @@ namespace BuildingCoder
       string name = "TrackChanges_project_identifier";
       Guid named_guid;
 
-      bool rc = JtNamedGuiStorage.Get( doc,
+      bool rc = JtNamedGuidStorage.Get( doc,
         name, out named_guid, false );
 
       if( rc )
@@ -48,7 +48,7 @@ namespace BuildingCoder
       }
       else
       {
-        rc = JtNamedGuiStorage.Get( doc,
+        rc = JtNamedGuidStorage.Get( doc,
           name, out named_guid, true );
 
         if( rc )
