@@ -134,6 +134,7 @@ using System.Runtime.InteropServices;
 // 2016-04-06 2016.0.126.8 updated DistinguishRooms
 // 2016-04-08 2016.0.126.9 renamed GetCorners to GetBottomCorners
 // 2016-04-11 2016.0.126.10 implemeneted JtNamedGuiStorage skeleton
+// 2016-04-11 2016.0.126.10 fleshed out the JtNamedGuiStorage class
 // 
 [assembly: AssemblyVersion( "2016.0.126.10" )]
 [assembly: AssemblyFileVersion( "2016.0.126.10" )]
