@@ -242,6 +242,7 @@
     <Compile Include="Creator.cs" />
     <Compile Include="CmdElevationWatcher.cs" />
     <Compile Include="JtElementsOfClassSelectionFilter.cs" />
+    <Compile Include="JtNamedGuiStorage.cs" />
     <Compile Include="JtPairPicker.cs" />
     <Compile Include="JtSelectorMulti.cs" />
     <Compile Include="JtTimer.cs" />
