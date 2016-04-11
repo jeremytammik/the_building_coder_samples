@@ -24,7 +24,7 @@ namespace BuildingCoder
     /// The extensible storage schema, 
     /// containing one single Guid field.
     /// </summary>
-    public static class JtNamedGuiStorageSchema
+    public static class JtNamedGuidStorageSchema
     {
       public readonly static Guid SchemaGuid = new Guid(
         "{5F374308-9C59-42AE-ACC3-A77EF45EC146}" );
@@ -78,7 +78,7 @@ namespace BuildingCoder
 
       ExtensibleStorageFilter f
         = new ExtensibleStorageFilter(
-          JtNamedGuiStorageSchema.SchemaGuid );
+          JtNamedGuidStorageSchema.SchemaGuid );
 
       DataStorage dataStorage
         = new FilteredElementCollector( doc )
@@ -104,7 +104,7 @@ namespace BuildingCoder
             // Create entity to store the Guid data
 
             Entity entity = new Entity(
-              JtNamedGuiStorageSchema.GetSchema() );
+              JtNamedGuidStorageSchema.GetSchema() );
 
             entity.Set( "Guid", guid = Guid.NewGuid() );
 
@@ -123,7 +123,7 @@ namespace BuildingCoder
         // Retrieve entity from the data storage element.
 
         Entity entity = dataStorage.GetEntity(
-          JtNamedGuiStorageSchema.GetSchema( false ) );
+          JtNamedGuidStorageSchema.GetSchema( false ) );
 
         Debug.Assert( entity.IsValid(),
           "expected a valid extensible storage entity" );
