@@ -24,6 +24,232 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
+  #region Scott Wilson Reference Stable Representation Magic Voodoo
+  class ScottWilsonVoodooMagic
+  {
+    void f()
+    {
+      Document dbDoc = null;
+      Reference myReference = null;
+      string refString = myReference
+        .ConvertToStableRepresentation( dbDoc );
+
+      string[] refTokens = refString.Split(
+        new char[] { ':' } );
+    }
+
+    public static Edge GetInstanceEdgeFromSymbolRef(
+      Reference symbolRef,
+      Document dbDoc )
+    {
+      Edge instEdge = null;
+
+      Options gOptions = new Options();
+      gOptions.ComputeReferences = true;
+      gOptions.DetailLevel = ViewDetailLevel.Undefined;
+      gOptions.IncludeNonVisibleObjects = false;
+
+      Element elem = dbDoc.GetElement( symbolRef.ElementId );
+
+      string stableRefSymbol = symbolRef
+        .ConvertToStableRepresentation( dbDoc );
+
+      string[] tokenList = stableRefSymbol.Split(
+        new char[] { ':' } );
+
+      string stableRefInst = tokenList[3] + ":"
+        + tokenList[4] + ":" + tokenList[5];
+
+      GeometryElement geomElem = elem.get_Geometry(
+        gOptions );
+
+      foreach( GeometryObject geomElemObj in geomElem )
+      {
+        GeometryInstance geomInst = geomElemObj
+          as GeometryInstance;
+
+        if( geomInst != null )
+        {
+          GeometryElement gInstGeom = geomInst
+            .GetInstanceGeometry();
+
+          foreach( GeometryObject gGeomObject
+            in gInstGeom )
+          {
+            Solid solid = gGeomObject as Solid;
+            if( solid != null )
+            {
+              foreach( Edge edge in solid.Edges )
+              {
+                string stableRef = edge.Reference
+                  .ConvertToStableRepresentation(
+                    dbDoc );
+
+                if( stableRef == stableRefInst )
+                {
+                  instEdge = edge;
+                  break;
+                }
+              }
+            }
+
+            if( instEdge != null )
+            {
+              // already found, exit early
+              break;
+            }
+          }
+        }
+        if( instEdge != null )
+        {
+          // already found, exit early
+          break;
+        }
+      }
+      return instEdge;
+    }
+
+  public enum SpecialReferenceType
+  {
+    Left = 0,
+    CenterLR = 1,
+    Right = 2,
+    Front = 3,
+    CenterFB = 4,
+    Back = 5,
+    Bottom = 6,
+    CenterElevation = 7,
+    Top = 8
+  }
+
+  public static Reference GetSpecialFamilyReference( 
+    FamilyInstance inst, 
+    SpecialReferenceType refType )
+  {
+    Reference indexRef = null;
+
+    int idx = (int) refType;
+
+    if( inst != null )
+    {
+      Document dbDoc = inst.Document;
+
+      Options geomOptions = dbDoc.Application.Create
+        .NewGeometryOptions();
+
+      if( geomOptions != null )
+      {
+        geomOptions.ComputeReferences = true;
+        geomOptions.DetailLevel = ViewDetailLevel.Undefined;
+        geomOptions.IncludeNonVisibleObjects = true;
+      }
+
+      GeometryElement gElement = inst.get_Geometry(
+        geomOptions );
+
+      GeometryInstance gInst = gElement.First()
+        as GeometryInstance;
+
+      String sampleStableRef = null;
+
+      if( gInst != null )
+      {
+        GeometryElement gSymbol = gInst
+          .GetSymbolGeometry();
+
+        if( gSymbol != null )
+        {
+          foreach( GeometryObject geomObj in gSymbol )
+          {
+            if( geomObj is Solid )
+            {
+              Solid solid = geomObj as Solid;
+
+              if( solid.Faces.Size > 0 )
+              {
+                Face face = solid.Faces.get_Item( 0 );
+
+                sampleStableRef = face.Reference
+                  .ConvertToStableRepresentation(
+                    dbDoc );
+
+                break;
+              }
+            }
+            else if( geomObj is Curve )
+            {
+              Curve curve = geomObj as Curve;
+
+              sampleStableRef = curve.Reference
+                .ConvertToStableRepresentation( dbDoc );
+
+              break;
+            }
+            else if( geomObj is Point )
+            {
+              Point point = geomObj as Point;
+
+              sampleStableRef = point.Reference
+                .ConvertToStableRepresentation( dbDoc );
+
+              break;
+            }
+          }
+        }
+
+        if( sampleStableRef != null )
+        {
+          String[] refTokens = sampleStableRef.Split( 
+            new char[] { ':' } );
+
+          String customStableRef = refTokens[0] + ":"
+            + refTokens[1] + ":" + refTokens[2] + ":"
+            + refTokens[3] + ":" + idx.ToString();
+
+          indexRef = Reference
+            .ParseFromStableRepresentation( 
+              dbDoc, customStableRef );
+
+          GeometryObject geoObj = inst
+            .GetGeometryObjectFromReference( 
+              indexRef );
+
+          if( geoObj != null )
+          {
+            String finalToken = "";
+
+            if( geoObj is Edge )
+            {
+              finalToken = ":LINEAR";
+            }
+
+            if( geoObj is Face )
+            {
+              finalToken = ":SURFACE";
+            }
+
+            customStableRef += finalToken;
+
+            indexRef = Reference
+              .ParseFromStableRepresentation( 
+                dbDoc, customStableRef );
+          }
+          else
+          {
+            indexRef = null;
+          }
+        }
+      }
+      else
+      {
+        throw new Exception( "No Symbol Geometry found..." );
+      }
+    }
+    return indexRef;
+  }
+  }
+  #endregion // Scott Wilson Reference Stable Representation Magic Voodoo
+
   #region Scott Conover sample code for SPR #201483
   // SPR #201483 [API wish: access reference plane 
   // in family instance and retrieve dimensioning 
