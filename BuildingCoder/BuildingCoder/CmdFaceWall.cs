@@ -48,7 +48,10 @@ namespace BuildingCoder
       Line line = Line.CreateBound( p, q );
       XYZ norm = p.CrossProduct( q );
       if( norm.GetLength() == 0 ) { norm = XYZ.BasisZ; }
-      Plane plane = new Plane( norm, q );
+
+      //Plane plane = new Plane( norm, q ); // 2016
+
+      Plane plane = Plane.CreateByNormalAndOrigin( norm, q ); // 2017
 
       SketchPlane skplane = SketchPlane.Create(
         doc, plane );

@@ -164,8 +164,9 @@ switch( caseSwitch )
 
           if( face != null )
           {
-            Plane plane = new Plane(
-              face.FaceNormal, face.Origin );
+            //Plane plane = new Plane( face.FaceNormal, face.Origin ); // 2016
+            Plane plane = Plane.CreateByNormalAndOrigin( 
+              face.FaceNormal, face.Origin ); // 2017
 
             using( Transaction t = new Transaction( doc ) )
             {

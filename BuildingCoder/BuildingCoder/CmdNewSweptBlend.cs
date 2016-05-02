@@ -36,8 +36,8 @@ namespace BuildingCoder
       // Create a Geometry.Plane required by the 
       // NewSketchPlane() method
 
-      Plane geometryPlane = app.Create.NewPlane(
-        normal, origin );
+      //Plane geometryPlane = app.Create.NewPlane( normal, origin ); // 2016
+      Plane geometryPlane = Plane.CreateByNormalAndOrigin( normal, origin ); // 2017
 
       if( null == geometryPlane )
       {
@@ -232,8 +232,9 @@ namespace BuildingCoder
       XYZ pmid = new XYZ( 2.5, 2.5, 0 );
       Arc testArc = Arc.Create( p0, p5, pmid );
 
-      Plane geometryPlane = creapp.NewPlane(
-        XYZ.BasisZ, XYZ.Zero );
+      //Plane geometryPlane = creapp.NewPlane( XYZ.BasisZ, XYZ.Zero ); // 2016
+      Plane geometryPlane = Plane.CreateByNormalAndOrigin( 
+        XYZ.BasisZ, XYZ.Zero ); // 2017
 
       SketchPlane sketchPlane = SketchPlane.Create(
         doc, geometryPlane );

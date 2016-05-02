@@ -146,7 +146,8 @@ namespace BuildingCoder
       //  = doc.Application.Create;
 
       //Plane plane = creApp.NewPlane( norm, p ); // 2014
-      Plane plane = new Plane( norm, p ); // 2015
+      //Plane plane = new Plane( norm, p ); // 2015, 2016
+      Plane plane = Plane.CreateByNormalAndOrigin( norm, p ); // 2017
 
       //SketchPlane sketchPlane = creDoc.NewSketchPlane( plane ); // 2013
       SketchPlane sketchPlane = SketchPlane.Create( doc, plane ); // 2014
@@ -193,7 +194,8 @@ namespace BuildingCoder
       {
         norm = XYZ.BasisZ;
       }
-      Plane plane = _creapp.NewPlane( norm, p );
+      //Plane plane = _creapp.NewPlane( norm, p ); // 2016
+      Plane plane = Plane.CreateByNormalAndOrigin( norm, p ); // 2017
 
       //return _credoc.NewSketchPlane( plane ); // 2013
 
@@ -228,7 +230,9 @@ namespace BuildingCoder
     {
       XYZ p = curve.GetEndPoint( 0 );
       XYZ normal = GetCurveNormal( curve );
-      Plane plane = _creapp.NewPlane( normal, p );
+
+      //Plane plane = _creapp.NewPlane( normal, p ); // 2016
+      Plane plane = Plane.CreateByNormalAndOrigin( normal, p ); // 2017
 
 #if DEBUG
       if( !( curve is Line ) )
@@ -261,7 +265,9 @@ namespace BuildingCoder
       XYZ origin,
       XYZ normal )
     {
-      Plane plane = _creapp.NewPlane( normal, origin );
+      //Plane plane = _creapp.NewPlane( normal, origin ); // 2016
+      Plane plane = Plane.CreateByNormalAndOrigin( 
+        normal, origin ); // 2017
 
       SketchPlane sketchPlane = SketchPlane.Create(
         _doc, plane );

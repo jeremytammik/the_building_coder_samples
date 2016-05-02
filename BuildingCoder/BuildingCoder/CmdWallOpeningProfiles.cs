@@ -145,9 +145,15 @@ namespace BuildingCoder
 
               foreach( PlanarFace face in faceList )
               {
-                Plane facePlane = new Plane(
-                  face.ComputeNormal( UV.Zero ),
-                    face.Origin );
+                //Plane facePlane = new Plane(
+                //  face.ComputeNormal( UV.Zero ), 
+                //  face.Origin ); // 2016
+
+                Plane facePlane = Plane.CreateByNormalAndOrigin(
+                  face.ComputeNormal( UV.Zero ), 
+                  face.Origin ); // 2017
+
+
 
                 SketchPlane sketchPlane
                   = SketchPlane.Create( doc, facePlane );

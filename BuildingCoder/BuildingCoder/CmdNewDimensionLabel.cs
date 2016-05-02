@@ -86,8 +86,8 @@ namespace BuildingCoder
 
         if ( null == skplane )
         {
-          Plane geometryPlane = creApp.NewPlane(
-            XYZ.BasisZ, XYZ.Zero );
+          //Plane geometryPlane = creApp.NewPlane( XYZ.BasisZ, XYZ.Zero ); // 2016
+          Plane geometryPlane = Plane.CreateByNormalAndOrigin( XYZ.BasisZ, XYZ.Zero ); // 2017
 
           //skplane = doc.FamilyCreate.NewSketchPlane( geometryPlane ); // 2013
 

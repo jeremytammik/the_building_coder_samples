@@ -47,7 +47,8 @@ namespace BuildingCoder
       //
       //doc.Mirror( els, line ); // 2011
 
-      Plane plane = new Plane( XYZ.BasisY, XYZ.Zero ); // 2012
+      //Plane plane = new Plane( XYZ.BasisY, XYZ.Zero ); // added in 2012, used until 2016
+      Plane plane = Plane.CreateByNormalAndOrigin( XYZ.BasisY, XYZ.Zero ); // 2017
 
       ICollection<ElementId> elementIds
         = uidoc.Selection.GetElementIds(); // 2012
@@ -201,7 +202,9 @@ namespace BuildingCoder
 
         //ElementSet els = uidoc.Selection.Elements; // 2011
 
-        Plane plane = new Plane( XYZ.BasisY, XYZ.Zero ); // 2012
+        //Plane plane = new Plane( XYZ.BasisY, XYZ.Zero ); // added in 2012, used until 2016
+
+        Plane plane = Plane.CreateByNormalAndOrigin( XYZ.BasisY, XYZ.Zero ); // 2017
 
         ICollection<ElementId> elementIds
           = uidoc.Selection.GetElementIds(); // 2012

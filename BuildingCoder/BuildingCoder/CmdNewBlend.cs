@@ -98,7 +98,8 @@ namespace BuildingCoder
         }
       }
 
-      Plane basePlane = creApp.NewPlane( normal, center );
+      //Plane basePlane = creApp.NewPlane( normal, center ); // 2016
+      Plane basePlane = Plane.CreateByNormalAndOrigin( normal, center ); // 2017
 
       //SketchPlane sketch = factory.NewSketchPlane( basePlane ); // 2013
       SketchPlane sketch = SketchPlane.Create( doc, basePlane ); // 2014

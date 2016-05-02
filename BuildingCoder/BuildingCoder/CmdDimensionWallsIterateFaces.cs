@@ -66,8 +66,10 @@ namespace BuildingCoder
       XYZ pt1 = new XYZ( 5, 5, 0 );
       XYZ pt2 = new XYZ( 5, 10, 0 );
       Line line = Line.CreateBound( pt1, pt2 );
-      Plane plane = app.Create.NewPlane(
-        pt1.CrossProduct( pt2 ), pt2 );
+
+      //Plane plane = app.Create.NewPlane( pt1.CrossProduct( pt2 ), pt2 ); // 2016
+
+      Plane plane = Plane.CreateByNormalAndOrigin( pt1.CrossProduct( pt2 ), pt2 ); // 2017
 
       //SketchPlane skplane = doc.FamilyCreate.NewSketchPlane( plane ); // 2013
 
@@ -79,8 +81,8 @@ namespace BuildingCoder
       pt1 = new XYZ( 10, 5, 0 );
       pt2 = new XYZ( 10, 10, 0 );
       line = Line.CreateBound( pt1, pt2 );
-      plane = app.Create.NewPlane(
-        pt1.CrossProduct( pt2 ), pt2 );
+      //plane = app.Create.NewPlane( pt1.CrossProduct( pt2 ), pt2 ); // 2016
+      plane = Plane.CreateByNormalAndOrigin( pt1.CrossProduct( pt2 ), pt2 ); // 2017
 
       //skplane = doc.FamilyCreate.NewSketchPlane( plane ); // 2013
 
