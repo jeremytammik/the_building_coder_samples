@@ -27,7 +27,7 @@ namespace BuildingCoder
   /// and added to prior from Revit 2012 onwards. This was previously
   /// impossible, and the whole compound structure was read-only.
   /// </summary>
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewWallLayer : IExternalCommand
   {
     public Result Execute(
@@ -83,41 +83,47 @@ namespace BuildingCoder
       }
 #endif // _2011
 
-      //WallTypeSet wallTypes = doc.WallTypes; // 2013 
-
-      FilteredElementCollector wallTypes 
-        = new FilteredElementCollector( doc )
-          .OfClass( typeof( WallType ) ); // 2014
-
-      foreach( WallType wallType in wallTypes )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        if( 0 < wallType.GetCompoundStructure().GetLayers().Count )
+        t.Start( "Create New Wall Layer" );
+
+        //WallTypeSet wallTypes = doc.WallTypes; // 2013 
+
+        FilteredElementCollector wallTypes
+          = new FilteredElementCollector( doc )
+            .OfClass( typeof( WallType ) ); // 2014
+
+        foreach ( WallType wallType in wallTypes )
         {
-          CompoundStructureLayer oldLayer
-            = wallType.GetCompoundStructure().GetLayers()[0];
+          if ( 0 < wallType.GetCompoundStructure().GetLayers().Count )
+          {
+            CompoundStructureLayer oldLayer
+              = wallType.GetCompoundStructure().GetLayers()[0];
 
-          WallType newWallType
-            = wallType.Duplicate( "NewWallType" ) as WallType;
+            WallType newWallType
+              = wallType.Duplicate( "NewWallType" ) as WallType;
 
-          CompoundStructure structure
-            = newWallType.GetCompoundStructure();
+            CompoundStructure structure
+              = newWallType.GetCompoundStructure();
 
-          IList<CompoundStructureLayer> layers
-            = structure.GetLayers();
+            IList<CompoundStructureLayer> layers
+              = structure.GetLayers();
 
-          // in Revit 2012, we can create a new layer:
+            // in Revit 2012, we can create a new layer:
 
-          double width = 0.1;
-          MaterialFunctionAssignment function = oldLayer.Function;
-          ElementId materialId = oldLayer.MaterialId;
+            double width = 0.1;
+            MaterialFunctionAssignment function = oldLayer.Function;
+            ElementId materialId = oldLayer.MaterialId;
 
-          CompoundStructureLayer newLayer
-            = new CompoundStructureLayer( width, function, materialId );
+            CompoundStructureLayer newLayer
+              = new CompoundStructureLayer( width, function, materialId );
 
-          layers.Add( newLayer );
-          structure.SetLayers( layers );
-          newWallType.SetCompoundStructure( structure );
+            layers.Add( newLayer );
+            structure.SetLayers( layers );
+            newWallType.SetCompoundStructure( structure );
+          }
         }
+        t.Commit();
       }
       return Result.Succeeded;
     }

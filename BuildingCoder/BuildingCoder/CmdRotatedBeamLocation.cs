@@ -24,7 +24,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdRotatedBeamLocation : IExternalCommand
   {
     public Result Execute(
@@ -68,7 +68,14 @@ namespace BuildingCoder
         //Creator creator = new Creator( doc );
         //creator.CreateModelLine( p, q );
 
-        Creator.CreateModelLine( doc, p, q );
+        using ( Transaction t = new Transaction( doc ) )
+        {
+          t.Start( "Create Model Line" );
+
+          Creator.CreateModelLine( doc, p, q );
+
+          t.Commit();
+        }
       }
       return Result.Succeeded;
     }

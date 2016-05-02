@@ -25,7 +25,7 @@ namespace BuildingCoder
   /// <summary>
   /// For case 1253888 [Allow Join / Disallow Join via Revit API].
   /// </summary>
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdDisallowJoin : IExternalCommand
   {
     public Result Execute(
@@ -73,15 +73,21 @@ namespace BuildingCoder
         // wall.Location = lc; // Property or indexer 'Autodesk.Revit.Element.Location' cannot be assigned to -- it is read only
         */
 
-        for( int i = 0; i < 2; ++i )
+        using ( Transaction t = new Transaction( doc ) )
         {
-          JoinType jt = ( (LocationCurve) wall.Location ).get_JoinType( i );
-          int j = a.IndexOf( jt ) + 1;
-          JoinType jtnew = a[j < n ? j : 0];
-          ( (LocationCurve) wall.Location ).set_JoinType( j, jtnew );
-          s += string.Format(
-            "\nChanged join type at {0} from {1} to {2}.",
-            ( 0 == i ? "start" : "end" ), jt, jtnew );
+          t.Start( "Set Wall Join Type" );
+
+          for ( int i = 0; i < 2; ++i )
+          {
+            JoinType jt = ( (LocationCurve) wall.Location ).get_JoinType( i );
+            int j = a.IndexOf( jt ) + 1;
+            JoinType jtnew = a[j < n ? j : 0];
+            ( (LocationCurve) wall.Location ).set_JoinType( j, jtnew );
+            s += string.Format(
+              "\nChanged join type at {0} from {1} to {2}.",
+              ( 0 == i ? "start" : "end" ), jt, jtnew );
+          }
+          t.Commit();
         }
       }
       Util.InfoMsg( s );

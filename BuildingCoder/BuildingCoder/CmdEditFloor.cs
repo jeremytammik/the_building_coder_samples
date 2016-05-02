@@ -22,7 +22,7 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdEditFloor : IExternalCommand
   {
     #region Super simple floor creation
@@ -235,31 +235,35 @@ namespace BuildingCoder
         }
       }
 
-      // Create new floors from the top faces found.
-      // Before creating the new floor, we would obviously
-      // apply whatever modifications are required to the
-      // new floor profile:
-
-      Autodesk.Revit.Creation.Application creApp = app.Application.Create;
-      Autodesk.Revit.Creation.Document creDoc = doc.Create;
-
-      int i = 0;
-      int n = topFaces.Count - nNullFaces;
-
-      Debug.Print(
-        "{0} top face{1} found.",
-        n, Util.PluralSuffix( n ) );
-
-      foreach( Face f in topFaces )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        Floor floor = floors[i++] as Floor;
+        t.Start( "Create Model Lines and Floor" );
 
-        if( null != f )
+        // Create new floors from the top faces found.
+        // Before creating the new floor, we would obviously
+        // apply whatever modifications are required to the
+        // new floor profile:
+
+        Autodesk.Revit.Creation.Application creApp = app.Application.Create;
+        Autodesk.Revit.Creation.Document creDoc = doc.Create;
+
+        int i = 0;
+        int n = topFaces.Count - nNullFaces;
+
+        Debug.Print(
+          "{0} top face{1} found.",
+          n, Util.PluralSuffix( n ) );
+
+        foreach ( Face f in topFaces )
         {
-          EdgeArrayArray eaa = f.EdgeLoops;
-          CurveArray profile;
+          Floor floor = floors[i++] as Floor;
 
-          #region Attempt to include inner loops
+          if ( null != f )
+          {
+            EdgeArrayArray eaa = f.EdgeLoops;
+            CurveArray profile;
+
+            #region Attempt to include inner loops
 #if ATTEMPT_TO_INCLUDE_INNER_LOOPS
           bool use_original_loops = true;
           if( use_original_loops )
@@ -268,45 +272,47 @@ namespace BuildingCoder
           }
           else
 #endif // ATTEMPT_TO_INCLUDE_INNER_LOOPS
-          #endregion // Attempt to include inner loops
+            #endregion // Attempt to include inner loops
 
-          {
-            profile = new CurveArray();
-
-            // Only use first edge array,
-            // the outer boundary loop,
-            // skip the further items
-            // representing holes:
-
-            EdgeArray ea = eaa.get_Item( 0 );
-            foreach( Edge e in ea )
             {
-              IList<XYZ> pts = e.Tessellate();
-              int m = pts.Count;
-              XYZ p = pts[0];
-              XYZ q = pts[m - 1];
-              Line line = Line.CreateBound( p, q );
-              profile.Append( line );
+              profile = new CurveArray();
+
+              // Only use first edge array,
+              // the outer boundary loop,
+              // skip the further items
+              // representing holes:
+
+              EdgeArray ea = eaa.get_Item( 0 );
+              foreach ( Edge e in ea )
+              {
+                IList<XYZ> pts = e.Tessellate();
+                int m = pts.Count;
+                XYZ p = pts[0];
+                XYZ q = pts[m - 1];
+                Line line = Line.CreateBound( p, q );
+                profile.Append( line );
+              }
             }
+            //Level level = floor.Level; // 2013
+
+            Level level = doc.GetElement( floor.LevelId )
+              as Level; // 2014
+
+            // In this case we have a valid floor type given.
+            // In general, not that NewFloor will only accept 
+            // floor types whose IsFoundationSlab predicate
+            // is false.
+
+            floor = creDoc.NewFloor( profile,
+              floor.FloorType, level, true );
+
+            XYZ v = new XYZ( 5, 5, 0 );
+
+            //doc.Move( floor, v ); // 2011
+            ElementTransformUtils.MoveElement( doc, floor.Id, v ); // 2012
           }
-          //Level level = floor.Level; // 2013
-
-          Level level = doc.GetElement( floor.LevelId )
-            as Level; // 2014
-
-          // In this case we have a valid floor type given.
-          // In general, not that NewFloor will only accept 
-          // floor types whose IsFoundationSlab predicate
-          // is false.
-
-          floor = creDoc.NewFloor( profile,
-            floor.FloorType, level, true );
-
-          XYZ v = new XYZ( 5, 5, 0 );
-
-          //doc.Move( floor, v ); // 2011
-          ElementTransformUtils.MoveElement( doc, floor.Id, v ); // 2012
         }
+        t.Commit();
       }
       return Result.Succeeded;
     }

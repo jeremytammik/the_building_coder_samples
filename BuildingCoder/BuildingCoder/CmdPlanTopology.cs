@@ -23,22 +23,22 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdPlanTopology : IExternalCommand
   {
     /// <summary>
     /// Create a room on a given level.
     /// </summary>
-    void CreateRoom( 
-      Document doc, 
+    void CreateRoom(
+      Document doc,
       Level level )
     {
       Application app = doc.Application;
 
-      Autodesk.Revit.Creation.Application 
+      Autodesk.Revit.Creation.Application
         appCreation = app.Create;
 
-      Autodesk.Revit.Creation.Document 
+      Autodesk.Revit.Creation.Document
         docCreation = doc.Create;
 
       XYZ pt1 = new XYZ( 0, -5, 0 );
@@ -66,12 +66,12 @@ namespace BuildingCoder
 
       UV tagPoint = new UV( 4, 0 );
 
-      Room room = docCreation.NewRoom( 
+      Room room = docCreation.NewRoom(
         level, tagPoint );
-      
-      if( null == room )
+
+      if ( null == room )
       {
-        throw new Exception( 
+        throw new Exception(
           "Create a new room failed." );
       }
       room.Number = "42";
@@ -82,8 +82,8 @@ namespace BuildingCoder
 
       //RoomTag tag = docCreation.NewRoomTag( room, tagPoint, doc.ActiveView ); // 2013
 
-      RoomTag tag = docCreation.NewRoomTag( 
-        new LinkElementId( room.Id ), tagPoint, 
+      RoomTag tag = docCreation.NewRoomTag(
+        new LinkElementId( room.Id ), tagPoint,
         doc.ActiveView.Id ); // 2014
     }
 
@@ -109,32 +109,38 @@ namespace BuildingCoder
         + "\n  Name and Number : Area";
 
       //foreach( Room r in pt.Rooms ) // 2012
-      
-  foreach( ElementId id in pt.GetRoomIds() ) // 2013
-  {
-    Room r = doc.GetElement( id ) as Room;
 
-    output += "\n  " + r.Name + " : "
-      + Util.RealString( r.Area ) + " sqf";
-  }
+      foreach ( ElementId id in pt.GetRoomIds() ) // 2013
+      {
+        Room r = doc.GetElement( id ) as Room;
+
+        output += "\n  " + r.Name + " : "
+          + Util.RealString( r.Area ) + " sqf";
+      }
       Util.InfoMsg( output );
 
       output = "Circuits without rooms:"
         + "\n  Number of Sides : Area";
 
-      foreach( PlanCircuit pc in pt.Circuits )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        if( !pc.IsRoomLocated ) // this circuit has no room, create one
+        t.Start( "Create New Rooms" );
+
+        foreach ( PlanCircuit pc in pt.Circuits )
         {
-          output += "\n  " + pc.SideNum + " : "
-            + Util.RealString( pc.Area ) + " sqf";
+          if ( !pc.IsRoomLocated ) // this circuit has no room, create one
+          {
+            output += "\n  " + pc.SideNum + " : "
+              + Util.RealString( pc.Area ) + " sqf";
 
-          // Pass null to create a new room;
-          // to place an existing unplaced room,
-          // pass it in instead of null:
+            // Pass null to create a new room;
+            // to place an existing unplaced room,
+            // pass it in instead of null:
 
-          Room r = doc.Create.NewRoom( null, pc );
+            Room r = doc.Create.NewRoom( null, pc );
+          }
         }
+        t.Commit();
       }
       Util.InfoMsg( output );
 

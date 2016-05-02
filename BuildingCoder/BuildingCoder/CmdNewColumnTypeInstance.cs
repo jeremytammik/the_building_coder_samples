@@ -23,7 +23,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewColumnTypeInstance : IExternalCommand
   {
     const string _family_name
@@ -91,78 +91,84 @@ namespace BuildingCoder
       Family f = Util.GetFirstElementOfTypeNamed(
         doc, typeof( Family ), _family_name ) as Family;
 
-      // If the family was not already loaded, then do so:
-
-      if( null == f )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        if( !doc.LoadFamily( _path, out f ) )
+        t.Start( "Create New Column Type and Instance" );
+
+        // If the family was not already loaded, then do so:
+
+        if ( null == f )
         {
-          message = "Unable to load '" + _path + "'.";
-        }
-      }
-
-      if( null != f )
-      {
-        Debug.Print( "Family name={0}", f.Name );
-
-        // Pick a symbol for duplication, any one
-        // will do, we select the first:
-
-        FamilySymbol s = null;
-
-        //foreach( FamilySymbol s2 in f.Symbols ) // 2014
-
-        foreach( ElementId id in f.GetFamilySymbolIds() ) // 2015
-        {
-          s = doc.GetElement(id) as FamilySymbol;
-          break;
+          if ( !doc.LoadFamily( _path, out f ) )
+          {
+            message = "Unable to load '" + _path + "'.";
+          }
         }
 
-        Debug.Assert( null != s,
-          "expected at least one symbol"
-          + " to be defined in family" );
-
-        // Duplicate the existing symbol:
-
-        ElementType s1 = s.Duplicate( "Nuovo simbolo" );
-        s = s1 as FamilySymbol;
-
-        // Analyse the symbol parameters:
-
-        foreach( Parameter param in s.Parameters )
+        if ( null != f )
         {
-          Debug.Print(
-            "Parameter name={0}, value={1}",
-            param.Definition.Name,
-            param.AsValueString() );
+          Debug.Print( "Family name={0}", f.Name );
+
+          // Pick a symbol for duplication, any one
+          // will do, we select the first:
+
+          FamilySymbol s = null;
+
+          //foreach( FamilySymbol s2 in f.Symbols ) // 2014
+
+          foreach ( ElementId id in f.GetFamilySymbolIds() ) // 2015
+          {
+            s = doc.GetElement( id ) as FamilySymbol;
+            break;
+          }
+
+          Debug.Assert( null != s,
+            "expected at least one symbol"
+            + " to be defined in family" );
+
+          // Duplicate the existing symbol:
+
+          ElementType s1 = s.Duplicate( "Nuovo simbolo" );
+          s = s1 as FamilySymbol;
+
+          // Analyse the symbol parameters:
+
+          foreach ( Parameter param in s.Parameters )
+          {
+            Debug.Print(
+              "Parameter name={0}, value={1}",
+              param.Definition.Name,
+              param.AsValueString() );
+          }
+
+          // Define new dimensions for our new type;
+          // the specified parameter name is case sensitive:
+
+          //s.get_Parameter( "Width" ).Set( Util.MmToFoot( 500 ) ); // 2014
+          //s.get_Parameter( "Depth" ).Set( Util.MmToFoot( 1000 ) ); // 2014
+
+          s.LookupParameter( "Width" ).Set( Util.MmToFoot( 500 ) ); // 2015
+          s.LookupParameter( "Depth" ).Set( Util.MmToFoot( 1000 ) ); // 2015
+
+          // We can change the symbol name at any time:
+
+          s.Name = "Nuovo simbolo due";
+
+          // Insert an instance of our new symbol:
+
+          XYZ p = XYZ.Zero;
+          doc.Create.NewFamilyInstance(
+            p, s, nonStructural );
+
+          // For a column, the reference direction is ignored:
+
+          //XYZ normal = new XYZ( 1, 2, 3 );
+          //doc.Create.NewFamilyInstance(
+          //  p, s, normal, null, nonStructural );
+
+          rc = Result.Succeeded;
         }
-
-        // Define new dimensions for our new type;
-        // the specified parameter name is case sensitive:
-
-        //s.get_Parameter( "Width" ).Set( Util.MmToFoot( 500 ) ); // 2014
-        //s.get_Parameter( "Depth" ).Set( Util.MmToFoot( 1000 ) ); // 2014
-
-        s.LookupParameter( "Width" ).Set( Util.MmToFoot( 500 ) ); // 2015
-        s.LookupParameter( "Depth" ).Set( Util.MmToFoot( 1000 ) ); // 2015
-
-        // We can change the symbol name at any time:
-
-        s.Name = "Nuovo simbolo due";
-
-        // Insert an instance of our new symbol:
-
-        XYZ p = XYZ.Zero;
-        doc.Create.NewFamilyInstance(
-          p, s, nonStructural );
-
-        // For a column, the reference direction is ignored:
-
-        //XYZ normal = new XYZ( 1, 2, 3 );
-        //doc.Create.NewFamilyInstance(
-        //  p, s, normal, null, nonStructural );
-
-        rc = Result.Succeeded;
+        t.Commit();
       }
       return rc;
     }

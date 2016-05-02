@@ -23,7 +23,7 @@ using Autodesk.Revit.UI;//using Autodesk.Revit.Collections;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdNewProjectDoc : IExternalCommand
   {
     const string _template_file_path
@@ -43,7 +43,7 @@ namespace BuildingCoder
 
       doc.SaveAs( "C:/tmp/new_project.rvt" );
 
-      return Result.Failed;
+      return Result.Succeeded;
     }
   }
 }

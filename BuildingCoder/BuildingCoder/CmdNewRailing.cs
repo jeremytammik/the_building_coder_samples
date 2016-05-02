@@ -29,7 +29,7 @@ namespace BuildingCoder
   /// http://thebuildingcoder.typepad.com/blog/2009/02/list-railing-types.html#comments
   /// SPR #134260 [API - New Element Creation: Railing]
   /// </summary>
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewRailing : IExternalCommand
   {
     public Result Execute(
@@ -96,16 +96,23 @@ namespace BuildingCoder
         message = "No railing family symbols found.";
         return Result.Failed;
       }
-      XYZ p1 = new XYZ( 17, 0, 0 );
-      XYZ p2 = new XYZ( 33, 0, 0 );
-      Line line = Line.CreateBound( p1, p2 );
 
-      // we need a FamilySymbol instance here, but only have a Symbol:
+      using ( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Create New Railing" );
 
-      FamilyInstance Railing1 
-        = doc.Create.NewFamilyInstance( 
-          line, sym, level, StructuralType.NonStructural );
+        XYZ p1 = new XYZ( 17, 0, 0 );
+        XYZ p2 = new XYZ( 33, 0, 0 );
+        Line line = Line.CreateBound( p1, p2 );
 
+        // we need a FamilySymbol instance here, but only have a Symbol:
+
+        FamilyInstance Railing1
+          = doc.Create.NewFamilyInstance(
+            line, sym, level, StructuralType.NonStructural );
+
+        tx.Commit();
+      }
       return Result.Succeeded;
     }
   }

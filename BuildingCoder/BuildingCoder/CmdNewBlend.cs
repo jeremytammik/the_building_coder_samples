@@ -19,7 +19,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewBlend : IExternalCommand
   {
     static Blend CreateBlend( Document doc )
@@ -98,8 +98,7 @@ namespace BuildingCoder
         }
       }
 
-      Plane basePlane = creApp.NewPlane(
-        normal, center );
+      Plane basePlane = creApp.NewPlane( normal, center );
 
       //SketchPlane sketch = factory.NewSketchPlane( basePlane ); // 2013
       SketchPlane sketch = SketchPlane.Create( doc, basePlane ); // 2014
@@ -120,8 +119,14 @@ namespace BuildingCoder
 
       if( doc.IsFamilyDocument )
       {
-        Blend blend = CreateBlend( doc );
+        using ( Transaction t = new Transaction( doc ) )
+        {
+          t.Start( "New Blend" );
 
+          Blend blend = CreateBlend( doc );
+
+          t.Commit();
+        }
         return Result.Succeeded;
       }
       else

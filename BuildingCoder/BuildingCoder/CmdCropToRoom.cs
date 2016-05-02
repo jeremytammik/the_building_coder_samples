@@ -21,7 +21,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdCropToRoom : IExternalCommand
   {
     #region Element in View Crop Box Predicate
@@ -87,127 +87,132 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      // get the 3d view crop box:
-
-      BoundingBoxXYZ bb = view3d.CropBox;
-
-      // get the transform from the current view
-      // to the 3D model:
-
-      Transform transform = bb.Transform;
-
-      // get the transform from the 3D model
-      // to the current view:
-
-      Transform transformInverse = transform.Inverse;
-
-      // get all rooms in the model:
-
-      FilteredElementCollector collector
-        = new FilteredElementCollector( doc );
-
-      collector.OfClass( typeof( Room ) );
-      IList<Element> rooms = collector.ToElements();
-      int n = rooms.Count;
-
-      Room room = (0 < n)
-        ? rooms[BumpRoomIndex( n )] as Room
-        : null;
-
-      if( null == room )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        message = "No room element found in project.";
-        return Result.Failed;
-      }
+        t.Start( "Crop to Room" );
 
-      // Collect all vertices of room closed shell
-      // to determine its extents:
+        // get the 3d view crop box:
 
-      GeometryElement e = room.ClosedShell;
-      List<XYZ> vertices = new List<XYZ>();
+        BoundingBoxXYZ bb = view3d.CropBox;
 
-      //foreach( GeometryObject o in e.Objects ) // 2012
+        // get the transform from the current view
+        // to the 3D model:
 
-      foreach( GeometryObject o in e ) // 2013
-      {
-        if( o is Solid )
+        Transform transform = bb.Transform;
+
+        // get the transform from the 3D model
+        // to the current view:
+
+        Transform transformInverse = transform.Inverse;
+
+        // get all rooms in the model:
+
+        FilteredElementCollector collector
+          = new FilteredElementCollector( doc );
+
+        collector.OfClass( typeof( Room ) );
+        IList<Element> rooms = collector.ToElements();
+        int n = rooms.Count;
+
+        Room room = ( 0 < n )
+          ? rooms[BumpRoomIndex( n )] as Room
+          : null;
+
+        if ( null == room )
         {
-          // Iterate over all the edges of all solids:
+          message = "No room element found in project.";
+          return Result.Failed;
+        }
 
-          Solid solid = o as Solid;
+        // Collect all vertices of room closed shell
+        // to determine its extents:
 
-          foreach( Edge edge in solid.Edges )
+        GeometryElement e = room.ClosedShell;
+        List<XYZ> vertices = new List<XYZ>();
+
+        //foreach( GeometryObject o in e.Objects ) // 2012
+
+        foreach ( GeometryObject o in e ) // 2013
+        {
+          if ( o is Solid )
           {
-            foreach( XYZ p in edge.Tessellate() )
-            {
-              // Collect all vertices,
-              // including duplicates:
+            // Iterate over all the edges of all solids:
 
-              vertices.Add( p );
+            Solid solid = o as Solid;
+
+            foreach ( Edge edge in solid.Edges )
+            {
+              foreach ( XYZ p in edge.Tessellate() )
+              {
+                // Collect all vertices,
+                // including duplicates:
+
+                vertices.Add( p );
+              }
             }
           }
         }
-      }
 
-      List<XYZ> verticesIn3dView = new List<XYZ>();
+        List<XYZ> verticesIn3dView = new List<XYZ>();
 
-      foreach( XYZ p in vertices )
-      {
-        verticesIn3dView.Add(
-          transformInverse.OfPoint( p ) );
-      }
-
-      // Ignore the Z coorindates and find the
-      // min and max X and Y in the 3d view:
-
-      double xMin = 0, yMin = 0, xMax = 0, yMax = 0;
-
-      bool first = true;
-      foreach( XYZ p in verticesIn3dView )
-      {
-        if( first )
+        foreach ( XYZ p in vertices )
         {
-          xMin = p.X;
-          yMin = p.Y;
-          xMax = p.X;
-          yMax = p.Y;
-          first = false;
+          verticesIn3dView.Add(
+            transformInverse.OfPoint( p ) );
         }
-        else
+
+        // Ignore the Z coorindates and find the
+        // min and max X and Y in the 3d view:
+
+        double xMin = 0, yMin = 0, xMax = 0, yMax = 0;
+
+        bool first = true;
+        foreach ( XYZ p in verticesIn3dView )
         {
-          if( xMin > p.X )
+          if ( first )
+          {
             xMin = p.X;
-          if( yMin > p.Y )
             yMin = p.Y;
-          if( xMax < p.X )
             xMax = p.X;
-          if( yMax < p.Y )
             yMax = p.Y;
+            first = false;
+          }
+          else
+          {
+            if ( xMin > p.X )
+              xMin = p.X;
+            if ( yMin > p.Y )
+              yMin = p.Y;
+            if ( xMax < p.X )
+              xMax = p.X;
+            if ( yMax < p.Y )
+              yMax = p.Y;
+          }
         }
+
+        // Grow the crop box by one twentieth of its
+        // size to include the walls of the room:
+
+        double d = 0.05 * ( xMax - xMin );
+        xMin = xMin - d;
+        xMax = xMax + d;
+
+        d = 0.05 * ( yMax - yMin );
+        yMin = yMin - d;
+        yMax = yMax + d;
+
+        bb.Max = new XYZ( xMax, yMax, bb.Max.Z );
+        bb.Min = new XYZ( xMin, yMin, bb.Min.Z );
+
+        view3d.CropBox = bb;
+
+        // Change the crop view setting manually or
+        // programmatically to see the result:
+
+        view3d.CropBoxActive = true;
+        view3d.CropBoxVisible = true;
+        t.Commit();
       }
-
-      // Grow the crop box by one twentieth of its
-      // size to include the walls of the room:
-
-      double d = 0.05 * ( xMax - xMin );
-      xMin = xMin - d;
-      xMax = xMax + d;
-
-      d = 0.05 * ( yMax - yMin );
-      yMin = yMin - d;
-      yMax = yMax + d;
-
-      bb.Max = new XYZ( xMax, yMax, bb.Max.Z );
-      bb.Min = new XYZ( xMin, yMin, bb.Min.Z );
-
-      view3d.CropBox = bb;
-
-      // Change the crop view setting manually or
-      // programmatically to see the result:
-
-      view3d.CropBoxActive = true;
-      view3d.CropBoxVisible = true;
-
       return Result.Succeeded;
     }
   }

@@ -23,7 +23,7 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdSlabBoundaryArea : IExternalCommand
   {
     #region Flatten, i.e. project from 3D to 2D by dropping the Z coordinate
@@ -148,9 +148,15 @@ namespace BuildingCoder
             : "" ) );
       }
 
-      Creator creator = new Creator( doc );
-      creator.DrawPolygons( polygons );
+      using ( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Draw Polygons" );
 
+        Creator creator = new Creator( doc );
+        creator.DrawPolygons( polygons );
+
+        t.Commit();
+      }
       return Result.Succeeded;
     }
   }

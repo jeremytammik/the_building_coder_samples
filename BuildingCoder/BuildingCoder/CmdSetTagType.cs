@@ -25,7 +25,7 @@ namespace BuildingCoder
   /// Create a wall, door, door tag, then
   /// create and set a new door tag type.
   /// </summary>
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdSetTagType : IExternalCommand
   {
     const double MeterToFeet = 3.2808399;
@@ -160,85 +160,92 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      // Create a wall:
-
-      BuiltInParameter topLevelParam
-        = BuiltInParameter.WALL_HEIGHT_TYPE;
-
-      ElementId topLevelId = levelTop.Id;
-
-      //Line line = createApp.NewLineBound( pts[0], pts[1] ); // 2013
-      Line line = Line.CreateBound( pts[0], pts[1] ); // 2014
-
-      //Wall wall = createDoc.NewWall( // 2012
-      //  line, levelBottom, false );
-
-      Wall wall = Wall.Create( // 2013
-        doc, line, levelBottom.Id, false );
-
-      Parameter param = wall.get_Parameter(
-        topLevelParam );
-
-      param.Set( topLevelId );
-
-      // Determine wall thickness for tag
-      // offset and profile growth:
-
-      //double wallThickness = wall.WallType.CompoundStructure.Layers.get_Item( 0 ).Thickness; // 2011
-
-      double wallThickness = wall.WallType.GetCompoundStructure().GetLayers()[0].Width; // 2012
-
-      // Add door to wall;
-      // note that the NewFamilyInstance method
-      // does not automatically add a door tag,
-      // like the UI command does:
-
-      FamilySymbol doorSymbol = GetFirstFamilySymbol(
-        doc, BuiltInCategory.OST_Doors );
-
-      if( null == doorSymbol )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        message = "No door symbol found.";
-        return Result.Failed;
+        t.Start( "Create Wall, Door and Tag" );
+
+        // Create a wall:
+
+        BuiltInParameter topLevelParam
+          = BuiltInParameter.WALL_HEIGHT_TYPE;
+
+        ElementId topLevelId = levelTop.Id;
+
+        //Line line = createApp.NewLineBound( pts[0], pts[1] ); // 2013
+        Line line = Line.CreateBound( pts[0], pts[1] ); // 2014
+
+        //Wall wall = createDoc.NewWall( // 2012
+        //  line, levelBottom, false );
+
+        Wall wall = Wall.Create( // 2013
+          doc, line, levelBottom.Id, false );
+
+        Parameter param = wall.get_Parameter(
+          topLevelParam );
+
+        param.Set( topLevelId );
+
+        // Determine wall thickness for tag
+        // offset and profile growth:
+
+        //double wallThickness = wall.WallType.CompoundStructure.Layers.get_Item( 0 ).Thickness; // 2011
+
+        double wallThickness = wall.WallType.GetCompoundStructure().GetLayers()[0].Width; // 2012
+
+        // Add door to wall;
+        // note that the NewFamilyInstance method
+        // does not automatically add a door tag,
+        // like the UI command does:
+
+        FamilySymbol doorSymbol = GetFirstFamilySymbol(
+          doc, BuiltInCategory.OST_Doors );
+
+        if ( null == doorSymbol )
+        {
+          message = "No door symbol found.";
+          return Result.Failed;
+        }
+
+        XYZ midpoint = Util.Midpoint( pts[0], pts[1] );
+
+        FamilyInstance door = createDoc
+          .NewFamilyInstance(
+            midpoint, doorSymbol, wall, levelBottom,
+            StructuralType.NonStructural );
+
+        // Create door tag:
+
+        View view = doc.ActiveView;
+
+        double tagOffset = 3 * wallThickness;
+
+        midpoint += tagOffset * XYZ.BasisY;
+
+        // 2011: TagOrientation.TAG_HORIZONTAL
+
+        IndependentTag tag = createDoc.NewTag(
+          view, door, false, TagMode.TM_ADDBY_CATEGORY,
+          TagOrientation.Horizontal, midpoint ); // 2012
+
+        // Create and assign new door tag type:
+
+        FamilySymbol doorTagType
+          = GetFirstFamilySymbol(
+            doc, BuiltInCategory.OST_DoorTags );
+
+        doorTagType = doorTagType.Duplicate(
+          "New door tag type" ) as FamilySymbol;
+
+        tag.ChangeTypeId( doorTagType.Id );
+
+        // Demonstrate changing name of
+        // family instance and family symbol:
+
+        door.Name = door.Name + " modified";
+        door.Symbol.Name = door.Symbol.Name + " modified";
+
+        t.Commit();
       }
-
-      XYZ midpoint = Util.Midpoint( pts[0], pts[1] );
-
-      FamilyInstance door = createDoc
-        .NewFamilyInstance(
-          midpoint, doorSymbol, wall, levelBottom,
-          StructuralType.NonStructural );
-
-      // Create door tag:
-
-      View view = doc.ActiveView;
-
-      double tagOffset = 3 * wallThickness;
-
-      midpoint += tagOffset * XYZ.BasisY;
-
-      // 2011: TagOrientation.TAG_HORIZONTAL
-
-      IndependentTag tag = createDoc.NewTag(
-        view, door, false, TagMode.TM_ADDBY_CATEGORY,
-        TagOrientation.Horizontal, midpoint ); // 2012
-
-      // Create and assign new door tag type:
-
-      FamilySymbol doorTagType
-        = GetFirstFamilySymbol(
-          doc, BuiltInCategory.OST_DoorTags );
-
-      doorTagType = doorTagType.Duplicate(
-        "New door tag type" ) as FamilySymbol;
-
-      tag.ChangeTypeId( doorTagType.Id );
-
-      // Demonstrate changing name of
-      // family instance and family symbol:
-
-      door.Name = door.Name + " modified";
-      door.Symbol.Name = door.Symbol.Name + " modified";
 
       return Result.Succeeded;
     }

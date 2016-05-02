@@ -24,7 +24,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdCreateSharedParams : IExternalCommand
   {
     const string _filename = "C:/tmp/SharedParams.txt";
@@ -69,7 +69,7 @@ namespace BuildingCoder
     {
       Category cat = null;
 
-      if( target.Equals( BuiltInCategory.OST_IOSModelGroups ) )
+      if ( target.Equals( BuiltInCategory.OST_IOSModelGroups ) )
       {
         // determine model group category:
 
@@ -79,7 +79,7 @@ namespace BuildingCoder
 
         IList<Element> modelGroups = collector.ToElements();
 
-        if( 0 == modelGroups.Count )
+        if ( 0 == modelGroups.Count )
         {
           Util.ErrorMsg( "Please insert a model group." );
           return cat;
@@ -95,7 +95,7 @@ namespace BuildingCoder
         {
           cat = doc.Settings.Categories.get_Item( target );
         }
-        catch( Exception ex )
+        catch ( Exception ex )
         {
           Util.ErrorMsg( string.Format(
             "Error obtaining document {0} category: {1}",
@@ -103,7 +103,7 @@ namespace BuildingCoder
           return cat;
         }
       }
-      if( null == cat )
+      if ( null == cat )
       {
         Util.ErrorMsg( string.Format(
           "Unable to obtain the document {0} category.",
@@ -136,7 +136,7 @@ namespace BuildingCoder
       string filename
         = app.SharedParametersFilename;
 
-      if( 0 == filename.Length )
+      if ( 0 == filename.Length )
       {
         string path = _filename;
         StreamWriter stream;
@@ -151,7 +151,7 @@ namespace BuildingCoder
       DefinitionFile file
         = app.OpenSharedParameterFile();
 
-      if( null == file )
+      if ( null == file )
       {
         Util.ErrorMsg(
           "Error getting the shared params file." );
@@ -164,12 +164,12 @@ namespace BuildingCoder
       DefinitionGroup group
         = file.Groups.get_Item( _groupname );
 
-      if( null == group )
+      if ( null == group )
       {
         group = file.Groups.Create( _groupname );
       }
 
-      if( null == group )
+      if ( null == group )
       {
         Util.ErrorMsg(
           "Error getting the shared params group." );
@@ -196,7 +196,7 @@ namespace BuildingCoder
       Definition definition = group.Definitions.get_Item(
         defname );
 
-      if( null == definition )
+      if ( null == definition )
       {
         //definition = group.Definitions.Create( defname, _deftype, visible ); // 2014
 
@@ -208,7 +208,7 @@ namespace BuildingCoder
 
         definition = group.Definitions.Create( opt ); // 2015
       }
-      if( null == definition )
+      if ( null == definition )
       {
         Util.ErrorMsg(
           "Error creating shared parameter." );
@@ -245,7 +245,7 @@ namespace BuildingCoder
           ( typeParameter ? "type" : "instance" ),
           defname, cat.Name );
       }
-      catch( Exception ex )
+      catch ( Exception ex )
       {
         Util.ErrorMsg( string.Format(
           "Error binding shared parameter to category {0}: {1}",
@@ -262,25 +262,30 @@ namespace BuildingCoder
     {
       UIApplication app = commandData.Application;
       Document doc = app.ActiveUIDocument.Document;
-      Category cat;
-      int i = 0;
 
-      // create instance parameters:
-
-      foreach( BuiltInCategory target in targets )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        cat = GetCategory( doc, target );
-        if( null != cat )
+        t.Start( "Create Shared Parameter" );
+        Category cat;
+        int i = 0;
+
+        // create instance parameters:
+
+        foreach ( BuiltInCategory target in targets )
         {
-          CreateSharedParameter( doc, cat, ++i, false );
+          cat = GetCategory( doc, target );
+          if ( null != cat )
+          {
+            CreateSharedParameter( doc, cat, ++i, false );
+          }
         }
+
+        // create a type parameter:
+
+        cat = GetCategory( doc, BuiltInCategory.OST_Walls );
+        CreateSharedParameter( doc, cat, ++i, true );
+        t.Commit();
       }
-
-      // create a type parameter:
-
-      cat = GetCategory( doc, BuiltInCategory.OST_Walls );
-      CreateSharedParameter( doc, cat, ++i, true );
-
       return Result.Succeeded;
     }
 

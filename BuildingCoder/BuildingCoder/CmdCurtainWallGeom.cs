@@ -18,7 +18,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdCurtainWallGeom : IExternalCommand
   {
     #region list_wall_geom
@@ -129,16 +129,22 @@ namespace BuildingCoder
 
         GeometryElement e = wall.get_Geometry( opt );
 
-        foreach( GeometryObject obj in e )
+        using ( Transaction t = new Transaction( doc ) )
         {
-          curve = obj as Curve;
+          t.Start( "Create Model Curves" );
 
-          if( null != curve )
+          foreach ( GeometryObject obj in e )
           {
-            //curve = curve.get_Transformed( tv ); // 2013
-            curve = curve.CreateTransformed( tv ); // 2014
-            creator.CreateModelCurve( curve );
+            curve = obj as Curve;
+
+            if ( null != curve )
+            {
+              //curve = curve.get_Transformed( tv ); // 2013
+              curve = curve.CreateTransformed( tv ); // 2014
+              creator.CreateModelCurve( curve );
+            }
           }
+          t.Commit();
         }
         return Result.Succeeded;
       }

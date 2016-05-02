@@ -23,7 +23,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdSlopedWall : IExternalCommand
   {
     public Result Execute(
@@ -71,9 +71,15 @@ namespace BuildingCoder
 
       Document doc = app.ActiveUIDocument.Document;
 
-      //Wall wall = doc.Create.NewWall( profile, false ); // 2012
-      Wall wall = Wall.Create( doc, profile, false ); // 2013
+      using ( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Create Sloped Wall" );
 
+        //Wall wall = doc.Create.NewWall( profile, false ); // 2012
+        Wall wall = Wall.Create( doc, profile, false ); // 2013
+
+        t.Commit();
+      }
       return Result.Succeeded;
     }
   }

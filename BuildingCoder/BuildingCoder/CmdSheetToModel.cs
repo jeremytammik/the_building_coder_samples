@@ -196,7 +196,7 @@ namespace BuildingCoder
   }
 
   #region CmdMiroTest2
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   public class CmdMiroTest2 : IExternalCommand
   {
     // KIS - public fields
@@ -265,10 +265,10 @@ namespace BuildingCoder
           return Result.Cancelled;
         }
 
-        // Process Master
-        // --------------
+          // Process Master
+          // --------------
 
-        XYZ ptMasterVpCenter = vpMaster.GetBoxCenter();
+          XYZ ptMasterVpCenter = vpMaster.GetBoxCenter();
         ViewRvt viewMaster = _doc.GetElement(
           vpMaster.ViewId ) as ViewRvt;
         double scaleMaster = viewMaster.Scale;
@@ -276,49 +276,55 @@ namespace BuildingCoder
         // Process Slaves
         // --------------
 
-        foreach( Viewport vpSlave in vpsSlave )
+        using ( Transaction t = new Transaction( _doc ) )
         {
-          XYZ ptSlaveVpCenter = vpSlave.GetBoxCenter();
-          ViewRvt viewSlave = _doc.GetElement(
-            vpSlave.ViewId ) as ViewRvt;
-          double scaleSlave = viewSlave.Scale;
-          // MUST be the same scale, otherwise can't really overlap
-          if( scaleSlave != scaleMaster ) continue;
+          t.Start( "Set Box Centres" );
 
-          // Work out how to move the center of Slave 
-          // Viewport to coincide model-wise with Master
-          // (must use center as only Viewport.SetBoxCenter 
-          // is provided in API)
-          // We can ignore View.Outline as Viewport.GetBoxOutline 
-          // is ALWAYS the same dimensions enlarged by 
-          // 0.01 ft in each direction.
-          // This guarantees that the center of View is 
-          // also center of Viewport, BUT there is a 
-          // problem when any Elevation Symbols outside 
-          // the crop box are visible (can't work out why
-          // - BUG?, or how to calculate it all if BY-DESIGN)
+          foreach ( Viewport vpSlave in vpsSlave )
+          {
+            XYZ ptSlaveVpCenter = vpSlave.GetBoxCenter();
+            ViewRvt viewSlave = _doc.GetElement(
+              vpSlave.ViewId ) as ViewRvt;
+            double scaleSlave = viewSlave.Scale;
+            // MUST be the same scale, otherwise can't really overlap
+            if ( scaleSlave != scaleMaster ) continue;
 
-          BoundingBoxXYZ bbm = viewMaster.CropBox;
-          BoundingBoxXYZ bbs = viewSlave.CropBox;
+            // Work out how to move the center of Slave 
+            // Viewport to coincide model-wise with Master
+            // (must use center as only Viewport.SetBoxCenter 
+            // is provided in API)
+            // We can ignore View.Outline as Viewport.GetBoxOutline 
+            // is ALWAYS the same dimensions enlarged by 
+            // 0.01 ft in each direction.
+            // This guarantees that the center of View is 
+            // also center of Viewport, BUT there is a 
+            // problem when any Elevation Symbols outside 
+            // the crop box are visible (can't work out why
+            // - BUG?, or how to calculate it all if BY-DESIGN)
 
-          // 0) Center points in WCS
-          XYZ wcsCenterMaster = 0.5 * bbm.Min.Add( bbm.Max );
-          XYZ wcsCenterSlave = 0.5 * bbs.Min.Add( bbs.Max );
+            BoundingBoxXYZ bbm = viewMaster.CropBox;
+            BoundingBoxXYZ bbs = viewSlave.CropBox;
 
-          // 1) Delta (in model's feet) of the slave center w.r.t master center
-          double deltaX = wcsCenterSlave.X - wcsCenterMaster.X;
-          double deltaY = wcsCenterSlave.Y - wcsCenterMaster.Y;
+            // 0) Center points in WCS
+            XYZ wcsCenterMaster = 0.5 * bbm.Min.Add( bbm.Max );
+            XYZ wcsCenterSlave = 0.5 * bbs.Min.Add( bbs.Max );
 
-          // 1a) Scale to Delta in Sheet's paper-space feet
-          deltaX *= 1.0 / (double) scaleMaster;
-          deltaY *= 1.0 / (double) scaleMaster;
+            // 1) Delta (in model's feet) of the slave center w.r.t master center
+            double deltaX = wcsCenterSlave.X - wcsCenterMaster.X;
+            double deltaY = wcsCenterSlave.Y - wcsCenterMaster.Y;
 
-          // 2) New center point for the slave viewport, so *models* "overlap":
-          XYZ newCenter = new XYZ(
-            ptMasterVpCenter.X + deltaX,
-            ptMasterVpCenter.Y + deltaY,
-            ptSlaveVpCenter.Z );
-          vpSlave.SetBoxCenter( newCenter );
+            // 1a) Scale to Delta in Sheet's paper-space feet
+            deltaX *= 1.0 / (double) scaleMaster;
+            deltaY *= 1.0 / (double) scaleMaster;
+
+            // 2) New center point for the slave viewport, so *models* "overlap":
+            XYZ newCenter = new XYZ(
+              ptMasterVpCenter.X + deltaX,
+              ptMasterVpCenter.Y + deltaY,
+              ptSlaveVpCenter.Z );
+            vpSlave.SetBoxCenter( newCenter );
+          }
+          t.Commit();
         }
       }
       catch( Exception ex )

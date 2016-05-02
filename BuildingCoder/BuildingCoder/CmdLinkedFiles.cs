@@ -23,7 +23,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdLinkedFiles : IExternalCommand
   {
     /// <summary>

@@ -24,7 +24,7 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdNestedInstanceGeo : IExternalCommand
   {
     /// <summary>
@@ -132,7 +132,6 @@ namespace BuildingCoder
 
       //foreach( GeometryObject o1 in a1 ) // 2012
       foreach( GeometryObject o1 in geoElement ) // 2013
-
       {
         GeometryInstance geoInstance = o1 as GeometryInstance;
         if( null != geoInstance )

@@ -24,7 +24,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewLineLoad : IExternalCommand
   {
     public Result Execute(
@@ -32,7 +32,7 @@ namespace BuildingCoder
       ref string message,
       ElementSet elements )
     {
-      Debug.Assert( false, "this has not been tested yet in Revit 2011!" );
+      Debug.Assert( false, "This has not been tested since Revit 2010!" );
 
       UIApplication app = commandData.Application;
       Document doc = app.ActiveUIDocument.Document;
@@ -57,102 +57,108 @@ namespace BuildingCoder
 
       Plane plane = ca.NewPlane( XYZ.BasisZ, XYZ.Zero );
 
-      //SketchPlane skplane = cd.NewSketchPlane( plane ); // 2013
-
-      SketchPlane skplane = SketchPlane.Create( doc, plane ); // 2014
-
-      XYZ forceA = new XYZ( 0, 0, 5 );
-      XYZ forceB = new XYZ( 0, 0, 10 );
-      List<XYZ> forces = new List<XYZ>();
-      forces.Add( forceA );
-      forces.Add( forceB );
-
-      XYZ momentA = new XYZ( 0, 0, 0 );
-      XYZ momentB = new XYZ( 0, 0, 0 );
-      List<XYZ> moments = new List<XYZ>();
-      moments.Add( momentA );
-      moments.Add( momentB );
-
-      BuiltInCategory bic
-        = BuiltInCategory.OST_StructuralFraming;
-
-      FilteredElementCollector beams = Util.GetElementsOfType(
-        doc, typeof( FamilyInstance ), bic );
-
-      XYZ p1 = new XYZ( 0, 0, 0 );
-      XYZ p2 = new XYZ( 3, 0, 0 );
-      //List<XYZ> points = new List<XYZ>();
-      //points.Add( p1 );
-      //points.Add( p2 );
-
-      // create a new unhosted line load on points:
-
-      //LineLoad lineLoadNoHost = cd.NewLineLoad(
-      //  points, forces, moments,
-      //  false, false, false,
-      //  loadSymbol, skplane ); // 2015
-
-      LineLoad lineLoadNoHost = LineLoad.Create( doc,
-        p1, p2, forces[0], moments[0],
-        loadSymbol, skplane ); // 2016
-
-      Debug.Print( "Unhosted line load works." );
-
-      // create new line loads on beam:
-
-      foreach( Element e in beams )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        try
-        {
-          //LineLoad lineLoad = cd.NewLineLoad(
-          //  e, forces, moments,
-          //  false, false, false,
-          //  loadSymbol, skplane ); // 2015
+        t.Start( "Create New Line Load" );
 
-          AnalyticalModelSurface amsurf = e.GetAnalyticalModel()
-            as AnalyticalModelSurface;
+        //SketchPlane skplane = cd.NewSketchPlane( plane ); // 2013
 
-          LineLoad lineLoad = LineLoad.Create( doc, 
-            amsurf, 0, forces[0], moments[0], loadSymbol ); // 2016
+        SketchPlane skplane = SketchPlane.Create( doc, plane ); // 2014
 
-          Debug.Print( "Hosted line load on beam works." );
-        }
-        catch( Exception ex )
-        {
-          Debug.Print( "Hosted line load on beam fails: "
-            + ex.Message );
-        }
+        XYZ forceA = new XYZ( 0, 0, 5 );
+        XYZ forceB = new XYZ( 0, 0, 10 );
+        List<XYZ> forces = new List<XYZ>();
+        forces.Add( forceA );
+        forces.Add( forceB );
 
-        FamilyInstance i = e as FamilyInstance;
+        XYZ momentA = new XYZ( 0, 0, 0 );
+        XYZ momentB = new XYZ( 0, 0, 0 );
+        List<XYZ> moments = new List<XYZ>();
+        moments.Add( momentA );
+        moments.Add( momentB );
 
-        AnalyticalModel am = i.GetAnalyticalModel();
+        BuiltInCategory bic
+          = BuiltInCategory.OST_StructuralFraming;
 
-        foreach( Curve curve in
-          am.GetCurves( AnalyticalCurveType.ActiveCurves ) )
+        FilteredElementCollector beams = Util.GetElementsOfType(
+          doc, typeof( FamilyInstance ), bic );
+
+        XYZ p1 = new XYZ( 0, 0, 0 );
+        XYZ p2 = new XYZ( 3, 0, 0 );
+        //List<XYZ> points = new List<XYZ>();
+        //points.Add( p1 );
+        //points.Add( p2 );
+
+        // create a new unhosted line load on points:
+
+        //LineLoad lineLoadNoHost = cd.NewLineLoad(
+        //  points, forces, moments,
+        //  false, false, false,
+        //  loadSymbol, skplane ); // 2015
+
+        LineLoad lineLoadNoHost = LineLoad.Create( doc,
+          p1, p2, forces[0], moments[0],
+          loadSymbol, skplane ); // 2016
+
+        Debug.Print( "Unhosted line load works." );
+
+        // create new line loads on beam:
+
+        foreach ( Element e in beams )
         {
           try
           {
             //LineLoad lineLoad = cd.NewLineLoad(
-            //  curve.Reference, forces, moments,
+            //  e, forces, moments,
             //  false, false, false,
             //  loadSymbol, skplane ); // 2015
 
-            AnalyticalModelStick amstick = e.GetAnalyticalModel()
-              as AnalyticalModelStick;
+            AnalyticalModelSurface amsurf = e.GetAnalyticalModel()
+              as AnalyticalModelSurface;
 
             LineLoad lineLoad = LineLoad.Create( doc,
-              amstick, forces[0], moments[0], loadSymbol ); // 2016
+              amsurf, 0, forces[0], moments[0], loadSymbol ); // 2016
 
-            Debug.Print( "Hosted line load on "
-              + "AnalyticalModelFrame curve works." );
+            Debug.Print( "Hosted line load on beam works." );
           }
-          catch( Exception ex )
+          catch ( Exception ex )
           {
-            Debug.Print( "Hosted line load on "
-              + "AnalyticalModelFrame curve fails: "
+            Debug.Print( "Hosted line load on beam fails: "
               + ex.Message );
           }
+
+          FamilyInstance i = e as FamilyInstance;
+
+          AnalyticalModel am = i.GetAnalyticalModel();
+
+          foreach ( Curve curve in
+            am.GetCurves( AnalyticalCurveType.ActiveCurves ) )
+          {
+            try
+            {
+              //LineLoad lineLoad = cd.NewLineLoad(
+              //  curve.Reference, forces, moments,
+              //  false, false, false,
+              //  loadSymbol, skplane ); // 2015
+
+              AnalyticalModelStick amstick = e.GetAnalyticalModel()
+                as AnalyticalModelStick;
+
+              LineLoad lineLoad = LineLoad.Create( doc,
+                amstick, forces[0], moments[0], loadSymbol ); // 2016
+
+              Debug.Print( "Hosted line load on "
+                + "AnalyticalModelFrame curve works." );
+            }
+            catch ( Exception ex )
+            {
+              Debug.Print( "Hosted line load on "
+                + "AnalyticalModelFrame curve fails: "
+                + ex.Message );
+            }
+          }
         }
+        t.Commit();
       }
       return Result.Succeeded;
     }

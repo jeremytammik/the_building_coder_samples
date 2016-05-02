@@ -23,7 +23,7 @@ using W = System.Windows.Forms;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdLandXml : IExternalCommand
   {
     public Result Execute(
@@ -91,12 +91,18 @@ namespace BuildingCoder
         }
       }
 
-      //TopographySurface surface = doc.Create.NewTopographySurface( pntList );
+      using ( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Create Topography Surface" );
 
-      //TopographySurface surface = doc.Create.NewTopographySurface( pts ); // 2013
+        //TopographySurface surface = doc.Create.NewTopographySurface( pntList );
 
-      TopographySurface surface = TopographySurface.Create( doc, pts ); // 2014
+        //TopographySurface surface = doc.Create.NewTopographySurface( pts ); // 2013
 
+        TopographySurface surface = TopographySurface.Create( doc, pts ); // 2014
+
+        t.Commit();
+      }
       return Result.Succeeded;
     }
   }

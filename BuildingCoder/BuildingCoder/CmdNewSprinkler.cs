@@ -22,7 +22,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewSprinkler : IExternalCommand
   {
     const string _path = "C:/Documents and Settings/All Users/Application Data/Autodesk/RME 2010/Metric Library/Fire Protection/Sprinklers/";
@@ -40,7 +40,7 @@ namespace BuildingCoder
       XYZ p = new XYZ( 0, 0, 0 );
       Mesh mesh = face.Triangulate();
 
-      for( int i = 0; i < mesh.NumTriangles; )
+      for ( int i = 0; i < mesh.NumTriangles; )
       {
         MeshTriangle triangle = mesh.get_Triangle( i );
         p += triangle.get_Vertex( 0 );
@@ -57,11 +57,15 @@ namespace BuildingCoder
       ref string message,
       ElementSet elements )
     {
-      try
+      UIApplication app = commandData.Application;
+      UIDocument uidoc = app.ActiveUIDocument;
+      Document doc = uidoc.Document;
+      Result rc = Result.Failed;
+
+      using ( Transaction t = new Transaction( doc ) )
       {
-        UIApplication app = commandData.Application;
-        UIDocument uidoc = app.ActiveUIDocument;
-        Document doc = uidoc.Document;
+        t.Start( "Place a New Sprinkler Instance" );
+
 
         // retrieve the sprinkler family symbol:
 
@@ -84,12 +88,12 @@ namespace BuildingCoder
         Family family = Util.GetFirstElementOfTypeNamed(
           doc, typeof( Family ), _name ) as Family;
 
-        if( null == family )
+        if ( null == family )
         {
-          if( !doc.LoadFamily( _filename, out family ) )
+          if ( !doc.LoadFamily( _filename, out family ) )
           {
             message = "Unable to load '" + _filename + "'.";
-            return Result.Failed;
+            return rc;
           }
         }
 
@@ -97,10 +101,10 @@ namespace BuildingCoder
 
         //foreach( FamilySymbol fs in family.Symbols ) // 2014
 
-        foreach( ElementId id in 
+        foreach ( ElementId id in
           family.GetFamilySymbolIds() ) // 2015
         {
-          sprinklerSymbol = doc.GetElement( id ) 
+          sprinklerSymbol = doc.GetElement( id )
             as FamilySymbol;
 
           break;
@@ -115,12 +119,12 @@ namespace BuildingCoder
         Element ceiling = Util.SelectSingleElement(
           uidoc, "ceiling to host sprinkler" );
 
-        if( null == ceiling
+        if ( null == ceiling
           || !ceiling.Category.Id.IntegerValue.Equals(
             (int) BuiltInCategory.OST_Ceilings ) )
         {
           message = "No ceiling selected.";
-          return Result.Failed;
+          return rc;
         }
 
         //Level level = ceiling.Level;
@@ -144,21 +148,21 @@ namespace BuildingCoder
 
         PlanarFace ceilingBottom = null;
 
-        foreach( GeometryObject obj in geo )
+        foreach ( GeometryObject obj in geo )
         {
           Solid solid = obj as Solid;
 
-          if( null != solid )
+          if ( null != solid )
           {
-            foreach( Face face in solid.Faces )
+            foreach ( Face face in solid.Faces )
             {
               PlanarFace pf = face as PlanarFace;
 
-              if( null != pf )
+              if ( null != pf )
               {
                 XYZ normal = pf.FaceNormal.Normalize();
 
-                if( Util.IsVertical( normal )
+                if ( Util.IsVertical( normal )
                   && 0.0 > normal.Z )
                 {
                   ceilingBottom = pf;
@@ -168,7 +172,7 @@ namespace BuildingCoder
             }
           }
         }
-        if( null != ceilingBottom )
+        if ( null != ceilingBottom )
         {
           XYZ p = PointOnFace( ceilingBottom );
 
@@ -177,15 +181,12 @@ namespace BuildingCoder
           FamilyInstance fi = doc.Create.NewFamilyInstance(
             ceilingBottom, p, XYZ.BasisX, sprinklerSymbol );
 
-          return Result.Succeeded;
+          rc = Result.Succeeded;
         }
-        return Result.Failed;
+        t.Commit();
       }
-      catch( Exception ex )
-      {
-        message = ex.Message;
-        return Result.Failed;
-      }
+      return rc;
     }
   }
 }
+

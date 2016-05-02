@@ -23,7 +23,7 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewLightingFixture : IExternalCommand
   {
     public Result Execute(
@@ -101,11 +101,17 @@ namespace BuildingCoder
 
       XYZ p = app.Create.NewXYZ( -43, 28, 0 );
 
-      FamilyInstance instLight
-        = doc.Create.NewFamilyInstance(
-          p, sym, ceiling, level,
-          StructuralType.NonStructural );
+      using ( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Place New Lighting Fixture Instance" );
 
+        FamilyInstance instLight
+          = doc.Create.NewFamilyInstance(
+            p, sym, ceiling, level,
+            StructuralType.NonStructural );
+
+        t.Commit();
+      }
       return Result.Succeeded;
     }
 

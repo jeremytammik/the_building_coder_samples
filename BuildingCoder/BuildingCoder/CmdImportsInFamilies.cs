@@ -24,7 +24,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdImportsInFamilies : IExternalCommand
   {
     #region First version to list import instances non-recursively

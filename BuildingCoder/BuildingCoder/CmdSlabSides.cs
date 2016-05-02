@@ -22,7 +22,7 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdSlabSides : IExternalCommand
   {
     /// <summary>
@@ -101,10 +101,15 @@ namespace BuildingCoder
         "{0} side face{1} found.",
         n, Util.PluralSuffix( n ) );
 
-      Creator creator = new Creator( doc );
-      foreach( Face f in faces )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        creator.DrawFaceTriangleNormals( f );
+        t.Start( "Draw Face Triangle Normals" );
+        Creator creator = new Creator( doc );
+        foreach ( Face f in faces )
+        {
+          creator.DrawFaceTriangleNormals( f );
+        }
+        t.Commit();
       }
       return Result.Succeeded;
     }

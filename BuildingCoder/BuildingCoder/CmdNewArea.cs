@@ -22,7 +22,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewArea : IExternalCommand
   {
     public Result Execute(
@@ -58,12 +58,18 @@ namespace BuildingCoder
       }
       else
       {
-        Location loc = room.Location;
-        LocationPoint lp = loc as LocationPoint;
-        XYZ p = lp.Point;
-        UV q = new UV( p.X, p.Y );
-        Area area = doc.Create.NewArea( view, q );
-        rc = Result.Succeeded;
+        using ( Transaction t = new Transaction( doc ) )
+        {
+          t.Start( "Create New Area" );
+
+          Location loc = room.Location;
+          LocationPoint lp = loc as LocationPoint;
+          XYZ p = lp.Point;
+          UV q = new UV( p.X, p.Y );
+          Area area = doc.Create.NewArea( view, q );
+          rc = Result.Succeeded;
+          t.Commit();
+        }
       }
       return rc;
     }

@@ -24,7 +24,7 @@ namespace BuildingCoder
   /// <summary>
   /// Create a new dimension label in a family document.
   /// </summary>
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdNewDimensionLabel : IExternalCommand
   {
     /// <summary>
@@ -77,63 +77,70 @@ namespace BuildingCoder
       Autodesk.Revit.Creation.Application creApp = app.Application.Create;
       Autodesk.Revit.Creation.Document creDoc = doc.Create;
 
-      SketchPlane skplane = findSketchPlane( doc, XYZ.BasisZ );
-
-      if( null == skplane )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        Plane geometryPlane = creApp.NewPlane(
-          XYZ.BasisZ, XYZ.Zero );
+        t.Start( "New Dimension Label" );
 
-        //skplane = doc.FamilyCreate.NewSketchPlane( geometryPlane ); // 2013
 
-        skplane = SketchPlane.Create( doc, geometryPlane ); // 2014
-      }
+        SketchPlane skplane = findSketchPlane( doc, XYZ.BasisZ );
 
-      double length = 1.23;
+        if ( null == skplane )
+        {
+          Plane geometryPlane = creApp.NewPlane(
+            XYZ.BasisZ, XYZ.Zero );
 
-      XYZ start = XYZ.Zero;
-      XYZ end = creApp.NewXYZ( 0, length, 0 );
+          //skplane = doc.FamilyCreate.NewSketchPlane( geometryPlane ); // 2013
 
-      //Line line = creApp.NewLine( start, end, true ); // 2013
+          skplane = SketchPlane.Create( doc, geometryPlane ); // 2014
+        }
 
-      Line line = Line.CreateBound( start, end ); // 2014
+        double length = 1.23;
 
-      ModelCurve modelCurve
-        = doc.FamilyCreate.NewModelCurve(
+        XYZ start = XYZ.Zero;
+        XYZ end = creApp.NewXYZ( 0, length, 0 );
+
+        //Line line = creApp.NewLine( start, end, true ); // 2013
+
+        Line line = Line.CreateBound( start, end ); // 2014
+
+        ModelCurve modelCurve
+          = doc.FamilyCreate.NewModelCurve(
+            line, skplane );
+
+        ReferenceArray ra = new ReferenceArray();
+
+        ra.Append( modelCurve.GeometryCurve.Reference );
+
+        start = creApp.NewXYZ( length, 0, 0 );
+        end = creApp.NewXYZ( length, length, 0 );
+
+        line = Line.CreateBound( start, end );
+
+        modelCurve = doc.FamilyCreate.NewModelCurve(
           line, skplane );
 
-      ReferenceArray ra = new ReferenceArray();
+        ra.Append( modelCurve.GeometryCurve.Reference );
 
-      ra.Append( modelCurve.GeometryCurve.Reference );
+        start = creApp.NewXYZ( 0, 0.2 * length, 0 );
+        end = creApp.NewXYZ( length, 0.2 * length, 0 );
 
-      start = creApp.NewXYZ( length, 0, 0 );
-      end = creApp.NewXYZ( length, length, 0 );
+        line = Line.CreateBound( start, end );
 
-      line = Line.CreateBound( start, end );
+        Dimension dim
+          = doc.FamilyCreate.NewLinearDimension(
+            doc.ActiveView, line, ra );
 
-      modelCurve = doc.FamilyCreate.NewModelCurve(
-        line, skplane );
+        FamilyParameter familyParam
+          = doc.FamilyManager.AddParameter(
+            "length",
+            BuiltInParameterGroup.PG_IDENTITY_DATA,
+            ParameterType.Length, false );
 
-      ra.Append( modelCurve.GeometryCurve.Reference );
+        //dim.Label = familyParam; // 2013
+        dim.FamilyLabel = familyParam; // 2014
 
-      start = creApp.NewXYZ( 0, 0.2 * length, 0 );
-      end = creApp.NewXYZ( length, 0.2 * length, 0 );
-
-      line = Line.CreateBound( start, end );
-
-      Dimension dim
-        = doc.FamilyCreate.NewLinearDimension(
-          doc.ActiveView, line, ra );
-
-      FamilyParameter familyParam
-        = doc.FamilyManager.AddParameter(
-          "length",
-          BuiltInParameterGroup.PG_IDENTITY_DATA,
-          ParameterType.Length, false );
-
-      //dim.Label = familyParam; // 2013
-      dim.FamilyLabel = familyParam; // 2014
-
+        t.Commit();
+      }
       return Result.Succeeded;
     }
   }

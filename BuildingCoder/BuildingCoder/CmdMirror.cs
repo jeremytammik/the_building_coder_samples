@@ -23,7 +23,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdMirror : IExternalCommand
   {
     public Result Execute(
@@ -55,14 +55,20 @@ namespace BuildingCoder
       //ElementTransformUtils.MirrorElements(
       //  doc, elementIds, plane ); // 2012-2015
 
-      ElementTransformUtils.MirrorElements(
-        doc, elementIds, plane, true ); // 2016
+      using ( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Mirror Elements" );
 
+        ElementTransformUtils.MirrorElements(
+          doc, elementIds, plane, true ); // 2016
+
+        t.Commit();
+      }
       return Result.Succeeded;
     }
   }
 
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdMirrorListAdded : IExternalCommand
   {
     string _msg = "The following {0} element{1} were mirrored:\r\n";
@@ -187,153 +193,157 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      //Line line = app.Create.NewLine(
-      //  XYZ.Zero, XYZ.BasisX, true ); // 2011
-
-      //ElementSet els = uidoc.Selection.Elements; // 2011
-
-      Plane plane = new Plane( XYZ.BasisY, XYZ.Zero ); // 2012
-
-      ICollection<ElementId> elementIds
-        = uidoc.Selection.GetElementIds(); // 2012
-
-      using( SubTransaction t = new SubTransaction( doc ) )
+      using ( Transaction tx = new Transaction( doc ) )
       {
-        // determine newly added elements relying on the
-        // element sequence as returned by the filtered collector.
-        // this approach works in both Revit 2010 and 2011:
+        tx.Start( "Mirror and List Added" );
+        //Line line = app.Create.NewLine(
+        //  XYZ.Zero, XYZ.BasisX, true ); // 2011
 
-        t.Start();
+        //ElementSet els = uidoc.Selection.Elements; // 2011
 
-        int n = GetElementCount( doc );
+        Plane plane = new Plane( XYZ.BasisY, XYZ.Zero ); // 2012
 
-        //doc.Mirror( els, line ); // 2011
+        ICollection<ElementId> elementIds
+          = uidoc.Selection.GetElementIds(); // 2012
 
-        //ElementTransformUtils.MirrorElements(
-        //  doc, elementIds, plane ); // 2012-2015
-
-        ElementTransformUtils.MirrorElements(
-          doc, elementIds, plane, true ); // 2016
-
-        List<Element> a = GetElementsAfter( n, doc );
-
-
-        t.RollBack();
-      }
-
-      using( SubTransaction t = new SubTransaction( doc ) )
-      {
-        // here is an idea for a new approach in 2011:
-        // determine newly added elements relying on
-        // monotonously increasing element id values:
-
-        t.Start();
-
-        FilteredElementCollector a = GetElements( doc );
-        int i = a.Max<Element>( e => e.Id.IntegerValue );
-        ElementId maxId = new ElementId( i );
-
-        // doc.Mirror( els, line ); // 2011
-
-        //ElementTransformUtils.MirrorElements(
-        //  doc, elementIds, plane ); // 2012-2015
-
-        ElementTransformUtils.MirrorElements(
-          doc, elementIds, plane, true ); // 2016
-
-        // get all elements in document with an
-        // element id greater than maxId:
-
-        a = GetElementsAfter( doc, maxId );
-
-        Report( a );
-
-        t.RollBack();
-      }
-
-      using( SubTransaction t = new SubTransaction( doc ) )
-      {
-        // similar to the above approach relying on
-        // monotonously increasing element id values,
-        // but apply a quick filter first:
-
-        t.Start();
-
-        FilteredElementCollector a = GetElements( doc );
-        int i = a.Max<Element>( e => e.Id.IntegerValue );
-        ElementId maxId = new ElementId( i );
-
-        //doc.Mirror( els, line ); // 2011
-
-        //ElementTransformUtils.MirrorElements(
-        //  doc, elementIds, plane ); // 2012-2015
-
-        ElementTransformUtils.MirrorElements(
-          doc, elementIds, plane, true ); // 2016
-
-        // only look at non-ElementType elements
-        // instead of all document elements:
-
-        a = GetElements( doc );
-        a = GetElementsAfter( a, maxId );
-
-        Report( a );
-
-        t.RollBack();
-      }
-
-      using( SubTransaction t = new SubTransaction( doc ) )
-      {
-        // use a local and temporary DocumentChanged event
-        // handler to directly obtain a list of all newly
-        // created elements.
-        // unfortunately, this canot be tested in this isolated form,
-        // since the DocumentChanged event is only triggered when the
-        // real outermost Revit transaction is committed, i.e. our
-        // local sub-transaction makes no difference. since we abort
-        // the sub-transaction before the command terminates and no
-        // elements are really added to the database, our event
-        // handler is never called:
-
-        t.Start();
-
-        app.DocumentChanged
-          += new EventHandler<DocumentChangedEventArgs>(
-            app_DocumentChanged );
-
-        //doc.Mirror( els, line ); // 2011
-
-        //ElementTransformUtils.MirrorElements(
-        //  doc, elementIds, plane ); // 2012-2015
-
-        ElementTransformUtils.MirrorElements(
-          doc, elementIds, plane, true ); // 2016
-
-        app.DocumentChanged
-          -= new EventHandler<DocumentChangedEventArgs>(
-            app_DocumentChanged );
-
-        Debug.Assert( null == _addedElementIds,
-          "never expected the event handler to be called" );
-
-        if( null != _addedElementIds )
+        using ( SubTransaction t = new SubTransaction( doc ) )
         {
-          int n = _addedElementIds.Count;
+          // determine newly added elements relying on the
+          // element sequence as returned by the filtered collector.
+          // this approach works in both Revit 2010 and 2011:
 
-          string s = string.Format( _msg, n,
-            Util.PluralSuffix( n ) );
+          t.Start();
 
-          foreach( ElementId id in _addedElementIds )
-          {
-            Element e = doc.GetElement( id );
+          int n = GetElementCount( doc );
 
-            s += string.Format( "\r\n  {0}",
-              Util.ElementDescription( e ) );
-          }
-          Util.InfoMsg( s );
+          //doc.Mirror( els, line ); // 2011
+
+          //ElementTransformUtils.MirrorElements(
+          //  doc, elementIds, plane ); // 2012-2015
+
+          ElementTransformUtils.MirrorElements(
+            doc, elementIds, plane, true ); // 2016
+
+          List<Element> a = GetElementsAfter( n, doc );
+
+          t.RollBack();
         }
 
-        t.RollBack();
+        using ( SubTransaction t = new SubTransaction( doc ) )
+        {
+          // here is an idea for a new approach in 2011:
+          // determine newly added elements relying on
+          // monotonously increasing element id values:
+
+          t.Start();
+
+          FilteredElementCollector a = GetElements( doc );
+          int i = a.Max<Element>( e => e.Id.IntegerValue );
+          ElementId maxId = new ElementId( i );
+
+          // doc.Mirror( els, line ); // 2011
+
+          //ElementTransformUtils.MirrorElements(
+          //  doc, elementIds, plane ); // 2012-2015
+
+          ElementTransformUtils.MirrorElements(
+            doc, elementIds, plane, true ); // 2016
+
+          // get all elements in document with an
+          // element id greater than maxId:
+
+          a = GetElementsAfter( doc, maxId );
+
+          Report( a );
+
+          t.RollBack();
+        }
+
+        using ( SubTransaction t = new SubTransaction( doc ) )
+        {
+          // similar to the above approach relying on
+          // monotonously increasing element id values,
+          // but apply a quick filter first:
+
+          t.Start();
+
+          FilteredElementCollector a = GetElements( doc );
+          int i = a.Max<Element>( e => e.Id.IntegerValue );
+          ElementId maxId = new ElementId( i );
+
+          //doc.Mirror( els, line ); // 2011
+
+          //ElementTransformUtils.MirrorElements(
+          //  doc, elementIds, plane ); // 2012-2015
+
+          ElementTransformUtils.MirrorElements(
+            doc, elementIds, plane, true ); // 2016
+
+          // only look at non-ElementType elements
+          // instead of all document elements:
+
+          a = GetElements( doc );
+          a = GetElementsAfter( a, maxId );
+
+          Report( a );
+
+          t.RollBack();
+        }
+
+        using ( SubTransaction t = new SubTransaction( doc ) )
+        {
+          // use a local and temporary DocumentChanged event
+          // handler to directly obtain a list of all newly
+          // created elements.
+          // unfortunately, this canot be tested in this isolated form,
+          // since the DocumentChanged event is only triggered when the
+          // real outermost Revit transaction is committed, i.e. our
+          // local sub-transaction makes no difference. since we abort
+          // the sub-transaction before the command terminates and no
+          // elements are really added to the database, our event
+          // handler is never called:
+
+          t.Start();
+
+          app.DocumentChanged
+            += new EventHandler<DocumentChangedEventArgs>(
+              app_DocumentChanged );
+
+          //doc.Mirror( els, line ); // 2011
+
+          //ElementTransformUtils.MirrorElements(
+          //  doc, elementIds, plane ); // 2012-2015
+
+          ElementTransformUtils.MirrorElements(
+            doc, elementIds, plane, true ); // 2016
+
+          app.DocumentChanged
+            -= new EventHandler<DocumentChangedEventArgs>(
+              app_DocumentChanged );
+
+          Debug.Assert( null == _addedElementIds,
+            "never expected the event handler to be called" );
+
+          if ( null != _addedElementIds )
+          {
+            int n = _addedElementIds.Count;
+
+            string s = string.Format( _msg, n,
+              Util.PluralSuffix( n ) );
+
+            foreach ( ElementId id in _addedElementIds )
+            {
+              Element e = doc.GetElement( id );
+
+              s += string.Format( "\r\n  {0}",
+                Util.ElementDescription( e ) );
+            }
+            Util.InfoMsg( s );
+          }
+
+          t.RollBack();
+        }
+        tx.RollBack();
       }
       return Result.Succeeded;
     }

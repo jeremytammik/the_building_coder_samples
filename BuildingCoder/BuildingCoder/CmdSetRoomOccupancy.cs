@@ -24,7 +24,7 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Automatic )]
+  [Transaction( TransactionMode.Manual )]
   class CmdSetRoomOccupancy : IExternalCommand
   {
     static char[] _digits = null;
@@ -109,9 +109,15 @@ namespace BuildingCoder
           : "No room elements found.";
         return Result.Failed;
       }
-      foreach( Room room in rooms )
+      using ( Transaction t = new Transaction( doc ) )
       {
-        BumpOccupancy( room );
+        t.Start( "Bump Room Occupancy" );
+
+        foreach ( Room room in rooms )
+        {
+          BumpOccupancy( room );
+        }
+        t.Commit();
       }
       return Result.Succeeded;
     }
