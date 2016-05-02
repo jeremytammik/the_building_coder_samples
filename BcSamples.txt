@@ -16,12 +16,13 @@
 # 2014-04-14 migrated to Revit 2015
 # 2014-05-14 split the items into three sections instead of two: A-M 60, N-Z 52 --> A-I, J-Q, R-Z
 # 2015-05-20 migrated to Revit 2016
+# 2016-05-02 migrated to Revit 2017
 #
-# This file is read by the Revit external application RvtSamples, 
+# This file is read by the Revit external application RvtSamples,
 # which is included in the standard Revit SDK.
 #
-# To achieve this, add an #include statement similar to the following 
-# line enclosed in quotes (removing the quotes first!) to the end of 
+# To achieve this, add an #include statement similar to the following
+# line enclosed in quotes (removing the quotes first!) to the end of
 # the file RvtSamples.txt included in the RvtSamples SDK sample:
 #
 # '#include C:/a/j/adn/train/revit/2011/src/bc/BcSamples.txt'
@@ -40,11 +41,11 @@
 # ADN
 #   Bc
 #
-# From Revit 2010 onwards, the generated menu hierarchy is translated 
-# into pull down buttons in the RvtSamples panel generated in the 
+# From Revit 2010 onwards, the generated menu hierarchy is translated
+# into pull down buttons in the RvtSamples panel generated in the
 # ribbon Add-Ins tab.
 #
-# In Revit 2011, the number of samples grew so large that I had to split up 
+# In Revit 2011, the number of samples grew so large that I had to split up
 # the menu into two separate ones labeled A-M and N-Z, respectively.
 #
 
@@ -57,7 +58,7 @@ List Walls
 List wall lengths and areas
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdListWalls
 
 ADN Bc R-Z
@@ -65,7 +66,7 @@ Wall Dimensions
 Extract wall solid and list all its dimensions
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallDimensions
 
 ADN Bc R-Z
@@ -73,7 +74,7 @@ Relationship Inverter
 Determine opening > wall host relationships and invert them to wall > opening
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRelationshipInverter
 
 #ADN Bc A-I
@@ -81,7 +82,7 @@ BuildingCoder.CmdRelationshipInverter
 #Compare Type Filter versus using an anonymous method to filter elements
 #LargeImage:
 #Image:
-#C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+#C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 #BuildingCoder.CmdFilterPerformance
 
 ADN Bc A-I
@@ -89,7 +90,7 @@ Element Materials
 Retrieve building element materials
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdGetMaterials
 
 ADN Bc A-I
@@ -97,7 +98,7 @@ Azimuth
 Calculate azimuth
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdAzimuth
 
 ADN Bc A-I
@@ -105,7 +106,7 @@ Bounding Box
 Retrieve Element Bounding Box
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdBoundingBox
 
 ADN Bc R-Z
@@ -113,7 +114,7 @@ Slab Boundaries
 Determine polygonal floor slab boundary loops
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSlabBoundary
 
 ADN Bc R-Z
@@ -121,7 +122,7 @@ Slab Sides
 Determine floor slab side faces
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSlabSides
 
 ADN Bc A-I
@@ -129,7 +130,7 @@ Edit Floor
 Generate a new floor element from the curve array of an existing one
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdEditFloor
 
 ADN Bc R-Z
@@ -137,7 +138,7 @@ Wall Layers
 List and determine position of all wall compound layers
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallLayers
 
 ADN Bc R-Z
@@ -145,7 +146,7 @@ Wall Profile
 Determine wall elevation profile boundary loop polygons
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallProfile
 
 ADN Bc R-Z
@@ -153,7 +154,7 @@ Wall Neighbours
 Determine wall neighbours, i.e. wall joined at end points
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallNeighbours
 
 ADN Bc A-I
@@ -161,7 +162,7 @@ Floor Boundary Polygon Areas
 Determine floor slab boundary loop polygon areas
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSlabBoundaryArea
 
 ADN Bc R-Z
@@ -169,7 +170,7 @@ Wall Profile Polygon Areas
 Determine wall elevation profile boundary loop polygon areas
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallProfileArea
 
 ADN Bc J-Q
@@ -177,7 +178,7 @@ Linked Files
 Determine linked files and their full path
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdLinkedFiles
 
 ADN Bc J-Q
@@ -185,7 +186,7 @@ List Views
 Determine all all the view ports of a drawing sheet and vice versa
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdListViews
 
 ADN Bc J-Q
@@ -193,7 +194,7 @@ Plan Topology
 List plan topology and its rooms and circuits with no rooms
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPlanTopology
 
 ADN Bc R-Z
@@ -201,7 +202,7 @@ Room Wall Adjacency
 Determine part of wall face area that bounds a room
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRoomWallAdjacency
 
 ADN Bc R-Z
@@ -209,7 +210,7 @@ Wall Layer Volumes
 Calculate compound wall layer volumes
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallLayerVolumes
 
 ADN Bc R-Z
@@ -217,7 +218,7 @@ Window Handle
 Determine Revit window handle and display a modeless form
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWindowHandle
 
 ADN Bc R-Z
@@ -225,7 +226,7 @@ Sloped Wall
 Create a sloped wall
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSlopedWall
 
 ADN Bc J-Q
@@ -233,7 +234,7 @@ New Column Type and Instance
 Create a new column type and insert an instance of it
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewColumnTypeInstance
 
 ADN Bc J-Q
@@ -241,7 +242,7 @@ New Beam Type and Instance
 Create a new beam type and insert an instance of it
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewBeamTypeInstance
 
 ADN Bc J-Q
@@ -249,7 +250,7 @@ List Railing Types
 List all railing and stair types
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdListRailingTypes
 
 ADN Bc J-Q
@@ -257,7 +258,7 @@ Cannot Create Railing Instance
 Cannot create a new railing instance
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewRailing
 
 ADN Bc J-Q
@@ -265,7 +266,7 @@ Linked File Elements
 List elements in linked files
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdLinkedFileElements
 
 ADN Bc R-Z
@@ -273,7 +274,7 @@ Transformed Coordinates
 Determine transformed vertex coordinates for family instance symbol geometry
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdTransformedCoords
 
 ADN Bc A-I
@@ -281,7 +282,7 @@ Cylindrical Column
 Determine whether column is round
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdColumnRound
 
 ADN Bc J-Q
@@ -289,7 +290,7 @@ New Area
 Create a new area element
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewArea
 
 ADN Bc J-Q
@@ -297,7 +298,7 @@ Nested Instance Geometry
 Determine nested instance geometry and structure
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNestedInstanceGeo
 
 ADN Bc A-I
@@ -305,7 +306,7 @@ Imports in Families
 List all imported symbols in all families in project
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdImportsInFamilies
 
 ADN Bc R-Z
@@ -313,7 +314,7 @@ Wall Footing
 Determine wall footing from selected wall
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallFooting
 
 ADN Bc J-Q
@@ -321,7 +322,7 @@ New Wall Layer
 Create a new wall type with a new compound structure layer
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewWallLayer
 
 ADN Bc A-I
@@ -329,7 +330,7 @@ Create Shared Parameters
 Create shared parameters for Doors, Walls, inserted DWG, Model Groups and Model Lines
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCreateSharedParams
 
 ADN Bc R-Z
@@ -337,7 +338,7 @@ Space Adjacency
 Analyse and report space adjacencies
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSpaceAdjacency
 
 ADN Bc J-Q
@@ -345,7 +346,7 @@ Mirror Elements
 Mirror selected elements
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdMirror # version 1.0.1.39
 
 ADN Bc J-Q
@@ -353,7 +354,7 @@ Mirror List Added
 Mirror selected elements and list the resulting new elements added to the database
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdMirrorListAdded # version 1.0.1.40
 
 ADN Bc J-Q
@@ -361,7 +362,7 @@ New Line Loads
 Create a new structural line load elements
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewLineLoad # version 1.0.1.41
 
 ADN Bc R-Z
@@ -369,7 +370,7 @@ Rotated Beam Location
 Determine rotated beam location
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRotatedBeamLocation # version 1.0.1.42
 
 ADN Bc J-Q
@@ -377,7 +378,7 @@ New Lighting Fixture
 Insert a new lighting fixture family instance
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewLightingFixture # version 1.0.1.43
 
 ADN Bc R-Z
@@ -385,7 +386,7 @@ Wall Bottom Face
 Determine the bottom face of a wall
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallBottomFace # version 1.0.1.44
 
 ADN Bc J-Q
@@ -393,7 +394,7 @@ Library Paths
 List existing and update application options library paths
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdLibraryPaths # version 1.0.1.45
 
 ADN Bc A-I
@@ -401,7 +402,7 @@ Detail Curves
 Create detail curves, an arc and a line
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDetailCurves # version 1.0.1.46
 
 ADN Bc J-Q
@@ -409,7 +410,7 @@ List Marks
 List all door marks
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdListMarks # version 1.0.1.47
 
 ADN Bc A-I
@@ -417,7 +418,7 @@ Install Location
 Determine Revit product install location
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdInstallLocation # version 1.0.1.48
 
 ADN Bc A-I
@@ -425,7 +426,7 @@ Disallow Join
 Allow or disallow join at wall ends
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDisallowJoin # version 1.0.1.49
 
 ADN Bc R-Z
@@ -433,7 +434,7 @@ Unrotate North
 Transform element location back to original coordinates to cancel effect of rotating project north
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdUnrotateNorth # version 1.0.1.50
 
 ADN Bc A-I
@@ -441,7 +442,7 @@ Coords Of View On Sheet
 Retrieve coordinates of view on sheet
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCoordsOfViewOnSheet # version 1.0.1.51
 
 ADN Bc J-Q
@@ -449,7 +450,7 @@ List Shared Parameters
 List all shared parameters defined in document and saved on wall instances
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdListSharedParams # version 1.0.1.52
 
 ADN Bc A-I
@@ -457,7 +458,7 @@ Family Parameter Values
 List family parameter values defined on the types in a family document
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdFamilyParamValue # version 1.0.1.53
 
 ADN Bc R-Z
@@ -465,7 +466,7 @@ Set Room Occupancy
 Set room occupancy via built-in parameter ROOM_OCCUPANCY
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSetRoomOccupancy # version 1.0.1.54
 
 ADN Bc J-Q
@@ -473,7 +474,7 @@ New Project Document
 Create a new project document
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewProjectDoc # version 1.0.1.55
 
 ADN Bc A-I
@@ -481,7 +482,7 @@ Crop 3D View to Room
 Set 3D view crop box to room extents
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCropToRoom # version 1.0.1.56
 
 ADN Bc J-Q
@@ -489,7 +490,7 @@ LandXML Import
 Import LandXML data and create TopographySurface
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdLandXml # version 1.0.1.57
 
 ADN Bc R-Z
@@ -497,7 +498,7 @@ Rectangular Duct Corners
 Determine the corners of a rectangular duct
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRectDuctCorners # version 1.0.1.58
 
 ADN Bc J-Q
@@ -505,7 +506,7 @@ New Sprinkler
 Insert a new sprinkler family instance
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewSprinkler # version 1.0.1.59
 
 ADN Bc J-Q
@@ -513,7 +514,7 @@ New Spot Elevation on Beam
 Insert a new spot elevation on top surface of beam
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewSpotElevation # version 1.0.1.60
 
 ADN Bc J-Q
@@ -521,7 +522,7 @@ New Dimension Label
 Create a new dimension label in a family document
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewDimensionLabel # version 1.0.1.61
 
 ADN Bc A-I
@@ -529,7 +530,7 @@ Elliptical Arc
 Create a new elliptical arc geometry object with a given start and end angle
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdEllipticalArc # version 1.0.1.62
 
 ADN Bc J-Q
@@ -537,7 +538,7 @@ Nested Families
 List nested family files and instances in a family document
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNestedFamilies # version 1.0.1.63
 
 ADN Bc J-Q
@@ -545,7 +546,7 @@ New Swept Blend
 Create a new swept blend element
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewSweptBlend # version 1.0.1.64
 
 #
@@ -558,7 +559,7 @@ Collector Performance
 Benchmark Revit 2011 API collector performance
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCollectorPerformance # version 2011.0.0.63
 
 ADN Bc J-Q
@@ -566,7 +567,7 @@ Preprocess Failure
 Suppress warning message by implementing the IFailuresPreprocessor interface
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPreprocessFailure # version 2011.0.0.64
 
 ADN Bc A-I
@@ -574,7 +575,7 @@ Idling
 Subscribe to the Idling event
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdIdling # version 2011.0.0.65
 
 ADN Bc J-Q
@@ -582,7 +583,7 @@ Preview Image
 Display the element type preview image of all family instances
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPreviewImage # version 2011.0.66.0
 
 ADN Bc A-I
@@ -590,7 +591,7 @@ Categories
 List document and built-in categories
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCategories # version 2011.0.67.0
 
 ADN Bc R-Z
@@ -598,7 +599,7 @@ Sheet Size
 List title block element types and title block and view sheet instances and sizes
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSheetSize # version 2011.0.68.0
 
 ADN Bc A-I
@@ -606,7 +607,7 @@ Curtain Wall Geometry
 Retrieve curtain wall geometry
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCurtainWallGeom # version 2011.0.69.0
 
 ADN Bc A-I
@@ -614,7 +615,7 @@ Duplicate Elements
 Duplicate selected elements
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDuplicateElements # version 2011.0.70.0
 
 ADN Bc J-Q
@@ -622,7 +623,7 @@ New Duct System
 Create a new duct system via the NewMechanicalSystem API call
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewDuctSystem # version 2011.0.71.0
 
 ADN Bc R-Z
@@ -630,7 +631,7 @@ Sheet Data Export
 Export sheet data to XML file
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSheetData # version 2011.0.72.0
 
 ADN Bc R-Z
@@ -638,7 +639,7 @@ Set Tag Type
 Create a wall, door, door tag, then create and set a new door tag type
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSetTagType # version 2011.0.73.0
 
 ADN Bc R-Z
@@ -646,7 +647,7 @@ Place Family Instance
 Call PromptForFamilyInstancePlacement to place family instances and use the DocumentChanged event to capture the newly added element ids
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPlaceFamilyInstance # version 2011.0.74.0
 
 ADN Bc J-Q
@@ -654,7 +655,7 @@ Part Atom
 Extract part atom from family file
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPartAtom # version 2011.0.75.0
 
 ADN Bc A-I
@@ -662,7 +663,7 @@ Close Document
 Close active document by sending Windows message
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCloseDocument # version 2011.0.76.0
 
 ADN Bc R-Z
@@ -670,7 +671,7 @@ Update Referencing Sheet
 Update 'Referencing Sheet' parameter value displayed in section view header
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdUpdateReferencingSheet # version 2011.0.77.0
 
 ADN Bc J-Q
@@ -678,7 +679,7 @@ New Blend
 Create a new blend using the NewBlend method
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewBlend # version 2011.0.78.0
 
 ADN Bc J-Q
@@ -686,7 +687,7 @@ Purge TextNote Types
 Delete all unused TextNote types
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPurgeTextNoteTypes # version 2011.0.79.0
 
 ADN Bc J-Q
@@ -694,7 +695,7 @@ Press Keys to Launch Command
 Press keys to launch 'Create Similar' and other Revit commands
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPressKeys # version 2011.0.80.0
 
 ADN Bc A-I
@@ -702,7 +703,7 @@ Get Sketch Elements
 Retrieve sketch elements for a selected wall, floor, roof, filled region, etc.
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdGetSketchElements # version 2011.0.81.0
 
 ADN Bc A-I
@@ -710,7 +711,7 @@ Family Parameter Guid
 Determine familt parameter IsShared and GUID properties using System.Reflection
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdFamilyParamGuid # version 2011.0.82.0
 
 ADN Bc R-Z
@@ -718,7 +719,7 @@ Status Bar Text
 Set the status bar text using Windows API
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdStatusBar # version 2011.0.83.0
 
 ADN Bc A-I
@@ -726,7 +727,7 @@ Analytical Model Geometry
 Retrieve analytical model geometry
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdAnalyticalModelGeom # version 2011.0.84.0
 
 ADN Bc A-I
@@ -734,7 +735,7 @@ Dimension Two Walls Iterating Faces
 Create dimensioning elements between opposing walls by iterating over their faces
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDimensionWallsIterateFaces # version 2011.0.85.0
 
 ADN Bc A-I
@@ -742,7 +743,7 @@ Dimension Two Walls Finding References
 Create dimensioning elements between opposing walls by using FindReferencesByDirection
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDimensionWallsFindRefs # version 2011.0.86.0
 
 ADN Bc J-Q
@@ -750,7 +751,7 @@ MEP Element Shape
 Determine element shape, i.e. MEP element cross section
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdMepElementShape # version 2011.0.87.0
 
 ADN Bc A-I
@@ -758,7 +759,7 @@ Create Gable Wall
 Create gable wall specifying non-rectangular wall profile
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCreateGableWall # version 2012.0.88.0
 
 ADN Bc R-Z
@@ -766,7 +767,7 @@ Wall Top Faces
 Retrieve top faces of selected or all wall
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallTopFaces # version 2012.0.89.0
 
 ADN Bc R-Z
@@ -774,7 +775,7 @@ Steel Stair Beams
 Create a series of connected mitered steel beams for a steel stair
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSteelStairBeams # version 2012.0.90.0
 
 ADN Bc A-I
@@ -782,7 +783,7 @@ Copy Wall Type
 Duplicate a system type from on project to another to partially transfer project standards
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCopyWallType # version 2012.0.91.0
 
 ADN Bc A-I
@@ -790,7 +791,7 @@ FilledRegion Coordinates
 Retrieve FilledRegion coordinates
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdFilledRegionCoords # version 2012.0.92.0
 
 ADN Bc A-I
@@ -798,7 +799,7 @@ Change Linked File Path
 Change linked RVT file path
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdChangeLinkedFilePath # version 2012.0.93.0
 
 ADN Bc J-Q
@@ -806,7 +807,7 @@ List Room Data
 List properties from all rooms
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdListAllRooms # version 2012.0.94.0
 
 ADN Bc J-Q
@@ -814,7 +815,7 @@ Pick Point in 3D
 Set active work plane to pick a point in 3d
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPickPoint3d # version 2012.0.95.0
 
 ADN Bc J-Q
@@ -822,7 +823,7 @@ Parameter Unit Converter
 Test ParameterUnitConverter on all floating point valued parameters on a selected element
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdParameterUnitConverter # version 2012.0.96.0
 
 # version 2012.0.96.2 added IsTopPlanarFace and IsTopFace predicates in CmdWallTopFaces.cs
@@ -833,7 +834,7 @@ Remove Imported Images
 Remove imported JPG image files
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRemoveImportedJpgs # version 2012.0.97.0
 
 ADN Bc R-Z
@@ -841,7 +842,7 @@ Remove DWF Links
 Remove DWF links
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRemoveDwfLinks # version 2012.0.98.0
 
 ADN Bc A-I
@@ -849,7 +850,7 @@ Elevation Watcher DocumentChanged
 React to elevation view creation subscribing to DocumentChanged event
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdElevationWatcher # version 2013.0.99.0
 
 ADN Bc A-I
@@ -857,7 +858,7 @@ Elevation Watcher Updater
 React to elevation view creation using DMU updater
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdElevationWatcherUpdater # version 2013.0.99.0
 
 ADN Bc A-I
@@ -865,7 +866,7 @@ Demo Version Check
 Check whether the running Revit application is a demo version
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDemoCheck # version 2013.0.100.0
 
 ADN Bc J-Q
@@ -873,7 +874,7 @@ MidCurve
 Create a series of model line segments between two curve elements
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdMidCurve # version 2014.0.101.0
 
 ADN Bc A-I
@@ -881,7 +882,7 @@ Export Image
 Export a preview JPG 3D image of the family or project
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdExportImage # version 2014.0.102.0
 
 ADN Bc R-Z
@@ -889,7 +890,7 @@ Room Neighbours
 Determine neighbouring room at midpoint of each room boundary segment
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRoomNeighbours # version 2014.0.103.0
 
 ADN Bc A-I
@@ -897,7 +898,7 @@ Export Solid to SAT
 Create a solid in memory and export it to a SAT file
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdExportSolidToSat # version 2014.0.104.0
 
 ADN Bc A-I
@@ -905,7 +906,7 @@ Display Unit Type Abbreviation
 Test the display unit type abbreviation array
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDutAbbreviation # version 2014.0.105.0
 
 ADN Bc R-Z
@@ -913,7 +914,7 @@ Rolling Offset
 Calculate a rolling offset pipe between two selected pipe segments
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRollingOffset # version 2014.0.106.0
 
 ADN Bc A-I
@@ -921,7 +922,7 @@ Delete Unused Reference Planes
 Delete unnamed non-hosting reference planes
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDeleteUnusedRefPlanes # version 2014.0.107.0
 
 ADN Bc A-I
@@ -929,7 +930,7 @@ Create Sloped Floor
 Create Sloped Floor
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCreateSlopedSlab # version 2014.0.108.0
 
 ADN Bc A-I
@@ -937,7 +938,7 @@ Category Supports Type Parameter
 Boolean predicate to determine whether a given category supports type parameter
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCategorySupportsTypeParameter # version 2014.0.109.0
 
 ADN Bc R-Z
@@ -945,7 +946,7 @@ Views Showing Elements
 Determine all views displaying a given set of elements
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdViewsShowingElements # version 2015.0.110.0
 
 ADN Bc A-I
@@ -953,7 +954,7 @@ Document Version
 List DocumentVersion data, i.e. document GUID and save count
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDocumentVersion # version 2015.0.111.0
 
 ADN Bc J-Q
@@ -961,7 +962,7 @@ New Extrusion Roof
 Create a strangely stair shaped new extrusion roof
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewExtrusionRoof # version 2015.0.112.0
 
 ADN Bc A-I
@@ -969,7 +970,7 @@ FaceWall Create
 Demonstrate FaceWall.Create - create and insert a conceptual mass family instance, then create sloped walls on all its faces
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdFaceWall # version 2015.0.113.0
 
 ADN Bc J-Q
@@ -977,7 +978,7 @@ New Text Note Width
 Create a new text note and determine its exact width
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewTextNote # version 2015.0.114.0
 
 ADN Bc J-Q
@@ -985,7 +986,7 @@ New Cross Fitting
 Create a new pipe cross fitting
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNewCrossFitting # version 2015.0.115.0
 
 ADN Bc A-I
@@ -993,7 +994,7 @@ Dimension Family Instance Origin
 Create dimensioning between the origins of family instances
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDimensionInstanceOrigin # version 2015.0.116.0
 
 ADN Bc J-Q
@@ -1001,7 +1002,7 @@ List Pipe Sizes
 List pipe sizes in a project
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdListPipeSizes # version 2015.0.117.0
 
 ADN Bc A-I
@@ -1009,7 +1010,7 @@ Item Executed and List Command Buttons
 List all ribbon panel command buttons and subscribe to Autodesk.Windows.ComponentManager.ItemExecuted
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdItemExecuted # version 2015.0.118.0
 
 ADN Bc J-Q
@@ -1017,7 +1018,7 @@ Post Request for Family Instance Placement
 Exercise the PostRequestForElementTypePlacement method
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPostRequestInstancePlacement # version 2015.0.119.0
 
 ADN Bc R-Z
@@ -1025,7 +1026,7 @@ Selection Changed Event
 Implement and subscribe to a custom element selection changed event using UI Automation
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSelectionChanged # version 2015.0.120.0
 
 ADN Bc R-Z
@@ -1033,15 +1034,15 @@ Sheet to Model Coordinates
 Convert sheet to model coordinates and convert DWF markup to model elements
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSheetToModel # version 2016.0.121.0
 
 ADN Bc R-Z
 Set Wall Type
-Set the wall type of a selected wall 
+Set the wall type of a selected wall
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSetWallType # version 2016.0.122.0
 
 ADN Bc A-I
@@ -1049,7 +1050,7 @@ Flatten Model to DirectShape
 Convert all Revit elements to DirectShapes retaining shape and category
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdFlatten # version 2016.0.123.0
 
 ADN Bc R-Z
@@ -1057,7 +1058,7 @@ Wall Opening Side Faces
 Determine wall opening side faces and report their start and end points along location line
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallOpenings # version 2016.0.124.0
 
 ADN Bc J-Q
@@ -1065,7 +1066,7 @@ Project Parameter GUIDs
 Determine and report all project parameter GUIDs
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdProjectParameterGuids # version 2016.0.125.0
 
 ADN Bc R-Z
@@ -1073,7 +1074,7 @@ Wall Opening Profiles
 Determine and display all wall opening edges including elevation profile lines
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdWallOpeningProfiles # version 2016.0.126.0
 
 ADN Bc J-Q
@@ -1081,6 +1082,5 @@ Named Guid Storage
 Test the named Guid storage class
 LargeImage:
 Image:
-C:\a\lib\revit\2016\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+C:\a\lib\revit\2017\bc\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNamedGuidStorage # version 2016.0.127.0
-
