@@ -141,6 +141,7 @@ using System.Runtime.InteropServices;
 // 2016-05-02 2017.0.127.0 flat migration to Revit 2017 and first successful test run
 // 2016-05-02 2017.0.127.1 eliminated all use of automatic transaction mode, untested!
 // 2016-05-03 2017.0.127.2 eliminated use of obsolete Plane construction methods taking two XYZ arguments for normal and origin
+// 2016-05-03 2017.0.127.3 eliminated two calls to obsolete Plane construction method taking a CurveArray argument
 //
-[assembly: AssemblyVersion( "2017.0.127.2" )]
-[assembly: AssemblyFileVersion( "2017.0.127.2" )]
+[assembly: AssemblyVersion( "2017.0.127.3" )]
+[assembly: AssemblyFileVersion( "2017.0.127.3" )]

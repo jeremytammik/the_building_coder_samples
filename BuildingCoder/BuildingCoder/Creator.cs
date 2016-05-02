@@ -239,7 +239,7 @@ namespace BuildingCoder
       {
         CurveArray a = _creapp.NewCurveArray();
         a.Append( curve );
-        Plane plane2 = _creapp.NewPlane( a );
+        Plane plane2 = _creapp.NewPlane( a ); // 2016
 
         Debug.Assert( Util.IsParallel( plane2.Normal,
           plane.Normal ), "expected equal planes" );

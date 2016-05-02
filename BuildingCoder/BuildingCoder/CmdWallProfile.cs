@@ -297,14 +297,16 @@ namespace BuildingCoder
 
             CurveArray curves = creapp.NewCurveArray();
 
-            foreach( Curve curve in curveLoop2 )
+            foreach ( Curve curve in curveLoop2 )
             {
               curves.Append( curve.CreateTransformed( offset ) );
             }
 
             // Create model lines for an curve loop.
 
-            Plane plane = creapp.NewPlane( curves ); // 2016
+            //Plane plane = creapp.NewPlane( curves ); // 2016
+
+            Plane plane = curveLoop2.GetPlane(); // 2017
 
             SketchPlane sketchPlane
               = SketchPlane.Create( doc, plane );
@@ -438,7 +440,10 @@ namespace BuildingCoder
           if( ( (LocationCurve) wall.Location ).Curve
             is Line )
           {
-            Plane plane = creapp.NewPlane( curves );
+            //Plane plane = creapp.NewPlane( curves ); // 2016
+            Plane plane = CurveLoop.CreateViaOffset( 
+              curveLoop, 5 * normal.GetLength(), 
+              normal.Normalize() ).GetPlane(); // 2017
 
             SketchPlane sketchPlane
               = SketchPlane.Create( doc, plane );
