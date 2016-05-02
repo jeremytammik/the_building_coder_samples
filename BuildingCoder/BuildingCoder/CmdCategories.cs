@@ -47,7 +47,8 @@ namespace BuildingCoder
 
       Category catHosts = subcats.get_Item( "Hosts" );
 
-      view.SetVisibility( catHosts, false );
+      //view.SetVisibility( catHosts, false ); // 2016
+      view.SetCategoryHidden( catHosts.Id, true ); // 2017
     }
     #endregion // HideLightingFixtureHosts
 

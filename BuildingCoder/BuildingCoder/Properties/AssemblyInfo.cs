@@ -142,6 +142,7 @@ using System.Runtime.InteropServices;
 // 2016-05-02 2017.0.127.1 eliminated all use of automatic transaction mode, untested!
 // 2016-05-03 2017.0.127.2 eliminated use of obsolete Plane construction methods taking two XYZ arguments for normal and origin
 // 2016-05-03 2017.0.127.3 eliminated two calls to obsolete Plane construction method taking a CurveArray argument
+// 2016-05-03 2017.0.127.4 eliminated all obsolete Revit API usage warnings
 //
-[assembly: AssemblyVersion( "2017.0.127.3" )]
-[assembly: AssemblyFileVersion( "2017.0.127.3" )]
+[assembly: AssemblyVersion( "2017.0.127.4" )]
+[assembly: AssemblyFileVersion( "2017.0.127.4" )]

@@ -67,10 +67,16 @@ namespace BuildingCoder
               // of the current project and operate 
               // on the copy.
 
-              DirectShape ds
-                = DirectShape.CreateElement( doc,
-                  e.Category.Id, _direct_shape_appGUID,
-                  appDataGUID );
+              //DirectShape ds = DirectShape.CreateElement(
+              //  doc, e.Category.Id,
+              //  _direct_shape_appGUID,
+              //  appDataGUID ); // 2016
+
+              DirectShape ds = DirectShape.CreateElement(
+                doc, e.Category.Id ); //2017
+
+              ds.ApplicationId = _direct_shape_appGUID; // 2017
+              ds.ApplicationDataId = appDataGUID; // 2017
 
               try
               {

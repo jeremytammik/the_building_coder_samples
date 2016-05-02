@@ -237,9 +237,15 @@ namespace BuildingCoder
 #if DEBUG
       if( !( curve is Line ) )
       {
-        CurveArray a = _creapp.NewCurveArray();
-        a.Append( curve );
-        Plane plane2 = _creapp.NewPlane( a ); // 2016
+        //CurveArray a = _creapp.NewCurveArray();
+        //a.Append( curve );
+        //Plane plane2 = _creapp.NewPlane( a ); // 2016
+
+        List<Curve> a = new List<Curve>( 1 );
+        a.Add( curve );
+        CurveLoop b = CurveLoop.Create( a );
+        Plane plane2 = b.GetPlane(); // 2017
+
 
         Debug.Assert( Util.IsParallel( plane2.Normal,
           plane.Normal ), "expected equal planes" );
