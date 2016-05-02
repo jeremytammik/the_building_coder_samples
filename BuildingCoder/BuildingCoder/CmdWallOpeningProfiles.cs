@@ -153,8 +153,6 @@ namespace BuildingCoder
                   face.ComputeNormal( UV.Zero ), 
                   face.Origin ); // 2017
 
-
-
                 SketchPlane sketchPlane
                   = SketchPlane.Create( doc, facePlane );
 
