@@ -195,8 +195,9 @@ namespace BuildingCoder
       XYZ normal,
       XYZ origin )
     {
-      Plane geometryPlane = doc.Application.Create
-        .NewPlane( normal, origin );
+      //Plane geometryPlane = doc.Application.Create.NewPlane( normal, origin ); // 2016
+      Plane geometryPlane = Plane.CreateByNormalAndOrigin( 
+        normal, origin ); // 2017
 
       //return doc.Create.NewSketchPlane( geometryPlane ); // 2013
 

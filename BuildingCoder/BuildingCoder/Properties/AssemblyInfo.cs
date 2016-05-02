@@ -140,6 +140,7 @@ using System.Runtime.InteropServices;
 // 2016-04-12 2016.0.127.3 added Scott Wilson's reference stable representation magic voodoo
 // 2016-05-02 2017.0.127.0 flat migration to Revit 2017 and first successful test run
 // 2016-05-02 2017.0.127.1 eliminated all use of automatic transaction mode, untested!
-// 
-[assembly: AssemblyVersion( "2017.0.127.1" )]
-[assembly: AssemblyFileVersion( "2017.0.127.1" )]
+// 2016-05-03 2017.0.127.2 eliminated use of obsolete Plane construction methods taking two XYZ arguments for normal and origin
+//
+[assembly: AssemblyVersion( "2017.0.127.2" )]
+[assembly: AssemblyFileVersion( "2017.0.127.2" )]

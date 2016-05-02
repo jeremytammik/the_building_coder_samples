@@ -304,7 +304,7 @@ namespace BuildingCoder
 
             // Create model lines for an curve loop.
 
-            Plane plane = creapp.NewPlane( curves );
+            Plane plane = creapp.NewPlane( curves ); // 2016
 
             SketchPlane sketchPlane
               = SketchPlane.Create( doc, plane );

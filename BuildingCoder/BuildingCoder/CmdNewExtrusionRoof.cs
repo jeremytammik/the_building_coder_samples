@@ -138,8 +138,8 @@ namespace BuildingCoder
         XYZ vy = XYZ.BasisZ;
 
         SketchPlane sp = SketchPlane.Create( doc,
-          new Autodesk.Revit.DB.Plane( vx, vy,
-            origin ) );
+          //new Autodesk.Revit.DB.Plane( vx, vy, origin ) // 2016
+          Plane.CreateByOriginAndBasis( origin, vx, vy ) );// 2017
 
         CurveArray ca = new CurveArray();
 

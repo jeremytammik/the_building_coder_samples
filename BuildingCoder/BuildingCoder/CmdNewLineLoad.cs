@@ -55,7 +55,8 @@ namespace BuildingCoder
 
       // sketch plane and arrays of forces and moments:
 
-      Plane plane = ca.NewPlane( XYZ.BasisZ, XYZ.Zero );
+      //Plane plane = ca.NewPlane( XYZ.BasisZ, XYZ.Zero ); // 2016
+      Plane plane = Plane.CreateByNormalAndOrigin( XYZ.BasisZ, XYZ.Zero ); // 2017
 
       using ( Transaction t = new Transaction( doc ) )
       {
