@@ -143,6 +143,7 @@ using System.Runtime.InteropServices;
 // 2016-05-03 2017.0.127.2 eliminated use of obsolete Plane construction methods taking two XYZ arguments for normal and origin
 // 2016-05-03 2017.0.127.3 eliminated two calls to obsolete Plane construction method taking a CurveArray argument
 // 2016-05-03 2017.0.127.4 eliminated all obsolete Revit API usage warnings
+// 2016-06-13 2017.0.127.5 implemented CreatePointLoadOnColumnEnd
 //
-[assembly: AssemblyVersion( "2017.0.127.4" )]
-[assembly: AssemblyFileVersion( "2017.0.127.4" )]
+[assembly: AssemblyVersion( "2017.0.127.5" )]
+[assembly: AssemblyFileVersion( "2017.0.127.5" )]

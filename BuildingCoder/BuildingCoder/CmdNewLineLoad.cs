@@ -27,6 +27,55 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdNewLineLoad : IExternalCommand
   {
+    /// <summary>
+    /// Create a point load on all 
+    /// analytical column end points. 
+    /// </summary>
+    void CreatePointLoadOnColumnEnd( Document doc )
+    {
+      // Find all AM column instances in the document
+
+      FilteredElementCollector columns
+        = new FilteredElementCollector( doc )
+        .OfCategory( BuiltInCategory.OST_ColumnAnalytical )
+        .WhereElementIsNotElementType();
+
+      foreach( AnalyticalModel am in columns )
+      {
+        Curve curve = am.GetCurve();
+
+        AnalyticalModelSelector selector 
+          = new AnalyticalModelSelector( curve );
+
+        selector.CurveSelector 
+          = AnalyticalCurveSelector.EndPoint;
+
+        Reference endPointRef 
+          = am.GetReference( selector );
+
+        using( Transaction tx = new Transaction( doc ) )
+        {
+          tx.Start( "NewPointBoundaryConditions" );
+
+          BoundaryConditions newPointBC 
+            = doc.Create.NewPointBoundaryConditions( 
+              endPointRef,
+              TranslationRotationValue.Fixed, 0,
+              TranslationRotationValue.Spring, 1.0,
+              TranslationRotationValue.Fixed, 0,
+              TranslationRotationValue.Fixed, 0,
+              TranslationRotationValue.Fixed, 0,
+              TranslationRotationValue.Fixed, 0 );
+
+          newPointBC.SetOrientTo( 
+            BoundaryConditionsOrientTo
+              .HostLocalCoordinateSystem );
+
+          tx.Commit();
+        }
+      }
+    }
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
