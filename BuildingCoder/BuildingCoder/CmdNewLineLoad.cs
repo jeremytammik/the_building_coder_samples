@@ -44,21 +44,21 @@ namespace BuildingCoder
       {
         Curve curve = am.GetCurve();
 
-        AnalyticalModelSelector selector 
+        AnalyticalModelSelector selector
           = new AnalyticalModelSelector( curve );
 
-        selector.CurveSelector 
+        selector.CurveSelector
           = AnalyticalCurveSelector.EndPoint;
 
-        Reference endPointRef 
+        Reference endPointRef
           = am.GetReference( selector );
 
         using( Transaction tx = new Transaction( doc ) )
         {
           tx.Start( "NewPointBoundaryConditions" );
 
-          BoundaryConditions newPointBC 
-            = doc.Create.NewPointBoundaryConditions( 
+          BoundaryConditions newPointBC
+            = doc.Create.NewPointBoundaryConditions(
               endPointRef,
               TranslationRotationValue.Fixed, 0,
               TranslationRotationValue.Spring, 1.0,
@@ -67,7 +67,7 @@ namespace BuildingCoder
               TranslationRotationValue.Fixed, 0,
               TranslationRotationValue.Fixed, 0 );
 
-          newPointBC.SetOrientTo( 
+          newPointBC.SetOrientTo(
             BoundaryConditionsOrientTo
               .HostLocalCoordinateSystem );
 
@@ -107,7 +107,7 @@ namespace BuildingCoder
       //Plane plane = ca.NewPlane( XYZ.BasisZ, XYZ.Zero ); // 2016
       Plane plane = Plane.CreateByNormalAndOrigin( XYZ.BasisZ, XYZ.Zero ); // 2017
 
-      using ( Transaction t = new Transaction( doc ) )
+      using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Create New Line Load" );
 
@@ -154,7 +154,7 @@ namespace BuildingCoder
 
         // create new line loads on beam:
 
-        foreach ( Element e in beams )
+        foreach( Element e in beams )
         {
           try
           {
@@ -171,7 +171,7 @@ namespace BuildingCoder
 
             Debug.Print( "Hosted line load on beam works." );
           }
-          catch ( Exception ex )
+          catch( Exception ex )
           {
             Debug.Print( "Hosted line load on beam fails: "
               + ex.Message );
@@ -181,7 +181,7 @@ namespace BuildingCoder
 
           AnalyticalModel am = i.GetAnalyticalModel();
 
-          foreach ( Curve curve in
+          foreach( Curve curve in
             am.GetCurves( AnalyticalCurveType.ActiveCurves ) )
           {
             try
@@ -200,7 +200,7 @@ namespace BuildingCoder
               Debug.Print( "Hosted line load on "
                 + "AnalyticalModelFrame curve works." );
             }
-            catch ( Exception ex )
+            catch( Exception ex )
             {
               Debug.Print( "Hosted line load on "
                 + "AnalyticalModelFrame curve fails: "
