@@ -271,7 +271,7 @@ namespace BuildingCoder
     /// Z elevation in the order lower left, lower 
     /// right, upper right, upper left:
     /// </summary>
-    public static XYZ[] GetBottomCorners( 
+    public static XYZ[] GetBottomCorners(
       BoundingBoxXYZ b )
     {
       double z = b.Min.Z;
@@ -280,7 +280,7 @@ namespace BuildingCoder
         new XYZ( b.Min.X, b.Min.Y, z ),
         new XYZ( b.Max.X, b.Min.Y, z ),
         new XYZ( b.Max.X, b.Max.Y, z ),
-        new XYZ( b.Min.X, b.Max.Y, z ) 
+        new XYZ( b.Min.X, b.Max.Y, z )
       };
     }
 
@@ -495,7 +495,7 @@ namespace BuildingCoder
       "cm^3", // DUT_CUBIC_CENTIMETERS = 24,
       "mm^3", // DUT_CUBIC_MILLIMETERS = 25,
       "l" // DUT_LITERS = 26,
-    };
+      };
     #endregion // Unit Handling
 
     #region Formatting
@@ -1236,11 +1236,11 @@ namespace BuildingCoder
         string name,
         ParameterType parameterType )
       {
-        object[] args = new object[] { 
+        object[] args = new object[] {
           name, parameterType };
 
         return _external_definition_creation_options_type
-          .GetConstructor( new Type[] { 
+          .GetConstructor( new Type[] {
             _external_definition_creation_options_type } )
           .Invoke( args );
       }
@@ -1268,6 +1268,40 @@ namespace BuildingCoder
   }
 
   #region Extension Method Classes
+
+  public static class JtBoundingBoxXyzExtensionMethods
+  {
+    /// <summary>
+    /// Expand the given bounding box to include 
+    /// and contain the given point.
+    /// </summary>
+    public static void ExpandToContain( 
+      this BoundingBoxXYZ bb,
+      XYZ p )
+    {
+      bb.Min = new XYZ( Math.Min( bb.Min.X, p.X ), 
+        Math.Min( bb.Min.Y, p.Y ), 
+        Math.Min( bb.Min.Z, p.Z ) );
+
+      bb.Max = new XYZ( Math.Max( bb.Max.X, p.X ), 
+        Math.Max( bb.Max.Y, p.Y ), 
+        Math.Max( bb.Max.Z, p.Z ) );
+    }
+
+    /// <summary>
+    /// Expand the given bounding box to include 
+    /// and contain the given other one.
+    /// </summary>
+    public static void ExpandToContain( 
+      this BoundingBoxXYZ bb, 
+      BoundingBoxXYZ other )
+    {
+      bb.ExpandToContain( other.Min );
+      bb.ExpandToContain( other.Max );
+    }
+  }
+
+
   public static class JtElementExtensionMethods
   {
     /// <summary>
@@ -1724,7 +1758,7 @@ namespace BuildingCoder
       if( ls.Count > 0 )
       {
         Type t = ls[0];
-        object[] parametros = new object[] { 
+        object[] parametros = new object[] {
               doc };
         Type[] tipos = parametros
         .Select( a => a.GetType() ).ToArray();
@@ -2032,7 +2066,7 @@ namespace BuildingCoder
       ICollection<ElementId> elementos )
     {
       sel.ClearSelection2();
-      object[] parametros = new object[] { 
+      object[] parametros = new object[] {
           elementos };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
@@ -2059,7 +2093,7 @@ namespace BuildingCoder
           {
             Element elemento = doc
             .GetElement2( id );
-            parametros = new object[] { 
+            parametros = new object[] {
                       elemento };
             tipos = parametros
             .Select( a => a.GetType() ).ToArray();
@@ -2155,7 +2189,7 @@ namespace BuildingCoder
         met.Invoke( obj, new object[] { espessura } );
         met = view.GetType()
           .GetMethod( "SetElementOverrides",
-            new Type[] { typeof(ElementId), 
+            new Type[] { typeof(ElementId),
             obj.GetType() } );
         foreach( ElementId id in ids )
         {
@@ -2166,12 +2200,12 @@ namespace BuildingCoder
       {
         MethodInfo met = view.GetType()
           .GetMethod( "set_ProjColorOverrideByElement",
-            new Type[] { typeof( ICollection<ElementId> ), 
+            new Type[] { typeof( ICollection<ElementId> ),
             typeof( Color ) } );
         met.Invoke( view, new object[] { ids, cor } );
         met = view.GetType()
           .GetMethod( "set_ProjLineWeightOverrideByElement",
-            new Type[] { typeof( ICollection<ElementId> ), 
+            new Type[] { typeof( ICollection<ElementId> ),
             typeof( int ) } );
         met.Invoke( view, new object[] { ids, espessura } );
       }

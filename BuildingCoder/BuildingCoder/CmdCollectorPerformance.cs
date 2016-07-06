@@ -408,6 +408,28 @@ namespace BuildingCoder
           && null != e.get_Geometry( opt ) );
     }
     #endregion // Get all model elements
+    
+    #region Get Model Extents
+    /// <summary>
+    /// Return a bounding box enclosing all model 
+    /// elements using only quick filters.
+    /// </summary>
+    BoundingBoxXYZ GetModelExtents( Document doc )
+    {
+      FilteredElementCollector quick_model_elements
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .WhereElementIsViewIndependent();
+
+      IEnumerable<BoundingBoxXYZ> bbs = quick_model_elements
+        .Where<Element>( e => null != e.Category )
+        .Select<Element,BoundingBoxXYZ>( e 
+          => e.get_BoundingBox( null ) );
+
+      return bbs.Aggregate<BoundingBoxXYZ>( ( a, b ) 
+        => { a.ExpandToContain( b ); return a; } );
+    }
+    #endregion // Get Model Extents
 
     #region Traverse all model elements top down Levels > Category > Family > Type > Instance
     void TraverseInstances( Document doc )

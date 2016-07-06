@@ -144,6 +144,7 @@ using System.Runtime.InteropServices;
 // 2016-05-03 2017.0.127.3 eliminated two calls to obsolete Plane construction method taking a CurveArray argument
 // 2016-05-03 2017.0.127.4 eliminated all obsolete Revit API usage warnings
 // 2016-06-13 2017.0.127.5 implemented CreatePointLoadOnColumnEnd
+// 2016-07-05 2017.0.127.6 implemented BoundingBoxXYZ ExpandToContain extension methods and GetModelExtents
 //
-[assembly: AssemblyVersion( "2017.0.127.5" )]
-[assembly: AssemblyFileVersion( "2017.0.127.5" )]
+[assembly: AssemblyVersion( "2017.0.127.6" )]
+[assembly: AssemblyFileVersion( "2017.0.127.6" )]
