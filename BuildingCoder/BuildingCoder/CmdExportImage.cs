@@ -197,7 +197,7 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// New code as deswcribed in Revit API discussion 
+    /// New code as described in Revit API discussion 
     /// forum thread on how to export an image from a 
     /// specific view using Revit API C#,
     /// http://forums.autodesk.com/t5/revit-api/how-to-export-an-image-from-a-specific-view-using-revit-api-c/m-p/6424418
