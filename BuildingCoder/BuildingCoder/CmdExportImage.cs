@@ -197,7 +197,10 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// New code.
+    /// New code as deswcribed in Revit API discussion 
+    /// forum thread on how to export an image from a 
+    /// specific view using Revit API C#,
+    /// http://forums.autodesk.com/t5/revit-api/how-to-export-an-image-from-a-specific-view-using-revit-api-c/m-p/6424418
     /// </summary>
     static Result ExportToImage3( Document doc )
     {
@@ -230,7 +233,11 @@ namespace BuildingCoder
 
         tx.RollBack();
 
+        filepath = Path.ChangeExtension( 
+          filepath, "png" );
+
         Process.Start( filepath );
+
         r = Result.Succeeded;
       }
       return r;
