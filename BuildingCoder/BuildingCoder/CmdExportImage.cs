@@ -174,13 +174,11 @@ namespace BuildingCoder
         : string.Empty;
     }
 
-    public Result Execute(
-      ExternalCommandData commandData,
-      ref string message,
-      ElementSet elements )
+    /// <summary>
+    /// Wrapper for old sample code.
+    /// </summary>
+    static Result ExportToImage2( Document doc )
     {
-      UIApplication uiapp = commandData.Application;
-      Document doc = uiapp.ActiveUIDocument.Document;
       Result r = Result.Failed;
 
       using( Transaction tx = new Transaction( doc ) )
@@ -195,6 +193,62 @@ namespace BuildingCoder
           r = Result.Succeeded;
         }
       }
+      return r;
+    }
+
+    /// <summary>
+    /// New code.
+    /// </summary>
+    static Result ExportToImage3( Document doc )
+    {
+      Result r = Result.Failed;
+
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Export Image" );
+
+        string desktop_path = Environment.GetFolderPath( 
+          Environment.SpecialFolder.Desktop );
+
+        View view = doc.ActiveView;
+
+        string filepath = Path.Combine( desktop_path, 
+          view.Name );
+
+        ImageExportOptions img = new ImageExportOptions();
+
+        img.ZoomType = ZoomFitType.FitToPage;
+        img.PixelSize = 32;
+        img.ImageResolution = ImageResolution.DPI_600;
+        img.FitDirection = FitDirectionType.Horizontal;
+        img.ExportRange = ExportRange.CurrentView;
+        img.HLRandWFViewsFileType = ImageFileType.PNG;
+        img.FilePath = filepath;
+        img.ShadowViewsFileType = ImageFileType.PNG;
+
+        doc.ExportImage( img );
+
+        tx.RollBack();
+
+        Process.Start( filepath );
+        r = Result.Succeeded;
+      }
+      return r;
+    }
+
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      UIApplication uiapp = commandData.Application;
+      Document doc = uiapp.ActiveUIDocument.Document;
+      bool use_old_code = false;
+
+      Result r = use_old_code
+        ? ExportToImage2( doc )
+        : ExportToImage3( doc );
+
       return r;
     }
   }

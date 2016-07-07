@@ -145,6 +145,7 @@ using System.Runtime.InteropServices;
 // 2016-05-03 2017.0.127.4 eliminated all obsolete Revit API usage warnings
 // 2016-06-13 2017.0.127.5 implemented CreatePointLoadOnColumnEnd
 // 2016-07-05 2017.0.127.6 implemented BoundingBoxXYZ ExpandToContain extension methods and GetModelExtents
+// 2016-07-07 2017.0.127.7 implemented ExportToImage3
 //
-[assembly: AssemblyVersion( "2017.0.127.6" )]
-[assembly: AssemblyFileVersion( "2017.0.127.6" )]
+[assembly: AssemblyVersion( "2017.0.127.7" )]
+[assembly: AssemblyFileVersion( "2017.0.127.7" )]
