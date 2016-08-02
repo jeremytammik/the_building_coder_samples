@@ -235,12 +235,26 @@ namespace BuildingCoder
       // ?cid=6a00e553e168978833017c3690489f970b#comment-6a00e553e168978833017c3690489f970b
       // --> version 2013.0.100.2
 
-      FilteredElementCollector collector
-        = new FilteredElementCollector( doc );
+      //FilteredElementCollector collector
+      //  = new FilteredElementCollector( doc );
 
-      var rooms = collector
-        .OfClass( typeof( SpatialElement ) )
-        .OfType<Room>();
+      //var rooms = collector
+      //  .OfClass( typeof( SpatialElement ) )
+      //  .OfType<Room>();
+
+      //FilteredElementCollector collector
+      //  = new FilteredElementCollector( doc );
+
+      //var rooms = collector
+      //  .OfClass( typeof( SpatialElement ) )
+      //  .OfType<Room>();
+
+      FilteredElementCollector collector
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( SpatialElement ) );
+
+      IEnumerable<Element> rooms = collector
+        .Where<Element>( e => e is Room );
 
       foreach( Room room in rooms )
       {
