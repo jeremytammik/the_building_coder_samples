@@ -542,7 +542,8 @@ namespace BuildingCoder
     /// </summary>
     public static string AngleString( double angle )
     {
-      return RealString( angle * 180 / Math.PI ) + " degrees";
+      return RealString( angle * 180 / Math.PI ) 
+        + " degrees";
     }
 
     /// <summary>
@@ -552,7 +553,8 @@ namespace BuildingCoder
     public static string MmString( double length )
     {
       //return RealString( FootToMm( length ) ) + " mm";
-      return Math.Round( FootToMm( length ) ).ToString() + " mm";
+      return Math.Round( FootToMm( length ) )
+        .ToString() + " mm";
     }
 
     /// <summary>
