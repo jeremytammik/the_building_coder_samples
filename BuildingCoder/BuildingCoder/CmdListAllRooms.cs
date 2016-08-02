@@ -122,6 +122,30 @@ namespace BuildingCoder
         : Util.BoundingBoxString( bb );
     }
 
+    BoundingBoxXYZ GetBoundingBox(
+      IList<IList<BoundarySegment>> boundary )
+    {
+      BoundingBoxXYZ bb = new BoundingBoxXYZ();
+      double infinity = double.MaxValue;
+
+      bb.Max = new XYZ( infinity, infinity, infinity );
+      bb.Min = -bb.Max;
+
+      foreach( IList<BoundarySegment> loop in boundary )
+      {
+        foreach( BoundarySegment seg in loop )
+        {
+          Curve c = seg.GetCurve();
+          IList<XYZ> pts = c.Tessellate();
+          foreach( XYZ p in pts )
+          {
+            bb.ExpandToContain( p );
+          }
+        }
+      }
+      return bb;
+    }
+
     /// <summary>
     /// List some properties of a given room to the
     /// Visual Studio debug output window.
@@ -150,12 +174,17 @@ namespace BuildingCoder
         ? boundary[0].Count
         : 0;
 
+      BoundingBoxXYZ boundary_bounding_box
+        = GetBoundingBox( boundary );
+
       Debug.Print( string.Format(
         "Room nr. '{0}' named '{1}' at {2} with "
-        + "bounding box {3} and area {4} sqf has "
-        + "{5} loop{6} and {7} segment{8} in first "
+        + "lower left corner {3}, "
+        + "bounding box {4} and area {5} sqf has "
+        + "{6} loop{7} and {8} segment{9} in first "
         + "loop.",
         nr, name, Util.PointString( p ),
+        Util.PointString( boundary_bounding_box.Min ),
         BoundingBoxString2( bb ), area, nLoops,
         Util.PluralSuffix( nLoops ), nFirstLoopSegments,
         Util.PluralSuffix( nFirstLoopSegments ) ) );
