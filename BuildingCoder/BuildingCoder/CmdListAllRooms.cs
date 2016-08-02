@@ -128,8 +128,8 @@ namespace BuildingCoder
       BoundingBoxXYZ bb = new BoundingBoxXYZ();
       double infinity = double.MaxValue;
 
-      bb.Max = new XYZ( infinity, infinity, infinity );
-      bb.Min = -bb.Max;
+      bb.Min = new XYZ( infinity, infinity, infinity );
+      bb.Max = -bb.Min;
 
       foreach( IList<BoundarySegment> loop in boundary )
       {
