@@ -547,11 +547,12 @@ namespace BuildingCoder
 
     /// <summary>
     /// Return a string for a length in millimetres
-    /// formatted to two decimal places.
+    /// formatted as an integer value.
     /// </summary>
     public static string MmString( double length )
     {
-      return RealString( FootToMm( length ) ) + " mm";
+      //return RealString( FootToMm( length ) ) + " mm";
+      return Math.Round( FootToMm( length ) ).ToString() + " mm";
     }
 
     /// <summary>
