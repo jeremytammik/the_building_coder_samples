@@ -122,6 +122,12 @@ namespace BuildingCoder
         : Util.BoundingBoxString( bb );
     }
 
+    /// <summary>
+    /// Return bounding box calculated from the room 
+    /// boundary segments. The lower left corner turns 
+    /// out to be identical with the one returned by 
+    /// the standard room bounding box.
+    /// </summary>
     BoundingBoxXYZ GetBoundingBox(
       IList<IList<BoundarySegment>> boundary )
     {

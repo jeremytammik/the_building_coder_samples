@@ -146,6 +146,7 @@ using System.Runtime.InteropServices;
 // 2016-06-13 2017.0.127.5 implemented CreatePointLoadOnColumnEnd
 // 2016-07-05 2017.0.127.6 implemented BoundingBoxXYZ ExpandToContain extension methods and GetModelExtents
 // 2016-07-07 2017.0.127.7 implemented and tested ExportToImage3
+// 2016-08-02 2017.0.127.8 implemented and tested GetBoundingBox for room boundary IList of IList of BoundarySegment
 //
-[assembly: AssemblyVersion( "2017.0.127.7" )]
-[assembly: AssemblyFileVersion( "2017.0.127.7" )]
+[assembly: AssemblyVersion( "2017.0.127.8" )]
+[assembly: AssemblyFileVersion( "2017.0.127.8" )]
