@@ -31,20 +31,23 @@ namespace BuildingCoder
     private void SectionBox(UIDocument uidoc )
     {
       Document doc = uidoc.Document;
-
-      double Max_X = double.MinValue;
-      double Max_Y = double.MinValue;
-      double Max_Z = double.MinValue;
+      View view = doc.ActiveView;
 
       double Min_X = double.MaxValue;
       double Min_Y = double.MaxValue;
       double Min_Z = double.MaxValue;
 
-      ICollection<ElementId> ids = uidoc.Selection.GetElementIds();
+      double Max_X = Min_X;
+      double Max_Y = Min_Y;
+      double Max_Z = Min_Z;
+
+      ICollection<ElementId> ids 
+        = uidoc.Selection.GetElementIds();
+
       foreach( ElementId id in ids )
       {
         Element elm = doc.GetElement( id );
-        BoundingBoxXYZ box = elm.get_BoundingBox( doc.ActiveView );
+        BoundingBoxXYZ box = elm.get_BoundingBox( view );
         if( box.Max.X > Max_X )
         {
           Max_X = box.Max.X;
@@ -73,10 +76,13 @@ namespace BuildingCoder
       }
       XYZ Max = new XYZ( Max_X, Max_Y, Max_Z );
       XYZ Min = new XYZ( Min_X, Min_Y, Min_Z );
+
       BoundingBoxXYZ myBox = new BoundingBoxXYZ();
+
       myBox.Min = Min;
       myBox.Max = Max;
-      ( doc.ActiveView as View3D ).SetSectionBox( myBox );
+
+      ( view as View3D ).SetSectionBox( myBox );
     }
     #endregion // SetSectionBox
 
