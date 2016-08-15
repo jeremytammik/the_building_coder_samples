@@ -24,6 +24,63 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdCropToRoom : IExternalCommand
   {
+    #region SetSectionBox
+    /// <summary>
+    /// Set 3D view section box to selected element extents.
+    /// </summary>
+    private void SectionBox(UIDocument uidoc )
+    {
+      Document doc = uidoc.Document;
+
+      double Max_X = double.MinValue;
+      double Max_Y = double.MinValue;
+      double Max_Z = double.MinValue;
+
+      double Min_X = double.MaxValue;
+      double Min_Y = double.MaxValue;
+      double Min_Z = double.MaxValue;
+
+      ICollection<ElementId> ids = uidoc.Selection.GetElementIds();
+      foreach( ElementId id in ids )
+      {
+        Element elm = doc.GetElement( id );
+        BoundingBoxXYZ box = elm.get_BoundingBox( doc.ActiveView );
+        if( box.Max.X > Max_X )
+        {
+          Max_X = box.Max.X;
+        }
+        if( box.Max.Y > Max_Y )
+        {
+          Max_Y = box.Max.Y;
+        }
+        if( box.Max.Z > Max_Z )
+        {
+          Max_Z = box.Max.Z;
+        }
+
+        if( box.Min.X < Min_X )
+        {
+          Min_X = box.Min.X;
+        }
+        if( box.Min.Y < Min_Y )
+        {
+          Min_Y = box.Min.Y;
+        }
+        if( box.Min.Z < Min_Z )
+        {
+          Min_Z = box.Min.Z;
+        }
+      }
+      XYZ Max = new XYZ( Max_X, Max_Y, Max_Z );
+      XYZ Min = new XYZ( Min_X, Min_Y, Min_Z );
+      BoundingBoxXYZ myBox = new BoundingBoxXYZ();
+      myBox.Min = Min;
+      myBox.Max = Max;
+      ( doc.ActiveView as View3D ).SetSectionBox( myBox );
+    }
+    #endregion // SetSectionBox
+
+
     #region Element in View Crop Box Predicate
     /// <summary>
     /// Return true if element is outside of view crop box
