@@ -171,6 +171,17 @@ namespace BuildingCoder
           pts.AddRange( c.Tessellate() );
         }
       }
+      int n = pts.Count;
+
+      pts = new List<XYZ>(
+        pts.Distinct<XYZ>( new CmdWallTopFaces
+          .XyzEqualityComparer( 1.0e-4 ) ) );
+
+      Debug.Print(
+        "{0} points from tessellated room boundaries, "
+        + "{1} points after cleaning up duplicates",
+        n, pts.Count );
+
       return Util.ConvexHull( pts);
     }
 
