@@ -128,7 +128,7 @@ namespace BuildingCoder
     /// out to be identical with the one returned by 
     /// the standard room bounding box.
     /// </summary>
-    BoundingBoxXYZ GetBoundingBox(
+    static BoundingBoxXYZ GetBoundingBox(
       IList<IList<BoundarySegment>> boundary )
     {
       BoundingBoxXYZ bb = new BoundingBoxXYZ();
@@ -150,6 +150,28 @@ namespace BuildingCoder
         }
       }
       return bb;
+    }
+
+    /// <summary>
+    /// Return bounding box calculated from the room 
+    /// boundary segments. The lower left corner turns 
+    /// out to be identical with the one returned by 
+    /// the standard room bounding box.
+    /// </summary>
+    static List<XYZ> GetConvexHullOfRoomBoundary(
+      IList<IList<BoundarySegment>> boundary )
+    {
+      List<XYZ> pts = new List<XYZ>();
+
+      foreach( IList<BoundarySegment> loop in boundary )
+      {
+        foreach( BoundarySegment seg in loop )
+        {
+          Curve c = seg.GetCurve();
+          pts.AddRange( c.Tessellate() );
+        }
+      }
+      return Util.ConvexHull( pts);
     }
 
     /// <summary>
@@ -183,14 +205,18 @@ namespace BuildingCoder
       BoundingBoxXYZ boundary_bounding_box
         = GetBoundingBox( boundary );
 
+      List<XYZ> convex_hull 
+        = GetConvexHullOfRoomBoundary( boundary );
+
       Debug.Print( string.Format(
         "Room nr. '{0}' named '{1}' at {2} with "
-        + "lower left corner {3}, "
-        + "bounding box {4} and area {5} sqf has "
-        + "{6} loop{7} and {8} segment{9} in first "
+        + "lower left corner {3}, convex hull {4}, "
+        + "bounding box {5} and area {6} sqf has "
+        + "{7} loop{8} and {9} segment{10} in first "
         + "loop.",
         nr, name, Util.PointString( p ),
         Util.PointString( boundary_bounding_box.Min ),
+        Util.PointArrayString( convex_hull ),
         BoundingBoxString2( bb ), area, nLoops,
         Util.PluralSuffix( nLoops ), nFirstLoopSegments,
         Util.PluralSuffix( nFirstLoopSegments ) ) );

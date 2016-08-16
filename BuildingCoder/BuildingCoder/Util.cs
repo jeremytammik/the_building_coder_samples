@@ -402,6 +402,38 @@ namespace BuildingCoder
     }
     #endregion // Geometrical XYZ Calculation
 
+    #region Convex Hull
+    /// <summary>
+    /// Return the convex hull of a list of points 
+    /// using the Jarvis march or Gift wrapping:
+    /// https://en.wikipedia.org/wiki/Gift_wrapping_algorithm
+    /// Written by Maxence.
+    /// </summary>
+    public static List<XYZ> ConvexHull( List<XYZ> points )
+    {
+      if( points == null ) throw new ArgumentNullException( nameof( points ) );
+      XYZ startPoint = points.MinBy( p => p.X );
+      var convexHullPoints = new List<XYZ>();
+      XYZ walkingPoint = startPoint;
+      XYZ refVector = XYZ.BasisY.Negate();
+      do
+      {
+        convexHullPoints.Add( walkingPoint );
+        XYZ wp = walkingPoint;
+        XYZ rv = refVector;
+        walkingPoint = points.MinBy( p =>
+        {
+          double angle = ( p - wp ).AngleOnPlaneTo( rv, XYZ.BasisZ );
+          if( angle < 1e-10 ) angle = 2 * Math.PI;
+          return angle;
+        } );
+        refVector = wp - walkingPoint;
+      } while( walkingPoint != startPoint );
+      convexHullPoints.Reverse();
+      return convexHullPoints;
+    }
+    #endregion // Convex Hull
+
     #region Unit Handling
     /// <summary>
     /// Base units currently used internally by Revit.
@@ -636,16 +668,9 @@ namespace BuildingCoder
     /// </summary>
     public static string PointArrayString( IList<XYZ> pts )
     {
-      string s = string.Empty;
-      foreach( XYZ p in pts )
-      {
-        if( 0 < s.Length )
-        {
-          s += ", ";
-        }
-        s += PointString( p );
-      }
-      return s;
+      return string.Join( ", ", 
+        pts.Select<XYZ, string>( 
+          p => PointString( p ) ) );
     }
 
     /// <summary>
@@ -1271,6 +1296,43 @@ namespace BuildingCoder
   }
 
   #region Extension Method Classes
+
+  public static class IEnumerableExtensions
+  {
+    public static tsource MinBy<tsource, tkey>( 
+      this IEnumerable<tsource> source,
+      Func<tsource, tkey> selector )
+    {
+      return source.MinBy( selector, Comparer<tkey>.Default );
+    }
+    public static tsource MinBy<tsource, tkey>( 
+      this IEnumerable<tsource> source,
+      Func<tsource, tkey> selector, 
+      IComparer<tkey> comparer )
+    {
+      if( source == null ) throw new ArgumentNullException( nameof( source ) );
+      if( selector == null ) throw new ArgumentNullException( nameof( selector ) );
+      if( comparer == null ) throw new ArgumentNullException( nameof( comparer ) );
+      using( IEnumerator<tsource> sourceIterator = source.GetEnumerator() )
+      {
+        if( !sourceIterator.MoveNext() )
+          throw new InvalidOperationException( "Sequence was empty" );
+        tsource min = sourceIterator.Current;
+        tkey minKey = selector( min );
+        while( sourceIterator.MoveNext() )
+        {
+          tsource candidate = sourceIterator.Current;
+          tkey candidateProjected = selector( candidate );
+          if( comparer.Compare( candidateProjected, minKey ) < 0 )
+          {
+            min = candidate;
+            minKey = candidateProjected;
+          }
+        }
+        return min;
+      }
+    }
+  }
 
   public static class JtBoundingBoxXyzExtensionMethods
   {

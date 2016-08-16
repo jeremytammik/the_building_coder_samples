@@ -148,6 +148,7 @@ using System.Runtime.InteropServices;
 // 2016-07-07 2017.0.127.7 implemented and tested ExportToImage3
 // 2016-08-02 2017.0.127.8 implemented and tested GetBoundingBox for room boundary IList of IList of BoundarySegment
 // 2016-08-15 2017.0.127.8 implemented SetSectionBox
+// 2016-08-16 2017.0.127.9 implemented ConvexHull, GetConvexHullOfRoomBoundary, improved PointArrayString
 //
-[assembly: AssemblyVersion( "2017.0.127.8" )]
-[assembly: AssemblyFileVersion( "2017.0.127.8" )]
+[assembly: AssemblyVersion( "2017.0.127.9" )]
+[assembly: AssemblyFileVersion( "2017.0.127.9" )]
