@@ -1299,6 +1299,8 @@ namespace BuildingCoder
 
   public static class IEnumerableExtensions
   {
+    // (C) Jonathan Skeet
+    // from https://github.com/morelinq/MoreLINQ/blob/master/MoreLinq/MinBy.cs
     public static tsource MinBy<tsource, tkey>( 
       this IEnumerable<tsource> source,
       Func<tsource, tkey> selector )
