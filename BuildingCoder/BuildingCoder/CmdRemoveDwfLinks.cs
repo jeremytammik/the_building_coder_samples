@@ -23,6 +23,123 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdRemoveDwfLinks : IExternalCommand
   {
+    #region MiroReloadLinks test code
+    void MiroReloadLinks( IList<RevitLinkType> fecLinkTypes )
+    {
+      // Loop all RVT Links
+      foreach( RevitLinkType typeLink in fecLinkTypes )
+      {
+        // ...
+
+        // Skip1 - not IsFromRevitServer
+
+        if( !typeLink.IsFromRevitServer() )
+        {
+          //…
+          continue;
+        }
+
+        // Skip2 - not ExternalFileReference
+        // 99% it would already skip above as 
+        // RevitServer MUST be ExternalFileReference, 
+        // but leave just in case...
+
+        ExternalFileReference er = typeLink.GetExternalFileReference();
+
+        if( er == null )
+        {
+          // ...
+
+          continue;
+        }
+
+        // If here, we can cache ModelPath related 
+        // info and show to user regardless if we skip 
+        // on next checks or not....
+
+        ModelPath mp = er.GetPath();
+
+        string userVisiblePath = ModelPathUtils
+          .ConvertModelPathToUserVisiblePath( mp );
+
+        // Skip3 - if ModelPath is NOT Server Path 
+        // 99% redundant as we already checked raw 
+        // RevitLinkType for this, but keep 
+        // just in case...
+
+        if( !mp.ServerPath )
+        {
+          // ...
+
+          continue;
+        }
+
+        // Skip4 - if NOT "NOT Found" problematic one 
+        // there is nothing to fix
+
+        if( er.GetLinkedFileStatus()
+          != LinkedFileStatus.NotFound )
+        {
+          // ...
+
+          continue;
+        }
+
+        // Skip5 - if Nested Link (can’t (re)load these!)
+
+        if( typeLink.IsNestedLink )
+        {
+          // ...
+
+          continue;
+        }
+
+        // If here, we MUST offer user to "Reload from..."
+
+        // ...
+
+        RevitLinkLoadResult res = null;
+
+        try
+        {
+          // This fails for problematic Server files 
+          // since it also fails on "Reload" button in 
+          // UI (due to the GUID issue in the answer)
+
+          //res = typeLink.Reload();
+
+          // This fails same as above :-(!
+
+          //res = typeLink.Load();
+
+          // This WORKS!
+          // Basically, this is the equivalent of UI 
+          // "Reload from..." + browsing to the *same* 
+          // Saved path showing in the manage Links 
+          // dialogue.
+          // ToDo: Check if we need to do anything 
+          // special with WorksetConfiguration? 
+          // In tests, it works fine with the 
+          // default c-tor.
+
+          ModelPath mpForReload = ModelPathUtils
+            .ConvertUserVisiblePathToModelPath(
+              userVisiblePath );
+
+          res = typeLink.LoadFrom( mpForReload,
+            new WorksetConfiguration() );
+
+          Util.InfoMsg( string.Format(
+            "Result = {0}", res.LoadResult ) );
+        }
+        catch( Exception ex )
+        {
+          // ...
+        }
+      } // foreach typeLink
+    }
+    #endregion // MiroReloadLinks test code
+
     /// <summary>
     /// Unpin all of the pinned elements in the list.
     /// </summary>
