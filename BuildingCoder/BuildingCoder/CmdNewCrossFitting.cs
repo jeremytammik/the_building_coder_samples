@@ -20,6 +20,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using Autodesk.Revit.DB.Mechanical;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -27,6 +28,83 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdNewCrossFitting : IExternalCommand
   {
+    #region Using routing preferences with NewTakeoffFitting
+    Connector CreateTemporaryConnectorForTap()
+    { 
+      return null;
+    }
+    void SelectAndPlaceTakeOffFitting( Document doc )
+    {
+      ElementId mainDuctId = ElementId.InvalidElementId;
+
+      // Get DuctType - we need this for its
+      // RoutingPreferenceManager. This is how we assign
+      // our tap object to be used. This is the settings
+      // for the duct object we attach our tap to.
+
+      Duct duct = doc.GetElement( mainDuctId ) as Duct;
+
+      DuctType ductType = duct.DuctType;
+
+      RoutingPreferenceManager routePrefManager
+        = ductType.RoutingPreferenceManager;
+
+      // Set Junction Prefernce to Tap.
+
+      routePrefManager.PreferredJunctionType
+        = PreferredJunctionType.Tap;
+
+      // For simplicity sake, I remove all previous rules
+      // for taps so I can just add what I want here.
+      // This will probably vary.
+
+      int initRuleCount = routePrefManager.GetNumberOfRules(
+        RoutingPreferenceRuleGroupType.Junctions );
+
+      for( int i = 0; i != initRuleCount; ++i )
+      {
+        routePrefManager.RemoveRule(
+          RoutingPreferenceRuleGroupType.Junctions, 0 );
+      }
+
+      // Get FamilySymbol for Tap I want to use.
+
+      FamilySymbol tapSym = null;
+      doc.LoadFamilySymbol( "C:/FamilyLocation/MyTap.rfa",
+        "MyTap", out tapSym );
+
+      // Symbol needs to be activated before use.
+
+      if( ( !tapSym.IsActive ) && ( tapSym != null ) )
+      {
+        tapSym.Activate();
+        doc.Regenerate();
+      }
+
+      // Create Rule that utilizes the Tap. Use the argument
+      // MEPPartId = ElementId for the desired FamilySymbol.
+
+      RoutingPreferenceRule newRule
+        = new RoutingPreferenceRule( tapSym.Id, "MyTap" );
+
+      routePrefManager.AddRule(
+        RoutingPreferenceRuleGroupType.Junctions, newRule );
+
+      // To create a solid tap, we need to use the Revit
+      // doc.Create.NewTakeoffFitting routine. For this,
+      // we need a connector. If we don't have one, we
+      // just create a temporary object with a connector
+      // where we want it.
+
+      Connector tmpConn = CreateTemporaryConnectorForTap();
+
+      // Create our tap.
+
+      FamilyInstance tapInst
+        = doc.Create.NewTakeoffFitting( tmpConn, duct );
+    }
+    #endregion // Using routing preferences with NewTakeoffFitting
+
     ///// <summary>
     ///// Allow selection of pipe elements only.
     ///// </summary>

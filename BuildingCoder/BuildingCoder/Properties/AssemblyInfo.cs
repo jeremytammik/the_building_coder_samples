@@ -150,6 +150,7 @@ using System.Runtime.InteropServices;
 // 2016-08-15 2017.0.127.8 implemented SetSectionBox
 // 2016-08-16 2017.0.127.9 implemented ConvexHull, GetConvexHullOfRoomBoundary, improved PointArrayString
 // 2016-08-16 2017.0.127.10 call Distinct to eliminate duplicate points before calling ConvexHull
+// 2016-08-24 2017.0.127.11 implemented SelectAndPlaceTakeOffFitting
 //
-[assembly: AssemblyVersion( "2017.0.127.10" )]
-[assembly: AssemblyFileVersion( "2017.0.127.10" )]
+[assembly: AssemblyVersion( "2017.0.127.11" )]
+[assembly: AssemblyFileVersion( "2017.0.127.11" )]
