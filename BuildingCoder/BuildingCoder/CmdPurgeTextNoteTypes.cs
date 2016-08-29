@@ -119,7 +119,7 @@ namespace BuildingCoder
           = GetUnusedTextNoteTypes( doc );
 
         Debug.Assert( unusedTextNoteTypes.Count == n,
-          "expected same number of unused texct note types" );
+          "expected same number of unused text note types" );
       }
 
       sw.Stop();
