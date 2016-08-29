@@ -26,6 +26,8 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdPurgeLineStyles : IExternalCommand
   {
+    const string line_style_name = "_Solid-Red-1";
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
@@ -34,28 +36,36 @@ namespace BuildingCoder
       UIApplication app = commandData.Application;
       Document doc = app.ActiveUIDocument.Document;
 
-      FilteredElementCollector line_styles = new FilteredElementCollector( doc )
-        .OfClass( typeof( GraphicsStyle ) )
-        .OfCategory( BuiltInCategory.OST_Lines );
+      FilteredElementCollector graphic_styles
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( GraphicsStyle ) );
 
-        //.ToElementIds();
+      int n1 = graphic_styles.Count<Element>();
 
-      int n = line_styles.Count<Element>();
+      IEnumerable<Element> red_line_styles 
+        = graphic_styles.Where<Element>( e 
+          => e.Name.Contains( line_style_name ) );
 
-      IEnumerable<ElementId> ids = line_styles
-        .Where<Element>( e => e.Name.Contains( "_Solid-Red-1" ) )
-        .Select<Element, ElementId>( e => e.Id );
+      int n2 = red_line_styles.Count<Element>();
 
-      int n2 = line_styles.Count<Element>();
-
-
-      using( Transaction tx = new Transaction( doc ) )
+      if( 0 < n2 )
       {
-        tx.Start( "Delete Line Styles" );
+        using( Transaction tx = new Transaction( doc ) )
+        {
+          tx.Start( "Delete Line Styles" );
 
-        doc.Delete( ids.ToArray<ElementId>() );
+          doc.Delete( red_line_styles
+            .Select<Element, ElementId>( e => e.Id )
+            .ToArray<ElementId>() );
 
-        tx.Commit();
+          tx.Commit();
+
+          Util.InfoMsg( string.Format(
+            "Deleted {0} {1} line style{2} "
+            + "from {3} graohic styles.",
+            n2, line_style_name, 
+            Util.PluralSuffix( n2 ), n1 ) );
+        }
       }
       return Result.Succeeded;
     }
