@@ -134,7 +134,7 @@ namespace BuildingCoder
         }
         catch( Exception ex )
         {
-          // ...
+          Debug.Print( ex.Message );
         }
       } // foreach typeLink
     }

@@ -161,6 +161,7 @@
     <Compile Include="CmdNewTextNote.cs" />
     <Compile Include="CmdPostRequestInstancePlacement.cs" />
     <Compile Include="CmdProjectParameterGuids.cs" />
+    <Compile Include="CmdPurgeLineStyles.cs" />
     <Compile Include="CmdRollingOffset.cs" />
     <Compile Include="CmdRoomNeighbours.cs" />
     <Compile Include="CmdNestedFamilies.cs" />

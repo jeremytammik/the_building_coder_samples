@@ -1085,3 +1085,11 @@ LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdNamedGuidStorage # version 2016.0.127.0
+
+ADN Bc J-Q
+Purge Solid-Red-1 Line Styles
+Purge all the _Solid-Red-1 line styles
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdPurgeLineStyles # version 2016.0.128.0
