@@ -97,6 +97,5 @@ namespace BuildingCoder
       string name = "_Solid-Red-1";
       //PurgeGraphicStyles( this.Document, name );
     }
-
   }
 }
