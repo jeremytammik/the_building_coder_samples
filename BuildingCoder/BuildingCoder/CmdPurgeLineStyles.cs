@@ -26,25 +26,27 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdPurgeLineStyles : IExternalCommand
   {
-    const string line_style_name = "_Solid-Red-1";
+    const string _line_style_name = "_Solid-Red-1";
 
-    public Result Execute(
-      ExternalCommandData commandData,
-      ref string message,
-      ElementSet elements )
+    /// <summary>
+    /// Purge all graphic styles whose name contains 
+    /// the given substring. Watch out what you do!
+    /// If your substring is empty, this might delete 
+    /// all graphic styles in the entire project!
+    /// </summary>
+    void PurgeGraphicStyles( 
+      Document doc, 
+      string name_substring )
     {
-      UIApplication app = commandData.Application;
-      Document doc = app.ActiveUIDocument.Document;
-
       FilteredElementCollector graphic_styles
-        = new FilteredElementCollector( doc )
-          .OfClass( typeof( GraphicsStyle ) );
+            = new FilteredElementCollector( doc )
+      .OfClass( typeof( GraphicsStyle ) );
 
       int n1 = graphic_styles.Count<Element>();
 
-      IEnumerable<Element> red_line_styles 
-        = graphic_styles.Where<Element>( e 
-          => e.Name.Contains( line_style_name ) );
+      IEnumerable<Element> red_line_styles
+        = graphic_styles.Where<Element>( e
+          => e.Name.Contains( name_substring ) );
 
       int n2 = red_line_styles.Count<Element>();
 
@@ -60,14 +62,41 @@ namespace BuildingCoder
 
           tx.Commit();
 
-          Util.InfoMsg( string.Format(
-            "Deleted {0} {1} line style{2} "
-            + "from {3} graohic styles.",
-            n2, line_style_name, 
-            Util.PluralSuffix( n2 ), n1 ) );
+          TaskDialog.Show( "Purge line styles",
+            string.Format(
+              "Deleted {0} graphic style{1} named '*{2}*' "
+              + "from {3} total graohic styles.",
+              n2, ( 1 == n2 ? "" : "s" ), 
+              name_substring, n1 ) );
         }
       }
+    }
+
+    /// <summary>
+    /// External command Execute method.
+    /// </summary>
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      UIApplication app = commandData.Application;
+      Document doc = app.ActiveUIDocument.Document;
+
+      PurgeGraphicStyles( doc, _line_style_name );
+
       return Result.Succeeded;
     }
+
+    /// <summary>
+    /// Revit macro mainline. 
+    /// Uncomment the line referencing 'this'.
+    /// </summary>
+    public void PurgeLineStyles_macro_mainline()
+    {
+      string name = "_Solid-Red-1";
+      //PurgeGraphicStyles( this.Document, name );
+    }
+
   }
 }
