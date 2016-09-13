@@ -75,8 +75,8 @@ namespace BuildingCoder
       ref string message,
       ElementSet elements )
     {
-      UIApplication app = commandData.Application;
-      Document doc = app.ActiveUIDocument.Document;
+      UIApplication uiapp = commandData.Application;
+      Document doc = uiapp.ActiveUIDocument.Document;
 
       PurgeGraphicStyles( doc, _line_style_name );
 

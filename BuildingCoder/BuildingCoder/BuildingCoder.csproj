@@ -79,8 +79,16 @@
       <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2017\RevitAPIIFC.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="RevitAPIMacros">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2017\RevitAPIMacros.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="RevitAPIUI">
       <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2017\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUIMacros">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2017\RevitAPIUIMacros.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
