@@ -114,6 +114,7 @@
     <Compile Include="CmdCoordsOfViewOnSheet.cs" />
     <Compile Include="CmdCreateGableWall.cs" />
     <Compile Include="CmdCurtainWallGeom.cs" />
+    <Compile Include="CmdDeleteMacros.cs" />
     <Compile Include="CmdDemoCheck.cs" />
     <Compile Include="CmdDetailCurves.cs" />
     <Compile Include="CmdDimensionInstanceOrigin.cs" />

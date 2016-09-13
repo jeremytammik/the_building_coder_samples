@@ -1093,3 +1093,12 @@ LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPurgeLineStyles # version 2016.0.128.0
+
+ADN Bc A-I
+Delete Macros
+Retrieve MacroManager and delete all macros
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdDeleteMacros # version 2016.0.129.0
+

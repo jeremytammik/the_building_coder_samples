@@ -9,13 +9,8 @@
 #endregion // Header
 
 #region Namespaces
-using System;
-using System.Diagnostics;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -94,8 +89,9 @@ namespace BuildingCoder
     /// </summary>
     public void PurgeLineStyles_macro_mainline()
     {
+      Document doc = null; // in a macro, use this.Document
       string name = "_Solid-Red-1";
-      //PurgeGraphicStyles( this.Document, name );
+      PurgeGraphicStyles( doc, name );
     }
   }
 }
