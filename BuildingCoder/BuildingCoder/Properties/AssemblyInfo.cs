@@ -154,6 +154,7 @@ using System.Runtime.InteropServices;
 // 2016-08-29 2017.0.128.0 implemented CmdPurgeLineStyles
 // 2016-08-30 2017.0.128.1 refactored CmdPurgeLineStyles for simple migration to Revit macro
 // 2016-09-13 2017.0.129.0 implemented CmdDeleteMacros
+// 2016-09-27 2017.0.130.0 implemented CmdSetTangentLock
 //
-[assembly: AssemblyVersion( "2017.0.129.0" )]
-[assembly: AssemblyFileVersion( "2017.0.129.0" )]
+[assembly: AssemblyVersion( "2017.0.130.0" )]
+[assembly: AssemblyFileVersion( "2017.0.130.0" )]

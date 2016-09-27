@@ -211,7 +211,10 @@ namespace BuildingCoder
             }
           }
 
-          if( beforeId != null & afterId != null && ml.HasTangentJoin( 0, beforeId ) && ml.HasTangentJoin( 1, afterId ) )
+          if( beforeId != null 
+            && afterId != null 
+            && ml.HasTangentJoin( 0, beforeId ) 
+            && ml.HasTangentJoin( 1, afterId ) )
           {
             ml.SetTangentLock( 0, beforeId, true );
             ml.SetTangentLock( 1, afterId, true );
