@@ -14,8 +14,8 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Macros;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Macros;
-using System.Linq;
 using System.Diagnostics;
+using System.Linq;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -69,8 +69,11 @@ namespace BuildingCoder
       {
         MacroManager mgr = MacroManager.GetMacroManager( doc );
         MacroManagerIterator it = mgr.GetMacroManagerIterator();
+
+        // Several possibilities to iterate macros:
         //for( it.Reset(); !it.IsDone(); it.MoveNext() ) { }
         //IEnumerator<MacroModule> e = mgr.GetEnumerator();
+
         int n = 0;
         foreach( MacroModule mod in mgr )
         {
@@ -82,15 +85,15 @@ namespace BuildingCoder
             ++n;
           }
 
-          // Exception thrown: 'Autodesk.Revit.Exceptions.InvalidOperationException' in RevitAPIMacros.dll
+          // Exception thrown: 'Autodesk.Revit.Exceptions
+          // .InvalidOperationException' in RevitAPIMacros.dll
           // Cannot remove the UI module
           //mgr.RemoveModule( mod );
-
-          TaskDialog.Show( "Document Macros Deleted", 
-            string.Format(
-              "{0} document macro{1} deleted.", 
-              n, Util.PluralSuffix( n ) ) );
         }
+        TaskDialog.Show( "Document Macros Deleted",
+          string.Format(
+            "{0} document macro{1} deleted.",
+            n, Util.PluralSuffix( n ) ) );
       }
       return Result.Succeeded;
     }

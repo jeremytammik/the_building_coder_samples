@@ -326,7 +326,7 @@ namespace BuildingCoder
         BoundingBoxUV b = f.GetBoundingBox();
         UV p = b.Min;
         UV q = b.Max;
-        UV midparam = p + 0.5 * (q - p);
+        UV midparam = p + 0.5 * ( q - p );
         XYZ midpoint = f.Evaluate( midparam );
         XYZ normal = f.ComputeNormal( midparam );
 

@@ -212,6 +212,7 @@
     <Compile Include="CmdSelectionChanged.cs" />
     <Compile Include="CmdSetRoomOccupancy.cs" />
     <Compile Include="CmdSetTagType.cs" />
+    <Compile Include="CmdSetTangentLock.cs" />
     <Compile Include="CmdSetWallType.cs" />
     <Compile Include="CmdSheetData.cs" />
     <Compile Include="CmdSheetSize.cs" />
