@@ -41,6 +41,31 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdPreprocessFailure : IExternalCommand
   {
+    #region General Warning Swallower
+    FailureProcessingResult PreprocessFailures(
+      FailuresAccessor a )
+    {
+      IList<FailureMessageAccessor> failures
+      = a.GetFailureMessages();
+
+      foreach( FailureMessageAccessor f in failures )
+      {
+        FailureSeverity fseverity = a.GetSeverity();
+
+        if( fseverity == FailureSeverity.Warning )
+        {
+          a.DeleteWarning( f );
+        }
+        else
+        {
+          a.ResolveFailure( f );
+          return FailureProcessingResult.ProceedWithCommit;
+        }
+      }
+      return FailureProcessingResult.Continue;
+    }
+    #endregion // General Warning Swallower
+
     public class RoomWarningSwallower : IFailuresPreprocessor
     {
       public FailureProcessingResult PreprocessFailures(
