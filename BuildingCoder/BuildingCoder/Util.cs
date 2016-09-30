@@ -404,7 +404,7 @@ namespace BuildingCoder
     /// <summary>
     /// Create and return a solid representing 
     /// the bounding box of the input solid.
-    /// Assumptiuon: aligned with Z axis.
+    /// Assumption: aligned with Z axis.
     /// Written, decribed and tested by Owen Merrick for 
     /// http://forums.autodesk.com/t5/revit-api-forum/create-solid-from-boundingbox/m-p/6592486
     /// </summary>
