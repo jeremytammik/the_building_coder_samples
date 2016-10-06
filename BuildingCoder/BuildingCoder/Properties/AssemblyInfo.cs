@@ -157,6 +157,7 @@ using System.Runtime.InteropServices;
 // 2016-09-27 2017.0.130.0 implemented CmdSetTangentLock
 // 2016-09-29 2017.0.130.1 added general warning swallower
 // 2016-09-30 2017.0.130.2 added CreateSolidFromBoundingBox
+// 2016-10-06 2017.0.130.3 added testTwo macro to isolate element in new view
 //
-[assembly: AssemblyVersion( "2017.0.130.2" )]
-[assembly: AssemblyFileVersion( "2017.0.130.2" )]
+[assembly: AssemblyVersion( "2017.0.130.3" )]
+[assembly: AssemblyFileVersion( "2017.0.130.3" )]

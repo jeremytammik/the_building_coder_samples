@@ -23,6 +23,49 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdWallOpeningProfiles : IExternalCommand
   {
+    #region Isolate element in new view
+    public void testTwo( UIDocument uidoc )
+    {
+      Document doc = uidoc.Document;
+
+      View newView;
+
+      using( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Trans" );
+
+        // Get Floorplan for Level1 and copy its 
+        // properties for ouw newly to create ViewPlan.
+
+        View existingView = doc.GetElement(
+          new ElementId( 312 ) ) as View;
+
+        // Create new Floorplan.
+
+        newView = doc.GetElement( existingView.Duplicate(
+          ViewDuplicateOption.Duplicate ) ) as View;
+
+        t.Commit();
+
+        // Important to set new view as active view.
+
+        uidoc.ActiveView = newView;
+
+        t.Start( "Trans 2" );
+
+        // Try to isolate a Wall. Fails.
+
+        newView.IsolateElementTemporary( new ElementId( 317443 ) );
+
+        t.Commit();
+      }
+
+      // Change the View to the new View.
+
+      uidoc.ActiveView = newView;
+    }
+    #endregion // Isolate element in new view
+
     /// <summary>
     /// Retrieve all planar faces belonging to the 
     /// specified opening in the given wall.
@@ -150,7 +193,7 @@ namespace BuildingCoder
                 //  face.Origin ); // 2016
 
                 Plane facePlane = Plane.CreateByNormalAndOrigin(
-                  face.ComputeNormal( UV.Zero ), 
+                  face.ComputeNormal( UV.Zero ),
                   face.Origin ); // 2017
 
                 SketchPlane sketchPlane
