@@ -1111,3 +1111,12 @@ C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\Buildin
 BuildingCoder.CmdSetTangentLock # version 2016.0.130.0
 
 
+ADN Bc A-I
+Create Line Style
+Create a new line style using NewSubcategory
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdCreateLineStyle # version 2016.0.131.0
+
+

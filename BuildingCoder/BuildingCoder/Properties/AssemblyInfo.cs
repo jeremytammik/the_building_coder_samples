@@ -159,6 +159,7 @@ using System.Runtime.InteropServices;
 // 2016-09-30 2017.0.130.2 added CreateSolidFromBoundingBox
 // 2016-10-06 2017.0.130.3 added testTwo macro to isolate element in new view
 // 2016-10-07 2017.0.130.4 added material asset texture listing sample code
+// 2016-10-25 2017.0.131.0 added CmdCreateLineStyle written by Scott Conover
 //
-[assembly: AssemblyVersion( "2017.0.130.4" )]
-[assembly: AssemblyFileVersion( "2017.0.130.4" )]
+[assembly: AssemblyVersion( "2017.0.131.0" )]
+[assembly: AssemblyFileVersion( "2017.0.131.0" )]
