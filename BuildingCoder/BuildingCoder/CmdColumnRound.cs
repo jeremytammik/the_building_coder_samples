@@ -76,7 +76,7 @@ namespace BuildingCoder
 
     /// <summary>
     /// Determine the height of any given element 
-    /// from its boudnding box.
+    /// from its bounding box.
     /// </summary>
     public Double GetElementHeightFromBoundingBox( 
       Element e )
