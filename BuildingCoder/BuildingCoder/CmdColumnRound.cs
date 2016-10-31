@@ -27,6 +27,81 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdColumnRound : IExternalCommand
   {
+    /// <summary>
+    /// Determine the height of a vertical column from 
+    /// its top and bottom level.
+    /// </summary>
+    public Double GetColumHeightFromLevels( 
+      Element e ) 
+    {
+      if( !IsColumn( e ) )
+      {
+        throw new ArgumentException(
+          "Expected a column argument." );
+      }
+
+      Document doc = e.Document;
+
+      double height = 0;
+
+      if( e != null )
+      {
+        // Get top level of the column
+
+        Parameter topLevel = e.get_Parameter( 
+          BuiltInParameter.FAMILY_TOP_LEVEL_PARAM );
+
+        ElementId ip = topLevel.AsElementId();
+        Level top = doc.GetElement( ip ) as Level;
+        double t_value = top.ProjectElevation;
+
+        // Get base level of the column 
+
+        Parameter BotLevel = e.get_Parameter( 
+          BuiltInParameter.FAMILY_BASE_LEVEL_PARAM );
+
+        ElementId bip = BotLevel.AsElementId();
+        Level bot = doc.GetElement( bip ) as Level;
+        double b_value = bot.ProjectElevation;
+
+        // At this point, there are a number of 
+        // additional Z offsets that may also affect
+        // the result.
+
+        height = ( t_value - b_value );
+      }
+      return height;
+    }
+
+
+    /// <summary>
+    /// Determine the height of any given element 
+    /// from its boudnding box.
+    /// </summary>
+    public Double GetElementHeightFromBoundingBox( 
+      Element e )
+    {
+      // No need to retrieve the full element geometry.
+      // Even if there were, there would be no need to 
+      // compute references, because they will not be
+      // used anyway!
+
+      //GeometryElement ge = e.get_Geometry( 
+      //  new Options() { 
+      //    ComputeReferences = true } );
+      //
+      //BoundingBoxXYZ boundingBox = ge.GetBoundingBox();
+
+      BoundingBoxXYZ bb = e.get_BoundingBox( null );
+
+      if( null == bb )
+      {
+        throw new ArgumentException(
+          "Expected Element 'e' to have a valid bounding box." );
+      }
+
+      return bb.Max.Z - bb.Min.Z;
+    }
 
 #if REQUIRES_REVIT_2009_API
 
@@ -78,6 +153,11 @@ namespace BuildingCoder
       return e is FamilyInstance
         && null != e.Category
         && e.Category.Name.ToLower().Contains( "column" );
+
+      // Optional stronger test:
+      //
+      //  && (int) BuiltInCategory.OST_Columns
+      //    == e.Category.Id.IntegerValue )
     }
 
     public Result Execute(
