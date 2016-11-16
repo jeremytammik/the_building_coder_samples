@@ -869,6 +869,45 @@ namespace BuildingCoder
         typeName, categoryName, familyName,
         symbolName, e.Id.IntegerValue, e.Name );
     }
+
+    /// <summary>
+    /// Return a location for the given element using
+    /// its LocationPoint Point property,
+    /// LocationCurve start point, whichever 
+    /// is available.
+    /// </summary>
+    /// <param name="p">Return element location point</param>
+    /// <param name="e">Revit Element</param>
+    /// <returns>True if a location point is available 
+    /// for the given element, otherwise false.</returns>
+    static public bool GetElementLocation(
+      out XYZ p,
+      Element e )
+    {
+      p = XYZ.Zero;
+      bool rc = false;
+      Location loc = e.Location;
+      if( null != loc )
+      {
+        LocationPoint lp = loc as LocationPoint;
+        if( null != lp )
+        {
+          p = lp.Point;
+          rc = true;
+        }
+        else
+        {
+          LocationCurve lc = loc as LocationCurve;
+
+          Debug.Assert( null != lc,
+            "expected location to be either point or curve" );
+
+          p = lc.Curve.GetEndPoint( 0 );
+          rc = true;
+        }
+      }
+      return rc;
+    }
     #endregion // Display a message
 
     #region Element Selection

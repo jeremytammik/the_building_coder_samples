@@ -93,44 +93,6 @@ namespace BuildingCoder
     }
     #endregion // Set project location to city location
 
-    /// <summary>
-    /// Return a location for the given element.
-    /// Use either the element's LocationPoint Point property,
-    /// or its LocationCurve start point, whichever is available.
-    /// </summary>
-    /// <param name="p">Return element location point</param>
-    /// <param name="e">Revit Element</param>
-    /// <returns>True if a location point is available for the given element,
-    /// otherwise false.</returns>
-    bool GetElementLocation(
-      out XYZ p,
-      Element e )
-    {
-      p = XYZ.Zero;
-      bool rc = false;
-      Location loc = e.Location;
-      if( null != loc )
-      {
-        LocationPoint lp = loc as LocationPoint;
-        if( null != lp )
-        {
-          p = lp.Point;
-          rc = true;
-        }
-        else
-        {
-          LocationCurve lc = loc as LocationCurve;
-
-          Debug.Assert( null != lc,
-            "expected location to be either point or curve" );
-
-          p = lc.Curve.GetEndPoint( 0 );
-          rc = true;
-        }
-      }
-      return rc;
-    }
-
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
@@ -178,7 +140,7 @@ namespace BuildingCoder
         Element e = doc.GetElement( ids.First() ); // 2015
 
         XYZ p;
-        if( !GetElementLocation( out p, e ) )
+        if( !Util.GetElementLocation( out p, e ) )
         {
           message
             = "Selected element has no location defined.";

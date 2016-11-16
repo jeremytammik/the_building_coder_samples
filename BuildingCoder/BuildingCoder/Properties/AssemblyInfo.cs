@@ -161,6 +161,7 @@ using System.Runtime.InteropServices;
 // 2016-10-07 2017.0.130.4 added material asset texture listing sample code
 // 2016-10-25 2017.0.131.0 added CmdCreateLineStyle written by Scott Conover
 // 2016-10-31 2017.0.131.1 added GetColumHeightFromLevels and GetElementHeightFromBoundingBox
+// 2016-11-15 2017.0.131.2 moved GetElementLocation into Util class
 //
-[assembly: AssemblyVersion( "2017.0.131.1" )]
-[assembly: AssemblyFileVersion( "2017.0.131.1" )]
+[assembly: AssemblyVersion( "2017.0.131.2" )]
+[assembly: AssemblyFileVersion( "2017.0.131.2" )]
