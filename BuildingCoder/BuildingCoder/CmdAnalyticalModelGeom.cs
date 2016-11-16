@@ -63,6 +63,14 @@ namespace BuildingCoder
       Document doc = uidoc.Document;
 
       List<Element> walls = new List<Element>();
+
+      //XYZ p;
+      //List<XYZ> wall_start_points
+      //  = walls.Select<Element, XYZ>( e => {
+      //    Util.GetElementLocation( out p, e );
+      //      return p; } )
+      //        .ToList<XYZ>();
+
       if( !Util.GetSelectedElementsOrAll(
         walls, uidoc, typeof( Wall ) ) )
       {
@@ -73,6 +81,7 @@ namespace BuildingCoder
           : "No wall elements found.";
         return Result.Failed;
       }
+
 
       using( Transaction tx = new Transaction( doc ) )
       {
