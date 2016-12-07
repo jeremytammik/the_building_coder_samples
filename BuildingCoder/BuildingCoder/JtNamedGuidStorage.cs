@@ -74,7 +74,8 @@ namespace BuildingCoder
 
       // Retrieve a DataStorage element with our
       // extensible storage entity attached to it
-      // and the specified element name.
+      // and the specified element name. Only zero
+      // or one should exist.
 
       ExtensibleStorageFilter f
         = new ExtensibleStorageFilter(

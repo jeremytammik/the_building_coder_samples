@@ -33,6 +33,78 @@ namespace BuildingCoder
   static class ExtensionMethods
   {
     /// <summary>
+    /// View extension predicate method: does 
+    /// this view intersect the given bounding box?
+    /// </summary>
+    public static bool IntersectsBoundingBox( 
+      this View view, 
+      BoundingBoxXYZ targetBoundingBox )
+    {
+      Document doc = view.Document;
+      var viewBoundingBox = view.CropBox;
+
+      if( !view.CropBoxActive )
+      {
+        using( Transaction tr = new Transaction( doc ) )
+        {
+          //If the cropbox is not active we can't 
+          //extract the boundingbox (we rollback so we 
+          //don't change anything and also increase 
+          //performance)
+          tr.Start( "Temp" );
+          view.CropBoxActive = true;
+          viewBoundingBox = view.CropBox;
+          tr.RollBack();
+        }
+      }
+
+      Outline viewOutline = null;
+
+      if( view is ViewPlan )
+      {
+        var viewRange = ( view as ViewPlan ).GetViewRange();
+
+        //We need to change the boundingbox Z-values because 
+        //they are not correct (for some reason).
+
+        var bottomXYZ = ( doc.GetElement( viewRange
+          .GetLevelId( PlanViewPlane.BottomClipPlane ) ) 
+            as Level ).Elevation 
+          + viewRange.GetOffset( PlanViewPlane.BottomClipPlane );
+
+        var topXYZ = ( doc.GetElement( viewRange
+          .GetLevelId( PlanViewPlane.CutPlane ) ) 
+            as Level ).Elevation 
+          + viewRange.GetOffset( PlanViewPlane.CutPlane );
+
+        viewOutline = new Outline( new XYZ( 
+          viewBoundingBox.Min.X, viewBoundingBox.Min.Y, 
+          bottomXYZ ), new XYZ( viewBoundingBox.Max.X, 
+          viewBoundingBox.Max.Y, topXYZ ) );
+      }
+
+      //this is where I try to handle viewsections. 
+      //But I can't get it to work!!
+
+      if( !viewBoundingBox.Transform.BasisY.IsAlmostEqualTo( 
+        XYZ.BasisY ) ) 
+      {
+        viewOutline = new Outline( 
+          new XYZ( viewBoundingBox.Min.X, 
+           viewBoundingBox.Min.Z, viewBoundingBox.Min.Y ),
+          new XYZ( viewBoundingBox.Max.X, 
+            viewBoundingBox.Max.Z, viewBoundingBox.Max.Y ) );
+      }
+
+      using( var boundingBoxAsOutline = new Outline( 
+        targetBoundingBox.Min, targetBoundingBox.Max ) )
+      {
+        return boundingBoxAsOutline.Intersects( 
+          viewOutline, 0 );
+      }
+    }
+
+    /// <summary>
     /// Return an enumeration of all views in this
     /// document that can display elements at all.
     /// </summary>
