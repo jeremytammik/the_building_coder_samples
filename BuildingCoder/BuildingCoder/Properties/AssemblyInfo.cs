@@ -164,6 +164,7 @@ using System.Runtime.InteropServices;
 // 2016-11-15 2017.0.131.2 moved GetElementLocation into Util class
 // 2016-11-15 2017.0.131.2 added and commented out code to convert List<Element> to List<XYZ>
 // 2016-12-07 2017.0.131.3 added Eriks View IntersectsBoundingBox extension method
+// 2016-12-10 2017.0.131.4 added Joshuas ViewportBringToFront method
 //
-[assembly: AssemblyVersion( "2017.0.131.3" )]
-[assembly: AssemblyFileVersion( "2017.0.131.3" )]
+[assembly: AssemblyVersion( "2017.0.131.4" )]
+[assembly: AssemblyFileVersion( "2017.0.131.4" )]
