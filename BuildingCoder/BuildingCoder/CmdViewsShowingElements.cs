@@ -425,21 +425,25 @@ namespace BuildingCoder
     /// Bring viewport to front by 
     /// deleting and recreating it.
     /// </summary>
-    void ViewportBringToFront( ViewSheet sheet, Viewport viewport )
+    void ViewportBringToFront( 
+      ViewSheet sheet, 
+      Viewport viewport )
     {
       Document doc = sheet.Document;
 
       ElementId viewId = viewport.ViewId;
+      ElementId typeId = viewport.GetTypeId();
       XYZ boxCenter = viewport.GetBoxCenter();
 
-      //ElementId typeId = viewport.GetTypeId();
       //View view = doc.ActiveView;
 
       using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Delete and Recreate Viewport" );
         sheet.DeleteViewport( viewport );
-        Viewport vvp = Viewport.Create( doc, sheet.Id, viewId, boxCenter );
+        Viewport vvp = Viewport.Create( doc, sheet.Id, 
+          viewId, boxCenter );
+        vvp.ChangeTypeId( typeId );
         t.Commit();
       }
     }
