@@ -1431,7 +1431,7 @@ namespace BuildingCoder
     /// <summary>
     /// Predicate returning true for invalid element ids.
     /// </summary>
-    public static bool IsInValid( this ElementId id )
+    public static bool IsInvalid( this ElementId id )
     {
       return ElementId.InvalidElementId == id;
     }
@@ -1440,7 +1440,7 @@ namespace BuildingCoder
     /// </summary>
     public static bool IsValid( this ElementId id )
     {
-      return !IsInValid( id );
+      return !IsInvalid( id );
     }
   }
 
