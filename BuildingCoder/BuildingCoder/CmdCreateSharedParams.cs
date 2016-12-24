@@ -436,6 +436,5 @@ namespace BuildingCoder
     }
 #endif // REINSERT
     #endregion // REINSERT
-
   }
 }
