@@ -2,7 +2,7 @@
 //
 // CmdDeleteUnusedRefPlanes.cs - delete unnamed non-hosting reference planes
 //
-// Copyright (C) 2014-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2014-2017 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

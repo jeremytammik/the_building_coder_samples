@@ -3,7 +3,7 @@
 // CmdLinkedFiles.cs - retrieve linked files
 // in current project
 //
-// Copyright (C) 2008-2016 by Jeremy Tammik,
+// Copyright (C) 2008-2017 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

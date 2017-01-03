@@ -2,7 +2,7 @@
 //
 // CmdRectDuctCorners.cs - determine the corners of a rectangular duct
 //
-// Copyright (C) 2010-2016 by Jeremy Tammik,
+// Copyright (C) 2010-2017 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

@@ -2,7 +2,7 @@
 //
 // CmdSetTangentLock.cs - set tangent lock on adjoining curve elements
 //
-// Copyright (C) 2010-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2010-2017 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

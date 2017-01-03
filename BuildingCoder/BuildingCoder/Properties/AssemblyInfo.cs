@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Autodesk, Inc." )]
 [assembly: AssemblyProduct( "BuildingCoder" )]
-[assembly: AssemblyCopyright( "Copyright © 2008-2016 by Jeremy Tammik, Autodesk, Inc." )]
+[assembly: AssemblyCopyright( "Copyright © 2008-2017 by Jeremy Tammik, Autodesk, Inc." )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -166,6 +166,7 @@ using System.Runtime.InteropServices;
 // 2016-12-07 2017.0.131.3 added Eriks View IntersectsBoundingBox extension method
 // 2016-12-10 2017.0.131.4 added Joshuas ViewportBringToFront method
 // 2016-12-24 2017.0.131.5 implemented JtElementIdExtensionMethods
+// 2017-01-03 2017.0.131.6 incremented copyright year
 //
-[assembly: AssemblyVersion( "2017.0.131.5" )]
-[assembly: AssemblyFileVersion( "2017.0.131.5" )]
+[assembly: AssemblyVersion( "2017.0.131.6" )]
+[assembly: AssemblyFileVersion( "2017.0.131.6" )]

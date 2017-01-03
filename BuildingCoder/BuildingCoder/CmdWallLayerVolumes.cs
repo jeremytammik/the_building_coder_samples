@@ -3,7 +3,7 @@
 // CmdWallLayerVolumes.cs - determine
 // compound wall layer volumes
 //
-// Copyright (C) 2009-2016 by Jeremy Tammik,
+// Copyright (C) 2009-2017 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

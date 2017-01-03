@@ -2,7 +2,7 @@
 //
 // CmdElevationWatcher.cs - React to elevation view creation
 //
-// Copyright (C) 2012-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2012-2017 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

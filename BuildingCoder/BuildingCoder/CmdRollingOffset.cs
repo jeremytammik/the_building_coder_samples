@@ -2,7 +2,7 @@
 //
 // CmdRollingOffset.cs - calculate a rolling offset pipe segment between two existing pipes and hook them up
 //
-// Copyright (C) 2013-2016 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2017 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

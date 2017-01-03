@@ -2,7 +2,7 @@
 //
 // CmdSpaceAdjacency.cs - determine space adjacencies.
 //
-// Copyright (C) 2009-2016 by Martin Schmid and Jeremy Tammik,
+// Copyright (C) 2009-2017 by Martin Schmid and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
