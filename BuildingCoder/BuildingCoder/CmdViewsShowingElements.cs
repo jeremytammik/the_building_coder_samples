@@ -431,19 +431,36 @@ namespace BuildingCoder
     {
       Document doc = sheet.Document;
 
+      // Element id of the view in the viewport.
+
       ElementId viewId = viewport.ViewId;
       ElementId typeId = viewport.GetTypeId();
       XYZ boxCenter = viewport.GetBoxCenter();
+
+      // The viewport might be pinned. Most overlayed
+      // viewports are maintained pinned to prevent
+      // accidental displacement. Record that state so 
+      // the replacement viewport can reproduce it.
+
+       bool pinnedState = viewport.Pinned;
 
       //View view = doc.ActiveView;
 
       using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Delete and Recreate Viewport" );
+
+        // At least in Revit 2016, pinned viewports 
+        // can be deleted without error.
+
         sheet.DeleteViewport( viewport );
-        Viewport vvp = Viewport.Create( doc, sheet.Id, 
-          viewId, boxCenter );
+
+        Viewport vvp = Viewport.Create( doc, 
+          sheet.Id, viewId, boxCenter );
+
         vvp.ChangeTypeId( typeId );
+        vvp.Pinned = pinnedState;
+
         t.Commit();
       }
     }
