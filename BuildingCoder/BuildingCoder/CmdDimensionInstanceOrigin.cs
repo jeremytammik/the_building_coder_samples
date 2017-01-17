@@ -518,5 +518,46 @@ namespace BuildingCoder
       }
       return rc;
     }
+
+    /// <summary>
+    /// Create vertical dimensioning, cf.
+    /// http://forums.autodesk.com/t5/revit-api-forum/how-can-i-create-dimension-line-that-is-not-parallel-to-detail/m-p/6801271
+    /// </summary>
+    void CreateVerticalDimensioning( ViewSection viewSection )
+    {
+      Document doc = viewSection.Document;
+
+      XYZ point3 = new XYZ( 417.8, 80.228, 46.8 );
+      XYZ point4 = new XYZ( 417.8, 80.811, 46.3 );
+
+      Line geomLine3 = Line.CreateBound( point3, point4 );
+      Line dummyLine = Line.CreateBound( XYZ.Zero, XYZ.BasisY );
+
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "tx" );
+
+        DetailLine line3 = doc.Create.NewDetailCurve( 
+          viewSection, geomLine3 ) as DetailLine;
+
+        DetailLine dummy = doc.Create.NewDetailCurve( 
+          viewSection, dummyLine ) as DetailLine;
+
+        ReferenceArray refArray = new ReferenceArray();
+        refArray.Append( dummy.GeometryCurve.Reference );
+        refArray.Append( line3.GeometryCurve.GetEndPointReference( 0 ) );
+        refArray.Append( line3.GeometryCurve.GetEndPointReference( 1 ) );
+        XYZ dimPoint1 = new XYZ( 417.8, 80.118, 46.8 );
+        XYZ dimPoint2 = new XYZ( 417.8, 80.118, 46.3 );
+        Line dimLine3 = Line.CreateBound( dimPoint1, dimPoint2 );
+
+        Dimension dim = doc.Create.NewDimension( 
+          viewSection, dimLine3, refArray );
+
+        doc.Delete( dummy.Id );
+        tx.Commit();
+      }
+    }
+
   }
 }

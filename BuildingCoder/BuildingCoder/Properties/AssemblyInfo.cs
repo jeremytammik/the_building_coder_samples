@@ -168,6 +168,7 @@ using System.Runtime.InteropServices;
 // 2016-12-24 2017.0.131.5 implemented JtElementIdExtensionMethods
 // 2017-01-03 2017.0.131.6 incremented copyright year
 // 2017-01-04 2017.0.131.7 integrated ViewportBringToFront enhancement suggested by akseidel@github
+// 2017-01-17 2017.0.131.8 added CreateVerticalDimensioning
 //
-[assembly: AssemblyVersion( "2017.0.131.7" )]
-[assembly: AssemblyFileVersion( "2017.0.131.7" )]
+[assembly: AssemblyVersion( "2017.0.131.8" )]
+[assembly: AssemblyFileVersion( "2017.0.131.8" )]
