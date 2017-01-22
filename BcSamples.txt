@@ -709,7 +709,7 @@ BuildingCoder.CmdGetSketchElements # version 2011.0.81.0
 
 ADN Bc A-I
 Family Parameter Guid
-Determine familt parameter IsShared and GUID properties using System.Reflection
+Determine family parameter IsShared and GUID properties using System.Reflection
 LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
@@ -1119,4 +1119,10 @@ Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdCreateLineStyle # version 2016.0.131.0
 
-
+ADN Bc R-Z
+Shared Parameter GUIDs
+List all shared parameter GUIDs
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdSharedParamGuids # version 2017.0.132.0

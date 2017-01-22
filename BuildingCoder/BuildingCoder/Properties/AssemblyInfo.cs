@@ -169,6 +169,7 @@ using System.Runtime.InteropServices;
 // 2017-01-03 2017.0.131.6 incremented copyright year
 // 2017-01-04 2017.0.131.7 integrated ViewportBringToFront enhancement suggested by akseidel@github
 // 2017-01-17 2017.0.131.8 added CreateVerticalDimensioning
+// 2017-01-22 2017.0.132.0 added Alexander Ignatovich' CmdSharedParamGuids
 //
-[assembly: AssemblyVersion( "2017.0.131.8" )]
-[assembly: AssemblyFileVersion( "2017.0.131.8" )]
+[assembly: AssemblyVersion( "2017.0.132.0" )]
+[assembly: AssemblyFileVersion( "2017.0.132.0" )]

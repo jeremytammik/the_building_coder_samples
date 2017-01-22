@@ -215,6 +215,7 @@
     <Compile Include="CmdSetTagType.cs" />
     <Compile Include="CmdSetTangentLock.cs" />
     <Compile Include="CmdSetWallType.cs" />
+    <Compile Include="CmdSharedParamGuids.cs" />
     <Compile Include="CmdSheetData.cs" />
     <Compile Include="CmdSheetSize.cs" />
     <Compile Include="CmdSheetToModel.cs" />
