@@ -388,7 +388,7 @@ namespace BuildingCoder
       }
       return families;
     }
-    #endregion // Get all model elements
+    #endregion // Collector is iterable without ToElements
 
     #region Get all model elements
     /// <summary>
