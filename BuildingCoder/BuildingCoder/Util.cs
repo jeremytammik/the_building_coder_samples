@@ -1426,6 +1426,42 @@ namespace BuildingCoder
     }
   }
 
+  public static class JtElementExtensionMethods
+  {
+    /// <summary>
+    /// Predicate to determine whether given element 
+    /// is a physical element, i.e. valid category,
+    /// not view specific, etc.
+    /// </summary>
+    public static bool IsPhysicalElement( 
+      this Element e )
+    {
+      if( e.Category == null ) return false;
+      if( e.ViewSpecific ) return false;
+      // exclude specific unwanted categories
+      if( ( (BuiltInCategory) e.Category.Id.IntegerValue ) == BuiltInCategory.OST_HVAC_Zones ) return false;
+   
+      return e.Category.CategoryType == CategoryType.Model && e.Category.CanAddSubcategory;
+    }
+
+    /// <summary>
+    /// Return the curve from a Revit database Element 
+    /// location curve, if it has one.
+    /// </summary>
+    public static Curve GetCurve( this Element e )
+    {
+      Debug.Assert( null != e.Location,
+        "expected an element with a valid Location" );
+
+      LocationCurve lc = e.Location as LocationCurve;
+
+      Debug.Assert( null != lc,
+        "expected an element with a valid LocationCurve" );
+
+      return lc.Curve;
+    }
+  }
+
   public static class JtElementIdExtensionMethods
   {
     /// <summary>
@@ -1473,26 +1509,6 @@ namespace BuildingCoder
     {
       bb.ExpandToContain( other.Min );
       bb.ExpandToContain( other.Max );
-    }
-  }
-
-  public static class JtElementExtensionMethods
-  {
-    /// <summary>
-    /// Return the curve from a Revit database Element 
-    /// location curve, if it has one.
-    /// </summary>
-    public static Curve GetCurve( this Element e )
-    {
-      Debug.Assert( null != e.Location,
-        "expected an element with a valid Location" );
-
-      LocationCurve lc = e.Location as LocationCurve;
-
-      Debug.Assert( null != lc,
-        "expected an element with a valid LocationCurve" );
-
-      return lc.Curve;
     }
   }
 

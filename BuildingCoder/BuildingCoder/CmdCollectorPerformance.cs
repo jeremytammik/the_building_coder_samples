@@ -407,8 +407,50 @@ namespace BuildingCoder
           => null != e.Category
           && null != e.get_Geometry( opt ) );
     }
+
+    IList<Element> GetFamilyInstanceModelElements(
+      Document doc )
+    {
+      ElementClassFilter familyInstanceFilter
+        = new ElementClassFilter(
+          typeof( FamilyInstance ) );
+
+      FilteredElementCollector familyInstanceCollector
+        = new FilteredElementCollector( doc );
+
+      IList<Element> elementsCollection
+        = familyInstanceCollector.WherePasses(
+          familyInstanceFilter ).ToElements();
+
+      IList<Element> modelElements
+        = new List<Element>();
+
+      foreach( Element e in elementsCollection )
+      {
+        if( ( null != e.Category )
+        && ( null != e.LevelId )
+        && ( null != e.get_Geometry( new Options() ) )
+        )
+        {
+          modelElements.Add( e );
+        }
+      }
+      return modelElements;
+    }
+
+    /// <summary>
+    /// Select all physical items, cf.
+    /// http://forums.autodesk.com/t5/revit-api-forum/select-all-physical-items-in-model/m-p/6822940
+    /// </summary>
+    IEnumerable<Element> SelectAllPhysicalElements(
+      Document doc )
+    {
+      return new FilteredElementCollector( doc )
+        .WhereElementIsNotElementType()
+        .Where( e => e.IsPhysicalElement() );
+    }
     #endregion // Get all model elements
-    
+
     #region Get Model Extents
     /// <summary>
     /// Return a bounding box enclosing all model 
@@ -423,10 +465,10 @@ namespace BuildingCoder
 
       IEnumerable<BoundingBoxXYZ> bbs = quick_model_elements
         .Where<Element>( e => null != e.Category )
-        .Select<Element,BoundingBoxXYZ>( e 
-          => e.get_BoundingBox( null ) );
+        .Select<Element, BoundingBoxXYZ>( e
+           => e.get_BoundingBox( null ) );
 
-      return bbs.Aggregate<BoundingBoxXYZ>( ( a, b ) 
+      return bbs.Aggregate<BoundingBoxXYZ>( ( a, b )
         => { a.ExpandToContain( b ); return a; } );
     }
     #endregion // Get Model Extents
@@ -1857,7 +1899,7 @@ TaskDialog.Show( "Revit", collector.Count() +
           .OfClass( typeof( FamilyInstance ) )
           .WhereElementIsNotElementType()
           .Cast<FamilyInstance>()
-        // (family, familyInstances):
+          // (family, familyInstances):
           .GroupBy( fi => fi.Symbol.Family )
           .Select( f => f.Key );
 
