@@ -27,6 +27,24 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdNewTextNote : IExternalCommand
   {
+    void SetTextAlignment( TextNote textNote )
+    {
+      Document doc = textNote.Document;
+
+      using( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "AlignTextNote" );
+
+        Parameter p = textNote.get_Parameter(
+          BuiltInParameter.TEXT_ALIGN_VERT );
+
+        p.Set( (Int32)
+          TextAlignFlags.TEF_ALIGN_MIDDLE );
+
+        t.Commit();
+      }
+    }
+
     #region Solution 1 using TextRenderer.MeasureText
     [DllImport( "user32.dll" )]
     private static extern IntPtr GetDC( IntPtr hwnd );

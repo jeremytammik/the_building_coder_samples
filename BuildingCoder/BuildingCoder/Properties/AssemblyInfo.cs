@@ -172,6 +172,7 @@ using System.Runtime.InteropServices;
 // 2017-01-22 2017.0.132.0 added Alexander Ignatovich' CmdSharedParamGuids
 // 2017-01-24 2017.0.132.1 added SelectAllPhysicalElements and Element.IsPhysicalElement extension method
 // 2017-01-24 2017.0.132.2 added WhereElementIsViewIndependent
+// 2017-01-24 2017.0.132.3 added SetTextAlignment
 //
-[assembly: AssemblyVersion( "2017.0.132.2" )]
-[assembly: AssemblyFileVersion( "2017.0.132.2" )]
+[assembly: AssemblyVersion( "2017.0.132.3" )]
+[assembly: AssemblyFileVersion( "2017.0.132.3" )]
