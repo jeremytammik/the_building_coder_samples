@@ -171,6 +171,7 @@ using System.Runtime.InteropServices;
 // 2017-01-17 2017.0.131.8 added CreateVerticalDimensioning
 // 2017-01-22 2017.0.132.0 added Alexander Ignatovich' CmdSharedParamGuids
 // 2017-01-24 2017.0.132.1 added SelectAllPhysicalElements and Element.IsPhysicalElement extension method
+// 2017-01-24 2017.0.132.2 added WhereElementIsViewIndependent
 //
-[assembly: AssemblyVersion( "2017.0.132.1" )]
-[assembly: AssemblyFileVersion( "2017.0.132.1" )]
+[assembly: AssemblyVersion( "2017.0.132.2" )]
+[assembly: AssemblyFileVersion( "2017.0.132.2" )]

@@ -447,6 +447,7 @@ namespace BuildingCoder
     {
       return new FilteredElementCollector( doc )
         .WhereElementIsNotElementType()
+        .WhereElementIsViewIndependent()
         .Where( e => e.IsPhysicalElement() );
     }
     #endregion // Get all model elements

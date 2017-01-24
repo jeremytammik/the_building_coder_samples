@@ -1437,7 +1437,7 @@ namespace BuildingCoder
       this Element e )
     {
       if( e.Category == null ) return false;
-      if( e.ViewSpecific ) return false;
+      if( e.ViewSpecific ) return false; // same result as WhereElementIsViewIndependent?
       // exclude specific unwanted categories
       if( ( (BuiltInCategory) e.Category.Id.IntegerValue ) == BuiltInCategory.OST_HVAC_Zones ) return false;
    
