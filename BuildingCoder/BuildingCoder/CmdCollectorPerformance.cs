@@ -289,6 +289,46 @@ namespace BuildingCoder
   {
     Document _doc;
 
+    #region Get Families of a given Category
+
+    static bool FamilyFirstSymbolCategoryEquals(
+      Family f, 
+      BuiltInCategory bic)
+    {
+      Document doc = f.Document;
+
+      ISet<ElementId> ids = f.GetFamilySymbolIds();
+
+      Category cat = (0 == ids.Count)
+        ? null
+        : doc.GetElement( ids.First<ElementId>() ).Category;
+
+      return null != cat 
+        && cat.Id.IntegerValue.Equals( (int) bic );
+    }
+
+    void GetFamiliesOfCategory( 
+      Document doc, 
+      BuiltInCategory bic )
+    {
+      // This does not work:
+
+      //FilteredElementCollector collector
+      //  = new FilteredElementCollector( doc );
+      //ICollection<Element> titleFrames = collector
+      //  .OfCategory( BuiltInCategory.OST_TitleBlocks )
+      //  .OfClass( typeof( Family ) )
+      //  .ToElements();
+
+      IEnumerable<Family> families
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( Family ) )
+          .Cast<Family>()
+          .Where<Family>( f => 
+            FamilyFirstSymbolCategoryEquals( f, bic ) );
+    }
+    #endregion // Get Families of a given Category
+
     #region Get parameter values from all Detail Component family instances
     // cf. http://forums.autodesk.com/t5/revit-api/get-parameter-value-for-a-collection-of-family-instances/m-p/5896191
     /// <summary>
