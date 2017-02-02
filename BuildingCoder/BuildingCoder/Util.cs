@@ -1490,6 +1490,7 @@ namespace BuildingCoder
     /// eccentricity e. e = 0 means we have a circle; 
     /// The closer e is to 1, the more elongated the 
     /// shape of the ellipse.
+    /// https://en.wikipedia.org/wiki/Ellipse#Eccentricity
     /// </summary>
     public static bool Contains( 
       this Line line, 
