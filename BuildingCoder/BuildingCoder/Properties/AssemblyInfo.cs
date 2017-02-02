@@ -174,7 +174,8 @@ using System.Runtime.InteropServices;
 // 2017-01-24 2017.0.132.2 added WhereElementIsViewIndependent
 // 2017-01-24 2017.0.132.3 added SetTextAlignment
 // 2017-01-26 2017.0.132.4 implemented GetFamiliesOfCategory and FamilyFirstSymbolCategoryEquals
+// 2017-02-02 2017.0.132.5 implemented JtLineExtensionMethods.Contains
 
 //
-[assembly: AssemblyVersion( "2017.0.132.4" )]
-[assembly: AssemblyFileVersion( "2017.0.132.4" )]
+[assembly: AssemblyVersion( "2017.0.132.5" )]
+[assembly: AssemblyFileVersion( "2017.0.132.5" )]

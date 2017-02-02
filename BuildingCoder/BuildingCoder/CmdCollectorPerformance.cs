@@ -21,6 +21,7 @@ using Autodesk.Revit.DB.Mechanical;
 using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using Autodesk.Revit.DB.Analysis;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -290,7 +291,7 @@ namespace BuildingCoder
     Document _doc;
 
     #region Get Families of a given Category
-
+    // for http://forums.autodesk.com/t5/revit-api-forum/having-trouble-filtering-to-ost-titleblocks/m-p/6827759
     static bool FamilyFirstSymbolCategoryEquals(
       Family f, 
       BuiltInCategory bic)
@@ -307,7 +308,7 @@ namespace BuildingCoder
         && cat.Id.IntegerValue.Equals( (int) bic );
     }
 
-    void GetFamiliesOfCategory( 
+    static void GetFamiliesOfCategory( 
       Document doc, 
       BuiltInCategory bic )
     {
