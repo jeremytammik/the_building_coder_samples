@@ -1503,7 +1503,7 @@ namespace BuildingCoder
       double da = a.DistanceTo( p );
       double db = p.DistanceTo( b );
       // da + db is always greater or equal f
-      return ((da + db) - f) / f < tolerance;
+      return ((da + db) - f) * f < tolerance;
     }
   }
 
