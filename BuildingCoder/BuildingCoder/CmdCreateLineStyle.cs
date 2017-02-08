@@ -39,7 +39,7 @@ namespace BuildingCoder
       LinePatternElement linePatternElem = fec
         .Cast<LinePatternElement>()
         .First<LinePatternElement>( linePattern 
-          => linePattern.Name == "Long dash" );
+          => linePattern.Name == "Long Dash" );
 
       // The new linestyle will be a subcategory 
       // of the Lines category        
