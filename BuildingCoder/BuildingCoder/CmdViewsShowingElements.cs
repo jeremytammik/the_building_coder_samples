@@ -104,11 +104,11 @@ namespace BuildingCoder
       }
     }
 
-    /// <summary>
-    /// Return an enumeration of all views in this
-    /// document that can display elements at all.
-    /// </summary>
-    static IEnumerable<View>
+  /// <summary>
+  /// Return an enumeration of all views in this
+  /// document that can display elements at all.
+  /// </summary>
+  static IEnumerable<View>
       FindAllViewsThatCanDisplayElements(
         this Document doc )
     {

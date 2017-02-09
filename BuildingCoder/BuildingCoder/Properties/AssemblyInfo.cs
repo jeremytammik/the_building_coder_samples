@@ -176,6 +176,7 @@ using System.Runtime.InteropServices;
 // 2017-01-26 2017.0.132.4 implemented GetFamiliesOfCategory and FamilyFirstSymbolCategoryEquals
 // 2017-02-02 2017.0.132.5 implemented JtLineExtensionMethods.Contains
 // 2017-02-06 2017.0.132.6 correction to Line.Contains extension method suggested by Fair59 in http://forums.autodesk.com/t5/revit-api-forum/how-to-determine-if-a-point-xyz-is-inside-a-curveloop-ilist-lt/m-p/6856497
+// 2017-02-09 2017.0.132.7 merged so-chong fix to typo in line style name pull request #3
 //
-[assembly: AssemblyVersion( "2017.0.132.6" )]
-[assembly: AssemblyFileVersion( "2017.0.132.6" )]
+[assembly: AssemblyVersion( "2017.0.132.7" )]
+[assembly: AssemblyFileVersion( "2017.0.132.7" )]
