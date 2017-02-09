@@ -36,8 +36,8 @@ namespace BuildingCoder
     /// View extension predicate method: does 
     /// this view intersect the given bounding box?
     /// </summary>
-    public static bool IntersectsBoundingBox( 
-      this View view, 
+    public static bool IntersectsBoundingBox(
+      this View view,
       BoundingBoxXYZ targetBoundingBox )
     {
       Document doc = view.Document;
@@ -68,55 +68,55 @@ namespace BuildingCoder
         //they are not correct (for some reason).
 
         var bottomXYZ = ( doc.GetElement( viewRange
-          .GetLevelId( PlanViewPlane.BottomClipPlane ) ) 
-            as Level ).Elevation 
+          .GetLevelId( PlanViewPlane.BottomClipPlane ) )
+            as Level ).Elevation
           + viewRange.GetOffset( PlanViewPlane.BottomClipPlane );
 
         var topXYZ = ( doc.GetElement( viewRange
-          .GetLevelId( PlanViewPlane.CutPlane ) ) 
-            as Level ).Elevation 
+          .GetLevelId( PlanViewPlane.CutPlane ) )
+            as Level ).Elevation
           + viewRange.GetOffset( PlanViewPlane.CutPlane );
 
-        viewOutline = new Outline( new XYZ( 
-          viewBoundingBox.Min.X, viewBoundingBox.Min.Y, 
-          bottomXYZ ), new XYZ( viewBoundingBox.Max.X, 
+        viewOutline = new Outline( new XYZ(
+          viewBoundingBox.Min.X, viewBoundingBox.Min.Y,
+          bottomXYZ ), new XYZ( viewBoundingBox.Max.X,
           viewBoundingBox.Max.Y, topXYZ ) );
       }
 
       //this is where I try to handle viewsections. 
       //But I can't get it to work!!
 
-      if( !viewBoundingBox.Transform.BasisY.IsAlmostEqualTo( 
-        XYZ.BasisY ) ) 
+      if( !viewBoundingBox.Transform.BasisY.IsAlmostEqualTo(
+        XYZ.BasisY ) )
       {
-        viewOutline = new Outline( 
-          new XYZ( viewBoundingBox.Min.X, 
+        viewOutline = new Outline(
+          new XYZ( viewBoundingBox.Min.X,
            viewBoundingBox.Min.Z, viewBoundingBox.Min.Y ),
-          new XYZ( viewBoundingBox.Max.X, 
+          new XYZ( viewBoundingBox.Max.X,
             viewBoundingBox.Max.Z, viewBoundingBox.Max.Y ) );
       }
 
-      using( var boundingBoxAsOutline = new Outline( 
+      using( var boundingBoxAsOutline = new Outline(
         targetBoundingBox.Min, targetBoundingBox.Max ) )
       {
-        return boundingBoxAsOutline.Intersects( 
+        return boundingBoxAsOutline.Intersects(
           viewOutline, 0 );
       }
     }
 
-  /// <summary>
-  /// Return an enumeration of all views in this
-  /// document that can display elements at all.
-  /// </summary>
-  static IEnumerable<View>
-      FindAllViewsThatCanDisplayElements(
-        this Document doc )
+    /// <summary>
+    /// Return an enumeration of all views in this
+    /// document that can display elements at all.
+    /// </summary>
+    static IEnumerable<View>
+        FindAllViewsThatCanDisplayElements(
+          this Document doc )
     {
       ElementMulticlassFilter filter
         = new ElementMulticlassFilter(
-          new List<Type> { 
-            typeof( View3D ), 
-            typeof( ViewPlan ), 
+          new List<Type> {
+            typeof( View3D ),
+            typeof( ViewPlan ),
             typeof( ViewSection ) } );
 
       return new FilteredElementCollector( doc )
@@ -425,8 +425,8 @@ namespace BuildingCoder
     /// Bring viewport to front by 
     /// deleting and recreating it.
     /// </summary>
-    void ViewportBringToFront( 
-      ViewSheet sheet, 
+    void ViewportBringToFront(
+      ViewSheet sheet,
       Viewport viewport )
     {
       Document doc = sheet.Document;
@@ -442,7 +442,7 @@ namespace BuildingCoder
       // accidental displacement. Record that state so 
       // the replacement viewport can reproduce it.
 
-       bool pinnedState = viewport.Pinned;
+      bool pinnedState = viewport.Pinned;
 
       //View view = doc.ActiveView;
 
@@ -455,7 +455,7 @@ namespace BuildingCoder
 
         sheet.DeleteViewport( viewport );
 
-        Viewport vvp = Viewport.Create( doc, 
+        Viewport vvp = Viewport.Create( doc,
           sheet.Id, viewId, boxCenter );
 
         vvp.ChangeTypeId( typeId );
@@ -466,5 +466,4 @@ namespace BuildingCoder
     }
   }
   #endregion // Align two views
-
 }
