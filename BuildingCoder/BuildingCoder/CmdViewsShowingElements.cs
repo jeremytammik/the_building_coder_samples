@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -109,8 +108,8 @@ namespace BuildingCoder
     /// document that can display elements at all.
     /// </summary>
     static IEnumerable<View>
-        FindAllViewsThatCanDisplayElements(
-          this Document doc )
+    FindAllViewsThatCanDisplayElements(
+      this Document doc )
     {
       ElementMulticlassFilter filter
         = new ElementMulticlassFilter(
@@ -130,8 +129,8 @@ namespace BuildingCoder
     /// any of the given elements.
     /// </summary>
     public static IEnumerable<View>
-      FindAllViewsWhereAllElementsVisible(
-        this IEnumerable<Element> elements )
+    FindAllViewsWhereAllElementsVisible(
+      this IEnumerable<Element> elements )
     {
       if( null == elements )
       {
