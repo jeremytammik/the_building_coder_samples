@@ -22,6 +22,7 @@ using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.DB.Analysis;
+using Autodesk.Revit.DB.Architecture;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -612,6 +613,25 @@ namespace BuildingCoder
         .OrderBy( lev => lev.Elevation );
     }
     #endregion // Filter for detail curves
+
+    #region Retrieve all rooms on a given level
+    /// <summary>
+    /// Retrieve all rooms on a given level for
+    /// https://forums.autodesk.com/t5/revit-api-forum/collect-all-room-in-leve-xx/m-p/6936959
+    /// </summary>
+    public IEnumerable<Room> GetRoomsOnLevel( 
+      Document doc,
+      ElementId idLevel )
+    {
+      return new FilteredElementCollector( doc )
+        .WhereElementIsNotElementType()
+        .OfClass( typeof( SpatialElement ) )
+        .Where( e => e.GetType() == typeof( Room ) )
+        .Where( e => e.LevelId.IntegerValue.Equals( 
+          idLevel.IntegerValue ) )
+        .Cast<Room>();
+    }
+    #endregion // Filter for concrete ramps
 
     #region Filter for concrete ramps
     IEnumerable<Element> findConcreteRamps( Document doc )
