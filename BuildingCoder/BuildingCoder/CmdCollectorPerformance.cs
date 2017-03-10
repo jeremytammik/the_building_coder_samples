@@ -631,7 +631,7 @@ namespace BuildingCoder
           idLevel.IntegerValue ) )
         .Cast<Room>();
     }
-    #endregion // Filter for concrete ramps
+    #endregion // Retrieve all rooms on a given level
 
     #region Filter for concrete ramps
     IEnumerable<Element> findConcreteRamps( Document doc )
