@@ -908,6 +908,17 @@ namespace BuildingCoder
       }
       return rc;
     }
+
+    /// <summary>
+    /// Return the location point of a family instance or null.
+    /// This null coalesces the location so you won't get an 
+    /// error if the FamilyInstance is an invalid object.  
+    /// </summary>
+    public static XYZ GetFamilyInstanceLocation( 
+      FamilyInstance fi )
+    {
+      return ( (LocationPoint) fi?.Location )?.Point;
+    }
     #endregion // Display a message
 
     #region Element Selection
