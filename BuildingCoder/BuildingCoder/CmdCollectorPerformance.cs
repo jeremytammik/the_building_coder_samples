@@ -294,23 +294,23 @@ namespace BuildingCoder
     #region Get Families of a given Category
     // for http://forums.autodesk.com/t5/revit-api-forum/having-trouble-filtering-to-ost-titleblocks/m-p/6827759
     static bool FamilyFirstSymbolCategoryEquals(
-      Family f, 
-      BuiltInCategory bic)
+      Family f,
+      BuiltInCategory bic )
     {
       Document doc = f.Document;
 
       ISet<ElementId> ids = f.GetFamilySymbolIds();
 
-      Category cat = (0 == ids.Count)
+      Category cat = ( 0 == ids.Count )
         ? null
         : doc.GetElement( ids.First<ElementId>() ).Category;
 
-      return null != cat 
+      return null != cat
         && cat.Id.IntegerValue.Equals( (int) bic );
     }
 
-    static void GetFamiliesOfCategory( 
-      Document doc, 
+    static void GetFamiliesOfCategory(
+      Document doc,
       BuiltInCategory bic )
     {
       // This does not work:
@@ -326,7 +326,7 @@ namespace BuildingCoder
         = new FilteredElementCollector( doc )
           .OfClass( typeof( Family ) )
           .Cast<Family>()
-          .Where<Family>( f => 
+          .Where<Family>( f =>
             FamilyFirstSymbolCategoryEquals( f, bic ) );
     }
     #endregion // Get Families of a given Category
@@ -621,7 +621,7 @@ namespace BuildingCoder
     /// </summary>
     static string GetAreaSchemeNameFromArea( Element e )
     {
-      if( !(e is Area) )
+      if( !( e is Area ) )
       {
         throw new ArgumentException(
           "Expected Area element input argument." );
@@ -629,18 +629,18 @@ namespace BuildingCoder
 
       Document doc = e.Document;
 
-      Parameter p = e.get_Parameter( 
+      Parameter p = e.get_Parameter(
         BuiltInParameter.AREA_SCHEME_ID );
 
-      if(null==p)
+      if( null == p )
       {
-        throw new ArgumentException( 
+        throw new ArgumentException(
           "element lacks AREA_SCHEME_ID parameter" );
       }
 
       Element areaScheme = doc.GetElement( p.AsElementId() );
 
-      p = areaScheme.get_Parameter( 
+      p = areaScheme.get_Parameter(
         BuiltInParameter.AREA_SCHEME_NAME );
 
       if( null == p )
@@ -653,7 +653,8 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Retrieve 
+    /// Retrieve all areas belonging to 
+    /// a specific area scheme.
     /// </summary>
     public IEnumerable<Element> GetAreasInAreaScheme(
       Document doc,
@@ -662,7 +663,7 @@ namespace BuildingCoder
       return new FilteredElementCollector( doc )
         .OfCategory( BuiltInCategory.OST_Areas )
         .OfClass( typeof( SpatialElement ) )
-        .Where<Element>( e => areaSchemeName.Equals( 
+        .Where<Element>( e => areaSchemeName.Equals(
           GetAreaSchemeNameFromArea( e ) ) );
     }
     #endregion // Retrieve all areas belonging to a specific area scheme
@@ -672,7 +673,7 @@ namespace BuildingCoder
     /// Retrieve all rooms on a given level for
     /// https://forums.autodesk.com/t5/revit-api-forum/collect-all-room-in-leve-xx/m-p/6936959
     /// </summary>
-    public IEnumerable<Room> GetRoomsOnLevel( 
+    public IEnumerable<Room> GetRoomsOnLevel(
       Document doc,
       ElementId idLevel )
     {
@@ -680,7 +681,7 @@ namespace BuildingCoder
         .WhereElementIsNotElementType()
         .OfClass( typeof( SpatialElement ) )
         .Where( e => e.GetType() == typeof( Room ) )
-        .Where( e => e.LevelId.IntegerValue.Equals( 
+        .Where( e => e.LevelId.IntegerValue.Equals(
           idLevel.IntegerValue ) )
         .Cast<Room>();
     }
