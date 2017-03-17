@@ -179,6 +179,7 @@ using System.Runtime.InteropServices;
 // 2017-02-09 2017.0.132.7 merged so-chong fix to typo in line style name pull request #3
 // 2017-03-10 2017.0.132.8 implemented GetRoomsOnLevel for https://forums.autodesk.com/t5/revit-api-forum/collect-all-room-in-leve-xx/m-p/6936959
 // 2017-03-14 2017.0.132.9 added GetFamilyInstanceLocation from https://forums.autodesk.com/t5/revit-api-forum/retrieve-family-instance-position/m-p/6943376
+// 2017-03-17 2017.0.132.10 implemented GetAreasInAreaScheme for https://forums.autodesk.com/t5/revit-api-forum/get-area-scheme-from-an-area/m-p/6949212
 //
-[assembly: AssemblyVersion( "2017.0.132.9" )]
-[assembly: AssemblyFileVersion( "2017.0.132.9" )]
+[assembly: AssemblyVersion( "2017.0.132.10" )]
+[assembly: AssemblyFileVersion( "2017.0.132.10" )]

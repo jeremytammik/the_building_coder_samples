@@ -614,6 +614,59 @@ namespace BuildingCoder
     }
     #endregion // Retrieve a sorted list of all levels
 
+    #region Retrieve all areas belonging to a specific area scheme
+    /// <summary>
+    /// Return the area scheme name of a given area element
+    /// using only generic Element Parameter access.
+    /// </summary>
+    static string GetAreaSchemeNameFromArea( Element e )
+    {
+      if( !(e is Area) )
+      {
+        throw new ArgumentException(
+          "Expected Area element input argument." );
+      }
+
+      Document doc = e.Document;
+
+      Parameter p = e.get_Parameter( 
+        BuiltInParameter.AREA_SCHEME_ID );
+
+      if(null==p)
+      {
+        throw new ArgumentException( 
+          "element lacks AREA_SCHEME_ID parameter" );
+      }
+
+      Element areaScheme = doc.GetElement( p.AsElementId() );
+
+      p = areaScheme.get_Parameter( 
+        BuiltInParameter.AREA_SCHEME_NAME );
+
+      if( null == p )
+      {
+        throw new ArgumentException(
+          "area scheme lacks AREA_SCHEME_NAME parameter" );
+      }
+
+      return p.AsString();
+    }
+
+    /// <summary>
+    /// Retrieve 
+    /// </summary>
+    public IEnumerable<Element> GetAreasInAreaScheme(
+      Document doc,
+      string areaSchemeName )
+    {
+      return new FilteredElementCollector( doc )
+        .OfCategory( BuiltInCategory.OST_Areas )
+        .OfClass( typeof( SpatialElement ) )
+        .Where<Element>( e => areaSchemeName.Equals( 
+          GetAreaSchemeNameFromArea( e ) ) );
+    }
+    #endregion // Retrieve all areas belonging to a specific area scheme
+
     #region Retrieve all rooms on a given level
     /// <summary>
     /// Retrieve all rooms on a given level for
