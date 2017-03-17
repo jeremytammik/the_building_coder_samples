@@ -612,7 +612,7 @@ namespace BuildingCoder
         .Cast<Level>()
         .OrderBy( lev => lev.Elevation );
     }
-    #endregion // Filter for detail curves
+    #endregion // Retrieve a sorted list of all levels
 
     #region Retrieve all rooms on a given level
     /// <summary>
