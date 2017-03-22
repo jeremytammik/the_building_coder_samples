@@ -37,7 +37,7 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      // 'Autodesk.Revit.DB.Document.Mirror(ElementSet, Line)' is obsolete:
+      // 'Document.Mirror(ElementSet, Line)' is obsolete:
       // Use one of the replace methods in ElementTransformUtils.
       //
       //Line line = app.Create.NewLine(
