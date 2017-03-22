@@ -86,8 +86,7 @@ namespace BuildingCoder
       WallType wallType
         = new FilteredElementCollector( doc )
           .OfClass( typeof( WallType ) )
-          .First<Element>()
-            as WallType;
+          .FirstElement() as WallType;
 
       Level level
         = new FilteredElementCollector( doc )
@@ -96,18 +95,19 @@ namespace BuildingCoder
             => e.Name.Equals( "Level 1" ) )
           as Level;
 
-      Transaction tx = new Transaction( doc );
+      using( Transaction tx = new Transaction( doc ) )
+      {
 
-      tx.Start( "Create Gable Wall" );
+        tx.Start( "Create Gable Wall" );
 
-      //Wall wall = doc.Create.NewWall( // 2012
-      //  profile, wallType, level, true, normal );
+        //Wall wall = doc.Create.NewWall( // 2012
+        //  profile, wallType, level, true, normal );
 
-      Wall wall = Wall.Create( // 2013
-        doc, profile, wallType.Id, level.Id, true, normal );
+        Wall wall = Wall.Create( // 2013
+          doc, profile, wallType.Id, level.Id, true, normal );
 
-      tx.Commit();
-
+        tx.Commit();
+      }
       return Result.Succeeded;
     }
   }
