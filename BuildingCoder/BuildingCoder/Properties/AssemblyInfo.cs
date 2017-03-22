@@ -181,6 +181,7 @@ using System.Runtime.InteropServices;
 // 2017-03-14 2017.0.132.9 added GetFamilyInstanceLocation from https://forums.autodesk.com/t5/revit-api-forum/retrieve-family-instance-position/m-p/6943376
 // 2017-03-17 2017.0.132.10 implemented GetAreasInAreaScheme for https://forums.autodesk.com/t5/revit-api-forum/get-area-scheme-from-an-area/m-p/6949212
 // 2017-03-22 2017.0.132.11 cleaned up CmdCreateGableWall for http://thebuildingcoder.typepad.com/blog/2011/07/create-gable-wall.html#comment-3216411810
+// 2017-03-23 2017.0.132.12 cleaned up JtRevision to avoid using parameter display names
 //
-[assembly: AssemblyVersion( "2017.0.132.11" )]
-[assembly: AssemblyFileVersion( "2017.0.132.11" )]
+[assembly: AssemblyVersion( "2017.0.132.12" )]
+[assembly: AssemblyFileVersion( "2017.0.132.12" )]

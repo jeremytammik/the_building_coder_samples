@@ -4,10 +4,11 @@ using Autodesk.Revit.DB;
 
 namespace BuildingCoder
 {
+  #region Obsolete JtRevision using parameter display names
   /// <summary>
   /// A Revision parameter wrapper class by Max.
   /// </summary>
-  class JtRevision
+  class JtRevisionUsingDisplayName
   {
     /// <summary>
     /// The BIM element.
@@ -34,7 +35,7 @@ namespace BuildingCoder
     /// Create a Revision parameter accessor 
     /// for the given BIM element.
     /// </summary>
-    public JtRevision( Element e )
+    public JtRevisionUsingDisplayName( Element e )
     {
       _e = e;
     }
@@ -85,6 +86,85 @@ namespace BuildingCoder
     {
       get { return _p( "Issued by" ).AsString(); }
       set { _p( "Issued by" ).Set( value ); }
+    }
+  }
+  #endregion // Obsolete JtRevision using parameter display names
+
+  /// <summary>
+  /// A Revision parameter wrapper class avoiding 
+  /// use of display names to access the data by 
+  /// Jose Ignacio Montes.
+  /// </summary>
+  class JtRevision
+  {
+    /// <summary>
+    /// The BIM element.
+    /// </summary>
+    Element _e;
+
+    /// <summary>
+    /// Internal access to the named parameter.
+    /// </summary>
+    Parameter _p( BuiltInParameter bip )
+    {
+      return _e.get_Parameter( bip );
+    }
+
+    /// <summary>
+    /// Create a Revision parameter accessor
+    /// for the given BIM element.
+    /// </summary>
+    public JtRevision( Element e )
+    {
+      _e = e;
+    }
+
+    public string Date
+    {
+      get { return _p( BuiltInParameter.PROJECT_REVISION_REVISION_DATE ).AsString(); }
+      set { _p( BuiltInParameter.PROJECT_REVISION_REVISION_DATE ).Set( value ); }
+    }
+
+    public string IssuedTo
+    {
+      get { return _p( BuiltInParameter.PROJECT_REVISION_REVISION_ISSUED_TO ).AsString(); }
+      set { _p( BuiltInParameter.PROJECT_REVISION_REVISION_ISSUED_TO ).Set( value ); }
+    }
+
+    public string Number
+    {
+      get { return _p( BuiltInParameter.PROJECT_REVISION_REVISION_NUM ).AsString(); }
+      set { _p( BuiltInParameter.PROJECT_REVISION_REVISION_NUM ).Set( value ); }
+    }
+
+    public int Issued
+    {
+      get { return _p( BuiltInParameter.PROJECT_REVISION_REVISION_ISSUED ).AsInteger(); }
+      set { _p( BuiltInParameter.PROJECT_REVISION_REVISION_ISSUED ).Set( value ); }
+    }
+
+    public int Numbering
+    {
+      get { return _p( BuiltInParameter.PROJECT_REVISION_ENUMERATION ).AsInteger(); }
+      set { _p( BuiltInParameter.PROJECT_REVISION_ENUMERATION ).Set( value ); }
+    }
+
+    public int Sequence
+    {
+      get { return _p( BuiltInParameter.PROJECT_REVISION_SEQUENCE_NUM ).AsInteger(); }
+      set { _p( BuiltInParameter.PROJECT_REVISION_SEQUENCE_NUM ).Set( value ); }
+    }
+
+    public string Description
+    {
+      get { return _p( BuiltInParameter.PROJECT_REVISION_REVISION_DESCRIPTION ).AsString(); }
+      set { _p( BuiltInParameter.PROJECT_REVISION_REVISION_DESCRIPTION ).Set( value ); }
+    }
+
+    public string IssuedBy
+    {
+      get { return _p( BuiltInParameter.PROJECT_REVISION_REVISION_ISSUED_BY ).AsString(); }
+      set { _p( BuiltInParameter.PROJECT_REVISION_REVISION_ISSUED_BY ).Set( value ); }
     }
   }
 }
