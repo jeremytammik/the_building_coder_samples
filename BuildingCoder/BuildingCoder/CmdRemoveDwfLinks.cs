@@ -98,7 +98,8 @@ namespace BuildingCoder
 
         // ...
 
-        RevitLinkLoadResult res = null;
+        //RevitLinkLoadResult res = null; // 2017
+        LinkLoadResult res = null; // 2018
 
         try
         {
