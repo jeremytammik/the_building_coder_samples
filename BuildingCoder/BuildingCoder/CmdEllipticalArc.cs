@@ -25,7 +25,7 @@ namespace BuildingCoder
     /// Create and return a new elliptical arc geometry object
     /// with a given start and end angle.
     /// </summary>
-    Ellipse CreateEllipse( Application app )
+    Curve CreateEllipse( Application app )
     {
       XYZ center = XYZ.Zero;
 
@@ -40,7 +40,8 @@ namespace BuildingCoder
 
       //Ellipse e = app.Create.NewEllipse( center, radX, radY, xVec, yVec, param0, param1 ); // 2013
       //Ellipse e = Ellipse.Create( center, radX, radY, xVec, yVec, param0, param1 ); // 2014
-      Ellipse e = Ellipse.CreateCurve( center, radX, radY, xVec, yVec, param0, param1 ); // 2018
+
+      Curve c = Ellipse.CreateCurve( center, radX, radY, xVec, yVec, param0, param1 ); // 2018
 
       // Create a line from ellipse center in
       // direction of target angle:
@@ -59,7 +60,7 @@ namespace BuildingCoder
       // Find intersection between line and ellipse:
 
       IntersectionResultArray results;
-      e.Intersect( line, out results );
+      c.Intersect( line, out results );
 
       // Find the shortest intersection segment:
 
@@ -74,9 +75,9 @@ namespace BuildingCoder
 
       // Apply parameter to the ellipse:
 
-      e.MakeBound( param0, param1 );
+      c.MakeBound( param0, param1 );
 
-      return e;
+      return c;
     }
 
     public Result Execute(
@@ -86,7 +87,7 @@ namespace BuildingCoder
     {
       Application app = commandData.Application.Application;
 
-      Ellipse e = CreateEllipse( app );
+      Curve c = CreateEllipse( app );
 
       return Result.Failed;
     }
