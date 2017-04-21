@@ -87,6 +87,10 @@
       <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2018\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="RevitAPIUIMacros">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2018\RevitAPIUIMacros.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
