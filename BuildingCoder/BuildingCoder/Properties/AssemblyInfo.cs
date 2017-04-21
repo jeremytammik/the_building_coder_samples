@@ -184,6 +184,7 @@ using System.Runtime.InteropServices;
 // 2017-03-22 2017.0.132.12 cleaned up JtRevision to avoid using parameter display names
 // 2017-03-23 2017.0.132.13 implemented FootToMetre
 // 2017-04-21 2018.0.132.0 flat migration to Revit 2018 and fixed initial compilation errors; 7 deprecation warnings remain
+// 2017-04-21 2018.0.132.1 fixed some deprecation warnings; 3 deprecation warnings remain
 //
-[assembly: AssemblyVersion( "2018.0.132.0" )]
-[assembly: AssemblyFileVersion( "2018.0.132.0" )]
+[assembly: AssemblyVersion( "2018.0.132.1" )]
+[assembly: AssemblyFileVersion( "2018.0.132.1" )]
