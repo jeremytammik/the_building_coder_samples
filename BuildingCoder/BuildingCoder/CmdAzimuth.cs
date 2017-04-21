@@ -100,8 +100,12 @@ namespace BuildingCoder
       foreach( ProjectLocation location
         in doc.ProjectLocations )
       {
+        //ProjectPosition projectPosition
+        //  = location.get_ProjectPosition( XYZ.Zero ); // 2017
+
         ProjectPosition projectPosition
-          = location.get_ProjectPosition( XYZ.Zero );
+          = location.GetProjectPosition( XYZ.Zero ); // 2018
+
         double pna = projectPosition.Angle;
         Debug.WriteLine(
           "Angle between project north and true north "
