@@ -503,22 +503,27 @@ namespace BuildingCoder
       NumBaseUnits
     };
 
-    const double _convertFootToMm = 12 * 25.4;
+    const double _inchToMm = 25.4;
+    const double _footToMm = 12 * _inchToMm;
+    const double _footToMeter = _footToMm * 0.001;
 
-    const double _convertFootToMeter
-      = _convertFootToMm * 0.001;
-
-    const double _convertCubicFootToCubicMeter
-      = _convertFootToMeter
-      * _convertFootToMeter
-      * _convertFootToMeter;
+    const double _cubicFootToCubicMeter
+      = _footToMeter * _footToMeter * _footToMeter;
 
     /// <summary>
     /// Convert a given length in feet to millimetres.
     /// </summary>
     public static double FootToMm( double length )
     {
-      return length * _convertFootToMm;
+      return length * _footToMm;
+    }
+
+    /// <summary>
+    /// Convert a given length in feet to metres.
+    /// </summary>
+    public static double FootToMetre( double length )
+    {
+      return length * _footToMeter;
     }
 
     /// <summary>
@@ -526,7 +531,7 @@ namespace BuildingCoder
     /// </summary>
     public static double MmToFoot( double length )
     {
-      return length / _convertFootToMm;
+      return length / _footToMm;
     }
 
     /// <summary>
@@ -534,7 +539,7 @@ namespace BuildingCoder
     /// </summary>
     public static XYZ MmToFoot( XYZ v )
     {
-      return v.Divide( _convertFootToMm );
+      return v.Divide( _footToMm );
     }
 
     /// <summary>
@@ -542,7 +547,7 @@ namespace BuildingCoder
     /// </summary>
     public static double CubicFootToCubicMeter( double volume )
     {
-      return volume * _convertCubicFootToCubicMeter;
+      return volume * _cubicFootToCubicMeter;
     }
 
     /// <summary>

@@ -18,10 +18,11 @@ using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Visual;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using System.ComponentModel;
-using Autodesk.Revit.Utility;
+//using Autodesk.Revit.Utility;
 #endregion // Namespaces
 
 namespace BuildingCoder
