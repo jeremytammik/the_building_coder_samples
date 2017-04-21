@@ -45,7 +45,10 @@ namespace BuildingCoder
             transaction.Start();
 
             ProjectLocation projectLocation = doc.ActiveProjectLocation;
-            SiteLocation site = projectLocation.SiteLocation;
+
+            //SiteLocation site = projectLocation.SiteLocation; // 2017
+            SiteLocation site = projectLocation.GetSiteLocation(); // 2018
+
             // site.PlaceName = city.Name;
             site.Latitude = city.Latitude; // latitude information
             site.Longitude = city.Longitude; // longitude information
@@ -76,7 +79,10 @@ namespace BuildingCoder
             t.Start( "Set Site Location to City" );
 
             ProjectLocation projectLocation = doc.ActiveProjectLocation;
-            SiteLocation site = projectLocation.SiteLocation;
+
+            //SiteLocation site = projectLocation.SiteLocation; // 2017
+            SiteLocation site = projectLocation.GetSiteLocation(); // 2018
+
             // site.PlaceName = city.Name;
             site.Latitude = city.Latitude; // latitude information
             site.Longitude = city.Longitude; // longitude information
@@ -159,8 +165,11 @@ namespace BuildingCoder
           foreach( ProjectLocation location
             in doc.ProjectLocations )
           {
+            //ProjectPosition projectPosition
+            //  = location.get_ProjectPosition( XYZ.Zero ); // 2017
+
             ProjectPosition projectPosition
-              = location.get_ProjectPosition( XYZ.Zero );
+              = location.GetProjectPosition( XYZ.Zero ); // 2018
 
             x = projectPosition.EastWest;
             y = projectPosition.NorthSouth;

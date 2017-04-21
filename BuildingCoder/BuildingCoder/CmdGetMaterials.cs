@@ -245,7 +245,7 @@ namespace BuildingCoder
           {
             AssetPropertyDoubleArray3d property = assetProperty as AssetPropertyDoubleArray3d;
             valueType = typeof( AssetPropertyDoubleArray3d );
-            theValue = GetSystemArrayAsString( property.Value );
+            theValue = GetSystemArrayAsString( property.Value ); // 2017
           }
           else if( assetProperty is AssetPropertyDoubleArray4d )
           {

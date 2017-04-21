@@ -227,6 +227,12 @@ namespace BuildingCoder
           view, door, false, TagMode.TM_ADDBY_CATEGORY,
           TagOrientation.Horizontal, midpoint ); // 2012
 
+        //IndependentTag tag = IndependentTag.Create( 
+        //  doc, view.Id,
+        //  how to get door reference?
+        //  false, TagMode.TM_ADDBY_CATEGORY,
+        //  TagOrientation.Horizontal, midpoint ); // 2018
+
         // Create and assign new door tag type:
 
         FamilySymbol doorTagType
