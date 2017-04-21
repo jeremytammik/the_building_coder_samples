@@ -39,8 +39,8 @@ namespace BuildingCoder
       double param1 = 2 * Math.PI;
 
       //Ellipse e = app.Create.NewEllipse( center, radX, radY, xVec, yVec, param0, param1 ); // 2013
-
-      Ellipse e = Ellipse.Create( center, radX, radY, xVec, yVec, param0, param1 ); // 2014
+      //Ellipse e = Ellipse.Create( center, radX, radY, xVec, yVec, param0, param1 ); // 2014
+      Ellipse e = Ellipse.CreateCurve( center, radX, radY, xVec, yVec, param0, param1 ); // 2018
 
       // Create a line from ellipse center in
       // direction of target angle:
