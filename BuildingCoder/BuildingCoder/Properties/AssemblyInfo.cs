@@ -185,6 +185,7 @@ using System.Runtime.InteropServices;
 // 2017-03-23 2017.0.132.13 implemented FootToMetre
 // 2017-04-21 2018.0.132.0 flat migration to Revit 2018 and fixed initial compilation errors; 7 deprecation warnings remain
 // 2017-04-21 2018.0.132.1 fixed some deprecation warnings; 3 deprecation warnings remain
+// 2017-05-11 2018.0.132.2 catch OperationCanceledException when calling PromptForFamilyInstancePlacement
 //
-[assembly: AssemblyVersion( "2018.0.132.1" )]
-[assembly: AssemblyFileVersion( "2018.0.132.1" )]
+[assembly: AssemblyVersion( "2018.0.132.2" )]
+[assembly: AssemblyFileVersion( "2018.0.132.2" )]

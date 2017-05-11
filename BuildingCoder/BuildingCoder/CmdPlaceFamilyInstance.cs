@@ -77,7 +77,14 @@ namespace BuildingCoder
       //PromptForFamilyInstancePlacementOptions opt 
       //  = new PromptForFamilyInstancePlacementOptions();
 
-      uidoc.PromptForFamilyInstancePlacement( symbol );
+      try
+      {
+        uidoc.PromptForFamilyInstancePlacement( symbol );
+      }
+      catch( Autodesk.Revit.Exceptions.OperationCanceledException ex )
+      {
+        Debug.Print( ex.Message );
+      }
 
       app.DocumentChanged
         -= new EventHandler<DocumentChangedEventArgs>(
