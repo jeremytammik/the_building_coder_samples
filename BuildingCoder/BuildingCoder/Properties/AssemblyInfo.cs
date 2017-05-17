@@ -186,6 +186,7 @@ using System.Runtime.InteropServices;
 // 2017-04-21 2018.0.132.0 flat migration to Revit 2018 and fixed initial compilation errors; 7 deprecation warnings remain
 // 2017-04-21 2018.0.132.1 fixed some deprecation warnings; 3 deprecation warnings remain
 // 2017-05-11 2018.0.132.2 catch OperationCanceledException when calling PromptForFamilyInstancePlacement
+// 2017-05-17 2018.0.132.3 added IsElementVisibleInView from http://stackoverflow.com/questions/44012630/determine-is-a-familyinstance-is-visible-in-a-view
 //
-[assembly: AssemblyVersion( "2018.0.132.2" )]
-[assembly: AssemblyFileVersion( "2018.0.132.2" )]
+[assembly: AssemblyVersion( "2018.0.132.3" )]
+[assembly: AssemblyFileVersion( "2018.0.132.3" )]
