@@ -359,6 +359,51 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Create a cone-shaped solid at the origin
+    /// pointing upwards, i.e., towards +Z.
+    /// </summary>
+    static public Solid CreateCone( 
+      double radius, 
+      double height )
+    {
+      // Define a triangle in XZ plane
+
+      XYZ center = XYZ.Zero;
+      XYZ px = radius * XYZ.BasisX;
+      XYZ pz = height * XYZ.BasisZ;
+
+      List<Curve> profile = new List<Curve>();
+
+      profile.Add( Line.CreateBound( center, px ) );
+      profile.Add( Line.CreateBound( px, pz ) );
+      profile.Add( Line.CreateBound( pz, center ) );
+
+      CurveLoop curveLoop = CurveLoop.Create( profile );
+
+      Frame frame = new Frame( 
+        center, XYZ.BasisX, XYZ.BasisY, XYZ.BasisZ );
+
+      SolidOptions options = new SolidOptions( 
+        ElementId.InvalidElementId, 
+        ElementId.InvalidElementId );
+
+      Solid cone = GeometryCreationUtilities
+        .CreateRevolvedGeometry( frame, 
+          new CurveLoop[] { curveLoop },
+          0, 2 * Math.PI, options );
+
+      return cone;
+
+      //using( Transaction t = new Transaction( Command.Doc, "Create cone" ) )
+      //{
+      //  t.Start();
+      //  DirectShape ds = DirectShape.CreateElement( Command.Doc, new ElementId( BuiltInCategory.OST_GenericModel ) );
+      //  ds.SetShape( new GeometryObject[] { cone } );
+      //  t.Commit();
+      //}
+    }
+
+    /// <summary>
     /// Create and return a cube of 
     /// side length d at the origin.
     /// </summary>
