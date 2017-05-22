@@ -383,14 +383,14 @@ namespace BuildingCoder
       Frame frame = new Frame( 
         center, XYZ.BasisX, XYZ.BasisY, XYZ.BasisZ );
 
-      SolidOptions options = new SolidOptions( 
-        ElementId.InvalidElementId, 
-        ElementId.InvalidElementId );
+      //SolidOptions options = new SolidOptions( 
+      //  ElementId.InvalidElementId, 
+      //  ElementId.InvalidElementId );
 
       Solid cone = GeometryCreationUtilities
         .CreateRevolvedGeometry( frame, 
-          new CurveLoop[] { curveLoop },
-          0, 2 * Math.PI, options );
+          new CurveLoop[] { curveLoop }, 
+          0, 2 * Math.PI );
 
       return cone;
 
