@@ -391,16 +391,15 @@ namespace BuildingCoder
       double radius, 
       double height )
     {
-      if( !IsEqual( 1, axis_vector.GetLength() ) )
-      {
-        throw new System.ArgumentException( 
-          "expected unit length axis vector" );
-      }
+      XYZ az = axis_vector.Normalize();
+
+      XYZ ax, ay;
+      GetArbitraryAxes( az, out ax, out ay );
 
       // Define a triangle in XZ plane
 
-      XYZ px = radius * XYZ.BasisX;
-      XYZ pz = center + height * axis_vector;
+      XYZ px = center + radius * ax;
+      XYZ pz = center + height * az;
 
       List<Curve> profile = new List<Curve>();
 
@@ -410,8 +409,7 @@ namespace BuildingCoder
 
       CurveLoop curveLoop = CurveLoop.Create( profile );
 
-      Frame frame = new Frame( 
-        center, XYZ.BasisX, XYZ.BasisY, XYZ.BasisZ );
+      Frame frame = new Frame( center, ax, ay, az );
 
       //SolidOptions options = new SolidOptions( 
       //  ElementId.InvalidElementId, 

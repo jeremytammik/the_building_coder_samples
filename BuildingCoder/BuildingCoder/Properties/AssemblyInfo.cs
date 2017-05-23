@@ -189,6 +189,7 @@ using System.Runtime.InteropServices;
 // 2017-05-17 2018.0.132.3 added IsElementVisibleInView from http://stackoverflow.com/questions/44012630/determine-is-a-familyinstance-is-visible-in-a-view
 // 2017-05-22 2018.0.132.4 implemented CreateCone for https://forums.autodesk.com/t5/revit-api-forum/revolvedgeometry/m-p/7098852
 // 2017-05-23 2018.0.132.5 implemented arbitrary axis algorithm in GetArbitraryAxes
+// 2017-05-23 2018.0.132.5 rewrote CreateCone to take arbitrary base point and axis
 //
 [assembly: AssemblyVersion( "2018.0.132.5" )]
 [assembly: AssemblyFileVersion( "2018.0.132.5" )]
