@@ -234,6 +234,29 @@ namespace BuildingCoder
 
     #region Geometrical Calculation
     /// <summary>
+    /// Return arbitrary X and Y axes for the given 
+    /// normal vector according to the AutoCAD 
+    /// Arbitrary Axis Algorithm
+    /// https://www.autodesk.com/techpubs/autocad/acadr14/dxf/arbitrary_axis_algorithm_al_u05_c.htm
+    /// </summary>
+    public static void GetArbitraryAxes(
+      XYZ normal, 
+      out XYZ ax, 
+      out XYZ ay )
+    {
+      double limit = 1.0 / 64;
+
+      XYZ pick_cardinal_axis 
+        = ( IsZero( normal.X, limit )
+          && IsZero( normal.Y, limit ) )
+            ? XYZ.BasisY
+            : XYZ.BasisZ;
+
+      ax = pick_cardinal_axis.CrossProduct( normal ).Normalize();
+      ay = normal.CrossProduct( ax ).Normalize();
+    }
+
+    /// <summary>
     /// Return the midpoint between two points.
     /// </summary>
     public static XYZ Midpoint( XYZ p, XYZ q )
@@ -363,14 +386,21 @@ namespace BuildingCoder
     /// pointing upwards, i.e., towards +Z.
     /// </summary>
     static public Solid CreateCone( 
+      XYZ center,
+      XYZ axis_vector,
       double radius, 
       double height )
     {
+      if( !IsEqual( 1, axis_vector.GetLength() ) )
+      {
+        throw new System.ArgumentException( 
+          "expected unit length axis vector" );
+      }
+
       // Define a triangle in XZ plane
 
-      XYZ center = XYZ.Zero;
       XYZ px = radius * XYZ.BasisX;
-      XYZ pz = height * XYZ.BasisZ;
+      XYZ pz = center + height * axis_vector;
 
       List<Curve> profile = new List<Curve>();
 
