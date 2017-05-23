@@ -240,13 +240,13 @@ namespace BuildingCoder
     /// https://www.autodesk.com/techpubs/autocad/acadr14/dxf/arbitrary_axis_algorithm_al_u05_c.htm
     /// </summary>
     public static void GetArbitraryAxes(
-      XYZ normal, 
-      out XYZ ax, 
+      XYZ normal,
+      out XYZ ax,
       out XYZ ay )
     {
       double limit = 1.0 / 64;
 
-      XYZ pick_cardinal_axis 
+      XYZ pick_cardinal_axis
         = ( IsZero( normal.X, limit )
           && IsZero( normal.Y, limit ) )
             ? XYZ.BasisY
@@ -382,13 +382,13 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Create a cone-shaped solid at the origin
-    /// pointing upwards, i.e., towards +Z.
+    /// Create a cone-shaped solid at the given base
+    /// location pointing along the given axis.
     /// </summary>
-    static public Solid CreateCone( 
+    static public Solid CreateCone(
       XYZ center,
       XYZ axis_vector,
-      double radius, 
+      double radius,
       double height )
     {
       XYZ az = axis_vector.Normalize();
@@ -416,8 +416,8 @@ namespace BuildingCoder
       //  ElementId.InvalidElementId );
 
       Solid cone = GeometryCreationUtilities
-        .CreateRevolvedGeometry( frame, 
-          new CurveLoop[] { curveLoop }, 
+        .CreateRevolvedGeometry( frame,
+          new CurveLoop[] { curveLoop },
           0, 2 * Math.PI );
 
       return cone;
@@ -481,7 +481,7 @@ namespace BuildingCoder
     /// Written, described and tested by Owen Merrick for 
     /// http://forums.autodesk.com/t5/revit-api-forum/create-solid-from-boundingbox/m-p/6592486
     /// </summary>
-    public static Solid CreateSolidFromBoundingBox( 
+    public static Solid CreateSolidFromBoundingBox(
       Solid inputSolid )
     {
       BoundingBoxXYZ bbox = inputSolid.GetBoundingBox();
@@ -499,7 +499,7 @@ namespace BuildingCoder
       Line edge1 = Line.CreateBound( pt1, pt2 );
       Line edge2 = Line.CreateBound( pt2, pt3 );
       Line edge3 = Line.CreateBound( pt3, pt0 );
-      
+
       // Create loop, still in BBox coords
 
       List<Curve> edges = new List<Curve>();
@@ -516,10 +516,10 @@ namespace BuildingCoder
       loopList.Add( baseLoop );
 
       Solid preTransformBox = GeometryCreationUtilities
-        .CreateExtrusionGeometry( loopList, XYZ.BasisZ, 
+        .CreateExtrusionGeometry( loopList, XYZ.BasisZ,
           height );
 
-      Solid transformBox = SolidUtils.CreateTransformed( 
+      Solid transformBox = SolidUtils.CreateTransformed(
         preTransformBox, bbox.Transform );
 
       return transformBox;
@@ -703,7 +703,7 @@ namespace BuildingCoder
     /// </summary>
     public static string AngleString( double angle )
     {
-      return RealString( angle * 180 / Math.PI ) 
+      return RealString( angle * 180 / Math.PI )
         + " degrees";
     }
 
@@ -797,8 +797,8 @@ namespace BuildingCoder
     /// </summary>
     public static string PointArrayString( IList<XYZ> pts )
     {
-      return string.Join( ", ", 
-        pts.Select<XYZ, string>( 
+      return string.Join( ", ",
+        pts.Select<XYZ, string>(
           p => PointString( p ) ) );
     }
 
@@ -992,7 +992,7 @@ namespace BuildingCoder
     /// This null coalesces the location so you won't get an 
     /// error if the FamilyInstance is an invalid object.  
     /// </summary>
-    public static XYZ GetFamilyInstanceLocation( 
+    public static XYZ GetFamilyInstanceLocation(
       FamilyInstance fi )
     {
       return ( (LocationPoint) fi?.Location )?.Point;
@@ -1480,15 +1480,15 @@ namespace BuildingCoder
   {
     // (C) Jonathan Skeet
     // from https://github.com/morelinq/MoreLINQ/blob/master/MoreLinq/MinBy.cs
-    public static tsource MinBy<tsource, tkey>( 
+    public static tsource MinBy<tsource, tkey>(
       this IEnumerable<tsource> source,
       Func<tsource, tkey> selector )
     {
       return source.MinBy( selector, Comparer<tkey>.Default );
     }
-    public static tsource MinBy<tsource, tkey>( 
+    public static tsource MinBy<tsource, tkey>(
       this IEnumerable<tsource> source,
-      Func<tsource, tkey> selector, 
+      Func<tsource, tkey> selector,
       IComparer<tkey> comparer )
     {
       if( source == null ) throw new ArgumentNullException( nameof( source ) );
@@ -1522,14 +1522,14 @@ namespace BuildingCoder
     /// is a physical element, i.e. valid category,
     /// not view specific, etc.
     /// </summary>
-    public static bool IsPhysicalElement( 
+    public static bool IsPhysicalElement(
       this Element e )
     {
       if( e.Category == null ) return false;
       if( e.ViewSpecific ) return false; // same result as WhereElementIsViewIndependent?
       // exclude specific unwanted categories
       if( ( (BuiltInCategory) e.Category.Id.IntegerValue ) == BuiltInCategory.OST_HVAC_Zones ) return false;
-   
+
       return e.Category.CategoryType == CategoryType.Model && e.Category.CanAddSubcategory;
     }
 
@@ -1581,8 +1581,8 @@ namespace BuildingCoder
     /// shape of the ellipse.
     /// https://en.wikipedia.org/wiki/Ellipse#Eccentricity
     /// </summary>
-    public static bool Contains( 
-      this Line line, 
+    public static bool Contains(
+      this Line line,
       XYZ p,
       double tolerance = Util._eps )
     {
@@ -1592,7 +1592,7 @@ namespace BuildingCoder
       double da = a.DistanceTo( p );
       double db = p.DistanceTo( b );
       // da + db is always greater or equal f
-      return ((da + db) - f) * f < tolerance;
+      return ( ( da + db ) - f ) * f < tolerance;
     }
   }
 
