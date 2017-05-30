@@ -89,6 +89,5 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
-
   }
 }

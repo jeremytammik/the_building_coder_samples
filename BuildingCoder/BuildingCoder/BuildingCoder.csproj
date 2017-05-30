@@ -211,6 +211,7 @@
     <Compile Include="CmdCreateSharedParams.cs" />
     <Compile Include="CmdRotatedBeamLocation.cs" />
     <Compile Include="CmdSelectionChanged.cs" />
+    <Compile Include="CmdSetGridEndpoint.cs" />
     <Compile Include="CmdSetRoomOccupancy.cs" />
     <Compile Include="CmdSetTagType.cs" />
     <Compile Include="CmdSetTangentLock.cs" />

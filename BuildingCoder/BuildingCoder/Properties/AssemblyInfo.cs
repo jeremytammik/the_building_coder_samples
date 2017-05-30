@@ -190,6 +190,7 @@ using System.Runtime.InteropServices;
 // 2017-05-22 2018.0.132.4 implemented CreateCone for https://forums.autodesk.com/t5/revit-api-forum/revolvedgeometry/m-p/7098852
 // 2017-05-23 2018.0.132.5 implemented arbitrary axis algorithm in GetArbitraryAxes
 // 2017-05-23 2018.0.132.5 rewrote CreateCone to take arbitrary base point and axis
+// 2017-05-30 2018.0.133.0 implemented CmdSetGridEndpoint
 //
-[assembly: AssemblyVersion( "2018.0.132.5" )]
-[assembly: AssemblyFileVersion( "2018.0.132.5" )]
+[assembly: AssemblyVersion( "2018.0.133.0" )]
+[assembly: AssemblyFileVersion( "2018.0.133.0" )]
