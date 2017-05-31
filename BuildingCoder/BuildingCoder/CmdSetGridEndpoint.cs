@@ -1,6 +1,6 @@
 ﻿#region Header
 //
-// CmdSetGridEndpoint.cs - list all shared parameter GUIDs
+// CmdSetGridEndpoint.cs - move selected grid endpoints in Y direction using SetCurveInView
 //
 // Copyright (C) 2017 by  Ryuji Ogasawara and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
@@ -42,7 +42,7 @@ namespace BuildingCoder
 
       Grid grid = doc.GetElement( elemRef ) as Grid;
 
-      IList<Curve> gridCurves = grid.GetCurvesInView( 
+      IList<Curve> gridCurves = grid.GetCurvesInView(
         DatumExtentType.Model, view );
 
       using( Transaction tx = new Transaction( doc ) )
@@ -59,7 +59,7 @@ namespace BuildingCoder
 
           Line newLine = Line.CreateBound( newStart, newEnd );
 
-          grid.SetCurveInView( 
+          grid.SetCurveInView(
             DatumExtentType.Model, view, newLine );
         }
         tx.Commit();
