@@ -1128,8 +1128,8 @@ C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\Buildin
 BuildingCoder.CmdSharedParamGuids # version 2017.0.132.0
 
 ADN Bc R-Z
-Shared Parameter GUIDs
-List all shared parameter GUIDs
+Set Grid Endpoint
+Move selected grid endpoints in Y direction using SetCurveInView
 LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
