@@ -191,7 +191,7 @@ using System.Runtime.InteropServices;
 // 2017-05-23 2018.0.132.5 implemented arbitrary axis algorithm in GetArbitraryAxes
 // 2017-05-23 2018.0.132.5 rewrote CreateCone to take arbitrary base point and axis
 // 2017-05-30 2018.0.133.0 implemented CmdSetGridEndpoint
-// 2017-06-13 2018.0.133.1 added AlignHorizontalAndVerticalGridLine from https://forums.autodesk.com/t5/revit-api-forum/grids-off-axis/m-p/7129065
+// 2017-06-13 2018.0.133.1 added AlignOffAxisGrid from https://forums.autodesk.com/t5/revit-api-forum/grids-off-axis/m-p/7129065
 //
 [assembly: AssemblyVersion( "2018.0.133.1" )]
 [assembly: AssemblyFileVersion( "2018.0.133.1" )]

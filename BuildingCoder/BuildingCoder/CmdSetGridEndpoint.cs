@@ -29,7 +29,7 @@ namespace BuildingCoder
     /// if it is very slightly off axis, by Fair59 in
     /// https://forums.autodesk.com/t5/revit-api-forum/grids-off-axis/m-p/7129065
     /// </summary>
-    void AlignHorizontalAndVerticalGridLine(
+    void AlignOffAxisGrid(
       Grid grid )
     {
       //Grid grid = doc.GetElement( 
