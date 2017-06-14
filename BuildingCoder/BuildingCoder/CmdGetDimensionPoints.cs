@@ -17,6 +17,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -60,9 +61,16 @@ namespace BuildingCoder
 
       Line dimLine = dim.Curve as Line;
       if( dimLine == null ) return null;
+      dimLine.MakeBound( 0, 1 );
 
       XYZ dimStartPoint = null;
       XYZ pt1 = dimLine.GetEndPoint( 0 );
+
+      // dim.Origin throws "Cannot access this method
+      // if this dimension has more than one segment."
+      //Debug.Assert( Util.IsEqual( pt1, dim.Origin ),
+      //  "expected equal points" );
+
       foreach( Reference ref1 in dim.References )
       {
         XYZ refPoint = null;
@@ -122,7 +130,6 @@ namespace BuildingCoder
       UIDocument uidoc = uiapp.ActiveUIDocument;
       Document doc = uidoc.Document;
       Selection sel = uidoc.Selection;
-      View view = doc.ActiveView;
 
       ISelectionFilter f
         = new JtElementsOfClassSelectionFilter<Dimension>();
@@ -131,6 +138,13 @@ namespace BuildingCoder
         ObjectType.Element, f, "Pick a dimension" );
 
       Dimension dim = doc.GetElement( elemRef ) as Dimension;
+
+      List<XYZ> pts = GetDimensionPoints( dim );
+      XYZ p = GetDimensionStartPoint( dim );
+
+      Debug.Print( "Start at {0}, points {1}.", 
+        p, string.Join( ",", pts.Select( 
+          q => Util.PointString( q ) ) ) );
 
       return Result.Succeeded;
     }

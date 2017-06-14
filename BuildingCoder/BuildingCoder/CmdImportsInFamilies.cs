@@ -130,7 +130,6 @@ namespace BuildingCoder
         }
       }
 
-
       // collect all annotation symbols and determine their families:
 
       FilteredElementCollector annotations

@@ -36,10 +36,13 @@ namespace BuildingCoder
 
       Autodesk.Windows.RibbonItem parent = e.Parent;
 
+      string p = ( null == parent )
+        ? "<nul>"
+        : parent.AutomationName.ToString();
+
       Debug.Print(
         "OnItemExecuted: {0} '{1}' in '{2}' cookie {3}",
-        s, parent.AutomationName,
-        e.Item.AutomationName, e.Item.Cookie );
+        s, p, e.Item.AutomationName, e.Item.Cookie );
     }
 
     public Result Execute(
