@@ -558,6 +558,5 @@ namespace BuildingCoder
         tx.Commit();
       }
     }
-
   }
 }

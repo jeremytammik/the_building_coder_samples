@@ -1134,3 +1134,11 @@ LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSetGridEndpoint # version 2018.0.133.0
+
+ADN Bc R-Z
+Get Dimension Points
+Determine dimension segment start and end points
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdGetDimensionPoints # version 2018.0.134.0

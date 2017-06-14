@@ -192,6 +192,7 @@ using System.Runtime.InteropServices;
 // 2017-05-23 2018.0.132.5 rewrote CreateCone to take arbitrary base point and axis
 // 2017-05-30 2018.0.133.0 implemented CmdSetGridEndpoint
 // 2017-06-13 2018.0.133.1 added AlignOffAxisGrid from https://forums.autodesk.com/t5/revit-api-forum/grids-off-axis/m-p/7129065
+// 2017-06-14 2018.0.134.0 implemented CmdGetDimensionPoints for https://forums.autodesk.com/t5/revit-api-forum/how-to-retrieve-a-dimension-s-segment-geometry/m-p/7145688
 //
-[assembly: AssemblyVersion( "2018.0.133.1" )]
-[assembly: AssemblyFileVersion( "2018.0.133.1" )]
+[assembly: AssemblyVersion( "2018.0.134.0" )]
+[assembly: AssemblyFileVersion( "2018.0.134.0" )]
