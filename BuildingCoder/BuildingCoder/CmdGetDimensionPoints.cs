@@ -15,6 +15,7 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -55,7 +56,8 @@ namespace BuildingCoder
       return pts;
     }
 
-    XYZ GetDimensionStartPoint( Dimension dim )
+    XYZ GetDimensionStartPointFirstAttempt(
+      Dimension dim )
     {
       Document doc = dim.Document;
 
@@ -121,6 +123,29 @@ namespace BuildingCoder
       }
       return dimStartPoint;
     }
+
+    XYZ GetDimensionStartPoint(
+      Dimension dim )
+    {
+      XYZ p = null;
+
+      try
+      {
+        p = dim.Origin;
+      }
+      catch( Autodesk.Revit.Exceptions.ApplicationException ex )
+      {
+        Debug.Assert( ex.Message.Equals( "Cannot access this method if this dimension has more than one segment." ) );
+
+        foreach( DimensionSegment seg in dim.Segments )
+        {
+          p = seg.Origin;
+          break;
+        }
+      }
+      return p;
+    }
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
@@ -139,12 +164,29 @@ namespace BuildingCoder
 
       Dimension dim = doc.GetElement( elemRef ) as Dimension;
 
-      List<XYZ> pts = GetDimensionPoints( dim );
       XYZ p = GetDimensionStartPoint( dim );
+      List<XYZ> pts = GetDimensionPoints( dim );
 
-      Debug.Print( "Start at {0}, points {1}.", 
-        p, string.Join( ",", pts.Select( 
+      int n = pts.Count;
+
+      Debug.Print( "Dimension origin at {0} followed "
+        + "by {1} further point{2}{3} {4}",
+        Util.PointString( p ), n,
+        Util.PluralSuffix( n ), Util.DotOrColon( n ),
+        string.Join( ", ", pts.Select(
           q => Util.PointString( q ) ) ) );
+
+      List<double> d = new List<double>( n );
+      foreach( XYZ q in pts )
+      {
+        d.Add( q.X - p.X );
+        p = q;
+      }
+
+      Debug.Print(
+        "Horizontal distances in metres: "
+        + string.Join( ", ", d.Select( x =>
+          Util.RealString( Util.FootToMetre( x ) ) ) ) );
 
       return Result.Succeeded;
     }
