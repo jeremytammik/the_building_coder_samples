@@ -15,7 +15,6 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -23,7 +22,7 @@ using System.Linq;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.ReadOnly )]
+  [Transaction( TransactionMode.Manual )]
   public class CmdGetDimensionPoints : IExternalCommand
   {
     List<XYZ> GetDimensionPoints( Dimension dim )
@@ -146,6 +145,21 @@ namespace BuildingCoder
       return p;
     }
 
+    void DrawMarker( 
+      XYZ p, 
+      double size, 
+      SketchPlane sketchPlane )
+    {
+      size *= 0.5;
+      XYZ v = new XYZ( size, size, 0 );
+      Document doc = sketchPlane.Document;
+      doc.Create.NewModelCurve( Line.CreateBound( 
+        p - v, p + v ), sketchPlane );
+      v = new XYZ( size, -size, 0 );
+      doc.Create.NewModelCurve( Line.CreateBound(
+        p - v, p + v ), sketchPlane );
+    }
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
@@ -177,16 +191,30 @@ namespace BuildingCoder
           q => Util.PointString( q ) ) ) );
 
       List<double> d = new List<double>( n );
+      XYZ q0 = p;
       foreach( XYZ q in pts )
       {
-        d.Add( q.X - p.X );
-        p = q;
+        d.Add( q.X - q0.X );
+        q0 = q;
       }
 
       Debug.Print(
         "Horizontal distances in metres: "
         + string.Join( ", ", d.Select( x =>
           Util.RealString( Util.FootToMetre( x ) ) ) ) );
+
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Draw Point Markers" );
+
+        SketchPlane sketchPlane = dim.View.SketchPlane;
+
+        double size = 0.3;
+        DrawMarker( p, size, sketchPlane );
+        pts.ForEach( q => DrawMarker( q, size, sketchPlane ) );
+
+        tx.Commit();
+      }
 
       return Result.Succeeded;
     }
