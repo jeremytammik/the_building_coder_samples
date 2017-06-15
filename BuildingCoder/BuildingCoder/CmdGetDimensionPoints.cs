@@ -145,6 +145,38 @@ namespace BuildingCoder
       return p;
     }
 
+    List<XYZ> GetDimensionPoints2( Dimension dim, XYZ pStart )
+    {
+      Line dimLine = dim.Curve as Line;
+      if( dimLine == null ) return null;
+      List<XYZ> pts = new List<XYZ>();
+
+      dimLine.MakeBound( 0, 1 );
+      XYZ pt1 = dimLine.GetEndPoint( 0 );
+      XYZ pt2 = dimLine.GetEndPoint( 1 );
+      XYZ direction = pt2.Subtract( pt1 ).Normalize();
+      if( dim.Segments.Size == 0 )
+      {
+        XYZ v = 0.5 * (double)dim.Value * direction;
+        pts.Add( pStart - v );
+        pts.Add( pStart + v );
+      }
+      else
+      {
+        XYZ p = pStart;
+        foreach( DimensionSegment seg in dim.Segments )
+        {
+          XYZ v = (double) seg.Value * direction;
+          if( 0 == pts.Count)
+          {
+            pts.Add( p = ( pStart - 0.5 * v ) );
+          }
+          pts.Add( p = p.Add( v ) );
+        }
+      }
+      return pts;
+    }
+
     void DrawMarker( 
       XYZ p, 
       double size, 
@@ -179,7 +211,7 @@ namespace BuildingCoder
       Dimension dim = doc.GetElement( elemRef ) as Dimension;
 
       XYZ p = GetDimensionStartPoint( dim );
-      List<XYZ> pts = GetDimensionPoints( dim );
+      List<XYZ> pts = GetDimensionPoints2( dim, p );
 
       int n = pts.Count;
 
