@@ -25,7 +25,9 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   public class CmdGetDimensionPoints : IExternalCommand
   {
-    List<XYZ> GetDimensionPoints( Dimension dim )
+    #region Obsolete initial attempts
+    List<XYZ> GetDimensionPointsObsoleteFirstAttempt(
+      Dimension dim )
     {
       Line dimLine = dim.Curve as Line;
       if( dimLine == null ) return null;
@@ -122,7 +124,12 @@ namespace BuildingCoder
       }
       return dimStartPoint;
     }
+    #endregion // Obsolete initial attempts
 
+    /// <summary>
+    /// Return dimension origin, i.e., the midpoint
+    /// of the dimension or of its first segment.
+    /// </summary>
     XYZ GetDimensionStartPoint(
       Dimension dim )
     {
@@ -145,7 +152,14 @@ namespace BuildingCoder
       return p;
     }
 
-    List<XYZ> GetDimensionPoints2( Dimension dim, XYZ pStart )
+    /// <summary>
+    /// Retrieve the start and end points of
+    /// each dimension segment, based on the 
+    /// dimension origin determined above.
+    /// </summary>
+    List<XYZ> GetDimensionPoints(
+      Dimension dim,
+      XYZ pStart )
     {
       Line dimLine = dim.Curve as Line;
       if( dimLine == null ) return null;
@@ -155,9 +169,10 @@ namespace BuildingCoder
       XYZ pt1 = dimLine.GetEndPoint( 0 );
       XYZ pt2 = dimLine.GetEndPoint( 1 );
       XYZ direction = pt2.Subtract( pt1 ).Normalize();
-      if( dim.Segments.Size == 0 )
+
+      if( 0 == dim.Segments.Size )
       {
-        XYZ v = 0.5 * (double)dim.Value * direction;
+        XYZ v = 0.5 * (double) dim.Value * direction;
         pts.Add( pStart - v );
         pts.Add( pStart + v );
       }
@@ -167,7 +182,7 @@ namespace BuildingCoder
         foreach( DimensionSegment seg in dim.Segments )
         {
           XYZ v = (double) seg.Value * direction;
-          if( 0 == pts.Count)
+          if( 0 == pts.Count )
           {
             pts.Add( p = ( pStart - 0.5 * v ) );
           }
@@ -177,15 +192,19 @@ namespace BuildingCoder
       return pts;
     }
 
-    void DrawMarker( 
-      XYZ p, 
-      double size, 
+    /// <summary>
+    /// Graphical debugging helper using model lines
+    /// to draw an X at the given position.
+    /// </summary>
+    void DrawMarker(
+      XYZ p,
+      double size,
       SketchPlane sketchPlane )
     {
       size *= 0.5;
       XYZ v = new XYZ( size, size, 0 );
       Document doc = sketchPlane.Document;
-      doc.Create.NewModelCurve( Line.CreateBound( 
+      doc.Create.NewModelCurve( Line.CreateBound(
         p - v, p + v ), sketchPlane );
       v = new XYZ( size, -size, 0 );
       doc.Create.NewModelCurve( Line.CreateBound(
@@ -211,7 +230,7 @@ namespace BuildingCoder
       Dimension dim = doc.GetElement( elemRef ) as Dimension;
 
       XYZ p = GetDimensionStartPoint( dim );
-      List<XYZ> pts = GetDimensionPoints2( dim, p );
+      List<XYZ> pts = GetDimensionPoints( dim, p );
 
       int n = pts.Count;
 
