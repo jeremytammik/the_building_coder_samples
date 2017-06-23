@@ -698,6 +698,15 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Return a hash string for a real number
+    /// formatted to nine decimal places.
+    /// </summary>
+    public static string HashString( double a )
+    {
+      return a.ToString( "0.#########" );
+    }
+
+    /// <summary>
     /// Return a string representation in degrees
     /// for an angle given in radians.
     /// </summary>
@@ -741,6 +750,19 @@ namespace BuildingCoder
         RealString( p.X ),
         RealString( p.Y ),
         RealString( p.Z ) );
+    }
+
+    /// <summary>
+    /// Return a hash string for an XYZ point
+    /// or vector with its coordinates
+    /// formatted to nine decimal places.
+    /// </summary>
+    public static string HashString( XYZ p )
+    {
+      return string.Format( "({0},{1},{2})",
+        HashString( p.X ),
+        HashString( p.Y ),
+        HashString( p.Z ) );
     }
 
     /// <summary>
@@ -1413,6 +1435,31 @@ namespace BuildingCoder
       ca.ConnectTo( cb );
       //cb.ConnectTo( ca );
     }
+
+
+    public class ConnectorXyzComparer : IEqualityComparer<Connector>
+    {
+      public bool Equals( Connector x, Connector y )
+      {
+        return null != x
+          && null != y
+          && IsEqual( x.Origin, y.Origin );
+      }
+
+      public int GetHashCode( Connector x )
+      {
+        return HashString( x.Origin ).GetHashCode();
+      }
+    }
+
+    /// <summary>
+    /// Get distinct connectors fro a set of MEP elements.
+    /// </summary>
+    public static HashSet<Connector> GetDistinctConnectors(
+      List<Connector> cons )
+    {
+      return cons.Distinct( new ConnectorXyzComparer() ).ToHashSet();
+    }
     #endregion // MEP utilities
 
     #region Compatibility fix for spelling error change
@@ -1486,6 +1533,7 @@ namespace BuildingCoder
     {
       return source.MinBy( selector, Comparer<tkey>.Default );
     }
+
     public static tsource MinBy<tsource, tkey>(
       this IEnumerable<tsource> source,
       Func<tsource, tkey> selector,
@@ -1513,6 +1561,62 @@ namespace BuildingCoder
         return min;
       }
     }
+
+    /// <summary>
+    /// Create HashSet from IEnumerable given selector and comparer.
+    /// http://geekswithblogs.net/BlackRabbitCoder/archive/2011/03/31/c.net-toolbox-adding-a-tohashset-extension-method.aspx
+    /// </summary>
+    public static HashSet<TElement> ToHashSet<TSource, TElement>(
+      this IEnumerable<TSource> source,
+      Func<TSource, TElement> elementSelector,
+      IEqualityComparer<TElement> comparer )
+    {
+      if( source == null ) throw new ArgumentNullException( "source" );
+      if( elementSelector == null ) throw new ArgumentNullException( "elementSelector" );
+
+      // you can unroll this into a foreach if you want efficiency gain, but for brevity...
+      return new HashSet<TElement>( 
+        source.Select( elementSelector ), comparer );
+    }
+
+    /// <summary>
+    /// Create a HashSet of TSource from an IEnumerable 
+    /// of TSource using the identity selector and 
+    /// default equality comparer.
+    /// </summary>
+    public static HashSet<TSource> ToHashSet<TSource>(
+      this IEnumerable<TSource> source )
+    {
+      // key selector is identity fxn and null is default comparer
+      return source.ToHashSet<TSource, TSource>( 
+        item => item, null );
+    }
+
+    /// <summary>
+    /// Create a HashSet of TSource from an IEnumerable 
+    /// of TSource using the identity selector and 
+    /// specified equality comparer.
+    /// </summary>
+    public static HashSet<TSource> ToHashSet<TSource>(
+      this IEnumerable<TSource> source,
+      IEqualityComparer<TSource> comparer )
+    {
+      return source.ToHashSet<TSource, TSource>( 
+        item => item, comparer );
+    }
+
+    /// <summary>
+    /// Create a HashSet of TElement from an IEnumerable 
+    /// of TSource using the specified element selector 
+    /// and default equality comparer.
+    /// </summary>
+    public static HashSet<TElement> ToHashSet<TSource, TElement>(
+      this IEnumerable<TSource> source,
+      Func<TSource, TElement> elementSelector )
+    {
+      return source.ToHashSet<TSource, TElement>( 
+        elementSelector, null );
+    }
   }
 
   public static class JtElementExtensionMethods
@@ -1527,7 +1631,7 @@ namespace BuildingCoder
     {
       if( e.Category == null ) return false;
       if( e.ViewSpecific ) return false; // same result as WhereElementIsViewIndependent?
-      // exclude specific unwanted categories
+                                         // exclude specific unwanted categories
       if( ( (BuiltInCategory) e.Category.Id.IntegerValue ) == BuiltInCategory.OST_HVAC_Zones ) return false;
 
       return e.Category.CategoryType == CategoryType.Model && e.Category.CanAddSubcategory;
