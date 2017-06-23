@@ -1436,7 +1436,9 @@ namespace BuildingCoder
       //cb.ConnectTo( ca );
     }
 
-
+    /// <summary>
+    /// Compare Connector objects based on their location point.
+    /// </summary>
     public class ConnectorXyzComparer : IEqualityComparer<Connector>
     {
       public bool Equals( Connector x, Connector y )
@@ -1453,12 +1455,13 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Get distinct connectors fro a set of MEP elements.
+    /// Get distinct connectors from a set of MEP elements.
     /// </summary>
     public static HashSet<Connector> GetDistinctConnectors(
       List<Connector> cons )
     {
-      return cons.Distinct( new ConnectorXyzComparer() ).ToHashSet();
+      return cons.Distinct( new ConnectorXyzComparer() )
+        .ToHashSet();
     }
     #endregion // MEP utilities
 
