@@ -533,7 +533,7 @@ namespace BuildingCoder
 
       // Get all family instances and use those to
       // set up dictionaries for all the required
-      // mappings in one fell sweep. In the end, we
+      // mappings in one fell swoop. In the end, we
       // will need the following mappings:
       // - level to all categories it hosts instances of
       // - for each level and category, all families
@@ -1036,7 +1036,7 @@ namespace BuildingCoder
     }
     #endregion // Filter for views
 
-    #region Retrieve named family symbols
+    #region Retrieve named family symbols using either LINQ or a parameter filter
     static FilteredElementCollector GetStructuralColumnSymbolCollector( Document doc )
     {
       return new FilteredElementCollector( doc )
@@ -1098,7 +1098,7 @@ namespace BuildingCoder
 
       return elements;
     }
-    #endregion // Retrieve named family symbols
+    #endregion // Retrieve named family symbols using either LINQ or a parameter filter
 
     #region Retrieve openings in wall
     /// <summary>
