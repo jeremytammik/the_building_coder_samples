@@ -194,6 +194,7 @@ using System.Runtime.InteropServices;
 // 2017-06-13 2018.0.133.1 added AlignOffAxisGrid from https://forums.autodesk.com/t5/revit-api-forum/grids-off-axis/m-p/7129065
 // 2017-06-14 2018.0.134.0 implemented CmdGetDimensionPoints for https://forums.autodesk.com/t5/revit-api-forum/how-to-retrieve-a-dimension-s-segment-geometry/m-p/7145688
 // 2017-06-23 2018.0.134.1 implemented ConnectorXyzComparer and ToHashSet extension method for https://forums.autodesk.com/t5/revit-api-forum/distinct-xyz/m-p/7173069
+// 2017-08-15 2018.0.134.2 implemented GetFamilyInstancesByFamilyAndType and GetTitleBlockSymbolByFamilyAndType methods for https://forums.autodesk.com/t5/revit-api-forum/family-instance-filter/m-p/7287113
 //
-[assembly: AssemblyVersion( "2018.0.134.1" )]
-[assembly: AssemblyFileVersion( "2018.0.134.1" )]
+[assembly: AssemblyVersion( "2018.0.134.2" )]
+[assembly: AssemblyFileVersion( "2018.0.134.2" )]

@@ -1036,8 +1036,49 @@ namespace BuildingCoder
     }
     #endregion // Filter for views
 
+    #region Retrieve all family instances of specific named family and type
+    /// <summary>
+    /// Get instances by family name then type name
+    /// </summary>
+    static IEnumerable<FamilyInstance>
+      GetFamilyInstancesByFamilyAndType(
+        Document doc,
+        string familyName,
+        string typeName )
+    {
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( FamilyInstance ) )
+        .Cast<FamilyInstance>()
+        .Where( x => x.Symbol.Family.Name.Equals( familyName ) ) // family
+        .Where( x => x.Name.Equals( typeName ) ); // family type               
+    }
+    #endregion // Retrieve all family instances of specific named family and type
+
+    #region Return first title block family symbol of specific named family and type
+    /// <summary>
+    /// Get title block family symbol (= definition) 
+    /// by family name then type name
+    /// </summary>
+    static FamilySymbol
+      GetTitleBlockSymbolByFamilyAndType(
+        Document doc,
+        string familyName,
+        string typeName )
+    {
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( FamilySymbol ) )
+        .OfCategory( BuiltInCategory.OST_TitleBlocks )
+        .Cast<FamilySymbol>()
+        .Where( x => x.FamilyName.Equals( familyName ) ) // family
+        .FirstOrDefault( x => x.Name == typeName ); // family type
+    }
+    #endregion // Return first title block family symbol of specific named family and type
+
+
     #region Retrieve named family symbols using either LINQ or a parameter filter
-    static FilteredElementCollector GetStructuralColumnSymbolCollector( Document doc )
+    static FilteredElementCollector
+      GetStructuralColumnSymbolCollector(
+        Document doc )
     {
       return new FilteredElementCollector( doc )
         .OfCategory( BuiltInCategory.OST_StructuralColumns )
