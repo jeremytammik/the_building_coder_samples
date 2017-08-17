@@ -1073,8 +1073,7 @@ namespace BuildingCoder
         .FirstOrDefault( x => x.Name == typeName ); // family type
     }
     #endregion // Return first title block family symbol of specific named family and type
-
-
+    
     #region Retrieve named family symbols using either LINQ or a parameter filter
     static FilteredElementCollector
       GetStructuralColumnSymbolCollector(
