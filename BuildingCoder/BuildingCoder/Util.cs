@@ -1578,7 +1578,7 @@ namespace BuildingCoder
       if( elementSelector == null ) throw new ArgumentNullException( "elementSelector" );
 
       // you can unroll this into a foreach if you want efficiency gain, but for brevity...
-      return new HashSet<TElement>( 
+      return new HashSet<TElement>(
         source.Select( elementSelector ), comparer );
     }
 
@@ -1591,7 +1591,7 @@ namespace BuildingCoder
       this IEnumerable<TSource> source )
     {
       // key selector is identity fxn and null is default comparer
-      return source.ToHashSet<TSource, TSource>( 
+      return source.ToHashSet<TSource, TSource>(
         item => item, null );
     }
 
@@ -1604,7 +1604,7 @@ namespace BuildingCoder
       this IEnumerable<TSource> source,
       IEqualityComparer<TSource> comparer )
     {
-      return source.ToHashSet<TSource, TSource>( 
+      return source.ToHashSet<TSource, TSource>(
         item => item, comparer );
     }
 
@@ -1617,7 +1617,7 @@ namespace BuildingCoder
       this IEnumerable<TSource> source,
       Func<TSource, TElement> elementSelector )
     {
-      return source.ToHashSet<TSource, TElement>( 
+      return source.ToHashSet<TSource, TElement>(
         elementSelector, null );
     }
   }
@@ -1642,7 +1642,7 @@ namespace BuildingCoder
       {
         return false;
       }
-      return e.Category.CategoryType == CategoryType.Model 
+      return e.Category.CategoryType == CategoryType.Model
         && e.Category.CanAddSubcategory;
     }
 
