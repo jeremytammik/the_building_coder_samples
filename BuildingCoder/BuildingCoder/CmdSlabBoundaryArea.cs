@@ -14,7 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Autodesk.Revit.ApplicationServices;
+using System.Linq;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -26,6 +26,81 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdSlabBoundaryArea : IExternalCommand
   {
+    #region Rpthomas108 searches for minimum point
+    // In Revit API discussion forum thread
+    // https://forums.autodesk.com/t5/revit-api-forum/is-the-first-edgeloop-still-the-outer-loop/m-p/7225379
+
+    public static double MinU( Curve C, Face F )
+    {
+      return C.Tessellate()
+        .Select<XYZ, IntersectionResult>( p => F.Project( p ) )
+        .Min<IntersectionResult>( ir => ir.UVPoint.U );
+    }
+
+    public static double MinX( Curve C, Transform Tinv )
+    {
+      return C.Tessellate()
+        .Select<XYZ, XYZ>( p => Tinv.OfPoint( p ) )
+        .Min<XYZ>( p => p.X );
+    }
+
+    public static EdgeArray OuterLoop( Face F )
+    {
+      EdgeArray eaMin = null;
+      EdgeArrayArray loops = F.EdgeLoops;
+      double uMin = double.MaxValue;
+      foreach( EdgeArray a in loops )
+      {
+        double uMin2 = double.MaxValue;
+        foreach( Edge e in a )
+        {
+          double min = MinU( e.AsCurve(), F );
+          if( min < uMin2 ) { uMin2 = min; }
+        }
+        if( uMin2 < uMin )
+        {
+          uMin = uMin2;
+          eaMin = a;
+        }
+      }
+      return eaMin;
+    }
+
+    public static EdgeArray PlanarFaceOuterLoop( Face F )
+    {
+      PlanarFace face = F as PlanarFace;
+      if( face == null )
+      {
+        return null;
+      }
+      Transform T = Transform.Identity;
+      T.BasisZ = face.FaceNormal;
+      T.BasisX = face.XVector;
+      T.BasisY = face.YVector;
+      T.Origin = face.Origin;
+      Transform Tinv = T.Inverse;
+
+      EdgeArray eaMin = null;
+      EdgeArrayArray loops = F.EdgeLoops;
+      double uMin = double.MaxValue;
+      foreach( EdgeArray a in loops )
+      {
+        double uMin2 = double.MaxValue;
+        foreach( Edge e in a )
+        {
+          double min = MinX( e.AsCurve(), Tinv );
+          if( min < uMin2 ) { uMin2 = min; }
+        }
+        if( uMin2 < uMin )
+        {
+          uMin = uMin2;
+          eaMin = a;
+        }
+      }
+      return eaMin;
+    }
+    #endregion // Rpthomas108 searches for minimum point
+
     #region Flatten, i.e. project from 3D to 2D by dropping the Z coordinate
     /// <summary>
     /// Eliminate the Z coordinate.
@@ -148,7 +223,7 @@ namespace BuildingCoder
             : "" ) );
       }
 
-      using ( Transaction t = new Transaction( doc ) )
+      using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Draw Polygons" );
 
