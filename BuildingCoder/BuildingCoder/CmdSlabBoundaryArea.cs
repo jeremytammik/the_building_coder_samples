@@ -26,7 +26,156 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdSlabBoundaryArea : IExternalCommand
   {
-    #region Rpthomas108 searches for minimum point
+    #region Rpthomas108 improved solution
+    // In Revit API discussion forum thread
+    // https://forums.autodesk.com/t5/revit-api-forum/outer-loops-of-planar-face-with-separate-parts/m-p/7461348
+
+    public Result GetPlanarFaceOuterLoops(
+        ExternalCommandData commandData,
+        ref string message,
+        ElementSet elements )
+    {
+      UIApplication IntApp = commandData.Application;
+      UIDocument IntUIDoc = IntApp.ActiveUIDocument;
+      if( IntUIDoc == null )
+        return Result.Failed;
+      Document IntDoc = IntUIDoc.Document;
+
+      Reference R = null;
+      try
+      {
+        R = IntUIDoc.Selection.PickObject( ObjectType.Face );
+      }
+      catch
+      {
+      }
+      if( R == null )
+        return Result.Cancelled;
+
+      Element F_El = IntDoc.GetElement( R.ElementId );
+      if( F_El == null )
+        return Result.Failed;
+
+      PlanarFace F = F_El.GetGeometryObjectFromReference( R )
+        as PlanarFace;
+
+      if( F == null )
+        return Result.Failed;
+
+      //Create individual CurveLoops to compare from 
+      // the orginal CurveLoopArray
+      //If floor has separate parts these will now be 
+      // separated out into individual faces rather 
+      // than one face with multiple loops.
+      List<Tuple<PlanarFace, CurveLoop, int>> CLoop
+        = new List<Tuple<PlanarFace, CurveLoop, int>>();
+
+      int Ix = 0;
+      foreach( CurveLoop item in F.GetEdgesAsCurveLoops() )
+      {
+        List<CurveLoop> CLL = new List<CurveLoop>();
+        CLL.Add( item );
+        //Create a solid extrusion for each CurveLoop 
+        // ( we want to get the planarFace from this 
+        // to use built in functionality (.PlanarFace.IsInside).
+        //Would be nice if you could skip this step and 
+        // create PlanarFaces directly from CuveLoops? 
+        // Does not appear to be possible, I only looked 
+        // in GeometryCreationUtilities.
+        //Below creates geometry in memory rather than 
+        // actual geometry in the document, therefore 
+        // no transaction required.
+        Solid S = GeometryCreationUtilities
+          .CreateExtrusionGeometry( CLL, F.FaceNormal, 1 );
+
+        foreach( Face Fx in S.Faces )
+        {
+          PlanarFace PFx = Fx as PlanarFace;
+          if( PFx == null )
+            continue;
+          if( PFx.FaceNormal.IsAlmostEqualTo(
+            F.FaceNormal ) )
+          {
+            Ix += 1;
+            CLoop.Add( new Tuple<PlanarFace,
+              CurveLoop, int>( PFx, item, Ix ) );
+          }
+        }
+      }
+
+      List<CurveLoop> OuterLoops = new List<CurveLoop>();
+      //If there is more than one outerloop we know the 
+      // original face has separate parts.
+      //We could therefore stop the creation of floors 
+      // with separate parts via posting failures etc. 
+      // or more passively create a geometry checking
+      // utility to identify them.
+      List<CurveLoop> InnerLoops = new List<CurveLoop>();
+      foreach( Tuple<PlanarFace, CurveLoop, int> item in CLoop )
+      {
+        //To identify an inner loop we just need to see 
+        // if any of it's points are inside another face.
+        //The exception to this is a loop compared to the
+        // face it was taken from. This will also be 
+        // considered inside as the points are on the boundary.
+        //Therefore give each item an integer ID to ensure
+        // it isn't self comparing. An alternative would
+        // be to look for J=1 instead of J=0 below (perhaps).
+
+        int J = CLoop.ToList().FindAll( z
+          => FirstPointIsInsideFace( item.Item2, z.Item1 )
+            == true && z.Item3 != item.Item3 ).Count;
+
+        if( J == 0 )
+        {
+          OuterLoops.Add( item.Item2 );
+        }
+        else
+        {
+          InnerLoops.Add( item.Item2 );
+        }
+      }
+
+      using( Transaction Tx = new Transaction( IntDoc,
+        "Outer loops" ) )
+      {
+        if( Tx.Start() == TransactionStatus.Started )
+        {
+          SketchPlane SKP = SketchPlane.Create( IntDoc,
+            Plane.CreateByThreePoints( F.Origin,
+              F.Origin + F.XVector, F.Origin + F.YVector ) );
+
+          foreach( CurveLoop Crv in OuterLoops )
+          {
+            foreach( Curve C in Crv )
+            {
+              IntDoc.Create.NewModelCurve( C, SKP );
+            }
+          }
+          Tx.Commit();
+        }
+      }
+      return Result.Succeeded;
+    }
+
+    public bool FirstPointIsInsideFace(
+      CurveLoop CL,
+      PlanarFace PFace )
+    {
+      Transform Trans = PFace.ComputeDerivatives(
+        new UV( 0, 0 ) );
+      if( CL.Count() == 0 )
+        return false;
+      XYZ Pt = Trans.Inverse.OfPoint(
+        CL.ToList()[0].GetEndPoint( 0 ) );
+      IntersectionResult Res = null;
+      bool outval = PFace.IsInside(
+        new UV( Pt.X, Pt.Y ), out Res );
+      return outval;
+    }
+    #endregion // Rpthomas108 improved solution
+
+    #region Rpthomas108 first solution searching for minimum point
     // In Revit API discussion forum thread
     // https://forums.autodesk.com/t5/revit-api-forum/is-the-first-edgeloop-still-the-outer-loop/m-p/7225379
 
@@ -99,7 +248,7 @@ namespace BuildingCoder
       }
       return eaMin;
     }
-    #endregion // Rpthomas108 searches for minimum point
+    #endregion // Rpthomas108 first solution searching for minimum point
 
     #region Flatten, i.e. project from 3D to 2D by dropping the Z coordinate
     /// <summary>

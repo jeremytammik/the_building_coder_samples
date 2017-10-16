@@ -196,6 +196,7 @@ using System.Runtime.InteropServices;
 // 2017-06-23 2018.0.134.1 implemented ConnectorXyzComparer and ToHashSet extension method for https://forums.autodesk.com/t5/revit-api-forum/distinct-xyz/m-p/7173069
 // 2017-08-15 2018.0.134.2 implemented GetFamilyInstancesByFamilyAndType and GetTitleBlockSymbolByFamilyAndType methods for https://forums.autodesk.com/t5/revit-api-forum/family-instance-filter/m-p/7287113
 // 2017-08-24 2018.0.134.3 implemented OuterLoop and PlanarFaceOuterLoop methods for https://forums.autodesk.com/t5/revit-api-forum/is-the-first-edgeloop-still-the-outer-loop/m-p/7225379
+// 2017-10-16 2018.0.134.4 added GetPlanarFaceOuterLoops from https://forums.autodesk.com/t5/revit-api-forum/outer-loops-of-planar-face-with-separate-parts/m-p/7461348
 //
-[assembly: AssemblyVersion( "2018.0.134.3" )]
-[assembly: AssemblyFileVersion( "2018.0.134.3" )]
+[assembly: AssemblyVersion( "2018.0.134.4" )]
+[assembly: AssemblyFileVersion( "2018.0.134.4" )]
