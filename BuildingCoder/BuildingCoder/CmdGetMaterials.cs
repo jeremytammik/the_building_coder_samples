@@ -25,6 +25,97 @@ using System.ComponentModel;
 
 namespace BuildingCoder
 {
+  #region FindTextureBitmapPaths
+  class FindTextureBitmapPathsWrapper
+  {
+    string[] targetMaterialNames = {
+
+      // A standard Revit material, with 
+      // textures in standard paths. 
+      "Brick, Common",
+
+      // A material with a single image from 
+      // another non-material library path
+      "Local Path Material"
+    };
+
+    void FindTextureBitmapPaths( Document doc )
+    {
+      // Find materials
+      FilteredElementCollector fec 
+        = new FilteredElementCollector( doc );
+
+      fec.OfClass( typeof( Material ) );
+
+      IEnumerable<Material> targetMaterials 
+        = fec.Cast<Material>().Where<Material>( mtl => 
+          targetMaterialNames.Contains( mtl.Name ) );
+
+      foreach( Material material in targetMaterials )
+      {
+        // Get appearance asset for read
+        ElementId appearanceAssetId = material
+          .AppearanceAssetId;
+
+        AppearanceAssetElement appearanceAssetElem 
+          = doc.GetElement( appearanceAssetId )
+            as AppearanceAssetElement;
+
+        Asset asset = appearanceAssetElem
+          .GetRenderingAsset();
+
+        // Walk through all first level assets to find 
+        // connected Bitmap properties.  Note: it is 
+        // possible to have multilevel connected 
+        // properties with Bitmaps in the leaf nodes.  
+        // So this would need to be recursive.
+
+        int size = asset.Size;
+        for( int assetIdx = 0; assetIdx < size; assetIdx++ )
+        {
+          AssetProperty aProperty = asset[assetIdx];
+
+          if( aProperty.NumberOfConnectedProperties < 1 )
+            continue;
+
+          // Find first connected property.  
+          // Should work for all current (2018) schemas.  
+          // Safer code would loop through all connected
+          // properties based on the number provided.
+
+          Asset connectedAsset = aProperty
+            .GetConnectedProperty( 0 ) as Asset;
+
+          // We are only checking for bitmap connected assets. 
+               
+          if( connectedAsset.Name == "UnifiedBitmapSchema" )
+          {
+            // This line is 2018.1 & up because of the 
+            // property reference to UnifiedBitmap
+            // .UnifiedbitmapBitmap.  In earlier versions,
+            // you can still reference the string name 
+            // instead: "unifiedbitmap_Bitmap"
+
+            AssetPropertyString path = connectedAsset[
+              UnifiedBitmap.UnifiedbitmapBitmap] 
+                as AssetPropertyString;
+
+            // This will be a relative path to the 
+            // built -in materials folder, addiitonal 
+            // render appearance folder, or an 
+            // absolute path.
+
+            TaskDialog.Show( "Connected bitmap", 
+              String.Format( "{0} from {2}: {1}", 
+                aProperty.Name, path.Value, 
+                connectedAsset.LibraryName ) );
+          }
+        }
+      }
+    }
+  }
+  #endregion // FindTextureBitmapPaths
+
   #region Victor sample code
   public class ElementComparer : IEqualityComparer<Element>
   {
