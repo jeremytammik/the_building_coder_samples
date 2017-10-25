@@ -198,6 +198,7 @@ using System.Runtime.InteropServices;
 // 2017-08-24 2018.0.134.3 implemented OuterLoop and PlanarFaceOuterLoop methods for https://forums.autodesk.com/t5/revit-api-forum/is-the-first-edgeloop-still-the-outer-loop/m-p/7225379
 // 2017-10-16 2018.0.134.4 added GetPlanarFaceOuterLoops from https://forums.autodesk.com/t5/revit-api-forum/outer-loops-of-planar-face-with-separate-parts/m-p/7461348
 // 2017-10-22 2018.0.134.5 added FindTextureBitmapPaths for https://forums.autodesk.com/t5/revit-api-forum/extract-object-texture-information-using-api/m-p/7406055
+// 2017-10-25 2018.0.134.6 added GetCurtainWallPanelGeometry
 //
-[assembly: AssemblyVersion( "2018.0.134.5" )]
-[assembly: AssemblyFileVersion( "2018.0.134.5" )]
+[assembly: AssemblyVersion( "2018.0.134.6" )]
+[assembly: AssemblyFileVersion( "2018.0.134.6" )]

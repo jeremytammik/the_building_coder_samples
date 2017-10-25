@@ -14,6 +14,7 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using System.Collections.Generic;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -21,6 +22,51 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdCurtainWallGeom : IExternalCommand
   {
+    #region Retrieve Curtain Wall Panel Geometry with Basic Wall Panel
+    List<Solid> GetElementSolids( Element e )
+    {
+      return null;
+    }
+    void GetCurtainWallPanelGeometry(
+      Document doc,
+      ElementId curtainWallId,
+      List<Solid> solids )
+    {
+      // First, find solid geometry from panel ids.
+      // Note that the panel which contains a basic
+      // wall has NO geometry!
+
+      Wall wall = doc.GetElement( curtainWallId ) as Wall;
+      var grid = wall.CurtainGrid;
+
+      foreach( ElementId id in grid.GetPanelIds() )
+      {
+        Element e = doc.GetElement( id );
+        solids.AddRange( GetElementSolids( e ) );
+      }
+
+      // Secondly, find corresponding panel wall
+      // for the curtain wall and retrieve the actual
+      // geometry from that.
+
+      FilteredElementCollector cwPanels
+        = new FilteredElementCollector( doc )
+          .OfCategory( BuiltInCategory.OST_CurtainWallPanels )
+          .OfClass( typeof( Wall ) );
+
+      foreach( Wall cwp in cwPanels )
+      {
+        // Find panel wall belonging to this curtain wall
+        // and retrieve its geometry
+
+        if( cwp.StackedWallOwnerId == curtainWallId )
+        {
+          solids.AddRange( GetElementSolids( cwp ) );
+        }
+      }
+    }
+    #endregion // Retrieve Curtain Wall Panel Geometry with Basic Wall Panel
+
     #region list_wall_geom
     void list_wall_geom( Wall w, Application app )
     {
@@ -129,15 +175,15 @@ namespace BuildingCoder
 
         GeometryElement e = wall.get_Geometry( opt );
 
-        using ( Transaction t = new Transaction( doc ) )
+        using( Transaction t = new Transaction( doc ) )
         {
           t.Start( "Create Model Curves" );
 
-          foreach ( GeometryObject obj in e )
+          foreach( GeometryObject obj in e )
           {
             curve = obj as Curve;
 
-            if ( null != curve )
+            if( null != curve )
             {
               //curve = curve.get_Transformed( tv ); // 2013
               curve = curve.CreateTransformed( tv ); // 2014
