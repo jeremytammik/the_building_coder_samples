@@ -23,10 +23,19 @@ namespace BuildingCoder
   class CmdCurtainWallGeom : IExternalCommand
   {
     #region Retrieve Curtain Wall Panel Geometry with Basic Wall Panel
+    /// <summary>
+    /// GetElementSolids dummy placeholder function.
+    /// The real one would retrieve all solids from the
+    /// given element geometry.
+    /// </summary>
     List<Solid> GetElementSolids( Element e )
     {
       return null;
     }
+    /// <summary>
+    /// GetCurtainWallPanelGeometry retrieves all solids
+    /// from a curtain wall, including Basic panel walls.
+    /// </summary>
     void GetCurtainWallPanelGeometry(
       Document doc,
       ElementId curtainWallId,
