@@ -334,13 +334,15 @@ namespace BuildingCoder
           {
             AssetPropertyDoubleArray3d property = assetProperty as AssetPropertyDoubleArray3d;
             valueType = typeof( AssetPropertyDoubleArray3d );
-            theValue = GetSystemArrayAsString( property.Value ); // 2017
+            //theValue = GetSystemArrayAsString( property.Value ); // 2017
+            theValue = Util.DoubleArrayString( property.GetValueAsDoubles() ); // 2018
           }
           else if( assetProperty is AssetPropertyDoubleArray4d )
           {
             AssetPropertyDoubleArray4d property = assetProperty as AssetPropertyDoubleArray4d;
             valueType = typeof( AssetPropertyDoubleArray4d );
-            theValue = GetSystemArrayAsString( property.Value );
+            //theValue = GetSystemArrayAsString( property.Value ); // 2017
+            theValue = Util.DoubleArrayString( property.GetValueAsDoubles() ); // 2018
           }
           else if( assetProperty is AssetPropertyDoubleMatrix44 )
           {

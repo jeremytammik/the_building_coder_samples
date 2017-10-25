@@ -813,6 +813,17 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Return a string for a list of doubles 
+    /// formatted to two decimal places.
+    /// </summary>
+    public static string DoubleArrayString( IList<double> a )
+    {
+      return string.Join( ", ",
+        a.Select<double, string>(
+          x => RealString( x ) ) );
+    }
+
+    /// <summary>
     /// Return a string for this point array
     /// with its coordinates formatted to two
     /// decimal places.

@@ -200,6 +200,7 @@ using System.Runtime.InteropServices;
 // 2017-10-22 2018.0.134.5 added FindTextureBitmapPaths for https://forums.autodesk.com/t5/revit-api-forum/extract-object-texture-information-using-api/m-p/7406055
 // 2017-10-25 2018.0.134.6 added GetCurtainWallPanelGeometry
 // 2017-10-25 2018.0.134.7 replace deprecated method NewTag by IndependentTag.Create
+// 2017-10-25 2018.0.134.8 implemented Util.DoubleArrayString and replaced calls to deprecated property AssetPropertyDoubleArray3d.Value
 //
-[assembly: AssemblyVersion( "2018.0.134.7" )]
-[assembly: AssemblyFileVersion( "2018.0.134.7" )]
+[assembly: AssemblyVersion( "2018.0.134.8" )]
+[assembly: AssemblyFileVersion( "2018.0.134.8" )]
