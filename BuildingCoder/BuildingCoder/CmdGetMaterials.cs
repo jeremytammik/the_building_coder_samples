@@ -465,14 +465,18 @@ namespace BuildingCoder
       {
         double[] values = GetSystemArray( doubleArray );
 
-        String result = "";
-        foreach( double d in values )
-        {
-          result += d;
-          result += ",";
-        }
+        //String result = "";
+        //foreach( double d in values )
+        //{
+        //  result += d;
+        //  result += ",";
+        //}
 
-        return result;
+        //return result;
+
+        return string.Join( ",", 
+          values.Select<double, string>( 
+            x => x.ToString() ) );
       }
     }
 
