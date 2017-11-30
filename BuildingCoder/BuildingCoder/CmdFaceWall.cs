@@ -14,8 +14,8 @@
 
 #region Namespaces
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
@@ -26,6 +26,175 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
+  #region Automatic Walls
+  // For 13642689 [Mathematical Translations]
+  // https://forums.autodesk.com/t5/revit-api-forum/mathematical-translations/m-p/7580510
+
+  [Transaction( TransactionMode.Manual )]
+  public class CreateWallsAutomaticallyCommand
+    : IExternalCommand
+  {
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      var uiapp = commandData.Application;
+      var uidoc = uiapp.ActiveUIDocument;
+      var doc = uidoc.Document;
+
+      var cubes = FindCubes( doc );
+
+      using( var transaction = new Transaction( doc ) )
+      {
+        transaction.Start( "create walls" );
+
+        foreach( var cube in cubes )
+        {
+          var countours = FindCountors( cube )
+            .SelectMany( x => x );
+
+          var height = cube.LookupParameter( "height" )
+            .AsDouble();
+
+          foreach( var countour in countours )
+          {
+            var wall = CreateWall( cube, countour,
+              height );
+
+            CreateDoor( wall );
+          }
+        }
+
+        transaction.Commit();
+      }
+
+      return Result.Succeeded;
+    }
+
+    private static Wall CreateWall(
+      FamilyInstance cube,
+      Curve curve,
+      double height )
+    {
+      var doc = cube.Document;
+
+      var wallTypeId = doc.GetDefaultElementTypeId(
+        ElementTypeGroup.WallType );
+
+      return Wall.Create( doc, curve.CreateReversed(),
+        wallTypeId, cube.LevelId, height, 0, false,
+        false );
+    }
+
+    private static void CreateDoor( Wall wall )
+    {
+      var locationCurve = (LocationCurve) wall.Location;
+
+      var position = locationCurve.Curve.Evaluate(
+        0.5, true );
+
+      var document = wall.Document;
+
+      var level = (Level) document.GetElement(
+        wall.LevelId );
+
+      var symbolId = document.GetDefaultFamilyTypeId(
+        new ElementId( BuiltInCategory.OST_Doors ) );
+
+      var symbol = (FamilySymbol) document.GetElement(
+        symbolId );
+
+      if( !symbol.IsActive )
+        symbol.Activate();
+
+      document.Create.NewFamilyInstance( position, symbol,
+        wall, level, StructuralType.NonStructural );
+    }
+
+    private static IEnumerable<FamilyInstance> FindCubes(
+      Document doc )
+    {
+      var collector = new FilteredElementCollector( doc );
+
+      return collector
+        .OfCategory( BuiltInCategory.OST_GenericModel )
+        .OfClass( typeof( FamilyInstance ) )
+        .OfType<FamilyInstance>()
+        .Where( x => x.Symbol.FamilyName == "cube" );
+    }
+
+    private static IEnumerable<CurveLoop> FindCountors(
+      FamilyInstance familyInstance )
+    {
+      return GetSolids( familyInstance )
+        .SelectMany( x => GetCountours( x,
+          familyInstance ) );
+    }
+
+    private static IEnumerable<Solid> GetSolids(
+      Element element )
+    {
+      var geometry = element
+        .get_Geometry( new Options
+        {
+          ComputeReferences = true,
+          IncludeNonVisibleObjects = true
+        } );
+
+      if( geometry == null )
+        return Enumerable.Empty<Solid>();
+
+      return GetSolids( geometry )
+        .Where( x => x.Volume > 0 );
+    }
+
+    private static IEnumerable<Solid> GetSolids(
+      IEnumerable<GeometryObject> geometryElement )
+    {
+      foreach( var geometry in geometryElement )
+      {
+        var solid = geometry as Solid;
+        if( solid != null )
+          yield return solid;
+
+        var instance = geometry as GeometryInstance;
+        if( instance != null )
+          foreach( var instanceSolid in GetSolids(
+            instance.GetInstanceGeometry() ) )
+            yield return instanceSolid;
+
+        var element = geometry as GeometryElement;
+        if( element != null )
+          foreach( var elementSolid in GetSolids( element ) )
+            yield return elementSolid;
+      }
+    }
+
+    private static IEnumerable<CurveLoop> GetCountours(
+      Solid solid,
+      Element element )
+    {
+      try
+      {
+        var plane = Plane.CreateByNormalAndOrigin(
+          XYZ.BasisZ, element.get_BoundingBox( null ).Min );
+
+        var analyzer = ExtrusionAnalyzer.Create(
+          solid, plane, XYZ.BasisZ );
+
+        var face = analyzer.GetExtrusionBase();
+
+        return face.GetEdgesAsCurveLoops();
+      }
+      catch( InvalidOperationException )
+      {
+        return Enumerable.Empty<CurveLoop>();
+      }
+    }
+  }
+  #endregion // Automatic Walls
+
   [Transaction( TransactionMode.Manual )]
   class CmdFaceWall : IExternalCommand
   {
