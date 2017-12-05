@@ -412,6 +412,15 @@ namespace BuildingCoder
     }
 
     #region CreateFaceWallsAndMassFloors
+    // By Harry Mattison, Boost Your BIM,
+    // Automating the Building Maker workflow
+    // https://boostyourbim.wordpress.com/2014/02/11/automating-the-building-maker-workflow/
+    // Face Wall and Mass Floor creation with the Revit API
+    // https://youtu.be/nHWen2_lN6U
+
+    /// <summary>
+    /// Create face walls and mass floors on and in selected mass element
+    /// </summary>
     public void CreateFaceWallsAndMassFloors( UIDocument uidoc )
     {
       Document doc = uidoc.Document;
