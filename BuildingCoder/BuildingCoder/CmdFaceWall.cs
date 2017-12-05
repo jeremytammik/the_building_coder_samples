@@ -22,6 +22,7 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Selection;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -247,9 +248,9 @@ namespace BuildingCoder
         ReferenceArray refar = new ReferenceArray();
 
         XYZ[] pts = new XYZ[] {
-        new XYZ( -10, -10, 0 ), 
-        new XYZ( +10, -10, 0 ), 
-        new XYZ( +10, +10, 0 ), 
+        new XYZ( -10, -10, 0 ),
+        new XYZ( +10, -10, 0 ),
+        new XYZ( +10, +10, 0 ),
         new XYZ( -10, +10, 0 ) };
 
         int j, n = pts.Length;
@@ -409,6 +410,58 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    #region CreateFaceWallsAndMassFloors
+    public void CreateFaceWallsAndMassFloors( UIDocument uidoc )
+    {
+      Document doc = uidoc.Document;
+
+      FamilyInstance fi = doc.GetElement(
+        uidoc.Selection.PickObject(
+          ObjectType.Element ) )
+            as FamilyInstance;
+
+      WallType wType = new FilteredElementCollector( doc )
+        .OfClass( typeof( WallType ) )
+        .Cast<WallType>().FirstOrDefault( q
+          => q.Name == "Generic - 6\" Masonry" );
+
+      Options opt = new Options();
+      opt.ComputeReferences = true;
+
+      using( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Create Face Walls & Mass Floors" );
+
+        foreach( Solid solid in fi.get_Geometry( opt )
+          .Where( q => q is Solid ).Cast<Solid>() )
+        {
+          foreach( Face f in solid.Faces )
+          {
+            if( FaceWall.IsValidFaceReferenceForFaceWall(
+              doc, f.Reference ) )
+            {
+              FaceWall.Create( doc, wType.Id,
+                WallLocationLine.CoreExterior,
+                f.Reference );
+            }
+          }
+        }
+
+        FilteredElementCollector levels
+          = new FilteredElementCollector( doc )
+            .OfClass( typeof( Level ) );
+
+        foreach( Level level in levels )
+        {
+          MassInstanceUtils.AddMassLevelDataToMassInstance(
+            doc, fi.Id, level.Id );
+        }
+
+        t.Commit();
+      }
+    }
+    #endregion // CreateFaceWallsAndMassFloors
 
     #region Original code
 #if REVIT_2012_CODE
