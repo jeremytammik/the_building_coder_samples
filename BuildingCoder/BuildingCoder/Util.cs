@@ -150,11 +150,10 @@ namespace BuildingCoder
 
     public static bool IsCollinear( Line a, Line b )
     {
-      XYZ p = a.Origin;
       XYZ v = a.Direction;
-      XYZ d = b.Origin - p;
+      XYZ w = b.Origin - a.Origin;
       return IsParallel( v, b.Direction )
-        && IsParallel( v, d );
+        && IsParallel( v, w );
     }
 
     public static bool IsHorizontal( XYZ v )
