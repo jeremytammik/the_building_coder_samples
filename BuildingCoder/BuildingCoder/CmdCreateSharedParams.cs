@@ -69,7 +69,7 @@ namespace BuildingCoder
     {
       Category cat = null;
 
-      if ( target.Equals( BuiltInCategory.OST_IOSModelGroups ) )
+      if( target.Equals( BuiltInCategory.OST_IOSModelGroups ) )
       {
         // determine model group category:
 
@@ -79,7 +79,7 @@ namespace BuildingCoder
 
         IList<Element> modelGroups = collector.ToElements();
 
-        if ( 0 == modelGroups.Count )
+        if( 0 == modelGroups.Count )
         {
           Util.ErrorMsg( "Please insert a model group." );
           return cat;
@@ -95,7 +95,7 @@ namespace BuildingCoder
         {
           cat = doc.Settings.Categories.get_Item( target );
         }
-        catch ( Exception ex )
+        catch( Exception ex )
         {
           Util.ErrorMsg( string.Format(
             "Error obtaining document {0} category: {1}",
@@ -103,7 +103,7 @@ namespace BuildingCoder
           return cat;
         }
       }
-      if ( null == cat )
+      if( null == cat )
       {
         Util.ErrorMsg( string.Format(
           "Unable to obtain the document {0} category.",
@@ -136,7 +136,7 @@ namespace BuildingCoder
       string filename
         = app.SharedParametersFilename;
 
-      if ( 0 == filename.Length )
+      if( 0 == filename.Length )
       {
         string path = _filename;
         StreamWriter stream;
@@ -151,7 +151,7 @@ namespace BuildingCoder
       DefinitionFile file
         = app.OpenSharedParameterFile();
 
-      if ( null == file )
+      if( null == file )
       {
         Util.ErrorMsg(
           "Error getting the shared params file." );
@@ -164,12 +164,12 @@ namespace BuildingCoder
       DefinitionGroup group
         = file.Groups.get_Item( _groupname );
 
-      if ( null == group )
+      if( null == group )
       {
         group = file.Groups.Create( _groupname );
       }
 
-      if ( null == group )
+      if( null == group )
       {
         Util.ErrorMsg(
           "Error getting the shared params group." );
@@ -196,7 +196,7 @@ namespace BuildingCoder
       Definition definition = group.Definitions.get_Item(
         defname );
 
-      if ( null == definition )
+      if( null == definition )
       {
         //definition = group.Definitions.Create( defname, _deftype, visible ); // 2014
 
@@ -208,7 +208,7 @@ namespace BuildingCoder
 
         definition = group.Definitions.Create( opt ); // 2015
       }
-      if ( null == definition )
+      if( null == definition )
       {
         Util.ErrorMsg(
           "Error creating shared parameter." );
@@ -245,7 +245,7 @@ namespace BuildingCoder
           ( typeParameter ? "type" : "instance" ),
           defname, cat.Name );
       }
-      catch ( Exception ex )
+      catch( Exception ex )
       {
         Util.ErrorMsg( string.Format(
           "Error binding shared parameter to category {0}: {1}",
@@ -263,7 +263,7 @@ namespace BuildingCoder
       UIApplication app = commandData.Application;
       Document doc = app.ActiveUIDocument.Document;
 
-      using ( Transaction t = new Transaction( doc ) )
+      using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Create Shared Parameter" );
         Category cat;
@@ -271,10 +271,10 @@ namespace BuildingCoder
 
         // create instance parameters:
 
-        foreach ( BuiltInCategory target in targets )
+        foreach( BuiltInCategory target in targets )
         {
           cat = GetCategory( doc, target );
-          if ( null != cat )
+          if( null != cat )
           {
             CreateSharedParameter( doc, cat, ++i, false );
           }
@@ -436,5 +436,112 @@ namespace BuildingCoder
     }
 #endif // REINSERT
     #endregion // REINSERT
+
+    #region SetAllowVaryBetweenGroups
+    /// <summary>
+    /// Helper method to control `SetAllowVaryBetweenGroups` 
+    /// option for instance binding param
+    /// </summary>
+    static void SetInstanceParamVaryBetweenGroupsBehaviour(
+      Document doc,
+      Guid guid,
+      bool allowVaryBetweenGroups = true )
+    {
+      try // last resort
+      {
+        SharedParameterElement sp
+          = SharedParameterElement.Lookup( doc, guid );
+
+        // Should never happen as we will call 
+        // this only for *existing* shared param.
+
+        if( null == sp ) return;
+
+        InternalDefinition def = sp.GetDefinition();
+
+        if( def.VariesAcrossGroups != allowVaryBetweenGroups )
+        {
+          // Must be within an outer transaction!
+
+          def.SetAllowVaryBetweenGroups( doc, allowVaryBetweenGroups );
+        }
+      }
+      catch { } // ideally, should report something to log...
+    }
+
+#if SetInstanceParamVaryBetweenGroupsBehaviour_SAMPLE_CALL
+    // Assumes outer transaction
+    public static Parameter GetOrCreateElemSharedParam( 
+      Element elem,
+      string paramName,
+      string grpName,
+      ParameterType paramType,
+      bool visible,
+      bool instanceBinding,
+      bool userModifiable,
+      Guid guid,
+      bool useTempSharedParamFile,
+      string tooltip = "",
+      BuiltInParameterGroup uiGrp = BuiltInParameterGroup.INVALID,
+      bool allowVaryBetweenGroups = true )
+    {
+      try
+      {
+        // Check if existing
+        Parameter param = elem.LookupParameter( paramName );
+        if( null != param )
+        {
+          // NOTE: If you don't want forcefully setting 
+          // the "old" instance params to 
+          // allowVaryBetweenGroups =true,
+          // just comment the next 3 lines.
+          if( instanceBinding && allowVaryBetweenGroups )
+          {
+            SetInstanceParamVaryBetweenGroupsBehaviour( 
+              elem.Document, guid, allowVaryBetweenGroups );
+          }
+          return param;
+        }
+
+        // If here, need to create it (my custom 
+        // implementation and classes…)
+
+        BindSharedParamResult res = BindSharedParam( 
+          elem.Document, elem.Category, paramName, grpName,
+          paramType, visible, instanceBinding, userModifiable,
+          guid, useTempSharedParamFile, tooltip, uiGrp );
+
+        if( res != BindSharedParamResult.eSuccessfullyBound
+          && res != BindSharedParamResult.eAlreadyBound )
+        {
+          return null;
+        }
+
+        // Set AllowVaryBetweenGroups for NEW Instance 
+        // Binding Shared Param
+
+        if( instanceBinding )
+        {
+          SetInstanceParamVaryBetweenGroupsBehaviour( 
+            elem.Document, guid, allowVaryBetweenGroups );
+        }
+
+        // If here, binding is OK and param seems to be
+        // IMMEDIATELY available from the very same command
+
+        return elem.LookupParameter( paramName );
+      }
+      catch( Exception ex )
+      {
+        System.Windows.Forms.MessageBox.Show( 
+          string.Format( 
+            "Error in getting or creating Element Param: {0}", 
+            ex.Message ) );
+
+        return null;
+      }
+    }
+#endif // SetInstanceParamVaryBetweenGroupsBehaviour_SAMPLE_CALL
+#endregion // SetAllowVaryBetweenGroups
   }
 }
