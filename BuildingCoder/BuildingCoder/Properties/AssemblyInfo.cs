@@ -203,6 +203,7 @@ using System.Runtime.InteropServices;
 // 2017-10-25 2018.0.134.8 implemented Util.DoubleArrayString and replaced calls to deprecated property AssetPropertyDoubleArray3d.Value
 // 2017-11-30 2018.0.134.9 added CreateWallsAutomaticallyCommand for https://forums.autodesk.com/t5/revit-api-forum/mathematical-translations/m-p/7580510
 // 2017-12-05 2018.0.134.10 added CreateFaceWallsAndMassFloors for case 13663566 [APIによるマス床の生成方法 -- How to generate mass floor using API]
+// 2017-12-20 2018.0.134.11 implemented Util.IsCollinear
 //
-[assembly: AssemblyVersion( "2018.0.134.10" )]
-[assembly: AssemblyFileVersion( "2018.0.134.10" )]
+[assembly: AssemblyVersion( "2018.0.134.11" )]
+[assembly: AssemblyFileVersion( "2018.0.134.11" )]

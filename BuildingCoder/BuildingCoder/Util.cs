@@ -148,6 +148,15 @@ namespace BuildingCoder
       return p.CrossProduct( q ).IsZeroLength();
     }
 
+    public static bool IsCollinear( Line a, Line b )
+    {
+      XYZ p = a.Origin;
+      XYZ v = a.Direction;
+      XYZ d = b.Origin - p;
+      return IsParallel( v, b.Direction )
+        && IsParallel( v, d );
+    }
+
     public static bool IsHorizontal( XYZ v )
     {
       return IsZero( v.Z );
