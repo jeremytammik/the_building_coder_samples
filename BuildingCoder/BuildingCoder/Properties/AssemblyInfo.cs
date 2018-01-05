@@ -206,6 +206,7 @@ using System.Runtime.InteropServices;
 // 2017-12-20 2018.0.134.11 implemented Util.IsCollinear
 // 2017-12-20 2018.0.134.11 added Miro's SetInstanceParamVaryBetweenGroupsBehaviour
 // 2018-01-05 2018.0.134.12 incremented copyright year to 2018
+// 2018-01-05 2018.0.134.13 implemented comparison operator for lines in the XY plane
 //
-[assembly: AssemblyVersion( "2018.0.134.12" )]
-[assembly: AssemblyFileVersion( "2018.0.134.12" )]
+[assembly: AssemblyVersion( "2018.0.134.13" )]
+[assembly: AssemblyFileVersion( "2018.0.134.13" )]

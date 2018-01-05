@@ -57,27 +57,32 @@ namespace BuildingCoder
 
     public static bool IsZero(
       double a,
-      double tolerance )
+      double tolerance = _eps )
     {
       return tolerance > Math.Abs( a );
     }
 
-    public static bool IsZero( double a )
+    public static bool IsEqual( 
+      double a, 
+      double b,
+      double tolerance = _eps )
     {
-      return IsZero( a, _eps );
+      return IsZero( b - a, tolerance );
     }
 
-    public static bool IsEqual( double a, double b )
+    public static int Compare(
+      double a,
+      double b,
+      double tolerance = _eps )
     {
-      return IsZero( b - a );
+      return IsEqual( a, b, tolerance ) 
+        ? 0 
+        : ( a < b ? -1 : 1 );
     }
 
-    public static int Compare( double a, double b )
-    {
-      return IsEqual( a, b ) ? 0 : ( a < b ? -1 : 1 );
-    }
-
-    public static int Compare( XYZ p, XYZ q )
+    public static int Compare( 
+      XYZ p, 
+      XYZ q )
     {
       int d = Compare( p.X, q.X );
 
@@ -88,6 +93,55 @@ namespace BuildingCoder
         if( 0 == d )
         {
           d = Compare( p.Z, q.Z );
+        }
+      }
+      return d;
+    }
+
+    /// <summary>
+    /// Implement a comparison operator 
+    /// for lines in the XY plane.
+    /// </summary>
+    public static int Compare( Line a, Line b )
+    {
+      XYZ pa = a.GetEndPoint( 0 );
+      XYZ qa = a.GetEndPoint( 1 );
+      XYZ pb = b.GetEndPoint( 0 );
+      XYZ qb = b.GetEndPoint( 1 );
+      XYZ va = qa - pa;
+      XYZ vb = qb - pb;
+
+      // Compare angle in the XY plane
+
+      double ang_a = Math.Atan2( va.Y, va.X );
+      double ang_b = Math.Atan2( vb.Y, vb.X );
+
+      int d = Compare( ang_a, ang_b );
+
+      if( 0 == d )
+      {
+        // Compare distance of unbounded line to origin
+
+        double da = ( qa.X * pa.Y - qa.Y * pa.Y )
+          / va.GetLength();
+
+        double db = ( qb.X * pb.Y - qb.Y * pb.Y )
+          / vb.GetLength();
+
+        d = Compare( da, db );
+
+        if( 0 == d )
+        {
+          // Compare distance of start point to origin
+
+          d = Compare( pa.GetLength(), pb.GetLength() );
+
+          if( 0 == d )
+          {
+            // Compare distance of end point to origin
+
+            d = Compare( qa.GetLength(), qb.GetLength() );
+          }
         }
       }
       return d;
