@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Autodesk, Inc." )]
 [assembly: AssemblyProduct( "BuildingCoder" )]
-[assembly: AssemblyCopyright( "Copyright © 2008-2017 by Jeremy Tammik, Autodesk, Inc." )]
+[assembly: AssemblyCopyright( "Copyright © 2008-2018 by Jeremy Tammik, Autodesk, Inc." )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -205,6 +205,7 @@ using System.Runtime.InteropServices;
 // 2017-12-05 2018.0.134.10 added CreateFaceWallsAndMassFloors for case 13663566 [APIによるマス床の生成方法 -- How to generate mass floor using API]
 // 2017-12-20 2018.0.134.11 implemented Util.IsCollinear
 // 2017-12-20 2018.0.134.11 added Miro's SetInstanceParamVaryBetweenGroupsBehaviour
+// 2018-01-05 2018.0.134.12 incremented copyright year
 //
-[assembly: AssemblyVersion( "2018.0.134.11" )]
-[assembly: AssemblyFileVersion( "2018.0.134.11" )]
+[assembly: AssemblyVersion( "2018.0.134.12" )]
+[assembly: AssemblyFileVersion( "2018.0.134.12" )]

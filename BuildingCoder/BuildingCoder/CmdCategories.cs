@@ -2,7 +2,7 @@
 //
 // CmdCategories.cs - list document and built-in categories
 //
-// Copyright (C) 2010-2017 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2010-2018 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

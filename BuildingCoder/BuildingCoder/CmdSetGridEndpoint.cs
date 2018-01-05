@@ -2,7 +2,7 @@
 //
 // CmdSetGridEndpoint.cs - move selected grid endpoints in Y direction using SetCurveInView
 //
-// Copyright (C) 2017 by Ryuji Ogasawara and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2018 by Ryuji Ogasawara and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

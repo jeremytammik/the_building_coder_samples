@@ -5,7 +5,7 @@
 // Create and insert a conceptual mass family instance, 
 // then create sloped walls on all its faces.
 //
-// Copyright (C) 2014-2017 by Jeremy Tammik,
+// Copyright (C) 2014-2018 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

@@ -3,7 +3,7 @@
 // CmdAzimuth.cs - determine direction
 // of a line with regard to the north
 //
-// Copyright (C) 2008-2017 by Jeremy Tammik,
+// Copyright (C) 2008-2018 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
