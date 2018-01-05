@@ -28,7 +28,8 @@ namespace BuildingCoder
   class CmdNestedInstanceGeo : IExternalCommand
   {
     /// <summary>
-    /// Define equality between XYZ objects, ensuring that almost equal points compare equal.
+    /// Define equality between XYZ objects, ensuring 
+    /// that almost equal points compare equal.
     /// </summary>
     class XyzEqualityComparer : IEqualityComparer<XYZ>
     {

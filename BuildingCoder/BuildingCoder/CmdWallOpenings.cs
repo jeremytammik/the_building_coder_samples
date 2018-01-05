@@ -90,7 +90,6 @@ namespace BuildingCoder
     {
       public bool Equals( XYZ a, XYZ b )
       {
-        //return _eps > a.DistanceTo( b );
         return Util.IsEqual( a, b );
       }
 
