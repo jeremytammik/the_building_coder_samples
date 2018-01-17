@@ -405,6 +405,51 @@ namespace BuildingCoder
       }
       return p5;
     }
+
+    /// <summary>
+    /// Create transformation matrix to transform points 
+    /// from the global space (XYZ) to the local space of 
+    /// a face (UV representation of a bounding box).
+    /// Revit itself only supports Face.Transform(UV) that 
+    /// translates a UV coordinate into XYZ coordinate space. 
+    /// I reversed that Method to translate XYZ coords to 
+    /// UV coords. At first i thought i could solve the 
+    /// reverse transformation by solving a linear equation 
+    /// with 2 unknown variables. But this wasn't general. 
+    /// I finally found out that the transformation 
+    /// consists of a displacement vector and a rotation matrix.
+    /// </summary>
+    private static double[,] 
+      CalculateMatrixForGlobalToLocalCoordinateSystem( 
+        Face face )
+    {
+      // face.Evaluate uses a rotation matrix and
+      // a displacement vector to translate points
+
+      XYZ originDisplacementVectorUV = face.Evaluate( UV.Zero );
+      XYZ unitVectorUWithDisplacement = face.Evaluate( UV.BasisU );
+      XYZ unitVectorVWithDisplacement = face.Evaluate( UV.BasisV );
+
+      XYZ unitVectorU = unitVectorUWithDisplacement 
+        - originDisplacementVectorUV;
+
+      XYZ unitVectorV = unitVectorVWithDisplacement 
+        - originDisplacementVectorUV;
+
+      // The rotation matrix A is composed of
+      // unitVectorU and unitVectorV transposed.
+      // To get the rotation matrix that translates from 
+      // global space to local space, take the inverse of A.
+
+      var a11i = unitVectorU.X;
+      var a12i = unitVectorU.Y;
+      var a21i = unitVectorV.X;
+      var a22i = unitVectorV.Y;
+
+      return new double[2, 2] {
+        { a11i, a12i },
+        { a21i, a22i }};
+    }
     #endregion // Geometrical Calculation
 
     #region Create Various Solids
