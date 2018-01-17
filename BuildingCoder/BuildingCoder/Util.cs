@@ -99,8 +99,9 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Implement a comparison operator 
-    /// for lines in the XY plane.
+    /// Implement a comparison operator for lines 
+    /// in the XY plane useful for sorting into 
+    /// groups of parallel lines.
     /// </summary>
     public static int Compare( Line a, Line b )
     {
@@ -404,7 +405,9 @@ namespace BuildingCoder
       }
       return p5;
     }
+    #endregion // Geometrical Calculation
 
+    #region Create Various Solids
     /// <summary>
     /// Create and return a solid sphere 
     /// with a given radius and centre point.
@@ -586,7 +589,7 @@ namespace BuildingCoder
 
       return transformBox;
     }
-    #endregion // Geometrical XYZ Calculation
+    #endregion // Create Various Solids
 
     #region Convex Hull
     /// <summary>
