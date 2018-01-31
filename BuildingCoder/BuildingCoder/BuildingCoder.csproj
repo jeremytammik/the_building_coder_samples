@@ -137,6 +137,7 @@
     <Compile Include="CmdExportImage.cs" />
     <Compile Include="CmdExportSolidToSat.cs" />
     <Compile Include="CmdFaceWall.cs" />
+    <Compile Include="CmdFailureGatherer.cs" />
     <Compile Include="CmdFamilyParamGuid.cs" />
     <Compile Include="CmdFamilyParamValue.cs" />
     <Compile Include="CmdFilledRegionCoords.cs" />

@@ -23,7 +23,7 @@ namespace BuildingCoder
     /// <summary>
     /// Create a new line style using NewSubcategory
     /// </summary>
-    void CreateLineStyle(Document doc)
+    void CreateLineStyle( Document doc )
     {
       // Use this to access the current document in a macro.
       //
@@ -32,13 +32,13 @@ namespace BuildingCoder
       // Find existing linestyle.  Can also opt to
       // create one with LinePatternElement.Create()
 
-      FilteredElementCollector fec 
+      FilteredElementCollector fec
         = new FilteredElementCollector( doc )
           .OfClass( typeof( LinePatternElement ) );
 
       LinePatternElement linePatternElem = fec
         .Cast<LinePatternElement>()
-        .First<LinePatternElement>( linePattern 
+        .First<LinePatternElement>( linePattern
           => linePattern.Name == "Long Dash" );
 
       // The new linestyle will be a subcategory 
@@ -46,7 +46,7 @@ namespace BuildingCoder
 
       Categories categories = doc.Settings.Categories;
 
-      Category lineCat = categories.get_Item( 
+      Category lineCat = categories.get_Item(
         BuiltInCategory.OST_Lines );
 
       using( Transaction t = new Transaction( doc ) )
@@ -63,14 +63,14 @@ namespace BuildingCoder
         // Set the linestyle properties 
         // (weight, color, pattern).
 
-        newLineStyleCat.SetLineWeight( 8, 
+        newLineStyleCat.SetLineWeight( 8,
           GraphicsStyleType.Projection );
 
-        newLineStyleCat.LineColor = new Color( 
+        newLineStyleCat.LineColor = new Color(
           0xFF, 0x00, 0x00 );
 
-        newLineStyleCat.SetLinePatternId( 
-          linePatternElem.Id, 
+        newLineStyleCat.SetLinePatternId(
+          linePatternElem.Id,
           GraphicsStyleType.Projection );
 
         t.Commit();
