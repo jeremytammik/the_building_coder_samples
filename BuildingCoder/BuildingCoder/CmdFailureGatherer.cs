@@ -98,7 +98,7 @@ namespace BuildingCoder
 
         Element level = new FilteredElementCollector( doc )
           .OfClass( typeof( Level ) )
-          .ToElements()[0];
+          .FirstElement();
 
         Line line = Line.CreateBound( XYZ.Zero, 10 * XYZ.BasisX );
         Wall wall1 = Wall.Create( doc, line, level.Id, false );

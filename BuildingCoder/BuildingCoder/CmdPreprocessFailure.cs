@@ -102,27 +102,28 @@ namespace BuildingCoder
       Document doc = commandData.Application
         .ActiveUIDocument.Document;
 
-      FilteredElementCollector collector
-        = new FilteredElementCollector( doc );
+      using( Transaction t = new Transaction( doc ) )
+      {
+        FilteredElementCollector collector
+          = new FilteredElementCollector( doc );
 
-      collector.OfClass( typeof( Level ) );
-      Level level = collector.FirstElement() as Level;
+        collector.OfClass( typeof( Level ) );
+        Level level = collector.FirstElement() as Level;
 
-      Transaction t = new Transaction( doc );
+        t.Start( "Create unbounded room" );
 
-      t.Start( "Create unbounded room" );
+        FailureHandlingOptions failOpt
+          = t.GetFailureHandlingOptions();
 
-      FailureHandlingOptions failOpt
-        = t.GetFailureHandlingOptions();
+        failOpt.SetFailuresPreprocessor(
+          new RoomWarningSwallower() );
 
-      failOpt.SetFailuresPreprocessor(
-        new RoomWarningSwallower() );
+        t.SetFailureHandlingOptions( failOpt );
 
-      t.SetFailureHandlingOptions( failOpt );
+        doc.Create.NewRoom( level, new UV( 0, 0 ) );
 
-      doc.Create.NewRoom( level, new UV( 0, 0 ) );
-
-      t.Commit();
+        t.Commit();
+      }
 
       return Result.Succeeded;
     }
