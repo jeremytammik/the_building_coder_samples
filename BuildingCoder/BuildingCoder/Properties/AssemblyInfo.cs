@@ -209,6 +209,7 @@ using System.Runtime.InteropServices;
 // 2018-01-05 2018.0.134.13 implemented comparison operator for lines in the XY plane
 // 2018-01-17 2018.0.134.14 added CalculateMatrixForGlobalToLocalCoordinateSystem
 // 2018-01-31 2018.0.135.0 added CmdFailureGatherer.cs from https://forums.autodesk.com/t5/revit-api-forum/return-failure-information-to-command/m-p/7695676
+// 2018-02-01 2018.0.135.2 added GetCropBoxFor
 //
-[assembly: AssemblyVersion( "2018.0.135.0" )]
-[assembly: AssemblyFileVersion( "2018.0.135.0" )]
+[assembly: AssemblyVersion( "2018.0.135.2" )]
+[assembly: AssemblyFileVersion( "2018.0.135.2" )]

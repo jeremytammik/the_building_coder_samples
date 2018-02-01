@@ -2201,9 +2201,18 @@ TaskDialog.Show( "Revit", collector.Count() +
     }
     #endregion // Is element hidden in view by crop box, visibility or category?
 
-    #region Get element id of crop box
+    #region Return element id of crop box for a given view
     // http://thebuildingcoder.typepad.com/blog/2013/09/rotating-a-plan-view.html#comment-3734421721
-    ElementId GetCropBoxId( View view )
+    /// <summary>
+    /// Return element id of crop box for a given view.
+    /// The built-in parameter ID_PARAM of the crop box 
+    /// contains the element id of the view it is used in;
+    /// e.g., the crop box 'points' to the view using it 
+    /// via ID_PARAM. Therefore, we can use a parameter 
+    /// filter to retrieve all crop boxes with the view's 
+    /// element id in that parameter.
+    /// </summary>
+    ElementId GetCropBoxFor( View view )
     {
       ParameterValueProvider provider
         = new ParameterValueProvider( new ElementId( 
@@ -2219,10 +2228,10 @@ TaskDialog.Show( "Revit", collector.Count() +
       return new FilteredElementCollector( view.Document )
         .WherePasses( filter )
         .ToElementIds()
-        .Where<ElementId>( a => a.IntegerValue != view.Id.IntegerValue )
+        .Where<ElementId>( a => a.IntegerValue 
+          != view.Id.IntegerValue )
         .FirstOrDefault<ElementId>();
     }
-
     #endregion // Get element id of crop box
 
     void RunBenchmark()
