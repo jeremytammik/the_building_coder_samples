@@ -2201,6 +2201,30 @@ TaskDialog.Show( "Revit", collector.Count() +
     }
     #endregion // Is element hidden in view by crop box, visibility or category?
 
+    #region Get element id of crop box
+    // http://thebuildingcoder.typepad.com/blog/2013/09/rotating-a-plan-view.html#comment-3734421721
+    ElementId GetCropBoxId( View view )
+    {
+      ParameterValueProvider provider
+        = new ParameterValueProvider( new ElementId( 
+          (int) BuiltInParameter.ID_PARAM ) );
+
+      FilterElementIdRule rule 
+        = new FilterElementIdRule( provider, 
+          new FilterNumericEquals(), view.Id );
+
+      ElementParameterFilter filter
+        = new ElementParameterFilter( rule );
+
+      return new FilteredElementCollector( view.Document )
+        .WherePasses( filter )
+        .ToElementIds()
+        .Where<ElementId>( a => a.IntegerValue != view.Id.IntegerValue )
+        .FirstOrDefault<ElementId>();
+    }
+
+    #endregion // Get element id of crop box
+
     void RunBenchmark()
     {
       // Create a number of levels for us to play with:
