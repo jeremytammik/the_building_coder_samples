@@ -1,6 +1,6 @@
 ﻿#region Header
 //
-// CmdFailureGatherer.cs - suppress warning message by implementing the IFailuresPreprocessor interface
+// CmdFailureGatherer.cs - gather and show warning messages with IFailuresPreprocessor
 //
 // Copyright (C) 2018 by Mastjaso and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
@@ -55,7 +55,7 @@ namespace BuildingCoder
   }
 
   [Transaction( TransactionMode.Manual )]
-  class CmdFailureGatherer
+  class CmdFailureGatherer : IExternalCommand
   {
     public Result Execute(
         ExternalCommandData commandData,
@@ -63,12 +63,12 @@ namespace BuildingCoder
         ElementSet elements )
     {
       UIApplication uiApp = commandData.Application;
-      Document activeDoc = uiApp.ActiveUIDocument.Document;
+      Document doc = uiApp.ActiveUIDocument.Document;
 
       MessageDescriptionGatheringPreprocessor pp
         = new MessageDescriptionGatheringPreprocessor();
 
-      using( Transaction t = new Transaction( activeDoc ) )
+      using( Transaction t = new Transaction( doc ) )
       {
         FailureHandlingOptions ops
           = t.GetFailureHandlingOptions();
@@ -78,8 +78,10 @@ namespace BuildingCoder
 
         t.Start( "Marks" );
 
+        // Generate a 'duplicate mark' warning message:
+
         IList<Element> specEqu
-          = new FilteredElementCollector( activeDoc )
+          = new FilteredElementCollector( doc )
             .OfCategory( BuiltInCategory.OST_SpecialityEquipment )
             .WhereElementIsNotElementType()
             .ToElements();
@@ -91,6 +93,17 @@ namespace BuildingCoder
               BuiltInParameter.ALL_MODEL_MARK ).Set(
                 "Duplicate Mark" );
         }
+
+        // Generate an 'duplicate wall' warning message:
+
+        Element level = new FilteredElementCollector( doc )
+          .OfClass( typeof( Level ) )
+          .ToElements()[0];
+
+        Line line = Line.CreateBound( XYZ.Zero, 10 * XYZ.BasisX );
+        Wall wall1 = Wall.Create( doc, line, level.Id, false );
+        Wall wall2 = Wall.Create( doc, line, level.Id, false );
+
         t.Commit();
       }
       pp.ShowDialogue();

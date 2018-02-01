@@ -1142,3 +1142,11 @@ LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdGetDimensionPoints # version 2018.0.134.0
+
+ADN Bc A-I
+Gather Failure Warning Descriptions
+Gather and show warning messages with IFailuresPreprocessor
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdFailureGatherer # version 2018.0.135.0
