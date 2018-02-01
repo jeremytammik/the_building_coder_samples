@@ -2209,8 +2209,8 @@ TaskDialog.Show( "Revit", collector.Count() +
     /// contains the element id of the view it is used in;
     /// e.g., the crop box 'points' to the view using it 
     /// via ID_PARAM. Therefore, we can use a parameter 
-    /// filter to retrieve all crop boxes with the view's 
-    /// element id in that parameter.
+    /// filter to retrieve all crop boxes with the 
+    /// view's element id in that parameter.
     /// </summary>
     ElementId GetCropBoxFor( View view )
     {
