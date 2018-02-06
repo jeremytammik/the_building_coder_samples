@@ -21,7 +21,8 @@ namespace BuildingCoder
   class CmdBrepBuilder : IExternalCommand
   {
     /// <summary>
-    /// Create a cube 100x100x100, from (0,0,0) to (100, 100, 100)
+    /// Create a cube 100 x 100 x 100, from 
+    /// (0,0,0) to (100, 100, 100).
     /// </summary>
     public BRepBuilder CreateBrepSolid()
     {
@@ -147,7 +148,9 @@ namespace BuildingCoder
       return b;
     }
 
-
+    /// <summary>
+    /// Create a cylinder to subtract from the cube.
+    /// </summary>
     public BRepBuilder CreateBrepVoid()
     {
       // Naming convention for faces and edges: we 
