@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="CmdAzimuth.cs" />
     <Compile Include="CmdBoundingBox.cs" />
+    <Compile Include="CmdBrepBuilder.cs" />
     <Compile Include="CmdCategories.cs" />
     <Compile Include="CmdCategorySupportsTypeParameter.cs" />
     <Compile Include="CmdCloseDocument.cs" />

@@ -1150,3 +1150,11 @@ LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdFailureGatherer # version 2018.0.135.0
+
+ADN Bc A-I
+DirectShape from BrepBuilder and Boolean
+Create a direct shape using BrepBuilder and Boolean operation
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdBrepBuilder # version 2018.0.136.0
