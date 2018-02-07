@@ -211,6 +211,7 @@ using System.Runtime.InteropServices;
 // 2018-01-31 2018.0.135.0 added CmdFailureGatherer.cs from https://forums.autodesk.com/t5/revit-api-forum/return-failure-information-to-command/m-p/7695676
 // 2018-02-01 2018.0.135.2 added GetCropBoxFor
 // 2018-02-06 2018.0.136.0 implemented CmdBrepBuilder
+// 2018-02-07 2018.0.136.1 added RevitLinkType LoadFrom sample code
 //
-[assembly: AssemblyVersion( "2018.0.136.0" )]
-[assembly: AssemblyFileVersion( "2018.0.136.0" )]
+[assembly: AssemblyVersion( "2018.0.136.1" )]
+[assembly: AssemblyFileVersion( "2018.0.136.1" )]
