@@ -212,6 +212,25 @@ namespace BuildingCoder
       return doc.Create.NewModelCurveArray(
         geometryCurveArray, sketchPlane );
     }
+
+    DetailCurveArray CreateDetailCurveArray(
+      View view,
+      CurveArray geometryCurveArray )
+    {
+      Document doc = view.Document;
+      return doc.Create.NewDetailCurveArray(
+        view, geometryCurveArray );
+    }
+
+    CurveArray ConvertLoopToArray( CurveLoop loop )
+    {
+      CurveArray a = new CurveArray();
+      foreach( Curve c in loop)
+      {
+        a.Append( c );
+      }
+      return a;
+    }
   }
   #endregion // TestWall
 }

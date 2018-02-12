@@ -212,6 +212,7 @@ using System.Runtime.InteropServices;
 // 2018-02-01 2018.0.135.2 added GetCropBoxFor
 // 2018-02-06 2018.0.136.0 implemented CmdBrepBuilder
 // 2018-02-07 2018.0.136.1 added RevitLinkType LoadFrom sample code
+// 2018-02-12 2018.0.136.2 implemented ConvertLoopToArray for https://forums.autodesk.com/t5/revit-api-forum/fillet-and-curve-loop/m-p/7769993
 //
-[assembly: AssemblyVersion( "2018.0.136.1" )]
-[assembly: AssemblyFileVersion( "2018.0.136.1" )]
+[assembly: AssemblyVersion( "2018.0.136.2" )]
+[assembly: AssemblyFileVersion( "2018.0.136.2" )]
