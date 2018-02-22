@@ -452,6 +452,26 @@ namespace BuildingCoder
     }
     #endregion // Geometrical Calculation
 
+    #region Colour Conversion
+    /// <summary>
+    /// Revit text colour parameter value stored as an integer 
+    /// in text note type BuiltInParameter.LINE_COLOR.
+    /// </summary>
+    int GetRevitTextColorFromSystemColor( 
+      System.Drawing.Color color )
+    {
+      // from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
+
+      //return (int) color.R
+      //  + (int) color.G * (int) Math.Pow( 2, 8 )
+      //  + (int) color.B * (int) Math.Pow( 2, 16 );
+
+      return (int) color.R 
+        + (int) color.G << 8
+        + (int) color.B << 16;
+    }
+    #endregion // Colour Conversion
+
     #region Create Various Solids
     /// <summary>
     /// Create and return a solid sphere 

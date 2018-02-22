@@ -213,6 +213,7 @@ using System.Runtime.InteropServices;
 // 2018-02-06 2018.0.136.0 implemented CmdBrepBuilder
 // 2018-02-07 2018.0.136.1 added RevitLinkType LoadFrom sample code
 // 2018-02-12 2018.0.136.2 implemented ConvertLoopToArray for https://forums.autodesk.com/t5/revit-api-forum/fillet-and-curve-loop/m-p/7769993
+// 2018-02-22 2018.0.136.3 added GetRevitTextColorFromSystemColor from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
 //
-[assembly: AssemblyVersion( "2018.0.136.2" )]
-[assembly: AssemblyFileVersion( "2018.0.136.2" )]
+[assembly: AssemblyVersion( "2018.0.136.3" )]
+[assembly: AssemblyFileVersion( "2018.0.136.3" )]
