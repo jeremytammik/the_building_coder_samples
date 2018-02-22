@@ -1910,7 +1910,8 @@ namespace BuildingCoder
     {
       double d = plane.SignedDistanceTo( p );
 
-      XYZ q = p + d * plane.Normal;
+      //XYZ q = p + d * plane.Normal; // wrong according to Ruslan Hanza and Alexander Pekshev in their comments http://thebuildingcoder.typepad.com/blog/2014/09/planes-projections-and-picking-points.html#comment-3765750464
+      XYZ q = p - d * plane.Normal;
 
       Debug.Assert(
         Util.IsZero( plane.SignedDistanceTo( q ) ),
