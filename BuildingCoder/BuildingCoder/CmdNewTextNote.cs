@@ -78,7 +78,7 @@ namespace BuildingCoder
       }
     }
 
-    public Result Execute_1(
+    public Result Execute(
       ExternalCommandData commandData,
       ref string message,
       ElementSet elements )
@@ -132,6 +132,8 @@ namespace BuildingCoder
       Font font = new Font( "Arial", em_size,
         FontStyle.Regular );
 
+      TextNote txNote = null;
+
       using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Create TextNote" );
@@ -159,7 +161,7 @@ namespace BuildingCoder
         //  | TextAlignFlags.TEF_ALIGN_BOTTOM, s ); // 2015
         //txNote.TextNoteType = textType; // 2015
 
-        TextNote txNote = TextNote.Create( doc,
+        txNote = TextNote.Create( doc,
           doc.ActiveView.Id, p, s, textType.Id ); // 2016
 
         Debug.Print(
@@ -178,11 +180,32 @@ namespace BuildingCoder
         //  + "argument to determine the resulting "
         //  + "text note width" );
 
-        txNote.Width = newWidth * v_scale;
+        double wmin = txNote.GetMinimumAllowedWidth();
+        double wmax = txNote.GetMaximumAllowedWidth();
+        //double wnew = newWidth * v_scale; // this is 100 times too big
+        double wnew = newWidth;
+
+        txNote.Width = wnew;
 
         //6mm Arial
         //Text box width in pixels 668 = 6.95833349227905 inch, scale 100
         //NewTextNote lineWidth 0.58 times view scale 100 = 57.99 generated TextNote.Width 59.32
+
+        t.Commit();
+      }
+      using( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Change Text Colour" );
+
+        int color = Util.ToColorParameterValue( 
+          255, 0, 0 );
+
+        Element textNoteType = doc.GetElement( 
+          txNote.GetTypeId() );
+
+        textNoteType.get_Parameter( 
+          BuiltInParameter.LINE_COLOR )
+            .Set( color );
 
         t.Commit();
       }
@@ -214,7 +237,7 @@ namespace BuildingCoder
       return textWidth;
     }
 
-    public Result Execute(
+    public Result Execute_2(
       ExternalCommandData commandData,
       ref string message,
       ElementSet elements )

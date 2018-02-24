@@ -457,18 +457,28 @@ namespace BuildingCoder
     /// Revit text colour parameter value stored as an integer 
     /// in text note type BuiltInParameter.LINE_COLOR.
     /// </summary>
-    int GetRevitTextColorFromSystemColor( 
+    public static int ToColorParameterValue( 
+      byte red, 
+      byte green, 
+      byte blue )
+    {
+      // from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
+
+      return red 
+        + green << 8
+        + blue << 16;
+    }
+
+    /// <summary>
+    /// Revit text colour parameter value stored as an integer 
+    /// in text note type BuiltInParameter.LINE_COLOR.
+    /// </summary>
+    public static int GetRevitTextColorFromSystemColor( 
       System.Drawing.Color color )
     {
       // from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
 
-      //return (int) color.R
-      //  + (int) color.G * (int) Math.Pow( 2, 8 )
-      //  + (int) color.B * (int) Math.Pow( 2, 16 );
-
-      return (int) color.R 
-        + (int) color.G << 8
-        + (int) color.B << 16;
+      return ToColorParameterValue( color.R, color.G, color.B );
     }
     #endregion // Colour Conversion
 
