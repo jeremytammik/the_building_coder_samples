@@ -458,15 +458,20 @@ namespace BuildingCoder
     /// in text note type BuiltInParameter.LINE_COLOR.
     /// </summary>
     public static int ToColorParameterValue( 
-      byte red, 
-      byte green, 
-      byte blue )
+      int red, 
+      int green, 
+      int blue )
     {
       // from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
 
-      return (int) red 
-        + (int) green << 8
-        + (int) blue << 16;
+      int c = red + (green << 8) + (blue << 16);
+
+#if DEBUG
+      int c2 = red + 256 * green + 65536 * blue;
+      Debug.Assert( c == c2, "expected shift result to equal multiplication" );
+#endif // DEBUG
+
+      return c;
     }
 
     /// <summary>

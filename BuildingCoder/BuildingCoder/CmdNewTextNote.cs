@@ -206,6 +206,10 @@ namespace BuildingCoder
         Parameter param = textNoteType.get_Parameter(
           BuiltInParameter.LINE_COLOR );
 
+        // Note that this modifies the existing text 
+        // note type for all instances using it. If
+        // not desired, use Duplicate() first.
+
         param.Set( color );
 
         t.Commit();
