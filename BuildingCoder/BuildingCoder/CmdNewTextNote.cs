@@ -203,9 +203,10 @@ namespace BuildingCoder
         Element textNoteType = doc.GetElement( 
           txNote.GetTypeId() );
 
-        textNoteType.get_Parameter( 
-          BuiltInParameter.LINE_COLOR )
-            .Set( color );
+        Parameter param = textNoteType.get_Parameter(
+          BuiltInParameter.LINE_COLOR );
+
+        param.Set( color );
 
         t.Commit();
       }

@@ -464,9 +464,9 @@ namespace BuildingCoder
     {
       // from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
 
-      return red 
-        + green << 8
-        + blue << 16;
+      return (int) red 
+        + (int) green << 8
+        + (int) blue << 16;
     }
 
     /// <summary>
