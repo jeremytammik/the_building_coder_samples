@@ -215,7 +215,8 @@ using System.Runtime.InteropServices;
 // 2018-02-12 2018.0.136.2 implemented ConvertLoopToArray for https://forums.autodesk.com/t5/revit-api-forum/fillet-and-curve-loop/m-p/7769993
 // 2018-02-22 2018.0.136.3 added GetRevitTextColorFromSystemColor from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
 // 2018-02-22 2018.0.136.4 flipped plus to minus in ProjectOnto according to comment http://thebuildingcoder.typepad.com/blog/2014/09/planes-projections-and-picking-points.html#comment-3765750464
-// 2018-02-27 2018.0.136.5 tested and fixed ToColorParameterValue
+// 2018-02-24 2018.0.136.5 implemented set text note colour
+// 2018-02-27 2018.0.136.6 tested and fixed ToColorParameterValue
 //
-[assembly: AssemblyVersion( "2018.0.136.5" )]
-[assembly: AssemblyFileVersion( "2018.0.136.5" )]
+[assembly: AssemblyVersion( "2018.0.136.6" )]
+[assembly: AssemblyFileVersion( "2018.0.136.6" )]
