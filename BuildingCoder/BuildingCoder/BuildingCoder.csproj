@@ -265,6 +265,7 @@
     <Compile Include="JtSelectorMulti.cs" />
     <Compile Include="JtTimer.cs" />
     <Compile Include="JtWindowHandle.cs" />
+    <Compile Include="MepSystemSearch.cs" />
     <Compile Include="ParameterUnitConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JtRevision.cs" />
