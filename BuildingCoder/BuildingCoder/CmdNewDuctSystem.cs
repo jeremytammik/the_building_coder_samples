@@ -31,81 +31,81 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
 
-      Transaction tx = new Transaction( doc,
-        "New Duct System" );
-
-      tx.Start();
-
-      ConnectorSet connectorSet = new ConnectorSet();
-
-      Connector baseConnector = null;
-
-      ConnectorSetIterator csi;
-
-      // select a Parallel Fan Powered VAV
-      // and some Supply Diffusers prior to running
-      // this command
-
-      //ElementSet selection = uidoc.Selection.Elements; // 2014
-
-      foreach( ElementId id in uidoc.Selection.GetElementIds() ) // 2015
+      using( Transaction tx = new Transaction( doc ) )
       {
-        Element e = doc.GetElement( id );
+        tx.Start( "New Duct System" );
 
-        if( e is FamilyInstance )
+        ConnectorSet connectorSet = new ConnectorSet();
+
+        Connector baseConnector = null;
+
+        ConnectorSetIterator csi;
+
+        // select a Parallel Fan Powered VAV
+        // and some Supply Diffusers prior to running
+        // this command
+
+        //ElementSet selection = uidoc.Selection.Elements; // 2014
+
+        foreach( ElementId id in uidoc.Selection.GetElementIds() ) // 2015
         {
-          FamilyInstance fi = e as FamilyInstance;
+          Element e = doc.GetElement( id );
 
-          Family family = fi.Symbol.Family;
-
-          // assume the selected Mechanical Equipment
-          // is the base equipment for new system:
-
-          if( family.FamilyCategory.Name
-            == "Mechanical Equipment" )
+          if( e is FamilyInstance )
           {
-            // find the "Out" and "SupplyAir" connectors
-            // on the base equipment
+            FamilyInstance fi = e as FamilyInstance;
 
-            if( null != fi.MEPModel )
+            Family family = fi.Symbol.Family;
+
+            // assume the selected Mechanical Equipment
+            // is the base equipment for new system:
+
+            if( family.FamilyCategory.Name
+              == "Mechanical Equipment" )
             {
-              csi = fi.MEPModel.ConnectorManager
-                .Connectors.ForwardIterator();
+              // find the "Out" and "SupplyAir" connectors
+              // on the base equipment
 
-              while( csi.MoveNext() )
+              if( null != fi.MEPModel )
               {
-                Connector conn = csi.Current as Connector;
+                csi = fi.MEPModel.ConnectorManager
+                  .Connectors.ForwardIterator();
 
-                if( conn.Direction == FlowDirectionType.Out
-                  && conn.DuctSystemType == DuctSystemType.SupplyAir )
+                while( csi.MoveNext() )
                 {
-                  baseConnector = conn;
-                  break;
+                  Connector conn = csi.Current as Connector;
+
+                  if( conn.Direction == FlowDirectionType.Out
+                    && conn.DuctSystemType == DuctSystemType.SupplyAir )
+                  {
+                    baseConnector = conn;
+                    break;
+                  }
                 }
               }
             }
-          }
-          else if( family.FamilyCategory.Name == "Air Terminals" )
-          {
-            // add selected Air Terminals to
-            // connector set for new mechanical system
+            else if( family.FamilyCategory.Name == "Air Terminals" )
+            {
+              // add selected Air Terminals to
+              // connector set for new mechanical system
 
-            csi = fi.MEPModel.ConnectorManager
-              .Connectors.ForwardIterator();
+              csi = fi.MEPModel.ConnectorManager
+                .Connectors.ForwardIterator();
 
-            csi.MoveNext();
+              csi.MoveNext();
 
-            connectorSet.Insert( csi.Current as Connector );
+              connectorSet.Insert( csi.Current as Connector );
+            }
           }
         }
+
+        // create a new SupplyAir mechanical system
+
+        MechanicalSystem ductSystem = doc.Create.NewMechanicalSystem(
+          baseConnector, connectorSet, DuctSystemType.SupplyAir );
+
+        tx.Commit();
       }
-
-      // create a new SupplyAir mechanical system
-
-      MechanicalSystem ductSystem = doc.Create.NewMechanicalSystem(
-        baseConnector, connectorSet, DuctSystemType.SupplyAir );
-
-      tx.Commit();
       return Result.Succeeded;
     }
   }
