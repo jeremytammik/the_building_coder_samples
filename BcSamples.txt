@@ -1158,3 +1158,11 @@ LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdBrepBuilder # version 2018.0.136.0
+
+ADN Bc A-I
+Conduits Intersecting Junction
+Determine conduit elements intersecting a junction box
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdIntersectJunctionBox # version 2018.0.137.0

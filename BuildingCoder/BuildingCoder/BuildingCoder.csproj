@@ -148,6 +148,7 @@
     <Compile Include="CmdIdling.cs" />
     <Compile Include="CmdImportsInFamilies.cs" />
     <Compile Include="CmdInstallLocation.cs" />
+    <Compile Include="CmdIntersectJunctionBox.cs" />
     <Compile Include="CmdItemExecuted.cs" />
     <Compile Include="CmdLandXml.cs" />
     <Compile Include="CmdLibraryPaths.cs" />
