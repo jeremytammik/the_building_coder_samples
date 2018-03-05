@@ -28,25 +28,52 @@ namespace BuildingCoder
     class FindIntersection
     {
       public Conduit ConduitRun { get; set; }
+
       public FamilyInstance Jbox { get; set; }
+
       public List<Conduit> GetListOfConduits = new List<Conduit>();
-      public FindIntersection( FamilyInstance jbox, UIDocument uiDoc )
+
+      public FindIntersection( 
+        FamilyInstance jbox, 
+        UIDocument uiDoc )
       {
-        XYZ jboxPoint = ( jbox.Location as LocationPoint ).Point;
-        FilteredElementCollector filteredCloserConduits = new FilteredElementCollector( uiDoc.Document );
-        List<Element> listOfCloserConduit = filteredCloserConduits.OfClass( typeof( Conduit ) ).ToList().Where( x =>
-             ( ( x as Conduit ).Location as LocationCurve ).Curve.GetEndPoint( 0 ).DistanceTo( jboxPoint ) < 30 ||
-             ( ( x as Conduit ).Location as LocationCurve ).Curve.GetEndPoint( 1 ).DistanceTo( jboxPoint ) < 30 ).ToList();
-        //getting the location of the box and all conduit around.
+        XYZ jboxPoint = ( jbox.Location 
+          as LocationPoint ).Point;
+
+        FilteredElementCollector filteredCloserConduits 
+          = new FilteredElementCollector( uiDoc.Document );
+
+        List<Element> listOfCloserConduit
+          = filteredCloserConduits
+            .OfClass( typeof( Conduit ) )
+            .ToList()
+            .Where( x 
+              => ( ( x as Conduit ).Location as LocationCurve ).Curve
+                .GetEndPoint( 0 ).DistanceTo( jboxPoint ) < 30 
+              || ( ( x as Conduit ).Location as LocationCurve ).Curve
+                .GetEndPoint( 1 ).DistanceTo( jboxPoint ) < 30 )
+            .ToList();
+
+        // getting the location of the box and all conduit around.
+
         Options opt = new Options();
         opt.View = uiDoc.ActiveView;
         GeometryElement geoEle = jbox.get_Geometry( opt );
-        //getting the geometry of the element to acess the geometry of the instance.
-        foreach( GeometryObject geomObje1 in geoEle )
-        {
-          GeometryElement geoInstance = ( geomObje1 as GeometryInstance ).GetInstanceGeometry();
-          //the geometry of the family instance can be acess by this method that returns a GeometryElement type.
-          //so we must get the GeometryObject again to acess the Face of the famil y instance.
+
+        // getting the geometry of the element to 
+        // access the geometry of the instance.
+
+        foreach( GeometryObject geomObje1 in geoEle)
+  {
+          GeometryElement geoInstance = ( geomObje1 
+            as GeometryInstance ).GetInstanceGeometry();
+
+          // the geometry of the family instance can be 
+          // accessed by this method that returns a 
+          // GeometryElement type. so we must get the 
+          // GeometryObject again to access the Face of 
+          // the family instance.
+
           if( geoInstance != null )
           {
             foreach( GeometryObject geomObje2 in geoInstance )
@@ -64,6 +91,7 @@ namespace BuildingCoder
                     if( set.ToString() == "Overlap" )
                     {
                       //getting the conduit the intersect the box.
+
                       GetListOfConduits.Add( con );
                     }
                   }
@@ -92,6 +120,8 @@ namespace BuildingCoder
 
       Outline outLne = new Outline( bb.Min, bb.Max );
 
+      // Use a quick bounding box filter - axis aligned
+
       ElementQuickFilter fbb
         = new BoundingBoxIntersectsFilter( outLne );
 
@@ -100,7 +130,11 @@ namespace BuildingCoder
           .OfClass( typeof( Conduit ) )
           .WherePasses( fbb );
 
+      // How many elements did we find?
+
       int nbb = conduits.GetElementCount();
+
+      // Use a slow intersection filter - exact results
 
       ElementSlowFilter intersect_junction
         = new ElementIntersectsElementFilter( e );
@@ -108,6 +142,8 @@ namespace BuildingCoder
       conduits = new FilteredElementCollector( doc )
           .OfClass( typeof( Conduit ) )
           .WherePasses( intersect_junction );
+
+      // How many elements did we find?
 
       int nintersect = conduits.GetElementCount();
 
