@@ -221,6 +221,7 @@ using System.Runtime.InteropServices;
 // 2018-03-04 2018.0.137.0 implemented CmdIntersectJunctionBox
 // 2018-03-05 2018.0.137.0 updated CmdIntersectJunctionBox
 // 2018-03-06 2018.0.137.1 implemented CreateArc2dFromRadiusStartAndEndPoint
+// 2018-03-06 2018.0.137.2 added clockwise option to CreateArc2dFromRadiusStartAndEndPoint
 //
-[assembly: AssemblyVersion( "2018.0.137.1" )]
-[assembly: AssemblyFileVersion( "2018.0.137.1" )]
+[assembly: AssemblyVersion( "2018.0.137.2" )]
+[assembly: AssemblyFileVersion( "2018.0.137.2" )]
