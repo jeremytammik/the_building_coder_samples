@@ -469,6 +469,7 @@ namespace BuildingCoder
 
       // Small and large circle sagitta:
       // http://www.mathopenref.com/sagitta.html
+      // https://en.wikipedia.org/wiki/Sagitta_(geometry)
 
       double s = largeSagitta
         ? radius + Math.Sqrt( radius * radius - d * d ) // sagitta large

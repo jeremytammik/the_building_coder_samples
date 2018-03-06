@@ -33,23 +33,23 @@ namespace BuildingCoder
 
       public List<Conduit> GetListOfConduits = new List<Conduit>();
 
-      public FindIntersection( 
-        FamilyInstance jbox, 
+      public FindIntersection(
+        FamilyInstance jbox,
         UIDocument uiDoc )
       {
-        XYZ jboxPoint = ( jbox.Location 
+        XYZ jboxPoint = ( jbox.Location
           as LocationPoint ).Point;
 
-        FilteredElementCollector filteredCloserConduits 
+        FilteredElementCollector filteredCloserConduits
           = new FilteredElementCollector( uiDoc.Document );
 
         List<Element> listOfCloserConduit
           = filteredCloserConduits
             .OfClass( typeof( Conduit ) )
             .ToList()
-            .Where( x 
+            .Where( x
               => ( ( x as Conduit ).Location as LocationCurve ).Curve
-                .GetEndPoint( 0 ).DistanceTo( jboxPoint ) < 30 
+                .GetEndPoint( 0 ).DistanceTo( jboxPoint ) < 30
               || ( ( x as Conduit ).Location as LocationCurve ).Curve
                 .GetEndPoint( 1 ).DistanceTo( jboxPoint ) < 30 )
             .ToList();
@@ -63,9 +63,9 @@ namespace BuildingCoder
         // getting the geometry of the element to 
         // access the geometry of the instance.
 
-        foreach( GeometryObject geomObje1 in geoEle)
-  {
-          GeometryElement geoInstance = ( geomObje1 
+        foreach( GeometryObject geomObje1 in geoEle )
+        {
+          GeometryElement geoInstance = ( geomObje1
             as GeometryInstance ).GetInstanceGeometry();
 
           // the geometry of the family instance can be 
@@ -147,12 +147,11 @@ namespace BuildingCoder
 
       int nintersect = conduits.GetElementCount();
 
-      Debug.Assert( nbb <= nintersect, 
+      Debug.Assert( nintersect <= nbb,
         "expected element intersection to be stricter"
         + "than bounding box containment" );
 
       return Result.Succeeded;
     }
-
-    }
   }
+}
