@@ -219,7 +219,8 @@ using System.Runtime.InteropServices;
 // 2018-02-27 2018.0.136.6 tested and fixed ToColorParameterValue
 // 2018-03-01 2018.0.136.7 added MepSystemSearch from https://github.com/geoffoverfield/RevitAPI_SystemSearch for https://forums.autodesk.com/t5/revit-api-forum/connector-neighbours/m-p/7816952
 // 2018-03-04 2018.0.137.0 implemented CmdIntersectJunctionBox
-// 2018-03-04 2018.0.137.0 updated CmdIntersectJunctionBox
+// 2018-03-05 2018.0.137.0 updated CmdIntersectJunctionBox
+// 2018-03-06 2018.0.137.1 implemented CreateArc2dFromRadiusStartAndEndPoint
 //
-[assembly: AssemblyVersion( "2018.0.137.0" )]
-[assembly: AssemblyFileVersion( "2018.0.137.0" )]
+[assembly: AssemblyVersion( "2018.0.137.1" )]
+[assembly: AssemblyFileVersion( "2018.0.137.1" )]

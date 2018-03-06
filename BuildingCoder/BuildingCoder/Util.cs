@@ -419,7 +419,7 @@ namespace BuildingCoder
     /// I finally found out that the transformation 
     /// consists of a displacement vector and a rotation matrix.
     /// </summary>
-    private static double[,] 
+    public static double[,] 
       CalculateMatrixForGlobalToLocalCoordinateSystem( 
         Face face )
     {
@@ -449,6 +449,36 @@ namespace BuildingCoder
       return new double[2, 2] {
         { a11i, a12i },
         { a21i, a22i }};
+    }
+
+    /// <summary>
+    /// Create an arc in the XY plane from a given
+    /// start point, end point and radius. 
+    /// </summary>
+    public static Arc CreateArc2dFromRadiusStartAndEndPoint( 
+      XYZ ps, 
+      XYZ pe, 
+      double radius, 
+      bool largeSagitta = false )
+    {
+      // https://forums.autodesk.com/t5/revit-api-forum/create-a-curve-when-only-the-start-point-end-point-amp-radius-is/m-p/7830079
+
+      XYZ midPointChord = 0.5 * ( ps + pe );
+      XYZ v = pe - ps;
+      double d = 0.5 * v.GetLength(); // half chord length
+
+      // Small and large circle sagitta:
+      // http://www.mathopenref.com/sagitta.html
+
+      double s = largeSagitta
+        ? radius + Math.Sqrt( radius * radius - d * d ) // sagitta large
+        : radius - Math.Sqrt( radius * radius - d * d ); // sagitta small
+
+      XYZ midPointArc = midPointChord 
+        + Transform.CreateRotation( XYZ.BasisZ, 0.5 * Math.PI )
+          .OfVector( v.Normalize().Multiply( s ) );
+
+      return Arc.Create( ps, pe, midPointArc );
     }
     #endregion // Geometrical Calculation
 
