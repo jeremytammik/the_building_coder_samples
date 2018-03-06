@@ -459,7 +459,8 @@ namespace BuildingCoder
       XYZ ps, 
       XYZ pe, 
       double radius, 
-      bool largeSagitta = false )
+      bool largeSagitta = false,
+      bool clockwise = false )
     {
       // https://forums.autodesk.com/t5/revit-api-forum/create-a-curve-when-only-the-start-point-end-point-amp-radius-is/m-p/7830079
 
@@ -475,9 +476,13 @@ namespace BuildingCoder
         ? radius + Math.Sqrt( radius * radius - d * d ) // sagitta large
         : radius - Math.Sqrt( radius * radius - d * d ); // sagitta small
 
-      XYZ midPointArc = midPointChord 
-        + Transform.CreateRotation( XYZ.BasisZ, 0.5 * Math.PI )
-          .OfVector( v.Normalize().Multiply( s ) );
+      XYZ midPointOffset = Transform
+        .CreateRotation( XYZ.BasisZ, 0.5 * Math.PI )
+        .OfVector( v.Normalize().Multiply( s ) );
+
+      XYZ midPointArc = clockwise
+        ? midPointChord + midPointOffset
+        : midPointChord - midPointOffset;
 
       return Arc.Create( ps, pe, midPointArc );
     }
