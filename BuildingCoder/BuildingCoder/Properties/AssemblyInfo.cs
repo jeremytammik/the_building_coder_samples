@@ -222,7 +222,7 @@ using System.Runtime.InteropServices;
 // 2018-03-05 2018.0.137.0 updated CmdIntersectJunctionBox
 // 2018-03-06 2018.0.137.1 implemented CreateArc2dFromRadiusStartAndEndPoint
 // 2018-03-06 2018.0.137.2 added clockwise option to CreateArc2dFromRadiusStartAndEndPoint
-// 2018-03-07 2018.0.138.0 implemented CmdSwitchDoc
+// 2018-03-07 2018.0.138.0 implemented CmdSwitchDoc based on https://forums.autodesk.com/t5/revit-api-forum/change-active-document/m-p/7787792
 //
 [assembly: AssemblyVersion( "2018.0.138.0" )]
 [assembly: AssemblyFileVersion( "2018.0.138.0" )]
