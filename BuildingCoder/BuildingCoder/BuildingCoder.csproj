@@ -230,6 +230,7 @@
     <Compile Include="CmdSpaceAdjacency.cs" />
     <Compile Include="CmdStatusBar.cs" />
     <Compile Include="CmdSteelStairBeams.cs" />
+    <Compile Include="CmdSwitchDoc.cs" />
     <Compile Include="CmdTransformedCoords.cs" />
     <Compile Include="CmdChangeLinkedFilePath.cs" />
     <Compile Include="CmdUnrotateNorth.cs" />
