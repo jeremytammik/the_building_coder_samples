@@ -145,13 +145,14 @@ namespace BuildingCoder
       Document doc = uidoc.Document;
       Result rc = Result.Succeeded;
 
-      bool zoomToPreselectedElements = false;
+      ICollection<ElementId> ids
+        = uidoc.Selection.GetElementIds();
+
+      bool zoomToPreselectedElements 
+        = ( 0 < ids.Count );
 
       if( zoomToPreselectedElements )
       {
-        ICollection<ElementId> ids 
-          = uidoc.Selection.GetElementIds();
-
         rc = ZoomToElements( uidoc, ids, 
           ref message, elements );
       }
