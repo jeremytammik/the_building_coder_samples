@@ -35,7 +35,6 @@ namespace BuildingCoder
       ICollection<ElementId> ids,
       ref string message,
       ElementSet elements )
-
     {
       int n = ids.Count;
 
