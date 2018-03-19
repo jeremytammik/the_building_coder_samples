@@ -25,6 +25,36 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdExportSolidToSat : IExternalCommand
   {
+    #region Intersect solid with another solid from a linked file
+    public static double GetIntersectedSolidArea( 
+      Document host, 
+      Solid hostElement, 
+      RevitLinkInstance rins, 
+      Solid linkedElement )
+    {
+      // Step 1 "Determine the transformation T from the linked document Q coordinates to P's."
+
+      Transform transForm = rins.GetTransform();
+
+      // Step 2 "Open the linked project Q and retrieve the solid Sb of B."
+
+      // linkedElement is Solid of linked Link
+
+      // Step 3 "Transform it to P's coordinate space: T * Sb."
+
+      Solid tmp = SolidUtils.CreateTransformed( linkedElement, transForm );
+
+      // Step 4 "Retrieve the solid Sa of A"
+      // hostElement is hostElementSolid
+
+      Solid result = BooleanOperationsUtils.ExecuteBooleanOperation( 
+        hostElement, tmp, BooleanOperationsType.Intersect );
+
+
+      return result.SurfaceArea;
+    }
+    #endregion // Intersect solid with another solid from a linked file
+
     #region Clone Solid Workaround before new Revit 2016 Solid.Clone API
     static public Solid Clone( /*this*/ Solid solid )
     {
