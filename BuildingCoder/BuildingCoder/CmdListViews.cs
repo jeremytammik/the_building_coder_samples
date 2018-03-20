@@ -157,7 +157,7 @@ namespace BuildingCoder
           Debug.WriteLine( string.Format(
             "  {0} {1} bb {2} outline {3}",
             ++i, Util.ElementDescription( v ),
-            (null == bb ? "<null>" : Util.BoundingBoxString( bb )),
+            ( null == bb ? "<null>" : Util.BoundingBoxString( bb ) ),
             Util.BoundingBoxString( outline ) ) );
 
           if( !mapSheetToViewport.ContainsKey( idSheet ) )
