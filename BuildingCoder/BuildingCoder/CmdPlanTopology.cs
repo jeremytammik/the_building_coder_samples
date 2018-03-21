@@ -25,6 +25,36 @@ namespace BuildingCoder
   class CmdPlanTopology : IExternalCommand
   {
     /// <summary>
+    /// Return element bounding box centre point
+    /// </summary>
+    public XYZ GetElementBbCenter( Element e )
+    {
+      BoundingBoxXYZ bb = e.get_BoundingBox( null );
+      XYZ center = Util.Midpoint( bb.Min, bb.Max );
+      return center;
+    }
+
+    /// <summary>
+    /// Return room centre point for placing room tag
+    /// </summary>
+    public XYZ GetRoomCenter( Room room )
+    {
+      // cf. https://forums.autodesk.com/t5/revit-api-forum/create-roomtag/m-p/7871671
+
+      // Room location point is not necessarily in the 
+      // centre of the room, but the Z elevation is correct.
+
+      LocationPoint locPt = (LocationPoint) room.Location;
+      XYZ pr = locPt.Point;
+
+      // Get the room center point X and Y from its bounding box.
+
+      XYZ pbb = GetElementBbCenter( room );
+      XYZ roomCenter = new XYZ( pbb.X, pbb.Y, pr.Z );
+      return roomCenter;
+    }
+
+    /// <summary>
     /// Create a room on a given level.
     /// </summary>
     void CreateRoom(
