@@ -69,7 +69,7 @@ namespace BuildingCoder
       Room room = docCreation.NewRoom(
         level, tagPoint );
 
-      if ( null == room )
+      if( null == room )
       {
         throw new Exception(
           "Create a new room failed." );
@@ -110,7 +110,7 @@ namespace BuildingCoder
 
       //foreach( Room r in pt.Rooms ) // 2012
 
-      foreach ( ElementId id in pt.GetRoomIds() ) // 2013
+      foreach( ElementId id in pt.GetRoomIds() ) // 2013
       {
         Room r = doc.GetElement( id ) as Room;
 
@@ -122,13 +122,13 @@ namespace BuildingCoder
       output = "Circuits without rooms:"
         + "\n  Number of Sides : Area";
 
-      using ( Transaction t = new Transaction( doc ) )
+      using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Create New Rooms" );
 
-        foreach ( PlanCircuit pc in pt.Circuits )
+        foreach( PlanCircuit pc in pt.Circuits )
         {
-          if ( !pc.IsRoomLocated ) // this circuit has no room, create one
+          if( !pc.IsRoomLocated ) // this circuit has no room, create one
           {
             output += "\n  " + pc.SideNum + " : "
               + Util.RealString( pc.Area ) + " sqf";
