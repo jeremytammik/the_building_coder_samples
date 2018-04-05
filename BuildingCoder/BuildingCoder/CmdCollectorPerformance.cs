@@ -1187,6 +1187,43 @@ namespace BuildingCoder
     }
     #endregion // Retrieve openings in wall
 
+    #region Retrieve all edges in model
+    void RetrieveEdges( 
+      Document doc, 
+      Dictionary<Curve, ElementId> curves )
+    {
+      FilteredElementCollector collector
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .WhereElementIsViewIndependent();
+
+      Options opt = new Options();
+
+      foreach( Element el in collector )
+      {
+        if( null != el.Category )
+        {
+          GeometryElement geo = el.get_Geometry( opt );
+          if( geo != null )
+          {
+            foreach( GeometryObject obj in geo )
+            {
+              Solid sol = obj as Solid;
+              if( null!= sol )
+              {
+                foreach( Edge edge in sol.Edges )
+                {
+                  Curve edgecurve = edge.AsCurve();
+                  curves.Add( edgecurve, el.Id );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    #endregion // Retrieve all edges in model
+
     #region Retrieve family instances intersecting BIM element
     /// <summary>
     /// Retrieve all family instances intersecting a
