@@ -226,6 +226,7 @@ using System.Runtime.InteropServices;
 // 2018-03-19 2018.0.138.1 added GetIntersectedSolidArea test code from https://forums.autodesk.com/t5/revit-api-forum/linked-file-element-intersection-solid-geometry/m-p/7861611
 // 2018-03-21 2018.0.138.2 added GetRoomCenter from https://forums.autodesk.com/t5/revit-api-forum/create-roomtag/m-p/7871671
 // 2018-04-05 2018.0.138.3 implemented RetrieveEdges for https://stackoverflow.com/questions/49651399/revit-api-filtering-elements-by-edges
+// 2018-04-05 2018.0.138.4 added GetFamilyXmlData by Håvard Dagsvik
 //
 [assembly: AssemblyVersion( "2018.0.138.3" )]
 [assembly: AssemblyFileVersion( "2018.0.138.3" )]
