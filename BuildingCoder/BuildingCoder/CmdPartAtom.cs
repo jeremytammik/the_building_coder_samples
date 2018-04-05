@@ -21,7 +21,7 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.Manual )]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdPartAtom : IExternalCommand
   {
     /// <summary>
