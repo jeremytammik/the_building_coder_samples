@@ -107,12 +107,22 @@ namespace BuildingCoder
         + "/Application Data/Autodesk/RAC 2011"
         + "/Metric Library/Doors/M_Double-Flush.rfa";
 
+      familyFilePath = "C:/Users/All Users/Autodesk"
+        + "/RVT 2017/Libraries/US Metric/Doors"
+        + "/M_Door-Double-Flush_Panel.rfa";
+
       string xmlPath = "C:/tmp/ExtractPartAtom.xml";
+
+      // Using Revit API:
 
       app.ExtractPartAtomFromFamilyFile(
         familyFilePath, xmlPath );
 
       tx.Commit();
+
+      // Revit API independent:
+
+      string xml_data = GetFamilyXmlData( xmlPath );
 
       return Result.Succeeded;
     }
