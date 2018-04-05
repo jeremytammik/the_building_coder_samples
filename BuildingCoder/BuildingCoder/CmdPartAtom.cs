@@ -31,7 +31,7 @@ namespace BuildingCoder
     /// </summary>
     /// <param name="family_file_path">Family file path</param>
     /// <returns>XML data</returns>
-    static string GetFamilyXmlData( 
+    static string GetFamilyXmlData(
       string family_file_path )
     {
       byte[] array = File.ReadAllBytes( family_file_path );
@@ -44,7 +44,7 @@ namespace BuildingCoder
 
       if( start == -1 )
       {
-        Debug.Print( "XML start not detected: " 
+        Debug.Print( "XML start not detected: "
           + family_file_path );
       }
       else
@@ -69,7 +69,7 @@ namespace BuildingCoder
           }
           else
           {
-            xml_data = string_file.Substring( 
+            xml_data = string_file.Substring(
               start, length );
           }
         }
@@ -97,11 +97,6 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      Transaction tx = new Transaction( doc,
-        "Extract Part Atom" );
-
-      tx.Start();
-
       string familyFilePath
         = "C:/Documents and Settings/All Users"
         + "/Application Data/Autodesk/RAC 2011"
@@ -115,10 +110,14 @@ namespace BuildingCoder
 
       // Using Revit API:
 
-      app.ExtractPartAtomFromFamilyFile(
-        familyFilePath, xmlPath );
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Extract Part Atom" );
+        app.ExtractPartAtomFromFamilyFile(
+          familyFilePath, xmlPath );
 
-      tx.Commit();
+        tx.Commit();
+      }
 
       // Revit API independent:
 
