@@ -93,9 +93,7 @@ namespace BuildingCoder
       ElementSet elements )
     {
       UIApplication uiapp = commandData.Application;
-      UIDocument uidoc = uiapp.ActiveUIDocument;
       Application app = uiapp.Application;
-      Document doc = uidoc.Document;
 
       string familyFilePath
         = "C:/Documents and Settings/All Users"
@@ -110,14 +108,8 @@ namespace BuildingCoder
 
       // Using Revit API:
 
-      using( Transaction tx = new Transaction( doc ) )
-      {
-        tx.Start( "Extract Part Atom" );
-        app.ExtractPartAtomFromFamilyFile(
-          familyFilePath, xmlPath );
-
-        tx.Commit();
-      }
+      app.ExtractPartAtomFromFamilyFile(
+        familyFilePath, xmlPath );
 
       // Revit API independent:
 
