@@ -38,33 +38,43 @@ namespace BuildingCoder
 
       string string_file = Encoding.UTF8.GetString( array );
 
+      string xml_data = null;
+
       int start = string_file.IndexOf( "<entry" );
 
       if( start == -1 )
       {
-        Debug.Print( "XML start not detected: " + family_file_path );
-        return null;
+        Debug.Print( "XML start not detected: " 
+          + family_file_path );
       }
-
-      int end = string_file.IndexOf( "/entry>" );
-      if( end == -1 )
+      else
       {
-        Debug.Print( "XML end not detected: " + family_file_path );
-        return null;
+        int end = string_file.IndexOf( "/entry>" );
+
+        if( end == -1 )
+        {
+          Debug.Print( "XML end not detected: "
+            + family_file_path );
+        }
+        else
+        {
+          end = end + 7;
+
+          int length = end - start;
+
+          if( length <= 0 )
+          {
+            Debug.Print( "XML length is 0 or less: "
+              + family_file_path );
+          }
+          else
+          {
+            xml_data = string_file.Substring( 
+              start, length );
+          }
+        }
       }
-
-      end = end + 7;
-
-      int length = end - start;
-
-      if( length <= 0 )
-      {
-        Debug.Print( "XML length is 0 or less: " + family_file_path );
-        return null;
-      }
-
-      return string_file.Substring( start, length );
-
+      return xml_data;
     }
 
     static void createPartAtomFile(
