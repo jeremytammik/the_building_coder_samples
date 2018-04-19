@@ -5,6 +5,11 @@
 ![.NET](https://img.shields.io/badge/.NET-4.5.2-blue.svg)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://opensource.org/licenses/MIT)
 
+![Revit API](https://img.shields.io/badge/Revit%20API-2019-blue.svg)
+![Platform](https://img.shields.io/badge/platform-Windows-lightgray.svg)
+![.NET](https://img.shields.io/badge/.NET-4.7-blue.svg)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://opensource.org/licenses/MIT)
+
 The Building Coder Samples illustrate numerous aspects and example usages of the Revit API.
 
 Please refer to [The Building Coder](http://thebuildingcoder.typepad.com) for further information.
