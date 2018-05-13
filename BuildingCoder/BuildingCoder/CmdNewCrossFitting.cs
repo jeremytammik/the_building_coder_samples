@@ -105,22 +105,6 @@ namespace BuildingCoder
     }
     #endregion // Using routing preferences with NewTakeoffFitting
 
-    ///// <summary>
-    ///// Allow selection of pipe elements only.
-    ///// </summary>
-    //class PipeElementSelectionFilter : ISelectionFilter
-    //{
-    //  public bool AllowElement( Element e )
-    //  {
-    //    return e is Pipe;
-    //  }
-
-    //  public bool AllowReference( Reference r, XYZ p )
-    //  {
-    //    return true;
-    //  }
-    //}
-
     /// <summary>
     /// Return the normalised direction of the given pipe.
     /// </summary>

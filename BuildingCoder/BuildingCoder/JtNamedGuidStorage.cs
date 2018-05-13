@@ -26,6 +26,11 @@ namespace BuildingCoder
     /// </summary>
     public static class JtNamedGuidStorageSchema
     {
+      /// <summary>
+      /// Always create your own, new, unique GUID 
+      /// before making use of this class!
+      /// E.g., Visual Studio > Tools > Create GUID.
+      /// </summary>      
       public readonly static Guid SchemaGuid = new Guid(
         "{5F374308-9C59-42AE-ACC3-A77EF45EC146}" );
 

@@ -38,22 +38,6 @@ namespace BuildingCoder
       + "this command, or post-select them when "
       + "prompted.";
 
-    ///// <summary>
-    ///// Allow selection of curve elements only.
-    ///// </summary>
-    //class CurveElementSelectionFilter : ISelectionFilter
-    //{
-    //  public bool AllowElement( Element e )
-    //  {
-    //    return e is CurveElement;
-    //  }
-
-    //  public bool AllowReference( Reference r, XYZ p )
-    //  {
-    //    return true;
-    //  }
-    //}
-
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
