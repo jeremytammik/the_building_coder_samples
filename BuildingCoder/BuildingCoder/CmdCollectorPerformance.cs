@@ -290,6 +290,38 @@ namespace BuildingCoder
   {
     Document _doc;
 
+    #region Retrieve all exterior walls
+    /// <summary>
+    /// Wall type predicate for exterior wall function
+    /// </summary>
+    bool IsExterior( WallType wallType )
+    {
+      Parameter p = wallType.get_Parameter(
+        BuiltInParameter.FUNCTION_PARAM );
+
+      Debug.Assert( null != p, "expected wall type "
+        + "to have wall function parameter" );
+
+      WallFunction f = (WallFunction) p.AsInteger();
+
+      return WallFunction.Exterior == f;
+    }
+
+    /// <summary>
+    /// Return all exterior walls, cf.
+    /// https://forums.autodesk.com/t5/revit-api-forum/how-do-i-get-all-the-outermost-walls-in-the-model/m-p/7998948
+    /// </summary>
+    IEnumerable<Element> GetAllExteriorWalls(
+      Document doc )
+    {
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( Wall ) )
+        .Cast<Wall>()
+        .Where<Wall>( w =>
+          IsExterior( w.WallType ) );
+    }
+    #endregion // Retrieve all exterior walls
+
     #region Get Families of a given Category
     // for http://forums.autodesk.com/t5/revit-api-forum/having-trouble-filtering-to-ost-titleblocks/m-p/6827759
     static bool FamilyFirstSymbolCategoryEquals(
