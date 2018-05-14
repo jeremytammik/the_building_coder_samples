@@ -228,7 +228,7 @@ using System.Runtime.InteropServices;
 // 2018-04-05 2018.0.138.3 implemented RetrieveEdges for https://stackoverflow.com/questions/49651399/revit-api-filtering-elements-by-edges
 // 2018-04-05 2018.0.138.4 added GetFamilyXmlData by Håvard Dagsvik
 // 2018-04-18 2019.0.138.0 flat migration to Revit 2019; 6 deprecated API usage warnings about AssetProperties[] operator
-// 2018-05-14 2019.0.138.1 implemented GetAllExteriorWalls for https://forums.autodesk.com/t5/revit-api-forum/how-do-i-get-all-the-outermost-walls-in-the-model/m-p/7998948 
+// 2018-05-14 2019.0.138.2 implemented GetAllExteriorWalls for https://forums.autodesk.com/t5/revit-api-forum/how-do-i-get-all-the-outermost-walls-in-the-model/m-p/7998948 
 //
-[assembly: AssemblyVersion( "2019.0.138.1" )]
-[assembly: AssemblyFileVersion( "2019.0.138.1" )]
+[assembly: AssemblyVersion( "2019.0.138.2" )]
+[assembly: AssemblyFileVersion( "2019.0.138.2" )]
