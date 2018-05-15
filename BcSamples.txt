@@ -1174,3 +1174,12 @@ LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSwitchDoc # version 2018.0.138.0
+
+ADN Bc A-I
+Process Visible DWG Elements
+Extract geometry from visible import instance layers in the current view
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdProcessVisibleDwg # version 2018.0.139.0
+
