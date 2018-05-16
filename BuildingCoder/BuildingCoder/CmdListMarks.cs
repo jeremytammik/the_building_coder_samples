@@ -40,9 +40,9 @@ namespace BuildingCoder
       //Autodesk.Revit.Creation.Application creApp = app.Application.Create;
       //Autodesk.Revit.Creation.Document creDoc = doc.Create;
 
-      FilteredElementCollector doors 
-        = Util.GetElementsOfType( doc, 
-          typeof( FamilyInstance ), 
+      FilteredElementCollector doors
+        = Util.GetElementsOfType( doc,
+          typeof( FamilyInstance ),
           BuiltInCategory.OST_Doors );
 
       int n = doors.Count();
@@ -201,5 +201,33 @@ namespace BuildingCoder
     }
     */
 
+    /// <summary>
+    /// Set the 'Mark' parameter value to sequential 
+    /// numbers on all structural framing elements.
+    /// https://forums.autodesk.com/t5/revit-api-forum/set-different-value-to-a-set-of-elements/td-p/8004141
+    /// </summary>
+    void NumberStructuralFraming( Document doc )
+    {
+      FilteredElementCollector beams
+        = new FilteredElementCollector( doc )
+          .OfCategory( BuiltInCategory.OST_StructuralFraming )
+          .WhereElementIsNotElementType();
+
+      using( Transaction t = new Transaction( doc ) )
+      {
+        t.Start( "Renumber marks" );
+
+        int mark_number = 3;
+
+        foreach( FamilyInstance beam in beams )
+        {
+          Parameter p = beam.get_Parameter(
+            BuiltInParameter.ALL_MODEL_MARK );
+
+          p.Set( (mark_number++).ToString() );
+        }
+        t.Commit();
+      }
+    }
   }
 }
