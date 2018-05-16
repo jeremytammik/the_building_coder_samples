@@ -98,7 +98,6 @@ namespace BuildingCoder
           .OfType<FilledRegionType>()
           .First();
 
-
         using( var t = new Transaction( doc ) )
         {
           t.Start( "ProcessDWG" );
@@ -128,10 +127,11 @@ namespace BuildingCoder
                 new List<CurveLoop>() { curveLoop } );
             }
           }
+          t.Commit();
         }
       }
     }
-      
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
