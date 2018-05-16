@@ -231,6 +231,7 @@ using System.Runtime.InteropServices;
 // 2018-05-14 2019.0.138.2 implemented GetAllExteriorWalls for https://forums.autodesk.com/t5/revit-api-forum/how-do-i-get-all-the-outermost-walls-in-the-model/m-p/7998948 
 // 2018-05-15 2019.0.139.0 implemented CmdProcessVisibleDwg for https://forums.autodesk.com/t5/revit-api-forum/visibility-of-dwg-layer/m-p/7975284
 // 2018-05-15 2019.0.139.1 implemented NumberStructuralFraming for https://forums.autodesk.com/t5/revit-api-forum/set-different-value-to-a-set-of-elements/td-p/8004141
+// 2018-05-16 2019.0.139.2 added missing commit
 //
-[assembly: AssemblyVersion( "2019.0.139.1" )]
-[assembly: AssemblyFileVersion( "2019.0.139.1" )]
+[assembly: AssemblyVersion( "2019.0.139.2" )]
+[assembly: AssemblyFileVersion( "2019.0.139.2" )]
