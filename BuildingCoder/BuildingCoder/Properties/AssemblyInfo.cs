@@ -232,6 +232,7 @@ using System.Runtime.InteropServices;
 // 2018-05-15 2019.0.139.0 implemented CmdProcessVisibleDwg for https://forums.autodesk.com/t5/revit-api-forum/visibility-of-dwg-layer/m-p/7975284
 // 2018-05-15 2019.0.139.1 implemented NumberStructuralFraming for https://forums.autodesk.com/t5/revit-api-forum/set-different-value-to-a-set-of-elements/td-p/8004141
 // 2018-05-16 2019.0.139.2 added missing commit
+// 2018-05-17 2019.0.140.0 implemented CmdParamValuesForCats
 //
-[assembly: AssemblyVersion( "2019.0.139.2" )]
-[assembly: AssemblyFileVersion( "2019.0.139.2" )]
+[assembly: AssemblyVersion( "2019.0.140.0" )]
+[assembly: AssemblyFileVersion( "2019.0.140.0" )]

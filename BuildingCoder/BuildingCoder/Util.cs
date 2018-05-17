@@ -2075,6 +2075,24 @@ namespace BuildingCoder
         collector.OfClass<T>() );
     }
   }
+
+  public static class JtBuiltInCategoryExtensionMethods
+  {
+    /// <summary>
+    /// Return a descriptive string for a built-in 
+    /// category by removing the trailing plural 's' 
+    /// and the OST_ prefix.
+    /// </summary>
+    public static string Description(
+      this BuiltInCategory bic )
+    {
+      string s = bic.ToString().ToLower();
+      s = s.Substring( 4 );
+      Debug.Assert( s.EndsWith( "s" ), "expected plural suffix 's'" );
+      s = s.Substring( 0, s.Length - 1 );
+      return s;
+    }
+  }
   #endregion // Extension Method Classes
 
   #region Compatibility Methods by Magson Leone
