@@ -9,9 +9,7 @@
 #endregion // Header
 
 #region Namespaces
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Architecture;
@@ -28,7 +26,8 @@ namespace BuildingCoder
       Document doc,
       View view = null )
     {
-      // Default constructor creates cube from -100 to 100
+      // Default constructor creates cube from -100 to 100;
+      // maybe too big, but who cares?
 
       BoundingBoxXYZ bb = new BoundingBoxXYZ();
 
@@ -46,13 +45,17 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// 过滤出需要的墙体 -- Filter out the required walls
+    /// 过滤出需要的墙体 --
+    /// Return all walls that are generating boundary
+    /// segments for the given room. Includes debug
+    /// code to compare wall lengths and wall areas.
     /// </summary>
-    static List<ElementId> DetermineAdjacentElementLengthsAndWallAreas(
-      Document doc,
-      Room room )
+    static List<ElementId> 
+      RetrieveWallsGeneratingRoomBoundaries(
+        Document doc,
+        Room room )
     {
-      List<ElementId> elementIds = new List<ElementId>();
+      List<ElementId> ids = new List<ElementId>();
 
       IList<IList<BoundarySegment>> boundaries
         = room.GetBoundarySegments( 
@@ -69,6 +72,10 @@ namespace BuildingCoder
         foreach( BoundarySegment s in b )
         {
           ++iSegment;
+
+          // Retrieve the id of the element that 
+          // produces this boundary segment
+
           Element neighbour = doc.GetElement(
             s.ElementId );
 
@@ -89,11 +96,11 @@ namespace BuildingCoder
 
             double wallLength = lc.Curve.Length;
 
-            elementIds.Add( wall.Id );
+            ids.Add( wall.Id );
           }
         }
       }
-      return elementIds;
+      return ids;
     }
 
     /// <summary>
@@ -108,11 +115,7 @@ namespace BuildingCoder
       Document doc, 
       View view = null )
     {
-      double offset = 1000 / 304.8;
-
-      Debug.Assert( 
-        Util.IsEqual( offset, Util._footToMeter ),
-        "expected conversion from imperial feet to metres" );
+      double offset = Util.MmToFoot( 1000 );
 
       if( view == null )
       {
@@ -201,7 +204,6 @@ namespace BuildingCoder
         = new TransactionGroup( doc ) )
       {
         Room newRoom = null;
-        RoomTag tag1 = null;
 
         group.Start( "Find Outermost Walls" );
 
@@ -218,12 +220,13 @@ namespace BuildingCoder
             = doc.Create.NewRoomBoundaryLines( 
               sketchPlane, curves, view );
 
-          //创建房间的坐标点
+          // 创建房间的坐标点 -- Create room coordinates
 
           double d = Util.MmToFoot( 600 );
           UV point = new UV( bb.Min.X + d, bb.Min.Y + d );
 
-          //根据选中点，创建房间   当前视图的楼层doc.ActiveView.GenLevel
+          // 根据选中点，创建房间 当前视图的楼层 doc.ActiveView.GenLevel
+          // Create room at selected point on the current view level
 
           newRoom = doc.Create.NewRoom( view.GenLevel, point );
 
@@ -234,22 +237,23 @@ namespace BuildingCoder
             transaction.RollBack();
             return null;
           }
-          tag1 = doc.Create.NewRoomTag( 
+
+          RoomTag tag = doc.Create.NewRoomTag( 
             new LinkElementId( newRoom.Id ), 
             point, view.Id );
 
           transaction.Commit();
         }
 
-        //获取房间的墙体 -- Get the room wall
+        //获取房间的墙体 -- Get the room walls
 
-        List<ElementId> elementIds 
-          = DetermineAdjacentElementLengthsAndWallAreas( 
+        List<ElementId> ids 
+          = RetrieveWallsGeneratingRoomBoundaries( 
             doc, newRoom );
 
         group.RollBack(); // 撤销
 
-        return elementIds;
+        return ids;
       }
     }
 
@@ -262,9 +266,9 @@ namespace BuildingCoder
       UIDocument uidoc = uiapp.ActiveUIDocument;
       Document doc = uidoc.Document;
 
-      List<ElementId> elementIds = GetOutermostWalls( doc );
+      List<ElementId> ids = GetOutermostWalls( doc );
 
-      uidoc.Selection.SetElementIds( elementIds );
+      uidoc.Selection.SetElementIds( ids );
 
       return Result.Succeeded;
     }
