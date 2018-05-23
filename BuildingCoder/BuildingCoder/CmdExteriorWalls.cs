@@ -16,6 +16,7 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.UI;
+using System.Diagnostics;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -23,7 +24,7 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdExteriorWalls : IExternalCommand
   {
-    static BoundingBoxXYZ GetWallBoundingBoxAroundAllWalls( 
+    static BoundingBoxXYZ GetBoundingBoxAroundAllWalls( 
       Document doc,
       View view = null )
     {
@@ -109,8 +110,18 @@ namespace BuildingCoder
     {
       double offset = 1000 / 304.8;
 
+      Debug.Assert( 
+        Util.IsEqual( offset, Util._footToMeter ),
+        "expected conversion from imperial feet to metres" );
+
+      if( view == null )
+      {
+        view = doc.ActiveView;
+      }
+
       //获取顶点 最小x，最大y ； 最大x，最小y
 
+#if BEFORE_USING_BOUNDING_BOX
       List<Wall> wallList = new FilteredElementCollector( doc )
         .OfClass( typeof( Wall ) )
         .Cast<Wall>()
@@ -153,12 +164,10 @@ namespace BuildingCoder
         if( _maxY > maxY ) maxY = _maxY;
         if( _minY < minY ) minY = _minY;
       } );
-
-      minX -= offset;
-      maxX += offset;
-      minY -= offset;
-      maxY += offset;
-
+      double minX = bb.Min.X - offset;
+      double maxX = bb.Max.X + offset;
+      double minY = bb.Min.Y - offset;
+      double maxY = bb.Max.Y + offset;
       CurveArray curves = new CurveArray();
       Line line1 = Line.CreateBound( new XYZ( minX, maxY, 0 ), new XYZ( maxX, maxY, 0 ) );
       Line line2 = Line.CreateBound( new XYZ( maxX, maxY, 0 ), new XYZ( maxX, minY, 0 ) );
@@ -168,6 +177,25 @@ namespace BuildingCoder
       curves.Append( line2 );
       curves.Append( line3 );
       curves.Append( line4 );
+#endif // BEFORE_USING_BOUNDING_BOX
+
+      BoundingBoxXYZ bb = GetBoundingBoxAroundAllWalls( 
+        doc, view );
+
+      XYZ voffset = offset * ( XYZ.BasisX + XYZ.BasisY );
+      bb.Min -= voffset;
+      bb.Max += voffset;
+
+      XYZ[] bottom_corners = Util.GetBottomCorners( 
+        bb, 0 );
+
+      CurveArray curves = new CurveArray();
+      for( int i = 0; i < 4; ++i )
+      {
+        int j = i < 3 ? i + 1 : 0;
+        curves.Append( Line.CreateBound( 
+          bottom_corners[i], bottom_corners[j] ) );
+      }
 
       using( TransactionGroup group 
         = new TransactionGroup( doc ) )
@@ -183,11 +211,6 @@ namespace BuildingCoder
           transaction.Start( 
             "Create New Room Boundary Lines" );
 
-          if( view == null )
-          {
-            view = doc.ActiveView;
-          }
-
           SketchPlane sketchPlane = SketchPlane.Create( 
             doc, view.GenLevel.Id );
 
@@ -197,13 +220,12 @@ namespace BuildingCoder
 
           //创建房间的坐标点
 
-          XYZ point = new XYZ( minX + 600 / 304.8, 
-            maxY - 600 / 304.8, 0 );
+          double d = Util.MmToFoot( 600 );
+          UV point = new UV( bb.Min.X + d, bb.Min.Y + d );
 
           //根据选中点，创建房间   当前视图的楼层doc.ActiveView.GenLevel
 
-          newRoom = doc.Create.NewRoom( view.GenLevel, 
-            new UV( point.X, point.Y ) );
+          newRoom = doc.Create.NewRoom( view.GenLevel, point );
 
           if( newRoom == null )
           {
@@ -214,8 +236,7 @@ namespace BuildingCoder
           }
           tag1 = doc.Create.NewRoomTag( 
             new LinkElementId( newRoom.Id ), 
-            new UV( point.X, point.Y ), 
-            view.Id );
+            point, view.Id );
 
           transaction.Commit();
         }

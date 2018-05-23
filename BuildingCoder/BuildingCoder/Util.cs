@@ -353,21 +353,32 @@ namespace BuildingCoder
 
     /// <summary>
     /// Return the bottom four XYZ corners of the given 
-    /// bounding box in the XY plane at the minimum 
+    /// bounding box in the XY plane at the given 
     /// Z elevation in the order lower left, lower 
     /// right, upper right, upper left:
     /// </summary>
     public static XYZ[] GetBottomCorners(
-      BoundingBoxXYZ b )
+      BoundingBoxXYZ b,
+      double z )
     {
-      double z = b.Min.Z;
-
       return new XYZ[] {
         new XYZ( b.Min.X, b.Min.Y, z ),
         new XYZ( b.Max.X, b.Min.Y, z ),
         new XYZ( b.Max.X, b.Max.Y, z ),
         new XYZ( b.Min.X, b.Max.Y, z )
       };
+    }
+
+    /// <summary>
+    /// Return the bottom four XYZ corners of the given 
+    /// bounding box in the XY plane at the bb minimum 
+    /// Z elevation in the order lower left, lower 
+    /// right, upper right, upper left:
+    /// </summary>
+    public static XYZ[] GetBottomCorners(
+      BoundingBoxXYZ b )
+    {
+      return GetBottomCorners( b, b.Min.Z );
     }
 
     /// <summary>
@@ -759,7 +770,7 @@ namespace BuildingCoder
 
     const double _inchToMm = 25.4;
     const double _footToMm = 12 * _inchToMm;
-    const double _footToMeter = _footToMm * 0.001;
+    public const double _footToMeter = _footToMm * 0.001;
 
     const double _cubicFootToCubicMeter
       = _footToMeter * _footToMeter * _footToMeter;
