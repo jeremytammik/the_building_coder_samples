@@ -19,7 +19,7 @@ using System.Diagnostics;
 
 namespace BuildingCoder
 {
-  [Transaction( TransactionMode.ReadOnly )]
+  [Transaction( TransactionMode.Manual )]
   class CmdExteriorWalls : IExternalCommand
   {
     static BoundingBoxXYZ GetBoundingBoxAroundAllWalls( 
