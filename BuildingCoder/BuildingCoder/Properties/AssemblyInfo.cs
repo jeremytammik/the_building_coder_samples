@@ -233,6 +233,7 @@ using System.Runtime.InteropServices;
 // 2018-05-15 2019.0.139.1 implemented NumberStructuralFraming for https://forums.autodesk.com/t5/revit-api-forum/set-different-value-to-a-set-of-elements/td-p/8004141
 // 2018-05-16 2019.0.139.2 added missing commit
 // 2018-05-17 2019.0.140.0 implemented CmdParamValuesForCats
+// 2018-05-23 2019.0.141.0 implemented CmdExteriorWalls for https://forums.autodesk.com/t5/revit-api-forum/how-do-i-get-all-the-outermost-walls-in-the-model/m-p/7998948
 //
-[assembly: AssemblyVersion( "2019.0.140.0" )]
-[assembly: AssemblyFileVersion( "2019.0.140.0" )]
+[assembly: AssemblyVersion( "2019.0.141.0" )]
+[assembly: AssemblyFileVersion( "2019.0.141.0" )]

@@ -22,6 +22,10 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdExteriorWalls : IExternalCommand
   {
+    /// <summary>
+    /// Return a bounding box around all the 
+    /// walls in the entire model
+    /// </summary>
     static BoundingBoxXYZ GetBoundingBoxAroundAllWalls( 
       Document doc,
       View view = null )
@@ -122,6 +126,7 @@ namespace BuildingCoder
         view = doc.ActiveView;
       }
 
+      #region Obsolete code using wall location line instad of bounding box
       //获取顶点 最小x，最大y ； 最大x，最小y
 
 #if BEFORE_USING_BOUNDING_BOX
@@ -181,6 +186,7 @@ namespace BuildingCoder
       curves.Append( line3 );
       curves.Append( line4 );
 #endif // BEFORE_USING_BOUNDING_BOX
+      #endregion // Obsolete code using wall location line instad of bounding box
 
       BoundingBoxXYZ bb = GetBoundingBoxAroundAllWalls( 
         doc, view );
