@@ -267,6 +267,7 @@
     <Compile Include="JtElementsOfClassSelectionFilter.cs" />
     <Compile Include="JtNamedGuidStorage.cs" />
     <Compile Include="JtPairPicker.cs" />
+    <Compile Include="JtParamValuesForCats.cs" />
     <Compile Include="JtSelectorMulti.cs" />
     <Compile Include="JtTimer.cs" />
     <Compile Include="JtWindowHandle.cs" />

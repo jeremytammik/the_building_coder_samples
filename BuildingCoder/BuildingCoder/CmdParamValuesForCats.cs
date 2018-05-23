@@ -9,8 +9,6 @@
 #endregion // Header
 
 #region Namespaces
-using System.Collections.Generic;
-using System.Diagnostics;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -24,136 +22,12 @@ namespace BuildingCoder
     /// <summary>
     /// List all built-in categories of interest
     /// </summary>
-    static BuiltInCategory[] _cats =
+    static BuiltInCategory[] _categories =
     {
       BuiltInCategory.OST_Doors,
       BuiltInCategory.OST_Rooms,
       BuiltInCategory.OST_Windows
     };
-
-    /// <summary>
-    /// Return all the parameter values  
-    /// deemed relevant for the given element
-    /// in string form.
-    /// </summary>
-    List<string> GetParamValues( Element e )
-    {
-      // Two choices: 
-      // Element.Parameters property -- Retrieves 
-      // a set containing all the parameters.
-      // GetOrderedParameters method -- Gets the 
-      // visible parameters in order.
-
-      IList<Parameter> ps = e.GetOrderedParameters();
-
-      List<string> param_values = new List<string>( 
-        ps.Count );
-
-      foreach( Parameter p in ps)
-      {
-        // AsValueString displays the value as the 
-        // user sees it. In some cases, the underlying
-        // database value returned by AsInteger, AsDouble,
-        // etc., may be more relevant.
-
-        param_values.Add( string.Format( "{0} = {1}", 
-          p.Definition.Name, p.AsValueString() ) );
-      }
-      return param_values;
-    }
-
-    /// <summary>
-    /// Return parameter data for all  
-    /// elements of all the given categories
-    /// </summary>
-    Dictionary<string, Dictionary<string, List<string>>>
-      GetParamValuesForCats(
-        Document doc, 
-        BuiltInCategory[] cats )
-    {
-      // Set up the return value dictionary
-
-      Dictionary<string,
-        Dictionary<string,
-          List<string>>>
-            map_cat_to_uid_to_param_values
-              = new Dictionary<string,
-                Dictionary<string,
-                  List<string>>>();
-
-      // One top level dictionary per category
-
-      foreach( BuiltInCategory cat in cats )
-      {
-        map_cat_to_uid_to_param_values.Add(
-          cat.Description(),
-          new Dictionary<string,
-            List<string>>() );
-      }
-
-      // Collect all required elements
-
-      // The FilterCategoryRule as used here seems to 
-      // have no filtering effect at all! 
-      // It passes every single element, afaict. 
-
-      List<ElementId> ids
-        = new List<BuiltInCategory>( cats )
-          .ConvertAll<ElementId>( c
-            => new ElementId( (int) c ) );
-
-      FilterCategoryRule r 
-        = new FilterCategoryRule( ids );
-
-      ElementParameterFilter f
-        = new ElementParameterFilter( r, true );
-
-      // Use a logical OR of category filters
-
-      IList<ElementFilter> a
-        = new List<ElementFilter>( cats.Length );
-
-      foreach( BuiltInCategory bic in cats )
-      {
-        a.Add( new ElementCategoryFilter( bic ) );
-      }
-
-      LogicalOrFilter categoryFilter
-        = new LogicalOrFilter( a );
-
-      // Run the collector
-
-      FilteredElementCollector els
-        = new FilteredElementCollector( doc )
-          .WhereElementIsNotElementType()
-          .WhereElementIsViewIndependent()
-          .WherePasses( categoryFilter );
-
-      // Retrieve parameter data for each element
-
-      foreach( Element e in els )
-      {
-        Category cat = e.Category;
-        if( null == cat )
-        {
-          Debug.Print( 
-            "element {0} {1} has null category", 
-            e.Id, e.Name );
-          continue;
-        }
-        List<string> param_values = GetParamValues( e );
-
-        BuiltInCategory bic = (BuiltInCategory) 
-          (e.Category.Id.IntegerValue);
-
-        string catkey = bic.Description();
-        string uid = e.UniqueId;
-
-        map_cat_to_uid_to_param_values[catkey].Add( 
-          uid, param_values );
-      }
-      return map_cat_to_uid_to_param_values;
-    }
 
     public Result Execute(
       ExternalCommandData commandData,
@@ -164,6 +38,8 @@ namespace BuildingCoder
       UIDocument uidoc = uiapp.ActiveUIDocument;
       Document doc = uidoc.Document;
 
+      #region Obsolete inline code
+#if NEED_ALL_THE_INLINE_CODE
       // Parameter names are not guaranteed to be 
       // unique! Therefore, it may be impossible to
       // include all parameter values in a dictionary
@@ -218,6 +94,15 @@ namespace BuildingCoder
             => Debug.Print( "    " + pv ) );
         }
       }
+#endif // DEBUG
+#endif
+      #endregion // Obsolete inline code
+
+      JtParamValuesForCats data
+        = new JtParamValuesForCats( doc, _categories );
+
+#if DEBUG
+      data.DebugPrint();
 #endif // DEBUG
 
       return Result.Succeeded;
