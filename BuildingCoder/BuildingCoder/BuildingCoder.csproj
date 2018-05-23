@@ -137,6 +137,7 @@
     <Compile Include="CmdEllipticalArc.cs" />
     <Compile Include="CmdExportImage.cs" />
     <Compile Include="CmdExportSolidToSat.cs" />
+    <Compile Include="CmdExteriorWalls.cs" />
     <Compile Include="CmdFaceWall.cs" />
     <Compile Include="CmdFailureGatherer.cs" />
     <Compile Include="CmdFamilyParamGuid.cs" />
