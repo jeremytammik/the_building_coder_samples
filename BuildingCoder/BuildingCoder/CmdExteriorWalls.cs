@@ -24,7 +24,9 @@ namespace BuildingCoder
   {
     /// <summary>
     /// Return a bounding box around all the 
-    /// walls in the entire model
+    /// walls in the entire model; for just a
+    /// building, or several buildings, this is 
+    /// obviously equal to the model extents.
     /// </summary>
     static BoundingBoxXYZ GetBoundingBoxAroundAllWalls( 
       Document doc,

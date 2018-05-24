@@ -2284,11 +2284,11 @@ TaskDialog.Show( "Revit", collector.Count() +
     ElementId GetCropBoxFor( View view )
     {
       ParameterValueProvider provider
-        = new ParameterValueProvider( new ElementId( 
+        = new ParameterValueProvider( new ElementId(
           (int) BuiltInParameter.ID_PARAM ) );
 
-      FilterElementIdRule rule 
-        = new FilterElementIdRule( provider, 
+      FilterElementIdRule rule
+        = new FilterElementIdRule( provider,
           new FilterNumericEquals(), view.Id );
 
       ElementParameterFilter filter
@@ -2297,11 +2297,47 @@ TaskDialog.Show( "Revit", collector.Count() +
       return new FilteredElementCollector( view.Document )
         .WherePasses( filter )
         .ToElementIds()
-        .Where<ElementId>( a => a.IntegerValue 
+        .Where<ElementId>( a => a.IntegerValue
           != view.Id.IntegerValue )
         .FirstOrDefault<ElementId>();
     }
     #endregion // Get element id of crop box
+
+    #region Retrieve Family Instances Satisfying Filter Rule
+    // https://forums.autodesk.com/t5/revit-api-forum/how-to-filter-element-which-satisfy-filter-rule/m-p/8021978
+    /// <summary>
+    /// Retrieve Family Instances Satisfying Filter Rule
+    /// </summary>
+    void GetFamilyInstancesSatisfyingFilterRule( 
+      Document doc )
+    {
+      FilteredElementCollector pfes
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( ParameterFilterElement ) );
+
+      foreach( ParameterFilterElement pfe in pfes )
+      {
+        #region Get Filter Name, Category and Elements underlying the categories
+
+        ElementMulticategoryFilter catfilter 
+          = new ElementMulticategoryFilter( 
+            pfe.GetCategories() );
+
+        FilteredElementCollector elemsByFilter
+         = new FilteredElementCollector( doc )
+            .WhereElementIsNotElementType()
+            .WherePasses( catfilter );
+
+        foreach( FilterRule rule in pfe.GetRules() )
+        {
+          IEnumerable<Element> elemsByFilter2 
+            = elemsByFilter.Where( e 
+              => rule.ElementPasses( e ) );
+        }
+        #endregion
+      }
+    }
+    #endregion // Retrieve Family Instances Satisfying Filter Rule
 
     void RunBenchmark()
     {

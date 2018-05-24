@@ -57,8 +57,10 @@ namespace BuildingCoder
       {
         FilteredElementCollector collector = new FilteredElementCollector( doc );
         collector.WhereElementIsNotElementType();
+
         // in 2011, we should probably add some more quick filters here ...
         // and make use of something like:
+
         //ParameterValueProvider provider = new ParameterValueProvider( new ElementId( Bip.SystemType ) );
         //FilterStringRuleEvaluator evaluator = new FilterStringEquals();
         //string ruleString = ParameterValue.SupplyAir;
