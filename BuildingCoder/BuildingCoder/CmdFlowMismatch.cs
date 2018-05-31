@@ -24,7 +24,7 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdFlowMismatch : IExternalCommand
   {
-    static bool IsDesirableSystemPredicate( 
+    static bool IsDesirableSystemPredicate(
       MEPSystem s )
     {
       return s is MechanicalSystem || s is PipingSystem
@@ -45,7 +45,7 @@ namespace BuildingCoder
 
       IEnumerable<MEPSystem> desirableSystems = systems
         .Cast<MEPSystem>()
-        .Where<MEPSystem>( s 
+        .Where<MEPSystem>( s
           => IsDesirableSystemPredicate( s ) );
 
       foreach( MEPSystem system in desirableSystems )
@@ -66,61 +66,45 @@ namespace BuildingCoder
 
           foreach( Connector elemConnector in mepCS )
           {
-            if( elemConnector.Domain.Equals( 
+            if( elemConnector.Domain.Equals(
               Domain.DomainPiping ) )
             {
               cnctrSys = elemConnector.PipeSystemType.ToString();
 
-              if( elemConnector.MEPSystem != null 
-                && elemConnector.MEPSystem.Name.Equals( 
+              if( elemConnector.MEPSystem != null
+                && elemConnector.MEPSystem.Name.Equals(
                   system.Name ) )
               {
-                if( elemConnector.PipeSystemType.Equals( 
+                if( elemConnector.PipeSystemType.Equals(
                   ( system as PipingSystem ).SystemType ) )
                 {
                   // Do Nothing
                 }
                 else
                 {
-                  // No need to iterate over all parameters:
-
-                  IList<Parameter> eParams = e.GetOrderedParameters();
-                  foreach( Parameter p in eParams )
-                  {
-                    if( p.Definition.Name.Equals( "Mark" ) )
-                    {
-                      sb.Append( "Family Instance: " + p.AsString() );
-                      sb.Append( " has a connector {" + cnctrSys + "} which is connected to a {" + cnntdSys + "} system..." + "\n\n" );
-                    }
-                  }
-
-                  // Also, you should not use the display name if you can avoid it:
-
-                  Parameter p2 = e.LookupParameter( "Mark" );
-
                   // Always use the built-in parameter enum if you can:
 
-                  Parameter p3 = e.get_Parameter( 
+                  Parameter p = e.get_Parameter(
                     BuiltInParameter.ALL_MODEL_MARK );
 
-                  sb.Append( "Family Instance: " + p3.AsString() );
-                  sb.Append( " has a connector {" + cnctrSys 
-                    + "} which is connected to a {" + cnntdSys 
+                  sb.Append( "Family Instance: " + p.AsString() );
+                  sb.Append( " has a connector {" + cnctrSys
+                    + "} which is connected to a {" + cnntdSys
                     + "} system..." + "\n\n" );
                 }
               }
             }
 
             if( null != elemConnector.MEPSystem
-              && elemConnector.Domain.Equals( 
+              && elemConnector.Domain.Equals(
                 Domain.DomainHvac ) )
             {
               cnctrSys = elemConnector.DuctSystemType.ToString();
 
-              if( elemConnector.MEPSystem.Name.Equals( 
+              if( elemConnector.MEPSystem.Name.Equals(
                 system.Name ) )
               {
-                if( elemConnector.DuctSystemType.Equals( 
+                if( elemConnector.DuctSystemType.Equals(
                   ( system as MechanicalSystem ).SystemType ) )
                 {
                   // Do Nothing
