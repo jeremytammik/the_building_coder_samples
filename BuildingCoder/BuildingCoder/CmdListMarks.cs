@@ -59,7 +59,7 @@ namespace BuildingCoder
         {
           string mark = door.get_Parameter(
             BuiltInParameter.ALL_MODEL_MARK )
-            .AsString();
+              .AsString();
 
           if( !marks.ContainsKey( mark ) )
           {
@@ -114,7 +114,7 @@ namespace BuildingCoder
             {
               e.get_Parameter(
                 BuiltInParameter.ALL_MODEL_MARK )
-                .Set( _the_answer );
+                  .Set( _the_answer );
 
               ++n;
             }

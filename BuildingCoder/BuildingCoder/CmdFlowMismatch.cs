@@ -32,6 +32,24 @@ namespace BuildingCoder
         && 0 < s.Elements.Size;
     }
 
+    /// <summary>
+    /// Add a system mismatch entry to the string builder
+    /// </summary>
+    static void ReportSystemMistmatch(
+      StringBuilder sb,
+      Element e,
+      string cnctrSys,
+      string cnntdSys )
+    {
+      Parameter p = e.get_Parameter(
+        BuiltInParameter.ALL_MODEL_MARK );
+
+      sb.Append( string.Format( "Family instance '{0}' "
+        + "has a connector {{{1}}} that is connected to a "
+        + "{{{2}}} system...\n\n",
+        p.AsString(), cnctrSys, cnntdSys ) );
+    }
+
     static void FindMismatch( Document doc )
     {
       string cnntdSys = "";
@@ -82,15 +100,8 @@ namespace BuildingCoder
                 }
                 else
                 {
-                  // Always use the built-in parameter enum if you can:
-
-                  Parameter p = e.get_Parameter(
-                    BuiltInParameter.ALL_MODEL_MARK );
-
-                  sb.Append( "Family Instance: " + p.AsString() );
-                  sb.Append( " has a connector {" + cnctrSys
-                    + "} which is connected to a {" + cnntdSys
-                    + "} system..." + "\n\n" );
+                  ReportSystemMistmatch( sb, e,
+                    cnctrSys, cnntdSys );
                 }
               }
             }
@@ -111,11 +122,8 @@ namespace BuildingCoder
                 }
                 else
                 {
-                  Parameter p = e.get_Parameter(
-                    BuiltInParameter.ALL_MODEL_MARK );
-
-                  sb.Append( "Family Instance: " + p.AsString() );
-                  sb.Append( " has a connector {" + cnctrSys + "} which is connected to a {" + cnntdSys + "} system..." + "\n\n" );
+                  ReportSystemMistmatch( sb, e, 
+                    cnctrSys, cnntdSys );
                 }
               }
             }
@@ -138,6 +146,5 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
-
   }
 }
