@@ -144,6 +144,7 @@
     <Compile Include="CmdFamilyParamValue.cs" />
     <Compile Include="CmdFilledRegionCoords.cs" />
     <Compile Include="CmdFlatten.cs" />
+    <Compile Include="CmdFlowMismatch.cs" />
     <Compile Include="CmdGetDimensionPoints.cs" />
     <Compile Include="CmdGetSketchElements.cs" />
     <Compile Include="CmdIdling.cs" />

@@ -235,6 +235,7 @@ using System.Runtime.InteropServices;
 // 2018-05-17 2019.0.140.0 implemented CmdParamValuesForCats
 // 2018-05-23 2019.0.141.0 implemented CmdExteriorWalls for https://forums.autodesk.com/t5/revit-api-forum/how-do-i-get-all-the-outermost-walls-in-the-model/m-p/7998948
 // 2018-05-24 2019.0.141.1 added GetFamilyInstancesSatisfyingFilterRule from https://forums.autodesk.com/t5/revit-api-forum/how-to-filter-element-which-satisfy-filter-rule/m-p/8020317
+// 2018-05-24 2019.0.142.0 added CmdFlowMismatch from https://forums.autodesk.com/t5/revit-api-forum/application-level-macro-flow-mismatch/m-p/8032555
 //
-[assembly: AssemblyVersion( "2019.0.141.1" )]
-[assembly: AssemblyFileVersion( "2019.0.141.1" )]
+[assembly: AssemblyVersion( "2019.0.142.0" )]
+[assembly: AssemblyFileVersion( "2019.0.142.0" )]

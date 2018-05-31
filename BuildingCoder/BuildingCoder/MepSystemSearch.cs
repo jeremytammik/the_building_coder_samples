@@ -12,16 +12,16 @@
 
 #region Namespaces
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 #endregion // Namespaces
 
 namespace BuildingCoder
 {
-  class MepSystemSearch
+  public class MepSystemSearch
   {
     List<ElementId> m_lVistited, m_lSelectedElts;
     Document m_pDoc;
@@ -138,16 +138,31 @@ namespace BuildingCoder
       return null;
     }
 
-    public ConnectorSet GetConnectors( Element pElt )
+    /// <summary>
+    /// Return the given element's connector set.
+    /// </summary>
+    public static ConnectorSet GetConnectors( Element e )
     {
-      if( pElt is Pipe )
-        return ( (Pipe) pElt )?.ConnectorManager?
-          .Connectors;
-      if( pElt is FamilyInstance )
-        return ( (FamilyInstance) pElt )?.MEPModel?
-          .ConnectorManager?.Connectors;
-      //Add other statements to accomodate your 
-      //needs based on different element types
+      if( e is MEPCurve )
+        return ( (MEPCurve) e )?
+          .ConnectorManager?
+            .Connectors;
+
+      if( e is FamilyInstance )
+        return ( (FamilyInstance) e )?
+          .MEPModel?
+            .ConnectorManager?
+              .Connectors;
+
+      // Add other statements to accomodate your 
+      // needs based on different element types
+
+      Debug.Assert(
+        false,
+        "expected all candidate connector provider "
+        + "elements to be either family instances or "
+        + "derived from MEPCurve" );
+
       return null;
     }
   }
