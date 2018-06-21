@@ -25,6 +25,10 @@ namespace BuildingCoder
   class CmdIntersectJunctionBox : IExternalCommand
   {
     #region Intersect strange result
+    /// <summary>
+    /// Return all faces from first solid  
+    /// of the given element.
+    /// </summary>
     IEnumerable<Face> GetFaces( Element e )
     {
       Options opt = new Options();
@@ -45,6 +49,7 @@ namespace BuildingCoder
     // https://forums.autodesk.com/t5/revit-api-forum/get-conection-type-and-geometry-between-two-elements-from-the/m-p/6465671
     // https://forums.autodesk.com/t5/revit-api-forum/surprising-results-from-face-intersect-face-method/m-p/8079881
     // /a/doc/revit/tbc/git/a/img/intersect_strange_result.png
+    // /a/doc/revit/tbc/git/a/img/floor_wall_disjunct.png
     void TestIntersect( Document doc )
     {
       View view = doc.ActiveView;
