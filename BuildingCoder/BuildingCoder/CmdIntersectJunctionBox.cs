@@ -24,6 +24,40 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdIntersectJunctionBox : IExternalCommand
   {
+    #region Intersect strange result
+    // This has been mentioned in this post from 2016 but maybe it's worth bringing up again as 2018 hasn't resolved the issue yet.
+    // As far as I can tell, the Face.Intersect( face) method always returns FaceIntersectionFaceResult.Intersecting - or I am not implementing it correctly.When I run the code below in a view with a single wall and single floor, each face to face test returns an intersection. Can someone please verify (maybe 2019)?
+    // https://forums.autodesk.com/t5/revit-api-forum/get-conection-type-and-geometry-between-two-elements-from-the/m-p/6465671
+    // https://forums.autodesk.com/t5/revit-api-forum/surprising-results-from-face-intersect-face-method/m-p/8079881
+    // /a/doc/revit/tbc/git/a/img/intersect_strange_result.png
+    void TestIntersect( Document doc )
+    {
+      View view = doc.ActiveView;
+
+      var list = new FilteredElementCollector( doc, view.Id )
+        .WhereElementIsNotElementType()
+        .Where( e => e is Wall || e is Floor );
+
+      foreach( var f1 in list.First().get_Geometry( new Options() ).OfType<Solid>().First().Faces.OfType<Face>() )
+      {
+        foreach( var f2 in list.Last().get_Geometry( new Options() ).OfType<Solid>().First().Faces.OfType<Face>() )
+        {
+          if( f1.Intersect( f2 ) == FaceIntersectionFaceResult.Intersecting )
+          {
+            if( System.Windows.Forms.MessageBox.Show(
+              "Intersects", "Continue",
+              System.Windows.Forms.MessageBoxButtons.OKCancel,
+              System.Windows.Forms.MessageBoxIcon.Exclamation )
+                == System.Windows.Forms.DialogResult.Cancel )
+            {
+              return;
+            }
+          }
+        }
+      }
+    }
+    #endregion
+
     #region Tiago Cerqueira
     class FindIntersection
     {
@@ -112,6 +146,13 @@ namespace BuildingCoder
       UIApplication app = commandData.Application;
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
+
+      bool test_strange_intersect_result = true;
+      if( test_strange_intersect_result )
+      {
+        TestIntersect( doc );
+        return Result.Succeeded;
+      }
 
       Element e = Util.SelectSingleElement(
         uidoc, "a junction box" );

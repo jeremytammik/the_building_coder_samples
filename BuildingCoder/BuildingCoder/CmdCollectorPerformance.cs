@@ -797,9 +797,9 @@ namespace BuildingCoder
 
         Parameter param = null;
 
-        //param = HelperParams.GetOrCreateElemSharedParam(
-        //     projInfoElem, paramName, paramGroup,
-        //     ParameterType.Text, false, true );
+        // param = HelperParams.GetOrCreateElemSharedParam(
+        //   projInfoElem, paramName, paramGroup,
+        //   ParameterType.Text, false, true );
 
         if( param != null )
         {

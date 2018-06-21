@@ -50,6 +50,9 @@ namespace BuildingCoder
         p.AsString(), cnctrSys, cnntdSys ) );
     }
 
+    /// <summary>
+    /// Report MEP system mismatches
+    /// </summary>
     static void FindMismatch( Document doc )
     {
       string cnntdSys = "";
@@ -122,7 +125,7 @@ namespace BuildingCoder
                 }
                 else
                 {
-                  ReportSystemMistmatch( sb, e, 
+                  ReportSystemMistmatch( sb, e,
                     cnctrSys, cnntdSys );
                 }
               }
