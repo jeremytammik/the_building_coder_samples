@@ -25,6 +25,21 @@ namespace BuildingCoder
   class CmdIntersectJunctionBox : IExternalCommand
   {
     #region Intersect strange result
+    IEnumerable<Face> GetFaces( Element e )
+    {
+      Options opt = new Options();
+      IEnumerable<Face> faces = e
+        .get_Geometry( opt )
+        .OfType<Solid>()
+        .First()
+        .Faces
+        .OfType<Face>();
+      int n = faces.Count();
+      Debug.Print( "{0} has {1} face{2}.", 
+        e.GetType().Name, n, Util.PluralSuffix( n ) );
+      return faces;
+    }
+
     // This has been mentioned in this post from 2016 but maybe it's worth bringing up again as 2018 hasn't resolved the issue yet.
     // As far as I can tell, the Face.Intersect( face) method always returns FaceIntersectionFaceResult.Intersecting - or I am not implementing it correctly.When I run the code below in a view with a single wall and single floor, each face to face test returns an intersection. Can someone please verify (maybe 2019)?
     // https://forums.autodesk.com/t5/revit-api-forum/get-conection-type-and-geometry-between-two-elements-from-the/m-p/6465671
@@ -38,22 +53,59 @@ namespace BuildingCoder
         .WhereElementIsNotElementType()
         .Where( e => e is Wall || e is Floor );
 
-      foreach( var f1 in list.First().get_Geometry( new Options() ).OfType<Solid>().First().Faces.OfType<Face>() )
+      int n = list.Count();
+
+      Element floor = null;
+      Element wall = null;
+
+      if( 2 == n )
       {
-        foreach( var f2 in list.Last().get_Geometry( new Options() ).OfType<Solid>().First().Faces.OfType<Face>() )
+        floor = list.First() as Floor;
+        if( null == floor )
         {
-          if( f1.Intersect( f2 ) == FaceIntersectionFaceResult.Intersecting )
+          floor = list.Last() as Floor;
+          wall = list.First() as Wall;
+        }
+        else
+        {
+          wall = list.Last() as Wall;
+        }
+      }
+
+      if( null == floor || null == wall )
+      {
+        Util.ErrorMsg( "Please run this command in a "
+          + "document with just one floor and one wall "
+          + "with no mutual intersection" );
+      }
+      else
+      {
+        Options opt = new Options();
+        IEnumerable<Face> floorFaces = GetFaces( floor );
+        IEnumerable<Face> wallFaces = GetFaces( wall );
+        n = 0;
+        foreach( var f1 in floorFaces )
+        {
+          foreach( var f2 in wallFaces )
           {
-            if( System.Windows.Forms.MessageBox.Show(
-              "Intersects", "Continue",
-              System.Windows.Forms.MessageBoxButtons.OKCancel,
-              System.Windows.Forms.MessageBoxIcon.Exclamation )
-                == System.Windows.Forms.DialogResult.Cancel )
+            if( f1.Intersect( f2 ) 
+              == FaceIntersectionFaceResult.Intersecting )
             {
-              return;
+              ++n;
+
+              if( System.Windows.Forms.MessageBox.Show(
+                "Intersects", "Continue",
+                System.Windows.Forms.MessageBoxButtons.OKCancel,
+                System.Windows.Forms.MessageBoxIcon.Exclamation )
+                  == System.Windows.Forms.DialogResult.Cancel )
+              {
+                return;
+              }
             }
           }
         }
+        Debug.Print( "{0} face-face intersection{1}.", 
+          n, Util.PluralSuffix( n ) );
       }
     }
     #endregion
