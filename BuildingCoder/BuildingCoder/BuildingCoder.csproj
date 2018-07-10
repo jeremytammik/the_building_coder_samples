@@ -135,6 +135,7 @@
     <Compile Include="CmdDuplicateElements.cs" />
     <Compile Include="CmdDutAbbreviation.cs" />
     <Compile Include="CmdEllipticalArc.cs" />
+    <Compile Include="CmdExportIfc.cs" />
     <Compile Include="CmdExportImage.cs" />
     <Compile Include="CmdExportSolidToSat.cs" />
     <Compile Include="CmdExteriorWalls.cs" />

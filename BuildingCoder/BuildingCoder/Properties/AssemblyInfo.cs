@@ -237,6 +237,7 @@ using System.Runtime.InteropServices;
 // 2018-05-24 2019.0.141.1 added GetFamilyInstancesSatisfyingFilterRule from https://forums.autodesk.com/t5/revit-api-forum/how-to-filter-element-which-satisfy-filter-rule/m-p/8020317
 // 2018-05-24 2019.0.142.0 added CmdFlowMismatch from https://forums.autodesk.com/t5/revit-api-forum/application-level-macro-flow-mismatch/m-p/8032555
 // 2018-06-21 2019.0.142.1 added TestIntersect from https://forums.autodesk.com/t5/revit-api-forum/surprising-results-from-face-intersect-face-method/m-p/8079881
+// 2018-07-10 2019.0.143.0 implemented CmdExportIfc for https://forums.autodesk.com/t5/revit-api-forum/ifc-export-using-document-export-not-working/m-p/8118082
 //
-[assembly: AssemblyVersion( "2019.0.142.1" )]
-[assembly: AssemblyFileVersion( "2019.0.142.1" )]
+[assembly: AssemblyVersion( "2019.0.143.0" )]
+[assembly: AssemblyFileVersion( "2019.0.143.0" )]
