@@ -407,12 +407,16 @@ namespace BuildingCoder
 
         // The normal of the wall external face.
 
-        XYZ normal = wall.Orientation;
+        XYZ normal = wall.Orientation.Normalize();
+
+        // Offset distance.
+
+        double d = 5;
 
         // Offset curve copies for visibility.
 
         Transform offset = Transform.CreateTranslation(
-          5 * normal );
+          d * normal );
 
         // If the curve loop direction is counter-
         // clockwise, change its color to RED.
@@ -426,6 +430,9 @@ namespace BuildingCoder
 
         foreach( var curveLoop in curveLoops )
         {
+          CurveLoop curveLoopOffset = CurveLoop.CreateViaOffset(
+            curveLoop, d, normal );
+
           CurveArray curves = creapp.NewCurveArray();
 
           foreach( Curve curve in curveLoop )
@@ -441,9 +448,8 @@ namespace BuildingCoder
             is Line )
           {
             //Plane plane = creapp.NewPlane( curves ); // 2016
-            Plane plane = CurveLoop.CreateViaOffset(
-              curveLoop, 5 * normal.GetLength(),
-              normal.Normalize() ).GetPlane(); // 2017
+
+            Plane plane = curveLoopOffset.GetPlane(); // 2017
 
             SketchPlane sketchPlane
               = SketchPlane.Create( doc, plane );
