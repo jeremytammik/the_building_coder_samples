@@ -441,8 +441,8 @@ namespace BuildingCoder
 
         foreach( var curveLoop in curveLoops )
         {
-          CurveLoop curveLoopOffset = CurveLoop.CreateViaOffset(
-            curveLoop, d, normal );
+          //CurveLoop curveLoopOffset = CurveLoop.CreateViaOffset(
+          //  curveLoop, d, normal );
 
           CurveArray curves = creapp.NewCurveArray();
 
