@@ -395,7 +395,8 @@ namespace BuildingCoder
         tx.Start( "Wall Profile" );
 
         // Get the external wall face for the profile
-        // a little bit simpler than in the last realization
+        // a little bit simpler than in the last 
+        // implementation in Execute2.
 
         Reference sideFaceReference
           = HostObjectUtils.GetSideFaces(
@@ -405,9 +406,18 @@ namespace BuildingCoder
         Face face = wall.GetGeometryObjectFromReference(
           sideFaceReference ) as Face;
 
-        // The normal of the wall external face.
+        // The plane and normal of the wall external face.
 
         XYZ normal = wall.Orientation.Normalize();
+        Transform ftx = face.ComputeDerivatives( UV.Zero );
+        XYZ forigin = ftx.Origin;
+        XYZ fnormal = ftx.BasisZ;
+
+        Debug.Print( 
+          "wall orientation {0}, face origin {1}, face normal {2}",
+          Util.PointString( normal ), 
+          Util.PointString( forigin ), 
+          Util.PointString( fnormal ) );
 
         // Offset distance.
 
@@ -415,8 +425,9 @@ namespace BuildingCoder
 
         // Offset curve copies for visibility.
 
-        Transform offset = Transform.CreateTranslation(
-          d * normal );
+        XYZ voffset = d * normal;
+        Transform offset = Transform.CreateTranslation( 
+          voffset );
 
         // If the curve loop direction is counter-
         // clockwise, change its color to RED.
@@ -444,12 +455,21 @@ namespace BuildingCoder
 
           // Create model lines for an curve loop if it is made 
 
-          if( ( (LocationCurve) wall.Location ).Curve
-            is Line )
+          Curve wallCurve = ( (LocationCurve) wall.Location ).Curve;
+
+          if( wallCurve is Line )
           {
             //Plane plane = creapp.NewPlane( curves ); // 2016
 
-            Plane plane = curveLoopOffset.GetPlane(); // 2017
+            //Plane plane = curveLoopOffset.GetPlane(); // 2017
+
+            Plane plane = Plane.CreateByNormalAndOrigin( // 2019
+              normal, forigin + voffset );
+
+            Debug.Print(
+              "plane origin {0}, plane normal {1}",
+              Util.PointString( plane.Origin ),
+              Util.PointString( plane.Normal ) );
 
             SketchPlane sketchPlane
               = SketchPlane.Create( doc, plane );
