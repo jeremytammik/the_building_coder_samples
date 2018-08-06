@@ -9,10 +9,10 @@
 #endregion // Header
 
 #region Namespaces
+using System;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using System;
 #endregion // Namespaces
 
 namespace BuildingCoder
