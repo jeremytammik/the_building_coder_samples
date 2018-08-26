@@ -240,6 +240,7 @@ using System.Runtime.InteropServices;
 // 2018-07-10 2019.0.143.0 implemented CmdExportIfc for https://forums.autodesk.com/t5/revit-api-forum/ifc-export-using-document-export-not-working/m-p/8118082
 // 2018-08-06 2019.0.143.1 fixed CmdWallProfile for https://forums.autodesk.com/t5/revit-api-forum/get-wall-profile-error-cmdwallprofile-cs/m-p/8178951
 // 2018-08-26 2019.0.143.2 added DeleteNonSharedProjectParam for https://forums.autodesk.com/t5/revit-api-forum/deleting-a-non-shared-project-parameter/td-p/5975020
+// 2018-08-26 2019.0.143.3 use LINQ Where clause in DeleteNonSharedProjectParam
 //
-[assembly: AssemblyVersion( "2019.0.143.2" )]
-[assembly: AssemblyFileVersion( "2019.0.143.2" )]
+[assembly: AssemblyVersion( "2019.0.143.3" )]
+[assembly: AssemblyFileVersion( "2019.0.143.3" )]

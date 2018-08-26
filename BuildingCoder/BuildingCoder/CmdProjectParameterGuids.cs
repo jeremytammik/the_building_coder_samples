@@ -15,6 +15,7 @@
 #region Namespaces
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -35,22 +36,14 @@ namespace BuildingCoder
       Document doc, 
       string parametername )
     {
-
-      FilteredElementCollector ps
+      ParameterElement projectparameter
         = new FilteredElementCollector( doc )
           .WhereElementIsNotElementType()
-          .OfClass( typeof( ParameterElement ) );
-
-      ParameterElement projectparameter = null;
-
-      foreach( ParameterElement pe in ps )
-      {
-        if( pe.GetDefinition().Name.Equals( parametername ) )
-        {
-          projectparameter = pe;
-          break;
-        }
-      }
+          .OfClass( typeof( ParameterElement ) )
+          .Cast<ParameterElement>()
+          .Where( e => e.GetDefinition()
+            .Name.Equals( parametername ) )
+          .FirstOrDefault();
 
       if( projectparameter != null )
       {
