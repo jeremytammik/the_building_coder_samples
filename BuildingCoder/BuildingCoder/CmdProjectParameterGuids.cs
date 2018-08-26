@@ -26,6 +26,39 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdProjectParameterGuids : IExternalCommand
   {
+    #region Delete non-shared project parameter
+    // for https://forums.autodesk.com/t5/revit-api-forum/deleting-a-non-shared-project-parameter/td-p/5975020
+    /// <summary>
+    /// Delete non-shared project parameter by name
+    /// </summary>
+    void DeleteNonSharedProjectParam( 
+      Document doc, 
+      string parametername )
+    {
+
+      FilteredElementCollector ps
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .OfClass( typeof( ParameterElement ) );
+
+      ParameterElement projectparameter = null;
+
+      foreach( ParameterElement pe in ps )
+      {
+        if( pe.GetDefinition().Name.Equals( parametername ) )
+        {
+          projectparameter = pe;
+          break;
+        }
+      }
+
+      if( projectparameter != null )
+      {
+        doc.Delete( projectparameter.Id );
+      }
+    }
+    #endregion // Delete non-shared project parameter
+
     #region Data holding class
     /// <summary>
     /// This class contains information discovered 
