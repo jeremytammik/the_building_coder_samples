@@ -143,6 +143,9 @@ namespace BuildingCoder
 
         CurveArray ca = new CurveArray();
 
+        // This stair shape causes NewExtrusionRoof to
+        // throw an exception in Revit 2019.1.
+
         XYZ[] pts = new XYZ[] {
           new XYZ( x, 1, 0 ), 
           new XYZ( x, 1, 1 ), 
@@ -153,6 +156,16 @@ namespace BuildingCoder
           new XYZ( x, 4, 3 ), 
           new XYZ( x, 4, 4 ) };
 
+        // Try a simple and closed rectangular shape.
+        // This throws an invalid operation exception 
+        // saying "Invalid profile."
+
+        pts = new XYZ[] {
+          new XYZ( x, 1, 0 ),
+          new XYZ( x, 1, 1 ),
+          new XYZ( x, 2, 1 ),
+          new XYZ( x, 2, 0 ) };
+
         int n = pts.Length;
 
         for( int i = 1; i < n; ++i )
@@ -160,6 +173,8 @@ namespace BuildingCoder
           ca.Append( Line.CreateBound(
             pts[i - 1], pts[i] ) );
         }
+        ca.Append( Line.CreateBound(
+          pts[n - 1], pts[0] ) );
 
         doc.Create.NewModelCurveArray( ca, sp );
 

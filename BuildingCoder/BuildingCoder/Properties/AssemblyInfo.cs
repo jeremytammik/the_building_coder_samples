@@ -241,6 +241,7 @@ using System.Runtime.InteropServices;
 // 2018-08-06 2019.0.143.1 fixed CmdWallProfile for https://forums.autodesk.com/t5/revit-api-forum/get-wall-profile-error-cmdwallprofile-cs/m-p/8178951
 // 2018-08-26 2019.0.143.2 added DeleteNonSharedProjectParam for https://forums.autodesk.com/t5/revit-api-forum/deleting-a-non-shared-project-parameter/td-p/5975020
 // 2018-08-26 2019.0.143.3 use LINQ Where clause in DeleteNonSharedProjectParam
+// 2018-08-27 2019.0.143.4 tested CmdNewExtrusionRoof for https://forums.autodesk.com/t5/revit-api-forum/roof-by-extrusion/m-p/8220705#M32966
 //
-[assembly: AssemblyVersion( "2019.0.143.3" )]
-[assembly: AssemblyFileVersion( "2019.0.143.3" )]
+[assembly: AssemblyVersion( "2019.0.143.4" )]
+[assembly: AssemblyFileVersion( "2019.0.143.4" )]
