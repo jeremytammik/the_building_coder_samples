@@ -19,6 +19,7 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using Autodesk.Revit.DB.Mechanical;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -364,5 +365,53 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    #region Find ceiling face to place light fixture
+    // http://thebuildingcoder.typepad.com/blog/2010/01/findreferencesbydirection.html#comment-4055509541
+    /// <summary>
+    /// Return reference to ceiling face to place 
+    /// lighting fixture above a given point.
+    /// </summary>
+    Reference GetCeilingReferenceAbove( 
+      View3D view, 
+      XYZ p )
+    {
+      ElementClassFilter filter = new ElementClassFilter( 
+        typeof( Ceiling ) );
+
+      ReferenceIntersector refIntersector 
+        = new ReferenceIntersector( filter, 
+          FindReferenceTarget.Face, view );
+
+      refIntersector.FindReferencesInRevitLinks = true;
+
+      ReferenceWithContext rwc = refIntersector.FindNearest( 
+        p, XYZ.BasisZ );
+
+      Reference r = (null == rwc) 
+        ? null 
+        : rwc.GetReference();
+
+      if( null == r )
+      {
+        System.Windows.MessageBox.Show( "no intersecting geometry" );
+      }
+      return r;
+    }
+
+    void TestGetCeilingReferenceAbove( Document doc )
+    {
+      View3D view = doc.GetElement( new ElementId( 147335 ) ) as View3D;
+      Space space = doc.GetElement( new ElementId( 151759 ) ) as Space;
+      XYZ center = ( (LocationPoint) space.Location ).Point;
+
+      Reference r = GetCeilingReferenceAbove( view, center );
+
+      XYZ startPoint = null;
+      FamilySymbol sym = null;
+
+      doc.Create.NewFamilyInstance( r, startPoint, XYZ.BasisY, sym );
+    }
+    #endregion // Find ceiling face to place light fixture
   }
 }
