@@ -243,6 +243,7 @@ using System.Runtime.InteropServices;
 // 2018-08-26 2019.0.143.3 use LINQ Where clause in DeleteNonSharedProjectParam
 // 2018-08-27 2019.0.143.4 tested CmdNewExtrusionRoof for https://forums.autodesk.com/t5/revit-api-forum/roof-by-extrusion/m-p/8220705#M32966
 // 2018-08-28 2019.0.143.5 added GetCeilingReferenceAbove from http://thebuildingcoder.typepad.com/blog/2010/01/findreferencesbydirection.html#comment-4055509541
+// 2018-09-04 2019.0.143.6 added broken and working commands by Austin Sudtelgte to CmdDeleteUnusedRefPlanes.cs
 //
-[assembly: AssemblyVersion( "2019.0.143.5" )]
-[assembly: AssemblyFileVersion( "2019.0.143.5" )]
+[assembly: AssemblyVersion( "2019.0.143.6" )]
+[assembly: AssemblyFileVersion( "2019.0.143.6" )]

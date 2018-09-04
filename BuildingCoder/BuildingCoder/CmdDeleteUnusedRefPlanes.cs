@@ -23,6 +23,12 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
+  #region Obsolete solution for Revit 2014
+  // Original problem description and solution:
+  // http://thebuildingcoder.typepad.com/blog/2012/03/melbourne-devlab.html#2
+  // Fix for Revit 2014:
+  // http://thebuildingcoder.typepad.com/blog/2014/02/deleting-unnamed-non-hosting-reference-planes.html
+
   /// <summary>
   /// Delete all reference planes that have not been 
   /// named and are not hosting any elements.
@@ -42,7 +48,7 @@ namespace BuildingCoder
   /// case, roll back the transaction and do not delete.
   /// </summary>
   [Transaction( TransactionMode.Manual )]
-  class CmdDeleteUnusedRefPlanes : IExternalCommand
+  class CmdDeleteUnusedRefPlanes_2014 : IExternalCommand
   {
     static int _i = 0;
 
@@ -194,4 +200,149 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
   }
+  #endregion // Obsolete solution for Revit 2014
+
+  #region Broken command in Revit 2019 shared by Austin Sudtelgte
+  [TransactionAttribute( TransactionMode.Manual )]
+  public class BrokenCommand : IExternalCommand
+  {
+    public Result Execute( 
+      ExternalCommandData commandData, 
+      ref string message, 
+      ElementSet elements )
+    {
+      UIApplication uiapp = commandData.Application;
+      UIDocument uidoc = uiapp.ActiveUIDocument;
+      Document doc = uidoc.Document;
+
+      // There is likely an easier way to do this using 
+      // an exclusion filter but this being my first foray 
+      // into filtering with Revit, I couldn't get that working.
+
+      FilteredElementCollector filt = new FilteredElementCollector( doc );
+      List<ElementId> refIDs = filt.OfClass( typeof( ReferencePlane ) ).ToElementIds().ToList();
+
+      using( TransactionGroup tg = new TransactionGroup( doc ) )
+      {
+        tg.Start( "Remove Un-Used Reference Planes" );
+        foreach( ElementId id in refIDs )
+        {
+          var filt2 = new ElementClassFilter( typeof( FamilyInstance ) );
+
+          var filt3 = new ElementParameterFilter( new FilterElementIdRule( new ParameterValueProvider( new ElementId( BuiltInParameter.HOST_ID_PARAM ) ), new FilterNumericEquals(), id ) );
+          var filt4 = new LogicalAndFilter( filt2, filt3 );
+
+          var thing = new FilteredElementCollector( doc );
+
+          using( Transaction t = new Transaction( doc ) )
+          {
+            // Check for hosted elements on the plane
+            if( thing.WherePasses( filt4 ).Count() == 0 )
+            {
+              t.Start( "Do The Thing" );
+
+#if Revit2018
+              if (doc.GetElement(id).GetDependentElements(new ElementClassFilter(typeof(FamilyInstance))).Count == 0)
+              {
+                doc.Delete(id);
+              }
+
+              t.Commit();
+#else
+              // Make sure there is nothing measuring to the plane
+
+              if( doc.Delete( id ).Count() > 1 )
+              {
+                t.Dispose();
+                // Skipped
+              }
+              else
+              {
+                // Deleted
+                t.Commit();
+              }
+#endif
+
+            }
+            else
+            {
+              // Skipped
+            }
+          }
+        }
+        tg.Assimilate();
+      }
+      return Result.Succeeded;
+    }
+  }
+  #endregion // Broken command in Revit 2019 by Austin Sudtelgte
+
+  #region New working command in Revit 2019 by Austin Sudtelgte
+  [TransactionAttribute( TransactionMode.Manual )]
+  public class CmdDeleteUnusedRefPlanes : IExternalCommand
+  {
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      UIApplication uiapp = commandData.Application;
+      UIDocument uidoc = uiapp.ActiveUIDocument;
+      Document doc = uidoc.Document;
+
+      FilteredElementCollector filt = new FilteredElementCollector( doc );
+      List<ElementId> refIDs = filt.OfClass( typeof( ReferencePlane ) ).ToElementIds().ToList();
+
+      using( TransactionGroup tg = new TransactionGroup( doc, "Remove un-used reference planes" ) )
+      {
+        tg.Start();
+
+        FilteredElementCollector elementFilter = new FilteredElementCollector( doc );
+
+        List<Element> elems = filt.OfClass( typeof( FamilyInstance ) ).ToList();
+
+        List<ElementId> toKeep = new List<ElementId>();
+
+        foreach( Element elem in elems )
+        {
+          // Make sure the element is hosted
+          if( ( elem as FamilyInstance ).Host != null )
+          {
+            ElementId hostId = ( (FamilyInstance) elem ).Host.Id;
+
+            // Check list to see if we've already added this plane
+            if( !toKeep.Contains( hostId ) )
+            {
+              toKeep.Add( hostId );
+            }
+          }
+        }
+
+        // Loop through reference planes and delete the ones not in the list toKeep
+        foreach( ElementId refid in refIDs )
+        {
+          using( Transaction t = new Transaction( doc, "Removing plane " + doc.GetElement( refid ).Name ) )
+          {
+            if( !toKeep.Contains( refid ) )
+            {
+              t.Start();
+
+              // Make sure there are no dimensions measuring to the plane
+              if( doc.Delete( refid ).Count > 1 )
+              {
+                t.Dispose();
+              }
+              else
+              {
+                t.Commit();
+              }
+            }
+          }
+        }
+        tg.Assimilate();
+      }
+      return Result.Succeeded;
+    }
+  }
+  #endregion // New working command in Revit 2019 by Austin Sudtelgte
 }
