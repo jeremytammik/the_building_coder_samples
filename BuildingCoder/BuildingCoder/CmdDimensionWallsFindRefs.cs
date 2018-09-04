@@ -407,6 +407,8 @@ namespace BuildingCoder
 
       Reference r = GetCeilingReferenceAbove( view, center );
 
+      // Populate these as needed:
+
       XYZ startPoint = null;
       FamilySymbol sym = null;
 

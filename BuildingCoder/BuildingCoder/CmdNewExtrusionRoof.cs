@@ -139,7 +139,8 @@ namespace BuildingCoder
 
         SketchPlane sp = SketchPlane.Create( doc,
           //new Autodesk.Revit.DB.Plane( vx, vy, origin ) // 2016
-          Plane.CreateByOriginAndBasis( origin, vx, vy ) );// 2017
+          Plane.CreateByOriginAndBasis( origin, vx, vy ) ); // 2017
+          //Plane.CreateByOriginAndBasis( origin, vy, vx ) ); // 2019
 
         CurveArray ca = new CurveArray();
 
