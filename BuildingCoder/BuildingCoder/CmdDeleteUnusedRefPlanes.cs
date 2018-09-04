@@ -12,13 +12,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -206,9 +203,9 @@ namespace BuildingCoder
   [TransactionAttribute( TransactionMode.Manual )]
   public class BrokenCommand : IExternalCommand
   {
-    public Result Execute( 
-      ExternalCommandData commandData, 
-      ref string message, 
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
       ElementSet elements )
     {
       UIApplication uiapp = commandData.Application;
@@ -290,44 +287,54 @@ namespace BuildingCoder
       UIDocument uidoc = uiapp.ActiveUIDocument;
       Document doc = uidoc.Document;
 
-      FilteredElementCollector filt = new FilteredElementCollector( doc );
-      List<ElementId> refIDs = filt.OfClass( typeof( ReferencePlane ) ).ToElementIds().ToList();
+      ICollection<ElementId> refplaneids
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( ReferencePlane ) )
+          .ToElementIds();
 
-      using( TransactionGroup tg = new TransactionGroup( doc, "Remove un-used reference planes" ) )
+      using( TransactionGroup tg = new TransactionGroup( doc ) )
       {
-        tg.Start();
+        tg.Start( "Remove unused reference planes" );
 
-        FilteredElementCollector elementFilter = new FilteredElementCollector( doc );
+        FilteredElementCollector instances
+          = new FilteredElementCollector( doc )
+            .OfClass( typeof( FamilyInstance ) );
 
-        List<Element> elems = filt.OfClass( typeof( FamilyInstance ) ).ToList();
+        Dictionary<ElementId, int> toKeep 
+          = new Dictionary<ElementId, int>();
 
-        List<ElementId> toKeep = new List<ElementId>();
-
-        foreach( Element elem in elems )
+        foreach( FamilyInstance i in instances )
         {
-          // Make sure the element is hosted
-          if( ( elem as FamilyInstance ).Host != null )
+          // Ensure the element is hosted
+
+          if( null != i.Host )
           {
-            ElementId hostId = ( (FamilyInstance) elem ).Host.Id;
+            ElementId hostId = i.Host.Id;
 
             // Check list to see if we've already added this plane
-            if( !toKeep.Contains( hostId ) )
+
+            if( !toKeep.ContainsKey( hostId ) )
             {
-              toKeep.Add( hostId );
+              toKeep.Add( hostId, 0 );
             }
+            ++toKeep[hostId];
           }
         }
 
-        // Loop through reference planes and delete the ones not in the list toKeep
-        foreach( ElementId refid in refIDs )
-        {
-          using( Transaction t = new Transaction( doc, "Removing plane " + doc.GetElement( refid ).Name ) )
-          {
-            if( !toKeep.Contains( refid ) )
-            {
-              t.Start();
+        // Loop through reference planes and 
+        // delete the ones not in the list toKeep.
 
-              // Make sure there are no dimensions measuring to the plane
+        foreach( ElementId refid in refplaneids )
+        {
+          if( !toKeep.ContainsKey( refid ) )
+          {
+            using( Transaction t = new Transaction( doc ) )
+            {
+              t.Start( "Removing plane "
+                + doc.GetElement( refid ).Name );
+
+              // Ensure there are no dimensions measuring to the plane
+
               if( doc.Delete( refid ).Count > 1 )
               {
                 t.Dispose();
