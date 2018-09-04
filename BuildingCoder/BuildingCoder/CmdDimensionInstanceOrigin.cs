@@ -109,144 +109,144 @@ namespace BuildingCoder
       return instEdge;
     }
 
-  public enum SpecialReferenceType
-  {
-    Left = 0,
-    CenterLR = 1,
-    Right = 2,
-    Front = 3,
-    CenterFB = 4,
-    Back = 5,
-    Bottom = 6,
-    CenterElevation = 7,
-    Top = 8
-  }
-
-  public static Reference GetSpecialFamilyReference( 
-    FamilyInstance inst, 
-    SpecialReferenceType refType )
-  {
-    Reference indexRef = null;
-
-    int idx = (int) refType;
-
-    if( inst != null )
+    public enum SpecialReferenceType
     {
-      Document dbDoc = inst.Document;
+      Left = 0,
+      CenterLR = 1,
+      Right = 2,
+      Front = 3,
+      CenterFB = 4,
+      Back = 5,
+      Bottom = 6,
+      CenterElevation = 7,
+      Top = 8
+    }
 
-      Options geomOptions = dbDoc.Application.Create
-        .NewGeometryOptions();
+    public static Reference GetSpecialFamilyReference(
+      FamilyInstance inst,
+      SpecialReferenceType refType )
+    {
+      Reference indexRef = null;
 
-      if( geomOptions != null )
+      int idx = (int) refType;
+
+      if( inst != null )
       {
-        geomOptions.ComputeReferences = true;
-        geomOptions.DetailLevel = ViewDetailLevel.Undefined;
-        geomOptions.IncludeNonVisibleObjects = true;
-      }
+        Document dbDoc = inst.Document;
 
-      GeometryElement gElement = inst.get_Geometry(
-        geomOptions );
+        Options geomOptions = dbDoc.Application.Create
+          .NewGeometryOptions();
 
-      GeometryInstance gInst = gElement.First()
-        as GeometryInstance;
-
-      String sampleStableRef = null;
-
-      if( gInst != null )
-      {
-        GeometryElement gSymbol = gInst
-          .GetSymbolGeometry();
-
-        if( gSymbol != null )
+        if( geomOptions != null )
         {
-          foreach( GeometryObject geomObj in gSymbol )
+          geomOptions.ComputeReferences = true;
+          geomOptions.DetailLevel = ViewDetailLevel.Undefined;
+          geomOptions.IncludeNonVisibleObjects = true;
+        }
+
+        GeometryElement gElement = inst.get_Geometry(
+          geomOptions );
+
+        GeometryInstance gInst = gElement.First()
+          as GeometryInstance;
+
+        String sampleStableRef = null;
+
+        if( gInst != null )
+        {
+          GeometryElement gSymbol = gInst
+            .GetSymbolGeometry();
+
+          if( gSymbol != null )
           {
-            if( geomObj is Solid )
+            foreach( GeometryObject geomObj in gSymbol )
             {
-              Solid solid = geomObj as Solid;
-
-              if( solid.Faces.Size > 0 )
+              if( geomObj is Solid )
               {
-                Face face = solid.Faces.get_Item( 0 );
+                Solid solid = geomObj as Solid;
 
-                sampleStableRef = face.Reference
-                  .ConvertToStableRepresentation(
-                    dbDoc );
+                if( solid.Faces.Size > 0 )
+                {
+                  Face face = solid.Faces.get_Item( 0 );
+
+                  sampleStableRef = face.Reference
+                    .ConvertToStableRepresentation(
+                      dbDoc );
+
+                  break;
+                }
+              }
+              else if( geomObj is Curve )
+              {
+                Curve curve = geomObj as Curve;
+
+                sampleStableRef = curve.Reference
+                  .ConvertToStableRepresentation( dbDoc );
+
+                break;
+              }
+              else if( geomObj is Point )
+              {
+                Point point = geomObj as Point;
+
+                sampleStableRef = point.Reference
+                  .ConvertToStableRepresentation( dbDoc );
 
                 break;
               }
             }
-            else if( geomObj is Curve )
-            {
-              Curve curve = geomObj as Curve;
-
-              sampleStableRef = curve.Reference
-                .ConvertToStableRepresentation( dbDoc );
-
-              break;
-            }
-            else if( geomObj is Point )
-            {
-              Point point = geomObj as Point;
-
-              sampleStableRef = point.Reference
-                .ConvertToStableRepresentation( dbDoc );
-
-              break;
-            }
           }
-        }
 
-        if( sampleStableRef != null )
-        {
-          String[] refTokens = sampleStableRef.Split( 
-            new char[] { ':' } );
-
-          String customStableRef = refTokens[0] + ":"
-            + refTokens[1] + ":" + refTokens[2] + ":"
-            + refTokens[3] + ":" + idx.ToString();
-
-          indexRef = Reference
-            .ParseFromStableRepresentation( 
-              dbDoc, customStableRef );
-
-          GeometryObject geoObj = inst
-            .GetGeometryObjectFromReference( 
-              indexRef );
-
-          if( geoObj != null )
+          if( sampleStableRef != null )
           {
-            String finalToken = "";
+            String[] refTokens = sampleStableRef.Split(
+              new char[] { ':' } );
 
-            if( geoObj is Edge )
-            {
-              finalToken = ":LINEAR";
-            }
-
-            if( geoObj is Face )
-            {
-              finalToken = ":SURFACE";
-            }
-
-            customStableRef += finalToken;
+            String customStableRef = refTokens[0] + ":"
+              + refTokens[1] + ":" + refTokens[2] + ":"
+              + refTokens[3] + ":" + idx.ToString();
 
             indexRef = Reference
-              .ParseFromStableRepresentation( 
+              .ParseFromStableRepresentation(
                 dbDoc, customStableRef );
-          }
-          else
-          {
-            indexRef = null;
+
+            GeometryObject geoObj = inst
+              .GetGeometryObjectFromReference(
+                indexRef );
+
+            if( geoObj != null )
+            {
+              String finalToken = "";
+
+              if( geoObj is Edge )
+              {
+                finalToken = ":LINEAR";
+              }
+
+              if( geoObj is Face )
+              {
+                finalToken = ":SURFACE";
+              }
+
+              customStableRef += finalToken;
+
+              indexRef = Reference
+                .ParseFromStableRepresentation(
+                  dbDoc, customStableRef );
+            }
+            else
+            {
+              indexRef = null;
+            }
           }
         }
+        else
+        {
+          throw new Exception( "No Symbol Geometry found..." );
+        }
       }
-      else
-      {
-        throw new Exception( "No Symbol Geometry found..." );
-      }
+      return indexRef;
     }
-    return indexRef;
-  }
   }
   #endregion // Scott Wilson Reference Stable Representation Magic Voodoo
 
@@ -460,6 +460,47 @@ namespace BuildingCoder
     static Options _opt = null;
 
     /// <summary>
+    /// Retrieve origin and direction of the left
+    /// reference plane within the given family instance.
+    /// </summary>
+    static bool GetFamilyInstanceReferencePlaneLocation(
+      FamilyInstance fi,
+      out XYZ origin,
+      out XYZ normal )
+    {
+      // by Fair59, in 
+      // https://forums.autodesk.com/t5/revit-api-forum/direction-of-reference-reference-plane-or-reference-line/m-p/7074163
+
+      bool found = false;
+      origin = XYZ.Zero;
+      normal = XYZ.Zero;
+
+      Reference r = fi
+        .GetReferences( FamilyInstanceReferenceType.Left )
+        .FirstOrDefault();
+
+      if( null != r )
+      {
+        Document doc = fi.Document;
+
+        using( Transaction t = new Transaction( doc ) )
+        {
+          t.Start( "Create Temporary Sketch Plane" );
+          SketchPlane sk = SketchPlane.Create( doc, r );
+          if( null != sk )
+          {
+            Plane pl = sk.GetPlane();
+            origin = pl.Origin;
+            normal = pl.Normal;
+            found = true;
+          }
+          t.RollBack();
+        }
+      }
+      return found;
+    }
+
+    /// <summary>
     /// Retrieve the given family instance's
     /// non-visible geometry point reference.
     /// </summary>
@@ -537,10 +578,10 @@ namespace BuildingCoder
       {
         tx.Start( "tx" );
 
-        DetailLine line3 = doc.Create.NewDetailCurve( 
+        DetailLine line3 = doc.Create.NewDetailCurve(
           viewSection, geomLine3 ) as DetailLine;
 
-        DetailLine dummy = doc.Create.NewDetailCurve( 
+        DetailLine dummy = doc.Create.NewDetailCurve(
           viewSection, dummyLine ) as DetailLine;
 
         ReferenceArray refArray = new ReferenceArray();
@@ -551,7 +592,7 @@ namespace BuildingCoder
         XYZ dimPoint2 = new XYZ( 417.8, 80.118, 46.3 );
         Line dimLine3 = Line.CreateBound( dimPoint1, dimPoint2 );
 
-        Dimension dim = doc.Create.NewDimension( 
+        Dimension dim = doc.Create.NewDimension(
           viewSection, dimLine3, refArray );
 
         doc.Delete( dummy.Id );
