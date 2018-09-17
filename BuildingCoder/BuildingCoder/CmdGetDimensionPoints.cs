@@ -269,5 +269,15 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    /// <summary>
+    /// Return a reference built directly from grid
+    /// </summary>
+    Reference GetGridRef( Document doc )
+    {
+      ElementId idGrid = new ElementId( 397028 );
+      Element eGrid = doc.GetElement( idGrid );
+      return new Reference( eGrid );
+    }
   }
 }

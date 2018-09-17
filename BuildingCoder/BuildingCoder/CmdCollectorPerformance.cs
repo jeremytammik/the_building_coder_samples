@@ -1086,6 +1086,36 @@ namespace BuildingCoder
     }
     #endregion // Retrieve all family instances of specific named family and type
 
+    #region Retrieve generic family symbols whose name contains "test"
+    /// <summary>
+    /// Retrieve generic family symbols whose name contains "test"
+    /// </summary>
+    static IList<Element>
+      GetGenericFamilySymbolsNamedTest(
+        Document doc )
+    {
+      IList<Element> GenericFamilySymbolList = new List<Element>();
+
+      FilteredElementCollector collector = new FilteredElementCollector( doc );
+
+      collector.OfClass( typeof( FamilySymbol ) ).OfCategory( BuiltInCategory.OST_GenericModel ).ToElements();
+
+      ElementId id = new ElementId( BuiltInParameter.ALL_MODEL_TYPE_NAME );
+
+      ParameterValueProvider provider = new ParameterValueProvider( id );
+
+      FilterStringRuleEvaluator evaluator = new FilterStringContains();
+
+      FilterRule rule = new FilterStringRule( provider, evaluator, "test", false );
+
+      ElementParameterFilter filter = new ElementParameterFilter( rule );
+
+      GenericFamilySymbolList = collector.WherePasses( filter ).ToElements();
+
+      return GenericFamilySymbolList;
+    }
+    #endregion // Retrieve all family instances of specific named family and type
+
     #region Return first title block family symbol of specific named family and type
     /// <summary>
     /// Get title block family symbol (= definition) 
