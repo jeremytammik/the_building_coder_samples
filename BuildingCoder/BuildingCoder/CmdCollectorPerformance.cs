@@ -1090,29 +1090,31 @@ namespace BuildingCoder
     /// <summary>
     /// Retrieve generic family symbols whose name contains "test"
     /// </summary>
-    static IList<Element>
+    static FilteredElementCollector
       GetGenericFamilySymbolsNamedTest(
         Document doc )
     {
-      IList<Element> GenericFamilySymbolList = new List<Element>();
+      // Set up the parameter filter for the symbol name
 
-      FilteredElementCollector collector = new FilteredElementCollector( doc );
+      ElementId id = new ElementId( BuiltInParameter
+        .ALL_MODEL_TYPE_NAME );
 
-      collector.OfClass( typeof( FamilySymbol ) ).OfCategory( BuiltInCategory.OST_GenericModel ).ToElements();
+      ParameterValueProvider provider 
+        = new ParameterValueProvider( id );
 
-      ElementId id = new ElementId( BuiltInParameter.ALL_MODEL_TYPE_NAME );
+      FilterStringRuleEvaluator evaluator 
+        = new FilterStringContains();
 
-      ParameterValueProvider provider = new ParameterValueProvider( id );
+      FilterRule rule = new FilterStringRule( 
+        provider, evaluator, "test", false );
 
-      FilterStringRuleEvaluator evaluator = new FilterStringContains();
+      ElementParameterFilter filter 
+        = new ElementParameterFilter( rule );
 
-      FilterRule rule = new FilterStringRule( provider, evaluator, "test", false );
-
-      ElementParameterFilter filter = new ElementParameterFilter( rule );
-
-      GenericFamilySymbolList = collector.WherePasses( filter ).ToElements();
-
-      return GenericFamilySymbolList;
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( FamilySymbol ) )
+        .OfCategory( BuiltInCategory.OST_GenericModel )
+        .WherePasses( filter );
     }
     #endregion // Retrieve all family instances of specific named family and type
 

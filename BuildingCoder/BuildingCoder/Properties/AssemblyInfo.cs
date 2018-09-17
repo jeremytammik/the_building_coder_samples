@@ -245,8 +245,8 @@ using System.Runtime.InteropServices;
 // 2018-08-28 2019.0.143.5 added GetCeilingReferenceAbove from http://thebuildingcoder.typepad.com/blog/2010/01/findreferencesbydirection.html#comment-4055509541
 // 2018-09-04 2019.0.143.6 added broken and working commands by Austin Sudtelgte to CmdDeleteUnusedRefPlanes.cs
 // 2018-09-04 2019.0.143.7 added GetFamilyInstanceReferencePlaneLocation by Fair59 from https://forums.autodesk.com/t5/revit-api-forum/direction-of-reference-reference-plane-or-reference-line/m-p/7074163
-// 2018-09-14 2019.0.143.8 added GetGridRef
-// 2018-09-17 2019.0.143.9 added GetGenericFamilySymbolsNamedTest from https://forums.autodesk.com/t5/revit-api-forum/parameter-filter/m-p/8270495
+// 2018-09-14 2019.0.143.8 added GetGridRef and GetGenericFamilySymbolsNamedTest
+// 2018-09-17 2019.0.143.9 optimised GetGenericFamilySymbolsNamedTest for https://forums.autodesk.com/t5/revit-api-forum/parameter-filter/m-p/8270495
 //
 [assembly: AssemblyVersion( "2019.0.143.9" )]
 [assembly: AssemblyFileVersion( "2019.0.143.9" )]
