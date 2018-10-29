@@ -80,10 +80,12 @@ namespace BuildingCoder
     /// <summary>
     /// Post a sequence of keystrokes.
     /// </summary>
-    public static void Keys( string command )
+    public static void Keys(
+      IntPtr revitHandle,
+      string command )
     {
-      IntPtr revitHandle = System.Diagnostics.Process
-        .GetCurrentProcess().MainWindowHandle;
+      //IntPtr revitHandle = System.Diagnostics.Process // 2018
+      //  .GetCurrentProcess().MainWindowHandle; // 2018
 
       foreach( char letter in command )
       {
@@ -185,6 +187,8 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
+      IntPtr hRvt = uiapp.MainWindowHandle; // 2019
+
       // Name of target wall type that we want to use:
 
       string wallTypeName = "Generic - 203";
@@ -246,7 +250,7 @@ namespace BuildingCoder
         // Start command create similar. In the
         // property menu, our wall type is set current
 
-        Press.Keys( "CS" );
+        Press.Keys( hRvt, "CS" );
 
         // Select the new wall in the project,
         // so we can delete it
@@ -261,17 +265,17 @@ namespace BuildingCoder
         // doc.delete(nw) may not be used,
         // this command will undo)
 
-        Press.Keys( "DE" );
+        Press.Keys( hRvt, "DE" );
 
         // Start up wall command
 
-        Press.Keys( "WA" );
+        Press.Keys( hRvt, "WA" );
       }
       else
       {
         // The correct wall is already selected:
 
-        Press.Keys( "CS" ); // Start "create similar"
+        Press.Keys( hRvt, "CS" ); // Start "create similar"
       }
       return Result.Succeeded;
     }

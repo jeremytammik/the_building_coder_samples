@@ -172,8 +172,8 @@ namespace BuildingCoder
     /// by Colin Stark, described in
     /// http://stackoverflow.com/questions/44012630/determine-is-a-familyinstance-is-visible-in-a-view
     /// </summary>
-    public static bool IsElementVisibleInView( 
-      this View view, 
+    public static bool IsElementVisibleInView(
+      this View view,
       Element el )
     {
       if( view == null )
@@ -194,10 +194,10 @@ namespace BuildingCoder
 
       // Create a FilterRule that searches 
       // for an element matching the given Id.
-    
+
       FilterRule idRule = ParameterFilterRuleFactory
-        .CreateEqualsRule( 
-          new ElementId( BuiltInParameter.ID_PARAM ), 
+        .CreateEqualsRule(
+          new ElementId( BuiltInParameter.ID_PARAM ),
           elId );
 
       var idFilter = new ElementParameterFilter( idRule );

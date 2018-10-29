@@ -839,7 +839,7 @@ namespace BuildingCoder
         Document doc,
         ElementType et )
     {
-      // built-in parameter storing the type element id:
+      // Built-in parameter storing the type element id:
 
       BuiltInParameter bip
         = BuiltInParameter.ELEM_TYPE_PARAM;
@@ -1099,22 +1099,25 @@ namespace BuildingCoder
       ElementId id = new ElementId( BuiltInParameter
         .ALL_MODEL_TYPE_NAME );
 
-      ParameterValueProvider provider 
+      ParameterValueProvider provider
         = new ParameterValueProvider( id );
 
-      FilterStringRuleEvaluator evaluator 
+      FilterStringRuleEvaluator evaluator
         = new FilterStringContains();
 
-      FilterRule rule = new FilterStringRule( 
+      FilterRule rule = new FilterStringRule(
         provider, evaluator, "test", false );
 
-      ElementParameterFilter filter 
+      ElementParameterFilter filter
         = new ElementParameterFilter( rule );
 
-      return new FilteredElementCollector( doc )
-        .OfClass( typeof( FamilySymbol ) )
-        .OfCategory( BuiltInCategory.OST_GenericModel )
-        .WherePasses( filter );
+      FilteredElementCollector genericSymbolsNamedTest
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( FamilySymbol ) )
+          .OfCategory( BuiltInCategory.OST_GenericModel )
+          .WherePasses( filter );
+
+      return genericSymbolsNamedTest;
     }
     #endregion // Retrieve all family instances of specific named family and type
 
@@ -1137,7 +1140,7 @@ namespace BuildingCoder
         .FirstOrDefault( x => x.Name == typeName ); // family type
     }
     #endregion // Return first title block family symbol of specific named family and type
-    
+
     #region Retrieve named family symbols using either LINQ or a parameter filter
     static FilteredElementCollector
       GetStructuralColumnSymbolCollector(
@@ -1252,8 +1255,8 @@ namespace BuildingCoder
     #endregion // Retrieve openings in wall
 
     #region Retrieve all edges in model
-    void RetrieveEdges( 
-      Document doc, 
+    void RetrieveEdges(
+      Document doc,
       Dictionary<Curve, ElementId> curves )
     {
       FilteredElementCollector collector
@@ -1273,7 +1276,7 @@ namespace BuildingCoder
             foreach( GeometryObject obj in geo )
             {
               Solid sol = obj as Solid;
-              if( null!= sol )
+              if( null != sol )
               {
                 foreach( Edge edge in sol.Edges )
                 {
@@ -2340,7 +2343,7 @@ TaskDialog.Show( "Revit", collector.Count() +
     /// <summary>
     /// Retrieve Family Instances Satisfying Filter Rule
     /// </summary>
-    void GetFamilyInstancesSatisfyingFilterRule( 
+    void GetFamilyInstancesSatisfyingFilterRule(
       Document doc )
     {
       FilteredElementCollector pfes
@@ -2351,8 +2354,8 @@ TaskDialog.Show( "Revit", collector.Count() +
       {
         #region Get Filter Name, Category and Elements underlying the categories
 
-        ElementMulticategoryFilter catfilter 
-          = new ElementMulticategoryFilter( 
+        ElementMulticategoryFilter catfilter
+          = new ElementMulticategoryFilter(
             pfe.GetCategories() );
 
         FilteredElementCollector elemsByFilter
@@ -2362,8 +2365,8 @@ TaskDialog.Show( "Revit", collector.Count() +
 
         foreach( FilterRule rule in pfe.GetRules() )
         {
-          IEnumerable<Element> elemsByFilter2 
-            = elemsByFilter.Where( e 
+          IEnumerable<Element> elemsByFilter2
+            = elemsByFilter.Where( e
               => rule.ElementPasses( e ) );
         }
         #endregion
