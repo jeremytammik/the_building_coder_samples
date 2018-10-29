@@ -40,7 +40,8 @@ namespace BuildingCoder
     /// <summary>
     /// Send messages to main Revit application window.
     /// </summary>
-    IWin32Window _revit_window;
+    //IWin32Window _revit_window; // 2018
+    IntPtr _revit_window; // 2019
 
     List<ElementId> _added_element_ids
       = new List<ElementId>();
@@ -50,14 +51,16 @@ namespace BuildingCoder
       ref string message,
       ElementSet elements )
     {
-      _revit_window
-        = new JtWindowHandle(
-          ComponentManager.ApplicationWindow );
+      //_revit_window
+      //  = new JtWindowHandle(
+      //    ComponentManager.ApplicationWindow ); // 2018
 
       UIApplication uiapp = commandData.Application;
       UIDocument uidoc = uiapp.ActiveUIDocument;
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
+
+      _revit_window = uiapp.MainWindowHandle; // 2019
 
       FilteredElementCollector collector
         = new FilteredElementCollector( doc );
@@ -142,13 +145,21 @@ namespace BuildingCoder
         // adding instances to the model. Only a second 
         // esc hit aborts the command. 
 
-        Press.PostMessage( _revit_window.Handle,
-          (uint) Press.KEYBOARD_MSG.WM_KEYDOWN,
-          (uint) Keys.Escape, 0 );
+        //Press.PostMessage( _revit_window.Handle,
+        //  (uint) Press.KEYBOARD_MSG.WM_KEYDOWN,
+        //  (uint) Keys.Escape, 0 ); // 2018
 
-        Press.PostMessage( _revit_window.Handle,
+        //Press.PostMessage( _revit_window.Handle,
+        //  (uint) Press.KEYBOARD_MSG.WM_KEYDOWN,
+        //  (uint) Keys.Escape, 0 ); // 2018
+
+        Press.PostMessage( _revit_window,
           (uint) Press.KEYBOARD_MSG.WM_KEYDOWN,
-          (uint) Keys.Escape, 0 );
+          (uint) Keys.Escape, 0 ); // 2019
+
+        Press.PostMessage( _revit_window,
+          (uint) Press.KEYBOARD_MSG.WM_KEYDOWN,
+          (uint) Keys.Escape, 0 ); // 2019
       }
     }
   }

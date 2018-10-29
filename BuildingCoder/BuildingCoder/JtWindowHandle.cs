@@ -9,6 +9,9 @@ namespace BuildingCoder
   /// <summary>
   /// Wrapper class for converting 
   /// IntPtr to IWin32Window.
+  /// 
+  /// This class is no longer needed as of the introduction 
+  /// of the UIApplication MainWindowhandle in Revit 2019.
   /// </summary>
   public class JtWindowHandle : IWin32Window
   {
