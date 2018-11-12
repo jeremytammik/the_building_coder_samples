@@ -172,6 +172,7 @@
     <Compile Include="CmdMidCurve.cs" />
     <Compile Include="CmdMirror.cs" />
     <Compile Include="CmdDeleteUnusedRefPlanes.cs" />
+    <Compile Include="CmdMultistoryStairSubelements.cs" />
     <Compile Include="CmdNamedGuidStorage.cs" />
     <Compile Include="CmdNewCrossFitting.cs" />
     <Compile Include="CmdNewExtrusionRoof.cs" />

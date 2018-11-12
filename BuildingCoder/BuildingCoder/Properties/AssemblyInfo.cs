@@ -248,6 +248,7 @@ using System.Runtime.InteropServices;
 // 2018-09-14 2019.0.143.8 added GetGridRef and GetGenericFamilySymbolsNamedTest
 // 2018-09-17 2019.0.143.9 optimised GetGenericFamilySymbolsNamedTest for https://forums.autodesk.com/t5/revit-api-forum/parameter-filter/m-p/8270495
 // 2018-10-29 2019.0.143.10 use UiApplication MainWindowHandle to address issue #8, removed use of JtWindowHandle
+// 2018-11-12 2019.0.144.0 implemented CmdMultistoryStairSubelements
 //
-[assembly: AssemblyVersion( "2019.0.143.10" )]
-[assembly: AssemblyFileVersion( "2019.0.143.10" )]
+[assembly: AssemblyVersion( "2019.0.144.0" )]
+[assembly: AssemblyFileVersion( "2019.0.144.0" )]
