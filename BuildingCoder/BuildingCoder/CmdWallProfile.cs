@@ -24,7 +24,7 @@ using Autodesk.Revit.UI.Selection;
 #endregion // Namespaces
 
 namespace BuildingCoder
-{
+{  
   [Transaction( TransactionMode.Manual )]
   class CmdWallProfile : IExternalCommand
   {
