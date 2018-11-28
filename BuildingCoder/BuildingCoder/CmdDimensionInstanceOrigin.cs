@@ -603,6 +603,7 @@ namespace BuildingCoder
     #endregion // Create vertical dimensioning
 
     #region Dimensioning wall corners
+#if THIS_CODE_COMPILATION_FAILS
     // https://forums.autodesk.com/t5/revit-api-forum/dimension-between-walls-corners-using-revit-s-api/m-p/7228752
     static double _offset;
 
@@ -770,7 +771,7 @@ namespace BuildingCoder
         t.Commit();
       }
     }
+#endif // THIS_CODE_COMPILATION_FAILS
     #endregion // Dimensioning wall corners
-
   }
 }
