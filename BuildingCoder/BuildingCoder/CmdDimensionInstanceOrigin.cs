@@ -560,6 +560,7 @@ namespace BuildingCoder
       return rc;
     }
 
+    #region Create vertical dimensioning
     /// <summary>
     /// Create vertical dimensioning, cf.
     /// http://forums.autodesk.com/t5/revit-api-forum/how-can-i-create-dimension-line-that-is-not-parallel-to-detail/m-p/6801271
@@ -599,5 +600,6 @@ namespace BuildingCoder
         tx.Commit();
       }
     }
+    #endregion // Create vertical dimensioning
   }
 }
