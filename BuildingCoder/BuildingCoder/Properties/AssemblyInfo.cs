@@ -250,6 +250,7 @@ using System.Runtime.InteropServices;
 // 2018-10-29 2019.0.143.10 use UiApplication MainWindowHandle to address issue #8, removed use of JtWindowHandle
 // 2018-11-12 2019.0.144.0 implemented CmdMultistoryStairSubelements
 // 2018-11-15 2019.0.144.1 compare element category to target category list for https://forums.autodesk.com/t5/revit-api-forum/implementing-iselection-interface-for-seclecting-some-specific/m-p/8403097
+// 2018-11-28 2019.0.144.2 added code for dimensioning wall corners https://forums.autodesk.com/t5/revit-api-forum/dimension-between-walls-corners-using-revit-s-api/m-p/7228752
 //
-[assembly: AssemblyVersion( "2019.0.144.1" )]
-[assembly: AssemblyFileVersion( "2019.0.144.1" )]
+[assembly: AssemblyVersion( "2019.0.144.2" )]
+[assembly: AssemblyFileVersion( "2019.0.144.2" )]
