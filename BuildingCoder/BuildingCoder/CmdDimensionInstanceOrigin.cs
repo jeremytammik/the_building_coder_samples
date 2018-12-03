@@ -1,4 +1,4 @@
-#region Header
+﻿#region Header
 //
 // CmdDimensionInstanceOrigin.cs - create dimensioning between the origins of family instances
 //
@@ -773,5 +773,73 @@ namespace BuildingCoder
     }
 #endif // THIS_CODE_COMPILATION_FAILS
     #endregion // Dimensioning wall corners
+
+    #region Dimension between detail lines
+    // For 14840395 [Revit APIでの寸法作成時の参照設定]
+    void DimensionBetweenDetaiLines(Document doc )
+    {
+      View view = doc.ActiveView;
+
+      XYZ p = XYZ.Zero;
+      double d = 20;
+      XYZ vx = d * XYZ.BasisX;
+      XYZ vy = d * XYZ.BasisY;
+
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "DimensionHardWired" );
+
+        XYZ location1 = p;
+        XYZ location2 = p + vy;
+        XYZ location3 = p + vx;
+        XYZ location4 = p + vx + vy;
+
+        Line curve1 = Line.CreateBound( location1, location2 );
+        Line curve2 = Line.CreateBound( location3, location4 );
+
+        DetailCurve dCurve1;
+        DetailCurve dCurve2;
+
+        if( doc.IsFamilyDocument )
+        {
+          if( null != doc.OwnerFamily && null != doc.OwnerFamily.FamilyCategory )
+          {
+            if( !doc.OwnerFamily.FamilyCategory.Name.Contains( "詳細" ) )
+            {
+              TaskDialog.Show( "Dimension Detail Lines",
+                "Please open a detail based family template." );
+
+              return;
+            }
+          }
+          dCurve1 = doc.FamilyCreate.NewDetailCurve( view, curve1 );
+          dCurve2 = doc.FamilyCreate.NewDetailCurve( view, curve2 );
+        }
+        else
+        {
+          dCurve1 = doc.Create.NewDetailCurve( view, curve1 );
+          dCurve2 = doc.Create.NewDetailCurve( view, curve2 );
+        }
+
+        Line line = Line.CreateBound( location2, location4 );
+
+        ReferenceArray refArray = new ReferenceArray();
+
+        refArray.Append( dCurve1.GeometryCurve.Reference );
+        refArray.Append( dCurve2.GeometryCurve.Reference );
+
+        Dimension dim = null;
+        if( doc.IsFamilyDocument )
+        {
+          dim = doc.FamilyCreate.NewDimension( view, line, refArray );
+        }
+        else
+        {
+          dim = doc.Create.NewDimension( view, line, refArray );
+        }
+        tx.Commit();
+      }
+    }
+    #endregion // Dimension between detail lines
   }
 }
