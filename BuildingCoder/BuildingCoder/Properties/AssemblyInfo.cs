@@ -252,6 +252,7 @@ using System.Runtime.InteropServices;
 // 2018-11-15 2019.0.144.1 compare element category to target category list for https://forums.autodesk.com/t5/revit-api-forum/implementing-iselection-interface-for-seclecting-some-specific/m-p/8403097
 // 2018-11-28 2019.0.144.2 added code for dimensioning wall corners https://forums.autodesk.com/t5/revit-api-forum/dimension-between-walls-corners-using-revit-s-api/m-p/7228752
 // 2018-12-03 2019.0.144.3 added DimensionBetweenDetaiLines for 14840395 [Revit APIでの寸法作成時の参照設定]
+// 2018-12-06 2019.0.144.4 added GetIntersectingLinkedElementIds for https://forums.autodesk.com/t5/revit-api-forum/how-to-use-the-elementintersectselementfilter-from-the/m-p/8442649
 //
-[assembly: AssemblyVersion( "2019.0.144.3" )]
-[assembly: AssemblyFileVersion( "2019.0.144.3" )]
+[assembly: AssemblyVersion( "2019.0.144.4" )]
+[assembly: AssemblyFileVersion( "2019.0.144.4" )]

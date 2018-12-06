@@ -1427,6 +1427,51 @@ TaskDialog.Show( "Revit", collector.Count() +
 
       return intersectingStructuralFramingElements;
     }
+
+    /// <summary>
+    /// Dummy placeholder function to return solid from element, cf. 
+    /// https://thebuildingcoder.typepad.com/blog/2012/06/real-world-concrete-corner-coordinates.html
+    /// </summary>
+    Solid GetSolid( Element e )
+    {
+      return null;
+    }
+
+    /// <summary>
+    /// Collect the element ids of all elements in the 
+    /// linked documents intersecting the given element.
+    /// </summary>
+    /// <param name="e">Target element</param>
+    /// <param name="links">Linked documents</param>
+    /// <param name="ids">Return intersecting element ids</param>
+    /// <returns>Number of intersecting elements found</returns>
+    int GetIntersectingLinkedElementIds( 
+      Element e,
+      IList<RevitLinkInstance> links,
+      List<ElementId> ids )
+    {
+      int count = ids.Count();
+      Solid solid = GetSolid( e );
+
+      foreach( RevitLinkInstance i in links )
+      {
+        Transform transform = i.GetTransform(); // GetTransform or GetTotalTransform or what?
+        if( !transform.AlmostEqual( Transform.Identity) )
+        {
+          solid = SolidUtils.CreateTransformed( 
+            solid, transform.Inverse );
+        }
+        ElementIntersectsSolidFilter filter 
+          = new ElementIntersectsSolidFilter( solid );
+
+        FilteredElementCollector intersecting 
+          = new FilteredElementCollector( i.GetLinkDocument() )
+            .WherePasses( filter );
+
+        ids.AddRange( intersecting.ToElementIds() );
+      }
+      return ids.Count - count;
+    }
     #endregion // Retrieve family instances intersecting BIM element
 
     #region Retrieve stairs on level
