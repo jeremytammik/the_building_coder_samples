@@ -6,6 +6,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using System.Diagnostics;
+using Autodesk.Revit.DB.Structure;
 #endregion
 
 namespace BuildingCoder
@@ -20,7 +21,7 @@ namespace BuildingCoder
   /// and defining allowable elements for the post-
   /// selection.
   /// </summary>
-  class JtSelectorMulti<T> where T : Element
+    class JtSelectorMulti<T> where T : Element
   {
     /// <summary>
     /// Error message in case of invalid pre-selection.

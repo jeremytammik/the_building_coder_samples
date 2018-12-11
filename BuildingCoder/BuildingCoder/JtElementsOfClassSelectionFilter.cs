@@ -13,8 +13,16 @@ namespace BuildingCoder
     public bool AllowElement( Element e )
     {
       return e is T;
+    }
 
-      #region Compare element category to target category list
+    public bool AllowReference( Reference r, XYZ p )
+    {
+      return true;
+    }
+
+    #region Compare element category to target category list
+    bool CompareCategoryToTargetList( Element e )
+    {
       bool rc = null != e.Category;
       if( rc )
       {
@@ -24,15 +32,10 @@ namespace BuildingCoder
           (int) BuiltInCategory.OST_Walls
         };
         int icat = e.Category.Id.IntegerValue;
-        rc = targets.Any<int>( i => i.Equals(icat) );
+        rc = targets.Any<int>( i => i.Equals( icat ) );
       }
       return rc;
-      #endregion // Compare element category to target category list
     }
-
-    public bool AllowReference( Reference r, XYZ p )
-    {
-      return true;
-    }
+    #endregion // Compare element category to target category list
   }
 }
