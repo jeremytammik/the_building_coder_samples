@@ -39,7 +39,7 @@ namespace BuildingCoder
     /// <param name="e"></param>
     /// <param name="computReferences">Compute references?</param>
     /// <param name="bottomFace">Top or bottom?</param>
-    PlanarFace GetLargestHorizontalFace( 
+    PlanarFace GetLargestHorizontalFace(
       Element e,
       bool computReferences = true,
       bool bottomFace = true )
@@ -68,7 +68,8 @@ namespace BuildingCoder
               XYZ normal = pf.FaceNormal.Normalize();
 
               if( Util.IsVertical( normal )
-                && 0.0 > normal.Z )
+                && ( bottomFace ? 0.0 > normal.Z : 0.0 < normal.Z )
+                && ( null == largest_face || largest_face.Area < pf.Area ) )
               {
                 largest_face = pf;
                 break;
@@ -89,7 +90,7 @@ namespace BuildingCoder
       XYZ p = new XYZ( 0, 0, 0 );
       Mesh mesh = face.Triangulate();
 
-      for ( int i = 0; i < mesh.NumTriangles; )
+      for( int i = 0; i < mesh.NumTriangles; )
       {
         MeshTriangle triangle = mesh.get_Triangle( i );
         p += triangle.get_Vertex( 0 );
@@ -111,7 +112,7 @@ namespace BuildingCoder
       Document doc = uidoc.Document;
       Result rc = Result.Failed;
 
-      using ( Transaction t = new Transaction( doc ) )
+      using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Place a New Sprinkler Instance" );
 
@@ -137,9 +138,9 @@ namespace BuildingCoder
         Family family = Util.GetFirstElementOfTypeNamed(
           doc, typeof( Family ), _name ) as Family;
 
-        if ( null == family )
+        if( null == family )
         {
-          if ( !doc.LoadFamily( _filename, out family ) )
+          if( !doc.LoadFamily( _filename, out family ) )
           {
             message = "Unable to load '" + _filename + "'.";
             return rc;
@@ -150,7 +151,7 @@ namespace BuildingCoder
 
         //foreach( FamilySymbol fs in family.Symbols ) // 2014
 
-        foreach ( ElementId id in
+        foreach( ElementId id in
           family.GetFamilySymbolIds() ) // 2015
         {
           sprinklerSymbol = doc.GetElement( id )
@@ -168,7 +169,7 @@ namespace BuildingCoder
         Element ceiling = Util.SelectSingleElement(
           uidoc, "ceiling to host sprinkler" );
 
-        if ( null == ceiling
+        if( null == ceiling
           || !ceiling.Category.Id.IntegerValue.Equals(
             (int) BuiltInCategory.OST_Ceilings ) )
         {
@@ -191,10 +192,10 @@ namespace BuildingCoder
 
         // retrieve the bottom face of the ceiling:
 
-        PlanarFace ceilingBottom 
+        PlanarFace ceilingBottom
           = GetLargestHorizontalFace( ceiling );
 
-        if ( null != ceilingBottom )
+        if( null != ceilingBottom )
         {
           XYZ p = PointOnFace( ceilingBottom );
 
@@ -211,4 +212,3 @@ namespace BuildingCoder
     }
   }
 }
-
