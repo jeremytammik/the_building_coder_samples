@@ -254,6 +254,7 @@ using System.Runtime.InteropServices;
 // 2018-12-03 2019.0.144.3 added DimensionBetweenDetaiLines for 14840395 [Revit APIでの寸法作成時の参照設定]
 // 2018-12-06 2019.0.144.4 added GetIntersectingLinkedElementIds for https://forums.autodesk.com/t5/revit-api-forum/how-to-use-the-elementintersectselementfilter-from-the/m-p/8442649
 // 2018-12-06 2019.0.144.5 implemented CompareCategoryToTargetList
+// 2018-12-25 2019.0.144.6 implemented GetLargestHorizontalFace
 //
-[assembly: AssemblyVersion( "2019.0.144.5" )]
-[assembly: AssemblyFileVersion( "2019.0.144.5" )]
+[assembly: AssemblyVersion( "2019.0.144.6" )]
+[assembly: AssemblyFileVersion( "2019.0.144.6" )]

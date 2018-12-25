@@ -32,6 +32,55 @@ namespace BuildingCoder
     const string _filename = _path + _name + _ext;
 
     /// <summary>
+    /// Return the largest horizontal face of the given
+    /// element e, either top or bottom, optionally
+    /// computing references.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <param name="computReferences">Compute references?</param>
+    /// <param name="bottomFace">Top or bottom?</param>
+    PlanarFace GetLargestHorizontalFace( 
+      Element e,
+      bool computReferences = true,
+      bool bottomFace = true )
+    {
+      //Options opt = app.Application.Create.NewGeometryOptions();
+
+      Options opt = new Options();
+      opt.ComputeReferences = computReferences;
+
+      GeometryElement geo = e.get_Geometry( opt );
+
+      PlanarFace largest_face = null;
+
+      foreach( GeometryObject obj in geo )
+      {
+        Solid solid = obj as Solid;
+
+        if( null != solid )
+        {
+          foreach( Face face in solid.Faces )
+          {
+            PlanarFace pf = face as PlanarFace;
+
+            if( null != pf )
+            {
+              XYZ normal = pf.FaceNormal.Normalize();
+
+              if( Util.IsVertical( normal )
+                && 0.0 > normal.Z )
+              {
+                largest_face = pf;
+                break;
+              }
+            }
+          }
+        }
+      }
+      return largest_face;
+    }
+
+    /// <summary>
     /// Return an arbitrary point on a planar face,
     /// namely the midpoint of the first mesh triangle.
     /// </summary>
@@ -142,36 +191,9 @@ namespace BuildingCoder
 
         // retrieve the bottom face of the ceiling:
 
-        Options opt = app.Application.Create.NewGeometryOptions();
-        opt.ComputeReferences = true;
-        GeometryElement geo = ceiling.get_Geometry( opt );
+        PlanarFace ceilingBottom 
+          = GetLargestHorizontalFace( ceiling );
 
-        PlanarFace ceilingBottom = null;
-
-        foreach ( GeometryObject obj in geo )
-        {
-          Solid solid = obj as Solid;
-
-          if ( null != solid )
-          {
-            foreach ( Face face in solid.Faces )
-            {
-              PlanarFace pf = face as PlanarFace;
-
-              if ( null != pf )
-              {
-                XYZ normal = pf.FaceNormal.Normalize();
-
-                if ( Util.IsVertical( normal )
-                  && 0.0 > normal.Z )
-                {
-                  ceilingBottom = pf;
-                  break;
-                }
-              }
-            }
-          }
-        }
         if ( null != ceilingBottom )
         {
           XYZ p = PointOnFace( ceilingBottom );
