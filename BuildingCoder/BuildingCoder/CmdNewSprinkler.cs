@@ -96,8 +96,8 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Return the are of a triangle as half of
-    /// its height muliplied with its base length.
+    /// Return the area of a triangle as half of
+    /// its height multiplied with its base length.
     /// </summary>
     double TriangleArea( MeshTriangle triangle )
     {
