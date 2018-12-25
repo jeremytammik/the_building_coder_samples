@@ -255,6 +255,7 @@ using System.Runtime.InteropServices;
 // 2018-12-06 2019.0.144.4 added GetIntersectingLinkedElementIds for https://forums.autodesk.com/t5/revit-api-forum/how-to-use-the-elementintersectselementfilter-from-the/m-p/8442649
 // 2018-12-06 2019.0.144.5 implemented CompareCategoryToTargetList
 // 2018-12-25 2019.0.144.6 implemented GetLargestHorizontalFace
+// 2018-12-25 2019.0.144.6 implemented MedianPoint, TriangleArea and PointOnFace2
 //
 [assembly: AssemblyVersion( "2019.0.144.6" )]
 [assembly: AssemblyFileVersion( "2019.0.144.6" )]

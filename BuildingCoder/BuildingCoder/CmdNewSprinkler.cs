@@ -82,24 +82,73 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Return the median point of a triangle by
+    /// taking the average of its three vertices.
+    /// </summary>
+    XYZ MedianPoint( MeshTriangle triangle )
+    {
+      XYZ p = XYZ.Zero;
+      p += triangle.get_Vertex( 0 );
+      p += triangle.get_Vertex( 1 );
+      p += triangle.get_Vertex( 2 );
+      p *= 0.3333333333333333;
+      return p;
+    }
+
+    /// <summary>
+    /// Return the are of a triangle as half of
+    /// its height muliplied with its base length.
+    /// </summary>
+    double TriangleArea( MeshTriangle triangle )
+    {
+      XYZ a = triangle.get_Vertex( 0 );
+      XYZ b = triangle.get_Vertex( 1 );
+      XYZ c = triangle.get_Vertex( 2 );
+
+      Line l = Line.CreateBound( a, b );
+
+      double h = l.Project( c ).Distance;
+
+      double area = 0.5 * l.Length * h;
+
+      return area;
+    }
+
+    /// <summary>
     /// Return an arbitrary point on a planar face,
     /// namely the midpoint of the first mesh triangle.
     /// </summary>
     XYZ PointOnFace( PlanarFace face )
     {
-      XYZ p = new XYZ( 0, 0, 0 );
       Mesh mesh = face.Triangulate();
 
-      for( int i = 0; i < mesh.NumTriangles; )
+      return 0 < mesh.NumTriangles
+        ? MedianPoint( mesh.get_Triangle( 0 ) )
+        : XYZ.Zero;
+    }
+
+    /// <summary>
+    /// Return a 'good' point on a planar face, namely 
+    /// the median point of its largest mesh triangle.
+    /// </summary>
+    XYZ PointOnFace2( PlanarFace face )
+    {
+      Mesh mesh = face.Triangulate();
+      double max_area = 0;
+      int selected = 0;
+
+      for( int i = 0; i < mesh.NumTriangles; i++ )
       {
-        MeshTriangle triangle = mesh.get_Triangle( i );
-        p += triangle.get_Vertex( 0 );
-        p += triangle.get_Vertex( 1 );
-        p += triangle.get_Vertex( 2 );
-        p *= 0.3333333333333333;
-        break;
+        double area = TriangleArea(
+          mesh.get_Triangle( i ) );
+
+        if( max_area < area )
+        {
+          max_area = area;
+          selected = i;
+        }
       }
-      return p;
+      return MedianPoint( mesh.get_Triangle( selected ) );
     }
 
     public Result Execute(
