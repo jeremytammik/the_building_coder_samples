@@ -256,6 +256,7 @@ using System.Runtime.InteropServices;
 // 2018-12-06 2019.0.144.5 implemented CompareCategoryToTargetList
 // 2018-12-25 2019.0.144.6 implemented GetLargestHorizontalFace
 // 2018-12-25 2019.0.144.6 implemented MedianPoint, TriangleArea and PointOnFace2
+// 2018-12-28 2019.0.144.7 worked on CmdListAllRooms, handle empty boundary curve in GetConvexHullOfRoomBoundary
 //
-[assembly: AssemblyVersion( "2019.0.144.6" )]
-[assembly: AssemblyFileVersion( "2019.0.144.6" )]
+[assembly: AssemblyVersion( "2019.0.144.7" )]
+[assembly: AssemblyFileVersion( "2019.0.144.7" )]

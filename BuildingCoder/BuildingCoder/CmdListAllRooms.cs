@@ -161,28 +161,34 @@ namespace BuildingCoder
     static List<XYZ> GetConvexHullOfRoomBoundary(
       IList<IList<BoundarySegment>> boundary )
     {
-      List<XYZ> pts = new List<XYZ>();
+      List<XYZ> convex_hull = new List<XYZ>();
 
-      foreach( IList<BoundarySegment> loop in boundary )
+      if( 0 < boundary.Count )
       {
-        foreach( BoundarySegment seg in loop )
+        List<XYZ> pts = new List<XYZ>();
+
+        foreach( IList<BoundarySegment> loop in boundary )
         {
-          Curve c = seg.GetCurve();
-          pts.AddRange( c.Tessellate() );
+          foreach( BoundarySegment seg in loop )
+          {
+            Curve c = seg.GetCurve();
+            pts.AddRange( c.Tessellate() );
+          }
         }
+        int n = pts.Count;
+
+        pts = new List<XYZ>(
+          pts.Distinct<XYZ>( new CmdWallTopFaces
+            .XyzEqualityComparer( 1.0e-4 ) ) );
+
+        Debug.Print(
+          "{0} points from tessellated room boundaries, "
+          + "{1} points after cleaning up duplicates",
+          n, pts.Count );
+
+        convex_hull = Util.ConvexHull( pts );
       }
-      int n = pts.Count;
-
-      pts = new List<XYZ>(
-        pts.Distinct<XYZ>( new CmdWallTopFaces
-          .XyzEqualityComparer( 1.0e-4 ) ) );
-
-      Debug.Print(
-        "{0} points from tessellated room boundaries, "
-        + "{1} points after cleaning up duplicates",
-        n, pts.Count );
-
-      return Util.ConvexHull( pts);
+      return convex_hull;
     }
 
     /// <summary>
