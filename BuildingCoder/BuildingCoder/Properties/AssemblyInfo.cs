@@ -258,6 +258,7 @@ using System.Runtime.InteropServices;
 // 2018-12-25 2019.0.144.6 implemented MedianPoint, TriangleArea and PointOnFace2
 // 2018-12-28 2019.0.144.7 worked on CmdListAllRooms, handle empty boundary curve in GetConvexHullOfRoomBoundary
 // 2018-12-31 2019.0.144.8 worked on CmdListAllRooms, added _exportBoundary and _exportCsv switches
+// 2018-12-31 2019.0.144.8 implemented BoundingBoxString overload with allowNull argument
 //
-[assembly: AssemblyVersion( "2019.0.144.7" )]
-[assembly: AssemblyFileVersion( "2019.0.144.7" )]
+[assembly: AssemblyVersion( "2019.0.144.8" )]
+[assembly: AssemblyFileVersion( "2019.0.144.8" )]

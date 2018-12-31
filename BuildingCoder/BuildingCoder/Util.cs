@@ -982,6 +982,22 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Return a string for a bounding box
+    /// which may potentially be null
+    /// with its coordinates formatted to two
+    /// decimal places.
+    /// </summary>
+    public static string BoundingBoxString( 
+      BoundingBoxXYZ bb,
+      bool allowNull )
+    {
+      return null == bb
+        ? "<null>"
+        : Util.BoundingBoxString( bb );
+    }
+
+
+    /// <summary>
     /// Return a string for this plane
     /// with its coordinates formatted to two
     /// decimal places.

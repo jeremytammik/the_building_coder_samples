@@ -122,19 +122,6 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Return a string for a bounding box
-    /// which may potentially be null
-    /// with its coordinates formatted to two
-    /// decimal places.
-    /// </summary>
-    public static string BoundingBoxString2( BoundingBoxXYZ bb )
-    {
-      return null == bb
-        ? "<null>"
-        : Util.BoundingBoxString( bb );
-    }
-
-    /// <summary>
     /// Return bounding box calculated from the room 
     /// boundary segments. The lower left corner turns 
     /// out to be identical with the one returned by 
@@ -249,9 +236,9 @@ namespace BuildingCoder
         nr, name, Util.PointString( p ),
         Util.PointString( boundary_bounding_box.Min ),
         Util.PointArrayString( convex_hull ),
-        BoundingBoxString2( bb ), area, nLoops,
-        Util.PluralSuffix( nLoops ), nFirstLoopSegments,
-        Util.PluralSuffix( nFirstLoopSegments ) ) );
+        Util.BoundingBoxString( bb, true ), area, 
+        nLoops, Util.PluralSuffix( nLoops ), 
+        nFirstLoopSegments, Util.PluralSuffix( nFirstLoopSegments ) ) );
     }
 
     public Result Execute(
