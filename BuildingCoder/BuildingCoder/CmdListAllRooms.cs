@@ -122,6 +122,51 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Add new points to the list.
+    /// Skip the first new point if it equals the last 
+    /// old existing one. Actually, we can test all points 
+    /// and always ignore very close consecutive ones.
+    /// </summary>
+    static void AddNewPoints(
+      IList<XYZ> pts,
+      IList<XYZ> newpts )
+    {
+      foreach( XYZ p in newpts )
+      {
+        if(!Util.IsEqual( p, pts.Last() ) )
+        {
+          pts.Add( p );
+        }
+      }
+    }
+
+    /// <summary>
+    /// Return room boundary points retrieved 
+    /// from the room boundary segments. 
+    /// </summary>
+    static List<XYZ> GetBoundaryPoints(
+    IList<IList<BoundarySegment>> boundary )
+    {
+      List<XYZ> pts = new List<XYZ>();
+
+      foreach( IList<BoundarySegment> loop in boundary )
+      {
+        foreach( BoundarySegment seg in loop )
+        {
+          Curve c = seg.GetCurve();
+          AddNewPoints( pts, c.Tessellate() );
+        }
+
+        // Break after first loop, which is hopefully 
+        // the exterior one, and hopefully the only one.
+        // Todo: add better handling for more complex cases.
+
+        break;
+      }
+      return pts;
+    }
+
+    /// <summary>
     /// Return bounding box calculated from the room 
     /// boundary segments. The lower left corner turns 
     /// out to be identical with the one returned by 
