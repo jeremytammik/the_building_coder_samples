@@ -207,7 +207,10 @@ namespace BuildingCoder
     /// List some properties of a given room to the
     /// Visual Studio debug output window.
     /// </summary>
-    void ListRoomData( Room room )
+    void ListRoomData( 
+      Room room,
+      bool exportBoundary, 
+      bool exportCsv )
     {
       SpatialElementBoundaryOptions opt
         = new SpatialElementBoundaryOptions();
@@ -319,7 +322,7 @@ namespace BuildingCoder
 
       foreach( Room room in rooms )
       {
-        ListRoomData( room );
+        ListRoomData( room, _exportBoundary, _exportCsv );
       }
 
       return Result.Succeeded;
