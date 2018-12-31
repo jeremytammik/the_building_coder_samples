@@ -28,6 +28,18 @@ namespace BuildingCoder
   class CmdListAllRooms : IExternalCommand
   {
     /// <summary>
+    ///  Export all boundary points in 
+    ///  addition to their convex hull?
+    /// </summary>
+    const bool _exportBoundary = false;
+
+    /// <summary>
+    /// Create a comma-delimited CSV file instead of 
+    /// a human readable text file?
+    /// </summary>
+    const bool _exportCsv = false;
+
+    /// <summary>
     /// Draft for method to distinguish 'Not Placed', 
     /// 'Redundant' and 'Not Enclosed' rooms.
     /// </summary>
