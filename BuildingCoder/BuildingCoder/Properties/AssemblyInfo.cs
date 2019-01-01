@@ -262,6 +262,7 @@ using System.Runtime.InteropServices;
 // 2018-12-31 2019.0.144.8 implemented GetBoundaryPoints and AddNewPoints
 // 2019-01-01 2019.0.144.8 added _room_boundary_tolerance
 // 2019-01-01 2019.0.144.8 added tolerance argument to IsEqual
+// 2019-01-01 2019.0.144.8 added warning message about skipping all but first room boundary loop
 //
 [assembly: AssemblyVersion( "2019.0.144.8" )]
 [assembly: AssemblyFileVersion( "2019.0.144.8" )]

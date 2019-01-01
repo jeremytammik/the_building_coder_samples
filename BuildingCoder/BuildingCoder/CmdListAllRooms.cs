@@ -155,6 +155,16 @@ namespace BuildingCoder
     static List<XYZ> GetBoundaryPoints(
     IList<IList<BoundarySegment>> boundary )
     {
+      int n = boundary.Count;
+
+      if( 1 < n )
+      {
+        Debug.Print( 
+          "Boundary contains {0} loop{1}; "
+          + "skipping all but first.", 
+          n, Util.PluralSuffix( n ) );
+      }
+
       List<XYZ> pts = new List<XYZ>();
 
       foreach( IList<BoundarySegment> loop in boundary )
