@@ -73,7 +73,7 @@ namespace BuildingCoder
       Debug.Assert( 8 == keys.Count,
         "expected eight vertices for a rectangular column" );
 
-      keys.Sort( Util.Compare );
+      keys.Sort( (p,q) => Util.Compare(p,q) );
 
       foreach( XYZ p in keys )
       {

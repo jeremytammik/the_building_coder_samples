@@ -261,6 +261,7 @@ using System.Runtime.InteropServices;
 // 2018-12-31 2019.0.144.8 implemented BoundingBoxString overload with allowNull argument
 // 2018-12-31 2019.0.144.8 implemented GetBoundaryPoints and AddNewPoints
 // 2019-01-01 2019.0.144.8 added _room_boundary_tolerance
+// 2019-01-01 2019.0.144.8 added tolerance argument to IsEqual
 //
 [assembly: AssemblyVersion( "2019.0.144.8" )]
 [assembly: AssemblyFileVersion( "2019.0.144.8" )]

@@ -82,17 +82,18 @@ namespace BuildingCoder
 
     public static int Compare( 
       XYZ p, 
-      XYZ q )
+      XYZ q,
+      double tolerance = _eps )
     {
-      int d = Compare( p.X, q.X );
+      int d = Compare( p.X, q.X, tolerance );
 
       if( 0 == d )
       {
-        d = Compare( p.Y, q.Y );
+        d = Compare( p.Y, q.Y, tolerance );
 
         if( 0 == d )
         {
-          d = Compare( p.Z, q.Z );
+          d = Compare( p.Z, q.Z, tolerance );
         }
       }
       return d;
@@ -166,9 +167,17 @@ namespace BuildingCoder
       return d;
     }
 
-    public static bool IsEqual( XYZ p, XYZ q )
+    /// <summary>
+    /// Predicate to test whewther two points or 
+    /// vectors can be considered equal with the 
+    /// given tolerance.
+    /// </summary>
+    public static bool IsEqual( 
+      XYZ p, 
+      XYZ q,
+      double tolerance = _eps )
     {
-      return 0 == Compare( p, q );
+      return 0 == Compare( p, q, tolerance );
     }
 
     /// <summary>
