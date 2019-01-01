@@ -260,6 +260,7 @@ using System.Runtime.InteropServices;
 // 2018-12-31 2019.0.144.8 worked on CmdListAllRooms, added _exportBoundary and _exportCsv switches
 // 2018-12-31 2019.0.144.8 implemented BoundingBoxString overload with allowNull argument
 // 2018-12-31 2019.0.144.8 implemented GetBoundaryPoints and AddNewPoints
+// 2019-01-01 2019.0.144.8 added _room_boundary_tolerance
 //
 [assembly: AssemblyVersion( "2019.0.144.8" )]
 [assembly: AssemblyFileVersion( "2019.0.144.8" )]

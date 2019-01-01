@@ -28,6 +28,13 @@ namespace BuildingCoder
   class CmdListAllRooms : IExternalCommand
   {
     /// <summary>
+    /// Tolerance for considering slightly 
+    /// differing boundary points equal
+    /// </summary>
+    static double _room_boundary_tolerance 
+      = Util.MmToFoot( 1.2 );
+
+    /// <summary>
     ///  Export all boundary points in 
     ///  addition to their convex hull?
     /// </summary>
@@ -133,7 +140,8 @@ namespace BuildingCoder
     {
       foreach( XYZ p in newpts )
       {
-        if(!Util.IsEqual( p, pts.Last() ) )
+        if(!Util.IsEqual( p, pts.Last(), 
+          _room_boundary_tolerance ) )
         {
           pts.Add( p );
         }
