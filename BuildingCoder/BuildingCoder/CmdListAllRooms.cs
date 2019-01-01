@@ -303,6 +303,12 @@ namespace BuildingCoder
       BoundingBoxXYZ boundary_bounding_box
         = GetBoundingBox( boundary );
 
+      double llx = boundary_bounding_box.Min.X;
+
+      string lower_left = double.MaxValue == llx
+        ? "undefined"
+        : Util.PointString( boundary_bounding_box.Min );
+
       List<XYZ> convex_hull
         = GetConvexHullOfRoomBoundary( boundary );
 
@@ -316,13 +322,13 @@ namespace BuildingCoder
         + "bounding box {6} and area {7} sqf has "
         + "{8} loop{9} and {10} segment{11} in first "
         + "loop.",
-        nr, name, Util.PointString( p ),
-        Util.PointString( boundary_bounding_box.Min ),
+        nr, name, Util.PointString( p ), lower_left,
         Util.PointArrayString( boundary_pts ),
         Util.PointArrayString( convex_hull ),
         Util.BoundingBoxString( bb, true ), area,
         nLoops, Util.PluralSuffix( nLoops ),
-        nFirstLoopSegments, Util.PluralSuffix( nFirstLoopSegments ) ) );
+        nFirstLoopSegments, Util.PluralSuffix( 
+          nFirstLoopSegments ) ) );
     }
 
     public Result Execute(
