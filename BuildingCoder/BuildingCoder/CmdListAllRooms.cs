@@ -153,33 +153,40 @@ namespace BuildingCoder
     /// from the room boundary segments. 
     /// </summary>
     static List<XYZ> GetBoundaryPoints(
-    IList<IList<BoundarySegment>> boundary )
+      IList<IList<BoundarySegment>> boundary )
     {
-      int n = boundary.Count;
-
-      if( 1 < n )
-      {
-        Debug.Print( 
-          "Boundary contains {0} loop{1}; "
-          + "skipping all but first.", 
-          n, Util.PluralSuffix( n ) );
-      }
-
       List<XYZ> pts = new List<XYZ>();
 
-      foreach( IList<BoundarySegment> loop in boundary )
+      int n = boundary.Count;
+
+      if( 1 > n )
       {
-        foreach( BoundarySegment seg in loop )
+        Debug.Print( "Boundary contains no loops" );
+      }
+      else
+      {
+        if( 1 < n )
         {
-          Curve c = seg.GetCurve();
-          AddNewPoints( pts, c.Tessellate() );
+          Debug.Print(
+            "Boundary contains {0} loop{1}; "
+            + "skipping all but first.",
+            n, Util.PluralSuffix( n ) );
         }
 
-        // Break after first loop, which is hopefully 
-        // the exterior one, and hopefully the only one.
-        // Todo: add better handling for more complex cases.
+        foreach( IList<BoundarySegment> loop in boundary )
+        {
+          foreach( BoundarySegment seg in loop )
+          {
+            Curve c = seg.GetCurve();
+            AddNewPoints( pts, c.Tessellate() );
+          }
 
-        break;
+          // Break after first loop, which is hopefully 
+          // the exterior one, and hopefully the only one.
+          // Todo: add better handling for more complex cases.
+
+          break;
+        }
       }
       return pts;
     }
