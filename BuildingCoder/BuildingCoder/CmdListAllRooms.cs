@@ -31,7 +31,7 @@ namespace BuildingCoder
     /// Tolerance for considering slightly 
     /// differing boundary points equal
     /// </summary>
-    static double _room_boundary_tolerance 
+    static double _room_boundary_tolerance
       = Util.MmToFoot( 1.2 );
 
     /// <summary>
@@ -140,7 +140,7 @@ namespace BuildingCoder
     {
       foreach( XYZ p in newpts )
       {
-        if(!Util.IsEqual( p, pts.Last(), 
+        if( !Util.IsEqual( p, pts.Last(),
           _room_boundary_tolerance ) )
         {
           pts.Add( p );
@@ -179,6 +179,15 @@ namespace BuildingCoder
           {
             Curve c = seg.GetCurve();
             AddNewPoints( pts, c.Tessellate() );
+          }
+
+          double z = pts[0].Z;
+
+          foreach( XYZ p in pts )
+          {
+            Debug.Assert( Util.IsEqual(
+              p.Z, z, _room_boundary_tolerance ),
+              "expected horizontal room boundary" );
           }
 
           // Break after first loop, which is hopefully 
@@ -264,9 +273,9 @@ namespace BuildingCoder
     /// List some properties of a given room to the
     /// Visual Studio debug output window.
     /// </summary>
-    void ListRoomData( 
+    void ListRoomData(
       Room room,
-      bool exportBoundary, 
+      bool exportBoundary,
       bool exportCsv )
     {
       SpatialElementBoundaryOptions opt
@@ -294,20 +303,25 @@ namespace BuildingCoder
       BoundingBoxXYZ boundary_bounding_box
         = GetBoundingBox( boundary );
 
-      List<XYZ> convex_hull 
+      List<XYZ> convex_hull
         = GetConvexHullOfRoomBoundary( boundary );
+
+      List<XYZ> boundary_pts = GetBoundaryPoints(
+        boundary );
 
       Debug.Print( string.Format(
         "Room nr. '{0}' named '{1}' at {2} with "
-        + "lower left corner {3}, convex hull {4}, "
-        + "bounding box {5} and area {6} sqf has "
-        + "{7} loop{8} and {9} segment{10} in first "
+        + "lower left corner {3}, "
+        + "boundary points {4}, convex hull {5}, "
+        + "bounding box {6} and area {7} sqf has "
+        + "{8} loop{9} and {10} segment{11} in first "
         + "loop.",
         nr, name, Util.PointString( p ),
         Util.PointString( boundary_bounding_box.Min ),
+        Util.PointArrayString( boundary_pts ),
         Util.PointArrayString( convex_hull ),
-        Util.BoundingBoxString( bb, true ), area, 
-        nLoops, Util.PluralSuffix( nLoops ), 
+        Util.BoundingBoxString( bb, true ), area,
+        nLoops, Util.PluralSuffix( nLoops ),
         nFirstLoopSegments, Util.PluralSuffix( nFirstLoopSegments ) ) );
     }
 
