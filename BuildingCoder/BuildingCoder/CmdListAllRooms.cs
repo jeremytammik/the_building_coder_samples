@@ -140,8 +140,9 @@ namespace BuildingCoder
     {
       foreach( XYZ p in newpts )
       {
-        if( !Util.IsEqual( p, pts.Last(),
-          _room_boundary_tolerance ) )
+        if( 0 == pts.Count 
+          || !Util.IsEqual( p, pts.Last(), 
+            _room_boundary_tolerance ) )
         {
           pts.Add( p );
         }
