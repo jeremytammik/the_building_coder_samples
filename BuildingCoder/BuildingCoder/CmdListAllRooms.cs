@@ -35,16 +35,10 @@ namespace BuildingCoder
       = Util.MmToFoot( 1.2 );
 
     /// <summary>
-    ///  Export all boundary points in 
-    ///  addition to their convex hull?
-    /// </summary>
-    const bool _exportBoundary = false;
-
-    /// <summary>
     /// Create a comma-delimited CSV file instead of 
     /// a human readable text file?
     /// </summary>
-    const bool _exportCsv = false;
+    const bool _exportCsv = true;
 
     /// <summary>
     /// CSV export headers
@@ -57,7 +51,7 @@ namespace BuildingCoder
     /// Export format string
     /// </summary>
     const string _format_string = _exportCsv
-      ? "{0},{1},{2},{3},{4},{5},{6},{7}"
+      ? "{0},{1},{2},{3},({4}),({5}),({6}),{7}"
       : "Room nr. '{0}' named '{1}' at {2} with "
         + "lower left corner {3}, "
         + "boundary points ({4}), convex hull ({5}), "
