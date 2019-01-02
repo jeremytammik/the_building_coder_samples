@@ -51,7 +51,7 @@ namespace BuildingCoder
     /// Export format string
     /// </summary>
     const string _format_string = _exportCsv
-      ? "{0},{1},{2},{3},{4},{5},({6}),{7}"
+      ? "{0},{1},{2},{3},{4},{5},{6},{7}"
       : "Room nr. '{0}' named '{1}' at {2} with "
         + "lower left corner {3}, "
         + "boundary points ({4}), convex hull ({5}), "
@@ -323,7 +323,8 @@ namespace BuildingCoder
 
       double llx = boundary_bounding_box.Min.X;
 
-      string lower_left = Util.PointString( boundary_bounding_box.Min );
+      string lower_left = Util.PointString( 
+        boundary_bounding_box.Min, _exportCsv );
 
       if( double.MaxValue == llx )
       {
@@ -347,11 +348,12 @@ namespace BuildingCoder
         boundary_pts_2d, _exportCsv );
 
       string bounding_box_str = (null == bb)
-        ? "null" : Util.BoundingBoxString( bb, true );
+        ? "null" 
+        : Util.BoundingBoxString( bb, _exportCsv );
       
       Debug.Print( string.Format( _format_string,
-        nr, name, Util.PointString( p ), lower_left,
-        boundary_pts_str, convex_hull_str,
+        nr, name, Util.PointString( p, _exportCsv ), 
+        lower_left, boundary_pts_str, convex_hull_str,
         bounding_box_str, area, 
         nLoops, Util.PluralSuffix( nLoops ),
         nFirstLoopSegments, Util.PluralSuffix(
