@@ -304,22 +304,30 @@ namespace BuildingCoder
       BoundingBoxXYZ boundary_bounding_box
         = GetBoundingBox( boundary );
 
-      double llx = boundary_bounding_box.Min.X;
-
-      string lower_left = double.MaxValue == llx
-        ? "undefined"
-        : Util.PointString( boundary_bounding_box.Min );
-
       List<XYZ> convex_hull
         = GetConvexHullOfRoomBoundary( boundary );
 
       List<XYZ> boundary_pts = GetBoundaryPoints(
         boundary );
 
+      double llx = boundary_bounding_box.Min.X;
+
+      string lower_left = Util.PointString( boundary_bounding_box.Min );
+
+      if( double.MaxValue == llx )
+      {
+        lower_left = "undefined";
+        Debug.Assert( 0 == boundary_pts.Count,
+          "expected empty boundary for undefined lower left corner" );
+        Debug.Assert( 0 == convex_hull.Count,
+          "expected empty convex hull for undefined lower left corner" );
+      }
+
+
       Debug.Print( string.Format(
         "Room nr. '{0}' named '{1}' at {2} with "
         + "lower left corner {3}, "
-        + "boundary points {4}, convex hull {5}, "
+        + "boundary points ({4}), convex hull ({5}), "
         + "bounding box {6} and area {7} sqf has "
         + "{8} loop{9} and {10} segment{11} in first "
         + "loop.",
