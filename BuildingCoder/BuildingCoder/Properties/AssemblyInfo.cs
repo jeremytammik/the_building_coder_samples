@@ -267,6 +267,7 @@ using System.Runtime.InteropServices;
 // 2019-01-01 2019.0.144.8 log boundary points and assert horizontal boundary
 // 2019-01-01 2019.0.144.8 cleaned up logging of undefined lower left corner
 // 2019-01-02 2019.0.144.8 add support fo empty list in AddNewPoints, test and cleanup
+// 2019-01-02 2019.0.144.9 implemented CSV export for CmdListAllRooms
 //
-[assembly: AssemblyVersion( "2019.0.144.8" )]
-[assembly: AssemblyFileVersion( "2019.0.144.8" )]
+[assembly: AssemblyVersion( "2019.0.144.9" )]
+[assembly: AssemblyFileVersion( "2019.0.144.9" )]

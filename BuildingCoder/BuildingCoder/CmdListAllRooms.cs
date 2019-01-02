@@ -28,10 +28,10 @@ namespace BuildingCoder
   class CmdListAllRooms : IExternalCommand
   {
     /// <summary>
-    /// Tolerance for considering slightly 
-    /// differing boundary points equal
+    /// Room boundary tolerance for considering 
+    /// slightly differing boundary points equal
     /// </summary>
-    static double _room_boundary_tolerance
+    static double _tolerance
       = Util.MmToFoot( 1.2 );
 
     /// <summary>
@@ -45,6 +45,26 @@ namespace BuildingCoder
     /// a human readable text file?
     /// </summary>
     const bool _exportCsv = false;
+
+    /// <summary>
+    /// CSV export headers
+    /// </summary>
+    const string _csv_headers = "Room nr;Name;Center;"
+      + "Lower left;Boundary;Convex hull;Bounding box;"
+      + "Area in sq ft";
+
+    /// <summary>
+    /// Export format string
+    /// </summary>
+    const string _format_string = _exportCsv
+      ? "{0},{1},{2},{3},{4},{5},{6},{7}"
+      : "Room nr. '{0}' named '{1}' at {2} with "
+        + "lower left corner {3}, "
+        + "boundary points ({4}), convex hull ({5}), "
+        + "bounding box {6} and area {7} sqf has "
+        + "{8} loop{9} and {10} segment{11} in first "
+        + "loop.";
+
 
     /// <summary>
     /// Draft for method to distinguish 'Not Placed', 
@@ -140,9 +160,9 @@ namespace BuildingCoder
     {
       foreach( XYZ p in newpts )
       {
-        if( 0 == pts.Count 
-          || !Util.IsEqual( p, pts.Last(), 
-            _room_boundary_tolerance ) )
+        if( 0 == pts.Count
+          || !Util.IsEqual( p, pts.Last(),
+            _tolerance ) )
         {
           pts.Add( p );
         }
@@ -186,8 +206,8 @@ namespace BuildingCoder
 
           foreach( XYZ p in pts )
           {
-            Debug.Assert( Util.IsEqual(
-              p.Z, z, _room_boundary_tolerance ),
+            Debug.Assert(
+              Util.IsEqual( p.Z, z, _tolerance ),
               "expected horizontal room boundary" );
           }
 
@@ -274,10 +294,7 @@ namespace BuildingCoder
     /// List some properties of a given room to the
     /// Visual Studio debug output window.
     /// </summary>
-    void ListRoomData(
-      Room room,
-      bool exportBoundary,
-      bool exportCsv )
+    void ListRoomData( Room room )
     {
       SpatialElementBoundaryOptions opt
         = new SpatialElementBoundaryOptions();
@@ -323,20 +340,13 @@ namespace BuildingCoder
           "expected empty convex hull for undefined lower left corner" );
       }
 
-
-      Debug.Print( string.Format(
-        "Room nr. '{0}' named '{1}' at {2} with "
-        + "lower left corner {3}, "
-        + "boundary points ({4}), convex hull ({5}), "
-        + "bounding box {6} and area {7} sqf has "
-        + "{8} loop{9} and {10} segment{11} in first "
-        + "loop.",
+      Debug.Print( string.Format( _format_string,
         nr, name, Util.PointString( p ), lower_left,
         Util.PointArrayString( boundary_pts ),
         Util.PointArrayString( convex_hull ),
         Util.BoundingBoxString( bb, true ), area,
         nLoops, Util.PluralSuffix( nLoops ),
-        nFirstLoopSegments, Util.PluralSuffix( 
+        nFirstLoopSegments, Util.PluralSuffix(
           nFirstLoopSegments ) ) );
     }
 
@@ -406,11 +416,15 @@ namespace BuildingCoder
       IEnumerable<Element> rooms = collector
         .Where<Element>( e => e is Room );
 
-      foreach( Room room in rooms )
+      if( _exportCsv )
       {
-        ListRoomData( room, _exportBoundary, _exportCsv );
+        Debug.Print( _csv_headers );
       }
 
+      foreach( Room room in rooms )
+      {
+        ListRoomData( room );
+      }
       return Result.Succeeded;
     }
   }
