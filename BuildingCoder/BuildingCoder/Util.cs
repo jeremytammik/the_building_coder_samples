@@ -1033,7 +1033,8 @@ namespace BuildingCoder
     /// Return a string for a list of doubles 
     /// formatted to two decimal places.
     /// </summary>
-    public static string DoubleArrayString( IList<double> a )
+    public static string DoubleArrayString( 
+      IEnumerable<double> a )
     {
       return string.Join( ", ",
         a.Select<double, string>(
@@ -1045,7 +1046,8 @@ namespace BuildingCoder
     /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
-    public static string PointArrayString( IList<UV> pts )
+    public static string PointArrayString( 
+      IEnumerable<UV> pts )
     {
       return string.Join( ", ",
         pts.Select<UV, string>(
@@ -1056,7 +1058,8 @@ namespace BuildingCoder
     /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
-    public static string PointArrayString( IList<XYZ> pts )
+    public static string PointArrayString( 
+      IEnumerable<XYZ> pts )
     {
       return string.Join( ", ",
         pts.Select<XYZ, string>(

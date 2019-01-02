@@ -343,8 +343,8 @@ namespace BuildingCoder
 
       Debug.Print( string.Format( _format_string,
         nr, name, Util.PointString( p ), lower_left,
-        Util.PointArrayString( boundary_pts ),
-        Util.PointArrayString( convex_hull ),
+        Util.PointArrayString( boundary_pts_2d ),
+        Util.PointArrayString( convex_hull_2d ),
         Util.BoundingBoxString( bb, true ), area,
         nLoops, Util.PluralSuffix( nLoops ),
         nFirstLoopSegments, Util.PluralSuffix(

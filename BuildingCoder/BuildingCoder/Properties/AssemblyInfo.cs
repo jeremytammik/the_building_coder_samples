@@ -270,6 +270,7 @@ using System.Runtime.InteropServices;
 // 2019-01-02 2019.0.144.9 implemented CSV export for CmdListAllRooms
 // 2019-01-02 2019.0.144.10 implemented PointArrayString for UV points
 // 2019-01-02 2019.0.144.10 remove Z component from room boundary and convex hull
+// 2019-01-02 2019.0.144.10 add support for IEnumerable when converting list to string
 //
 [assembly: AssemblyVersion( "2019.0.144.10" )]
 [assembly: AssemblyFileVersion( "2019.0.144.10" )]
