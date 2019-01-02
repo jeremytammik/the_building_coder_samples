@@ -346,10 +346,14 @@ namespace BuildingCoder
       string boundary_pts_str = Util.PointArrayString(
         boundary_pts_2d, _exportCsv );
 
+      string bounding_box_str = (null == bb)
+        ? "null" : Util.BoundingBoxString( bb, true );
+
+
       Debug.Print( string.Format( _format_string,
         nr, name, Util.PointString( p ), lower_left,
         boundary_pts_str, convex_hull_str,
-        Util.BoundingBoxString( bb, true ), area,
+        bounding_box_str, area, 
         nLoops, Util.PluralSuffix( nLoops ),
         nFirstLoopSegments, Util.PluralSuffix(
           nFirstLoopSegments ) ) );

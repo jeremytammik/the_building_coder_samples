@@ -933,9 +933,15 @@ namespace BuildingCoder
     /// or vector with its coordinates
     /// formatted to two decimal places.
     /// </summary>
-    public static string PointString( UV p )
+    public static string PointString( 
+      UV p,
+      bool onlySpaceSeparator = false )
     {
-      return string.Format( "({0},{1})",
+      string format_string = onlySpaceSeparator 
+        ? "{0} {1}" 
+        : "({0},{1})";
+
+      return string.Format( format_string,
         RealString( p.U ),
         RealString( p.V ) );
     }
@@ -945,9 +951,15 @@ namespace BuildingCoder
     /// or vector with its coordinates
     /// formatted to two decimal places.
     /// </summary>
-    public static string PointString( XYZ p )
+    public static string PointString( 
+      XYZ p,
+      bool onlySpaceSeparator = false )
     {
-      return string.Format( "({0},{1},{2})",
+      string format_string = onlySpaceSeparator
+        ? "{0} {1} {2}"
+        : "({0},{1},{2})";
+
+      return string.Format( format_string,
         RealString( p.X ),
         RealString( p.Y ),
         RealString( p.Z ) );
@@ -971,11 +983,17 @@ namespace BuildingCoder
     /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
-    public static string BoundingBoxString( BoundingBoxUV bb )
+    public static string BoundingBoxString( 
+      BoundingBoxUV bb,
+      bool onlySpaceSeparator = false )
     {
-      return string.Format( "({0},{1})",
-        PointString( bb.Min ),
-        PointString( bb.Max ) );
+      string format_string = onlySpaceSeparator
+        ? "{0} {1}"
+        : "({0},{1})";
+
+      return string.Format( format_string,
+        PointString( bb.Min, onlySpaceSeparator ),
+        PointString( bb.Max, onlySpaceSeparator ) );
     }
 
     /// <summary>
@@ -983,26 +1001,17 @@ namespace BuildingCoder
     /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
-    public static string BoundingBoxString( BoundingBoxXYZ bb )
-    {
-      return string.Format( "({0},{1})",
-        PointString( bb.Min ),
-        PointString( bb.Max ) );
-    }
-
-    /// <summary>
-    /// Return a string for a bounding box
-    /// which may potentially be null
-    /// with its coordinates formatted to two
-    /// decimal places.
-    /// </summary>
     public static string BoundingBoxString( 
       BoundingBoxXYZ bb,
-      bool allowNull )
+      bool onlySpaceSeparator = false )
     {
-      return null == bb
-        ? "<null>"
-        : Util.BoundingBoxString( bb );
+      string format_string = onlySpaceSeparator
+        ? "{0} {1}"
+        : "({0},{1})";
+
+      return string.Format( format_string,
+        PointString( bb.Min, onlySpaceSeparator ),
+        PointString( bb.Max, onlySpaceSeparator ) );
     }
 
 
@@ -1034,23 +1043,16 @@ namespace BuildingCoder
     /// formatted to two decimal places.
     /// </summary>
     public static string DoubleArrayString( 
-      IEnumerable<double> a )
+      IEnumerable<double> a,
+      bool onlySpaceSeparator = false )
     {
-      return string.Join( ", ",
+      string separator = onlySpaceSeparator
+        ? " "
+        : ", ";
+
+      return string.Join( separator,
         a.Select<double, string>(
           x => RealString( x ) ) );
-    }
-
-    /// <summary>
-    /// Remove all commata and parenthesis separators
-    /// from the strings returned by PointArrayString.
-    /// </summary>
-    private static string ReplaceSeparatorsBySpace( string s )
-    {
-      return s
-        .Replace( "(", "" )
-        .Replace( ")", "" )
-        .Replace( ",", " " );
     }
 
     /// <summary>
@@ -1059,9 +1061,14 @@ namespace BuildingCoder
     /// decimal places.
     /// </summary>
     public static string PointArrayString(
-      IEnumerable<UV> pts )
+      IEnumerable<UV> pts,
+      bool onlySpaceSeparator = false )
     {
-      return string.Join( ", ",
+      string separator = onlySpaceSeparator
+        ? " "
+        : ", ";
+
+      return string.Join( separator,
         pts.Select<UV, string>(
           p => PointString( p ) ) );
     }
@@ -1069,27 +1076,17 @@ namespace BuildingCoder
     /// <summary>
     /// Return a string for this point array
     /// with its coordinates formatted to two
-    /// decimal places with only space separators
-    /// </summary>
-    public static string PointArrayString( 
-      IEnumerable<UV> pts, 
-      bool replaceSeparatorsBySpace )
-    {
-      string s = PointArrayString( pts );
-
-      return replaceSeparatorsBySpace
-        ? ReplaceSeparatorsBySpace( s )
-        : s;
-    }
-    /// <summary>
-    /// Return a string for this point array
-    /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
     public static string PointArrayString( 
-      IEnumerable<XYZ> pts )
+      IEnumerable<XYZ> pts,
+      bool onlySpaceSeparator = false )
     {
-      return string.Join( ", ",
+      string separator = onlySpaceSeparator
+        ? " "
+        : ", ";
+
+      return string.Join( separator,
         pts.Select<XYZ, string>(
           p => PointString( p ) ) );
     }
