@@ -1045,6 +1045,17 @@ namespace BuildingCoder
     /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
+    public static string PointArrayString( IList<UV> pts )
+    {
+      return string.Join( ", ",
+        pts.Select<UV, string>(
+          p => PointString( p ) ) );
+    }
+    /// <summary>
+    /// Return a string for this point array
+    /// with its coordinates formatted to two
+    /// decimal places.
+    /// </summary>
     public static string PointArrayString( IList<XYZ> pts )
     {
       return string.Join( ", ",

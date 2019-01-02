@@ -334,6 +334,13 @@ namespace BuildingCoder
           "expected empty convex hull for undefined lower left corner" );
       }
 
+      IEnumerable<UV> convex_hull_2d = convex_hull
+        .Select<XYZ,UV>( q => new UV( q.X, q.Y ) );
+
+      IEnumerable<UV> boundary_pts_2d = boundary_pts
+        .Select<XYZ, UV>( q => new UV( q.X, q.Y ) );
+
+
       Debug.Print( string.Format( _format_string,
         nr, name, Util.PointString( p ), lower_left,
         Util.PointArrayString( boundary_pts ),

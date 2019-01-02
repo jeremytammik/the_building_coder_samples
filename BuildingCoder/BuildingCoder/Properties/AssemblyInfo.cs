@@ -268,6 +268,8 @@ using System.Runtime.InteropServices;
 // 2019-01-01 2019.0.144.8 cleaned up logging of undefined lower left corner
 // 2019-01-02 2019.0.144.8 add support fo empty list in AddNewPoints, test and cleanup
 // 2019-01-02 2019.0.144.9 implemented CSV export for CmdListAllRooms
+// 2019-01-02 2019.0.144.10 implemented PointArrayString for UV points
+// 2019-01-02 2019.0.144.10 remove Z component from room boundary and convex hull
 //
-[assembly: AssemblyVersion( "2019.0.144.9" )]
-[assembly: AssemblyFileVersion( "2019.0.144.9" )]
+[assembly: AssemblyVersion( "2019.0.144.10" )]
+[assembly: AssemblyFileVersion( "2019.0.144.10" )]
