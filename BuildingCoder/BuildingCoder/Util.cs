@@ -1042,16 +1042,44 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Remove all commata and parenthesis separators
+    /// from the strings returned by PointArrayString.
+    /// </summary>
+    private static string ReplaceSeparatorsBySpace( string s )
+    {
+      return s
+        .Replace( "(", "" )
+        .Replace( ")", "" )
+        .Replace( ",", " " );
+    }
+
+    /// <summary>
     /// Return a string for this point array
     /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
-    public static string PointArrayString( 
+    public static string PointArrayString(
       IEnumerable<UV> pts )
     {
       return string.Join( ", ",
         pts.Select<UV, string>(
           p => PointString( p ) ) );
+    }
+
+    /// <summary>
+    /// Return a string for this point array
+    /// with its coordinates formatted to two
+    /// decimal places with only space separators
+    /// </summary>
+    public static string PointArrayString( 
+      IEnumerable<UV> pts, 
+      bool replaceSeparatorsBySpace )
+    {
+      string s = PointArrayString( pts );
+
+      return replaceSeparatorsBySpace
+        ? ReplaceSeparatorsBySpace( s )
+        : s;
     }
     /// <summary>
     /// Return a string for this point array

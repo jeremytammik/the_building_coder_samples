@@ -51,7 +51,7 @@ namespace BuildingCoder
     /// Export format string
     /// </summary>
     const string _format_string = _exportCsv
-      ? "{0},{1},{2},{3},({4}),({5}),({6}),{7}"
+      ? "{0},{1},{2},{3},{4},{5},({6}),{7}"
       : "Room nr. '{0}' named '{1}' at {2} with "
         + "lower left corner {3}, "
         + "boundary points ({4}), convex hull ({5}), "
@@ -335,16 +335,20 @@ namespace BuildingCoder
       }
 
       IEnumerable<UV> convex_hull_2d = convex_hull
-        .Select<XYZ,UV>( q => new UV( q.X, q.Y ) );
+        .Select<XYZ, UV>( q => new UV( q.X, q.Y ) );
 
       IEnumerable<UV> boundary_pts_2d = boundary_pts
         .Select<XYZ, UV>( q => new UV( q.X, q.Y ) );
 
+      string convex_hull_str = Util.PointArrayString(
+        convex_hull_2d, _exportCsv );
+
+      string boundary_pts_str = Util.PointArrayString(
+        boundary_pts_2d, _exportCsv );
 
       Debug.Print( string.Format( _format_string,
         nr, name, Util.PointString( p ), lower_left,
-        Util.PointArrayString( boundary_pts_2d ),
-        Util.PointArrayString( convex_hull_2d ),
+        boundary_pts_str, convex_hull_str,
         Util.BoundingBoxString( bb, true ), area,
         nLoops, Util.PluralSuffix( nLoops ),
         nFirstLoopSegments, Util.PluralSuffix(
