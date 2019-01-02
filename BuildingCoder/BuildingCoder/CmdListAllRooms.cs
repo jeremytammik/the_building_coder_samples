@@ -348,8 +348,7 @@ namespace BuildingCoder
 
       string bounding_box_str = (null == bb)
         ? "null" : Util.BoundingBoxString( bb, true );
-
-
+      
       Debug.Print( string.Format( _format_string,
         nr, name, Util.PointString( p ), lower_left,
         boundary_pts_str, convex_hull_str,

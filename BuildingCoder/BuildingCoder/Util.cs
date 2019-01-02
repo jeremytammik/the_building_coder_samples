@@ -1069,8 +1069,8 @@ namespace BuildingCoder
         : ", ";
 
       return string.Join( separator,
-        pts.Select<UV, string>(
-          p => PointString( p ) ) );
+        pts.Select<UV, string>( p 
+          => PointString( p, onlySpaceSeparator ) ) );
     }
 
     /// <summary>
@@ -1087,8 +1087,8 @@ namespace BuildingCoder
         : ", ";
 
       return string.Join( separator,
-        pts.Select<XYZ, string>(
-          p => PointString( p ) ) );
+        pts.Select<XYZ, string>( p 
+          => PointString( p, onlySpaceSeparator ) ) );
     }
 
     /// <summary>
