@@ -43,7 +43,7 @@ namespace BuildingCoder
     /// <summary>
     /// Export in millimetres instead of imperial feet?
     /// </summary>
-    const bool _exportInMillimetres = false;
+    const bool _exportInMillimetres = true;
 
     /// <summary>
     /// CSV export headers
