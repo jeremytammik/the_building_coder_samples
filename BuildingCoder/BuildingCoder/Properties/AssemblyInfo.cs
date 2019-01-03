@@ -276,6 +276,7 @@ using System.Runtime.InteropServices;
 // 2019-01-03 2019.0.144.12 implemented IntPoint2d
 // 2019-01-03 2019.0.144.12 implemented onlySpaceSeparator for IntPoint2d
 // 2019-01-03 2019.0.144.13 implemented IntPoint3d
+// 2019-01-03 2019.0.144.14 export room boundaries in millimetres
 //
-[assembly: AssemblyVersion( "2019.0.144.13" )]
-[assembly: AssemblyFileVersion( "2019.0.144.13" )]
+[assembly: AssemblyVersion( "2019.0.144.14" )]
+[assembly: AssemblyFileVersion( "2019.0.144.14" )]

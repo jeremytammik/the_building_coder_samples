@@ -41,6 +41,11 @@ namespace BuildingCoder
     const bool _exportCsv = true;
 
     /// <summary>
+    /// Export in millimetres instead of imperial feet?
+    /// </summary>
+    const bool _exportInMillimetres = false;
+
+    /// <summary>
     /// CSV export headers
     /// </summary>
     const string _csv_headers = "Room nr;Name;Center;"
@@ -321,47 +326,83 @@ namespace BuildingCoder
       List<XYZ> boundary_pts = GetBoundaryPoints(
         boundary );
 
-      double llx = boundary_bounding_box.Min.X;
+      string room_point_str, lower_left_str, 
+        boundary_pts_str, convex_hull_str, 
+        bounding_box_str;
 
-      string lower_left = Util.PointString( 
-        boundary_bounding_box.Min, _exportCsv );
+      double llx = boundary_bounding_box.Min.X;
 
       if( double.MaxValue == llx )
       {
-        lower_left = "undefined";
+        lower_left_str = "undefined";
         Debug.Assert( 0 == boundary_pts.Count,
           "expected empty boundary for undefined lower left corner" );
         Debug.Assert( 0 == convex_hull.Count,
           "expected empty convex hull for undefined lower left corner" );
       }
+      else
+      {
+        lower_left_str = _exportInMillimetres
+          ? new IntPoint3d( boundary_bounding_box.Min )
+            .ToString( _exportCsv )
+          : Util.PointString(
+            boundary_bounding_box.Min, _exportCsv );
+      }
 
-      IEnumerable<UV> convex_hull_2d = convex_hull
-        .Select<XYZ, UV>( q => new UV( q.X, q.Y ) );
+      if(_exportInMillimetres )
+      {
+        room_point_str = new IntPoint3d( p )
+          .ToString( _exportCsv );
 
-      IEnumerable<UV> boundary_pts_2d = boundary_pts
-        .Select<XYZ, UV>( q => new UV( q.X, q.Y ) );
+        string separator = _exportCsv ? " " : ", ";
 
-      string convex_hull_str = Util.PointArrayString(
-        convex_hull_2d, _exportCsv );
+        boundary_pts_str = string.Join( separator,
+          boundary_pts.Select<XYZ, string>( q
+            => new IntPoint2d( q.X, q.Y )
+              .ToString( _exportCsv ) ) );
 
-      string boundary_pts_str = Util.PointArrayString(
-        boundary_pts_2d, _exportCsv );
+        convex_hull_str = string.Join( separator,
+          convex_hull.Select<XYZ, string>( q
+            => new IntPoint2d( q.X, q.Y )
+              .ToString( _exportCsv ) ) );
 
-      string bounding_box_str = (null == bb)
-        ? "null" 
-        : Util.BoundingBoxString( bb, _exportCsv );
+        bounding_box_str = ( null == bb )
+          ? "null"
+          : string.Format( "{0}{1}{2}",
+              new IntPoint3d( bb.Min )
+                .ToString( _exportCsv ),
+              separator,
+              new IntPoint3d( bb.Max )
+                .ToString( _exportCsv ) );
+      }
+      else
+      {
+        room_point_str = Util.PointString( 
+          p, _exportCsv );
 
-      // Convert to millimetres
+        IEnumerable<UV> boundary_pts_2d = boundary_pts
+          .Select<XYZ, UV>( q => new UV( q.X, q.Y ) );
 
+        IEnumerable<UV> convex_hull_2d = convex_hull
+          .Select<XYZ, UV>( q => new UV( q.X, q.Y ) );
 
-      
+        boundary_pts_str = Util.PointArrayString(
+          boundary_pts_2d, _exportCsv );
+
+        convex_hull_str = Util.PointArrayString(
+          convex_hull_2d, _exportCsv );
+
+        bounding_box_str = ( null == bb )
+          ? "null"
+          : Util.BoundingBoxString( bb, _exportCsv );
+      }
+
       Debug.Print( string.Format( _format_string,
-        nr, name, Util.PointString( p, _exportCsv ), 
-        lower_left, boundary_pts_str, convex_hull_str,
-        bounding_box_str, area, 
-        nLoops, Util.PluralSuffix( nLoops ),
-        nFirstLoopSegments, Util.PluralSuffix(
-          nFirstLoopSegments ) ) );
+        nr, name, room_point_str, lower_left_str, 
+        boundary_pts_str, convex_hull_str,
+        bounding_box_str, area, nLoops, 
+        Util.PluralSuffix( nLoops ), nFirstLoopSegments, 
+        Util.PluralSuffix( nFirstLoopSegments ) ) );
     }
 
     public Result Execute(
