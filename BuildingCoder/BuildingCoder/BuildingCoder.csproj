@@ -268,6 +268,7 @@
     <Compile Include="Creator.cs" />
     <Compile Include="CmdElevationWatcher.cs" />
     <Compile Include="IntPoint2d.cs" />
+    <Compile Include="IntPoint3d.cs" />
     <Compile Include="JtElementsOfClassSelectionFilter.cs" />
     <Compile Include="JtNamedGuidStorage.cs" />
     <Compile Include="JtPairPicker.cs" />

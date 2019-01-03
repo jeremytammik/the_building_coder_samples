@@ -275,6 +275,7 @@ using System.Runtime.InteropServices;
 // 2019-01-03 2019.0.144.11 implemented onlySpaceSeparator argument for PointString and PointArrayString
 // 2019-01-03 2019.0.144.12 implemented IntPoint2d
 // 2019-01-03 2019.0.144.12 implemented onlySpaceSeparator for IntPoint2d
+// 2019-01-03 2019.0.144.13 implemented IntPoint3d
 //
-[assembly: AssemblyVersion( "2019.0.144.12" )]
-[assembly: AssemblyFileVersion( "2019.0.144.12" )]
+[assembly: AssemblyVersion( "2019.0.144.13" )]
+[assembly: AssemblyFileVersion( "2019.0.144.13" )]
