@@ -793,6 +793,17 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Convert a given length in feet to millimetres,
+    /// rounded to the closest millimetre.
+    /// </summary>
+    public static int FootToMmInt( double length )
+    {
+      //return (int) ( _feet_to_mm * d + 0.5 );
+      return (int) Math.Round( _footToMm * length,
+        MidpointRounding.AwayFromZero );
+    }
+
+    /// <summary>
     /// Convert a given length in feet to metres.
     /// </summary>
     public static double FootToMetre( double length )

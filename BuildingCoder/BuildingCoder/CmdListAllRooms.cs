@@ -350,6 +350,10 @@ namespace BuildingCoder
       string bounding_box_str = (null == bb)
         ? "null" 
         : Util.BoundingBoxString( bb, _exportCsv );
+
+      // Convert to millimetres
+
+
       
       Debug.Print( string.Format( _format_string,
         nr, name, Util.PointString( p, _exportCsv ), 
