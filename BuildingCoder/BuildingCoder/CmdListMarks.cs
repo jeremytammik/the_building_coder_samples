@@ -2,7 +2,7 @@
 //
 // CmdListMarks.cs - list all door marks
 //
-// Copyright (C) 2009-2018 by Jeremy Tammik,
+// Copyright (C) 2009-2019 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

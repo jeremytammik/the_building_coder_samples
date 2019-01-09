@@ -2,7 +2,7 @@
 //
 // CmdWallOpeningProfiles.cs - determine and display all wall opening face edges including elevation profile lines
 //
-// Copyright (C) 2015-2018 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2015-2019 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

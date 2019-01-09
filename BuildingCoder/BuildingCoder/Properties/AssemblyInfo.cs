@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Autodesk, Inc." )]
 [assembly: AssemblyProduct( "BuildingCoder" )]
-[assembly: AssemblyCopyright( "Copyright © 2008-2018 by Jeremy Tammik, Autodesk, Inc." )]
+[assembly: AssemblyCopyright( "Copyright © 2008-2019 by Jeremy Tammik, Autodesk, Inc." )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -277,6 +277,7 @@ using System.Runtime.InteropServices;
 // 2019-01-03 2019.0.144.12 implemented onlySpaceSeparator for IntPoint2d
 // 2019-01-03 2019.0.144.13 implemented IntPoint3d
 // 2019-01-03 2019.0.144.14 export room boundaries in millimetres
+// 2019-01-09 2019.0.144.15 update copyright year to 2019
 //
-[assembly: AssemblyVersion( "2019.0.144.14" )]
-[assembly: AssemblyFileVersion( "2019.0.144.14" )]
+[assembly: AssemblyVersion( "2019.0.144.15" )]
+[assembly: AssemblyFileVersion( "2019.0.144.15" )]

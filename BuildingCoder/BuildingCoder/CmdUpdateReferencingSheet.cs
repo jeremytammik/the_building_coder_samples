@@ -2,7 +2,7 @@
 //
 // CmdUpdateReferencingSheet.cs - update 'Referencing Sheet' parameter displayed in section view header
 //
-// Copyright (C) 2010-2018 by Jeremy Tammik,
+// Copyright (C) 2010-2019 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

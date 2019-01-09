@@ -2,7 +2,7 @@
 //
 // CmdCreateLineStyle.cs - create a new line style using NewSubcategory
 //
-// Copyright (C) 2016-2018 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2016-2019 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

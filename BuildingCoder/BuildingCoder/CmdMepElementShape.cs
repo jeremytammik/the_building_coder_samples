@@ -2,7 +2,7 @@
 //
 // CmdMepElementShape.cs - determine element shape, i.e. MEP element cross section
 //
-// Copyright (C) 2011-2018 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2011-2019 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //
