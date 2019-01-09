@@ -2,7 +2,7 @@
 //
 // CmdFailureGatherer.cs - gather and show warning messages with IFailuresPreprocessor
 //
-// Copyright (C) 2018 by Mastjaso and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2018-2019 by Mastjaso and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

@@ -2,7 +2,7 @@
 //
 // CmdFlowMismatch.cs - check MEP systems for flow mismatch and unconnected parts
 //
-// Copyright (C) 2018 Jared @wils02 Wilson and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2018-2019 by Jared @wils02 Wilson and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //
