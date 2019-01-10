@@ -155,7 +155,12 @@ namespace BuildingCoder
               ductHeight = d.get_Parameter( bipHeight ) 
                 ?? d.get_Parameter( bipDiameter );
 
-              ductHeight.Set( updatedHeight );
+              double oldHeight = ductHeight.AsDouble();
+
+              if( !Util.IsEqual( oldHeight, updatedHeight ) )
+              {
+                ductHeight.Set( updatedHeight );
+              }
             }
           }
 
@@ -190,7 +195,7 @@ namespace BuildingCoder
 
           taskDialog.CommonButtons = buttons;
 
-          if( 0 < i && TaskDialogResult.Ok == taskDialog.Show() )
+          if( TaskDialogResult.Ok == taskDialog.Show() && 0 < i )
           {
             // For many various reasons, a transaction may not be committed
             // if the changes made during the transaction do not result a valid model.
