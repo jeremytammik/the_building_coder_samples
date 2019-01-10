@@ -27,7 +27,7 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdDuctResize : IExternalCommand
   {
-    const BuiltInParameter bipDiameter 
+    const BuiltInParameter bipDiameter
       = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
 
     const BuiltInParameter bipHeight
@@ -49,13 +49,13 @@ namespace BuildingCoder
 
       double updatedHeight = 0;
 
-      FilteredElementCollector ductCollector 
+      FilteredElementCollector ductCollector
         = new FilteredElementCollector( doc )
           .OfClass( typeof( Duct ) );
 
       using( Transaction transaction = new Transaction( doc ) )
       {
-        if( transaction.Start( "Resize Ducts for Taps" ) 
+        if( transaction.Start( "Resize Ducts for Taps" )
           == TransactionStatus.Started )
         {
           int i = 0;
@@ -93,7 +93,7 @@ namespace BuildingCoder
                     {
                       cnnctrDim = cd.Radius * 2.0;
                     }
-                    if( shapeType.Equals( "Rectangular" ) 
+                    if( shapeType.Equals( "Rectangular" )
                       || shapeType.Equals( "Oval" ) )
                     {
                       cnnctrDim = cd.Height;
@@ -116,10 +116,10 @@ namespace BuildingCoder
               {
                 if( largestConnector >= d.Height )
                 {
-                  updatedHeight = largestConnector 
+                  updatedHeight = largestConnector
                     + twoInches;
 
-                  ++i;
+                  //++i;
                 }
                 else
                 {
@@ -130,10 +130,10 @@ namespace BuildingCoder
               {
                 if( largestConnector >= d.Diameter )
                 {
-                  updatedHeight = largestConnector 
+                  updatedHeight = largestConnector
                     + twoInches;
 
-                  ++i;
+                  //++i;
                 }
                 else
                 {
@@ -152,31 +152,34 @@ namespace BuildingCoder
               //  ductHeight.Set( updatedHeight );
               //}
 
-              ductHeight = d.get_Parameter( bipHeight ) 
+              ductHeight = d.get_Parameter( bipHeight )
                 ?? d.get_Parameter( bipDiameter );
 
               double oldHeight = ductHeight.AsDouble();
 
-              if(!Util.IsEqual(oldHeight,updatedHeight))
-              { 
-              ductHeight.Set( updatedHeight );
-                }
+              if( !Util.IsEqual( oldHeight, updatedHeight ) )
+              {
+                ductHeight.Set( updatedHeight );
+
+                ++i;
+              }
             }
           }
 
           // Ask the end user whether the 
           // changes are to be committed or not
 
-          TaskDialog taskDialog = new TaskDialog( 
+          TaskDialog taskDialog = new TaskDialog(
             "Resize Ducts" );
 
           TaskDialogCommonButtons buttons;
 
           if( 0 < i )
           {
-            int n = ( ductCollector as ICollection<Element> ).Count;
-            taskDialog.MainContent = i + " out of " 
-              + n.ToString() + " ducts will be re-sized"
+            int n = ductCollector.GetElementCount();
+
+            taskDialog.MainContent = i + " out of "
+              + n.ToString() + " ducts will be re-sized."
               + "\n\nClick [OK] to Commit or [Cancel] "
               + "to Roll back the transaction.";
 
@@ -185,10 +188,8 @@ namespace BuildingCoder
           }
           else
           {
-            taskDialog.MainContent 
-              = "None of the ducts need to be re-sized"
-              + "\n\nClick [OK] to Commit or [Cancel] "
-              + "to Roll back the transaction.";
+            taskDialog.MainContent
+              = "None of the ducts need to be re-sized.";
 
             buttons = TaskDialogCommonButtons.Ok;
           }
@@ -204,7 +205,7 @@ namespace BuildingCoder
 
             if( TransactionStatus.Committed != transaction.Commit() )
             {
-              TaskDialog.Show( "Failure", 
+              TaskDialog.Show( "Failure",
                 "Transaction could not be committed" );
             }
           }
