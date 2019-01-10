@@ -27,140 +27,37 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdDuctResize : IExternalCommand
   {
-    public double adjDuctSize( Duct A )
-    {
-      double ductBSize = 0.0;
-
-      ConnectorSet dctAconnectors = A.ConnectorManager.Connectors;
-
-      foreach( Connector aCnntr in dctAconnectors )
-      {
-
-        string cnnctrType = aCnntr.ConnectorType.ToString();
-        if( cnnctrType.Equals( "End" ) )
-        {
-          ConnectorSet cnntrs = aCnntr.AllRefs;
-
-          foreach( Connector c in cnntrs )
-          {
-            FamilyInstance fi = c.Owner as FamilyInstance;
-
-            if( fi != null )
-            {
-              MechanicalFitting mf = fi.MEPModel as MechanicalFitting;
-
-              if( mf != null )
-              {
-                string mfPrtType = mf.PartType.ToString();
-
-                if( mfPrtType.Equals( "Transition" ) )
-                {
-                  ConnectorSet mfCS = mf.ConnectorManager.Connectors;
-
-                  foreach( Connector d in mfCS )
-                  {
-                    ConnectorSet dCS = d.AllRefs;
-
-                    bool flag1 = false;
-
-                    foreach( Connector dC in dCS )
-                    {
-                      Duct myduct = dC.Owner as Duct;
-
-                      flag1 = ( myduct != null );
-                    }
-
-                    foreach( Connector dC in dCS )
-                    {
-                      Duct myduct = dC.Owner as Duct;
-
-                      if( myduct != null )
-                      {
-
-                        string sysName = d.DuctSystemType.ToString();
-                        string direction = d.Direction.ToString();
-
-                        if( direction.Equals( "In" ) && sysName.Equals( "SupplyAir" ) )
-                        {
-                          if( flag1 )
-                          {
-                            TaskDialog.Show( "Debug", A.Id.ToString() );
-                            try
-                            {
-                              ductBSize = d.Radius * 2.0;
-                            }
-                            catch
-                            {
-                              ductBSize = d.Height;
-                            }
-                            return ductBSize;
-                          }
-                        }
-                        if( direction.Equals( "Out" ) && sysName.Equals( "ReturnAir" ) )
-                        {
-                          if( flag1 )
-                          {
-                            TaskDialog.Show( "Debug", A.Id.ToString() );
-                            try
-                            {
-                              ductBSize = d.Radius * 2.0;
-                            }
-                            catch
-                            {
-                              ductBSize = d.Height;
-                            }
-                            return ductBSize;
-                          }
-                        }
-                        else
-                        {
-                          // do nothing
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            else
-            {
-              // do nothing
-            }
-          }
-        }
-        else
-        {
-          // do nothing since we are only interested in "End" connectors
-        }
-      }
-      return ductBSize;
-    }
-
     /// <summary>
     /// Resize ducts to ensure that branch ducts are no 
     /// larger than the main duct they are tapping into.
     /// </summary>
-    void DuctResize( Document doc )
+    /// 
+    public void DuctResize()
     {
-      BuiltInParameter crvCharLength 
-        = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
+      /**
+			// Use these lines for document-level macros or external commands
+			UIApplication uiApp = commandData.Application;
+			UIDocument uiDoc = uiApp.ActiveUIDocument;
+			Document doc = uiDoc.Document;
+			/**/
 
+      /**/
+      // Use these lines for application-level macros
+      UIDocument uidoc = this.ActiveUIDocument;
+      Document doc = uidoc.Document;
+      /**/
+
+      BuiltInParameter crvCharLength = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
       Parameter ductHeight;
-
       double updatedHeight = 0;
+      double twoInches = UnitUtils.Convert( 2.0, DisplayUnitType.DUT_DECIMAL_INCHES, DisplayUnitType.DUT_DECIMAL_FEET );
 
-      double twoInches = UnitUtils.Convert( 2.0, 
-        DisplayUnitType.DUT_DECIMAL_INCHES, 
-        DisplayUnitType.DUT_DECIMAL_FEET );
-
-      FilteredElementCollector ductCollector 
-        = new FilteredElementCollector( doc )
-          .OfClass( typeof( Duct ) );
+      FilteredElementCollector ductCollector = new FilteredElementCollector( doc )
+        .OfClass( typeof( Duct ) );
 
       using( Transaction transaction = new Transaction( doc ) )
       {
-        if( transaction.Start( "Resize Ducts for Taps" ) 
-          == TransactionStatus.Started )
+        if( transaction.Start( "Resize Ducts for Taps" ) == TransactionStatus.Started )
         {
           int i = 0;
           foreach( Duct d in ductCollector )
@@ -169,30 +66,29 @@ namespace BuildingCoder
             double previous = 0.0;
             double cnnctrDim = 0.0;
 
-            ConnectorSet dctCnnctrs 
-              = d.ConnectorManager.Connectors;
+            ConnectorSet dctCnnctrs = d.ConnectorManager.Connectors;
 
             int nDCs = dctCnnctrs.Size;
-
             if( nDCs < 3 )
             {
               // do nothing
             }
             else
             {
-              double mysize = adjDuctSize( d );
 
               foreach( Connector c in dctCnnctrs )
               {
                 if( c.ConnectorType.ToString().Equals( "End" ) )
                 {
-                  // Do nothing, ignore the end connectors
+                  //Do nothing because I am not interested in the "End" Connectors
                 }
                 else
                 {
+
                   ConnectorSet taps = c.AllRefs;
                   foreach( Connector cd in taps )
                   {
+
                     ConnectorProfileType cShape = cd.Shape;
                     string shapeType = cShape.ToString();
 
@@ -200,8 +96,7 @@ namespace BuildingCoder
                     {
                       cnnctrDim = cd.Radius * 2.0;
                     }
-                    if( shapeType.Equals( "Rectangular" ) 
-                      || shapeType.Equals( "Oval" ) )
+                    if( shapeType.Equals( "Rectangular" ) || shapeType.Equals( "Oval" ) )
                     {
                       cnnctrDim = cd.Height;
                     }
@@ -223,10 +118,8 @@ namespace BuildingCoder
               {
                 if( largestConnector >= d.Height )
                 {
-                  updatedHeight = largestConnector 
-                    + twoInches;
-
-                  ++i;
+                  updatedHeight = largestConnector + twoInches;
+                  i++;
                 }
                 else
                 {
@@ -237,27 +130,12 @@ namespace BuildingCoder
               {
                 if( largestConnector >= d.Diameter )
                 {
-                  updatedHeight = largestConnector 
-                    + twoInches;
-
-                  ++i;
+                  updatedHeight = largestConnector + twoInches;
+                  i++;
                 }
                 else
                 {
-                  // do nothing
-                }
-              }
-
-              if( mysize != 0 )
-              {
-                if( largestConnector 
-                  < ( mysize - twoInches ) )
-                {
-                  // do nothing, you are good
-                }
-                else
-                {
-                  updatedHeight = mysize;
+                  updatedHeight = d.Diameter;
                 }
               }
 
@@ -266,42 +144,32 @@ namespace BuildingCoder
                 crvCharLength = BuiltInParameter.RBS_CURVE_HEIGHT_PARAM;
                 ductHeight = d.get_Parameter( crvCharLength );
                 ductHeight.Set( updatedHeight );
+
               }
               catch( NullReferenceException )
               {
                 crvCharLength = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
                 ductHeight = d.get_Parameter( crvCharLength );
                 ductHeight.Set( updatedHeight );
+
               }
             }
+
           }
 
-          // Ask the end user whether the changes 
-          // are to be committed or not
-
-          TaskDialog taskDialog = new TaskDialog( 
-            "Duct Resize" );
-
+          // Ask the end user whether the changes are to be committed or not
+          TaskDialog taskDialog = new TaskDialog( "Revit" );
           if( i > 0 )
           {
-            int n = ( ductCollector as ICollection<Element> ).Count;
-
-            taskDialog.MainContent = i + " out of " 
-              + n.ToString() + " ducts will be re-sized"
-              + "\n\nClick [OK] to Commit or [Cancel] "
-              + "to Roll back the transaction.";
+            taskDialog.MainContent = i + " out of " + ductCollector.Count().ToString() + " ducts will be re-sized"
+            + "\n\n" + "Click either [OK] to Commit, or [Cancel] to Roll back the transaction.";
           }
           else
           {
-            taskDialog.MainContent 
-              = "None of the ducts need to be re-sized"
-              + "\n\nClick [OK] to Commit or [Cancel] "
-              + "to Roll back the transaction.";
+            taskDialog.MainContent = "None of the ducts need to be re-sized"
+            + "\n\n" + "Click either [OK] to Commit, or [Cancel] to Roll back the transaction.";
           }
-          TaskDialogCommonButtons buttons 
-            = TaskDialogCommonButtons.Ok
-              | TaskDialogCommonButtons.Cancel;
-
+          TaskDialogCommonButtons buttons = TaskDialogCommonButtons.Ok | TaskDialogCommonButtons.Cancel;
           taskDialog.CommonButtons = buttons;
 
           if( TaskDialogResult.Ok == taskDialog.Show() )
@@ -310,12 +178,9 @@ namespace BuildingCoder
             // if the changes made during the transaction do not result a valid model.
             // If committing a transaction fails or is canceled by the end user,
             // the resulting status would be RolledBack instead of Committed.
-
-            if( TransactionStatus.Committed 
-              != transaction.Commit() )
+            if( TransactionStatus.Committed != transaction.Commit() )
             {
-              TaskDialog.Show( "Failure", 
-                "Transaction could not be committed" );
+              TaskDialog.Show( "Failure", "Transaction could not be committed" );
             }
           }
           else
@@ -324,8 +189,8 @@ namespace BuildingCoder
           }
         }
       }
-    }
 
+    }
 
     public Result Execute(
       ExternalCommandData commandData,

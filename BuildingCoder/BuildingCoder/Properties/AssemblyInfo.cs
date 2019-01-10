@@ -280,6 +280,7 @@ using System.Runtime.InteropServices;
 // 2019-01-09 2019.0.144.15 update copyright year to 2019
 // 2019-01-10 2019.0.145.0 implemented CmdDuctResize for https://forums.autodesk.com/t5/revit-api-forum/find-all-ducts-that-have-been-tapped-into/m-p/8485269
 // 2019-01-10 2019.0.145.0 fixed compilation error
+// 2019-01-10 2019.0.145.0 replaced DuctResize with second version by jared in https://forums.autodesk.com/t5/revit-api-forum/find-all-ducts-that-have-been-tapped-into/m-p/8485269
 //
 [assembly: AssemblyVersion( "2019.0.145.0" )]
 [assembly: AssemblyFileVersion( "2019.0.145.0" )]
