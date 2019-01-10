@@ -162,14 +162,21 @@ namespace BuildingCoder
           // Ask the end user whether the 
           // changes are to be committed or not
 
-          TaskDialog taskDialog = new TaskDialog( "Revit" );
-          if( i > 0 )
+          TaskDialog taskDialog = new TaskDialog( 
+            "Resize Ducts" );
+
+          TaskDialogCommonButtons buttons;
+
+          if( 0 < i )
           {
             int n = ( ductCollector as ICollection<Element> ).Count;
             taskDialog.MainContent = i + " out of " 
               + n.ToString() + " ducts will be re-sized"
               + "\n\nClick [OK] to Commit or [Cancel] "
               + "to Roll back the transaction.";
+
+            buttons = TaskDialogCommonButtons.Ok
+              | TaskDialogCommonButtons.Cancel;
           }
           else
           {
@@ -177,29 +184,32 @@ namespace BuildingCoder
               = "None of the ducts need to be re-sized"
               + "\n\nClick [OK] to Commit or [Cancel] "
               + "to Roll back the transaction.";
+
+            buttons = TaskDialogCommonButtons.Ok;
           }
-          TaskDialogCommonButtons buttons 
-            = TaskDialogCommonButtons.Ok 
-              | TaskDialogCommonButtons.Cancel;
 
           taskDialog.CommonButtons = buttons;
 
-          if( TaskDialogResult.Ok == taskDialog.Show() )
+          if( 0 < i && TaskDialogResult.Ok == taskDialog.Show() )
           {
             // For many various reasons, a transaction may not be committed
             // if the changes made during the transaction do not result a valid model.
             // If committing a transaction fails or is canceled by the end user,
             // the resulting status would be RolledBack instead of Committed.
+
             if( TransactionStatus.Committed != transaction.Commit() )
             {
               TaskDialog.Show( "Failure", 
                 "Transaction could not be committed" );
             }
           }
-          else
-          {
-            transaction.RollBack();
-          }
+
+          // No need to roll back, just do not call Commit
+
+          //else
+          //{
+          //  transaction.RollBack();
+          //}
         }
       }
     }
