@@ -32,21 +32,8 @@ namespace BuildingCoder
     /// larger than the main duct they are tapping into.
     /// </summary>
     /// 
-    public void DuctResize()
+    public void DuctResize( Document doc )
     {
-      /**
-			// Use these lines for document-level macros or external commands
-			UIApplication uiApp = commandData.Application;
-			UIDocument uiDoc = uiApp.ActiveUIDocument;
-			Document doc = uiDoc.Document;
-			/**/
-
-      /**/
-      // Use these lines for application-level macros
-      UIDocument uidoc = this.ActiveUIDocument;
-      Document doc = uidoc.Document;
-      /**/
-
       BuiltInParameter crvCharLength = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
       Parameter ductHeight;
       double updatedHeight = 0;
@@ -161,7 +148,8 @@ namespace BuildingCoder
           TaskDialog taskDialog = new TaskDialog( "Revit" );
           if( i > 0 )
           {
-            taskDialog.MainContent = i + " out of " + ductCollector.Count().ToString() + " ducts will be re-sized"
+            int n = ( ductCollector as ICollection<Element> ).Count;
+            taskDialog.MainContent = i + " out of " + n.ToString() + " ducts will be re-sized"
             + "\n\n" + "Click either [OK] to Commit, or [Cancel] to Roll back the transaction.";
           }
           else
