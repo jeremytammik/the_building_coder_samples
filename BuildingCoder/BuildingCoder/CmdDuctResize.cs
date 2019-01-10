@@ -40,15 +40,37 @@ namespace BuildingCoder
     const double twoInches = 1.0 / 6.0; // two twelfths of a foot is a sixth
 
     /// <summary>
+    /// Return dimension for this duct:
+    /// diameter if round, else height.
+    /// </summary>
+    static double GetDuctDim( Duct d )
+    {
+      ConnectorProfileType shape = d.DuctType.Shape;
+
+      return ConnectorProfileType.Round == shape
+        ? d.Diameter
+        : d.Height;
+    }
+
+    /// <summary>
+    /// Return dimension for this connector:
+    /// diameter if round, else height.
+    /// </summary>
+    static double GetConnectorDim( Connector c )
+    {
+      ConnectorProfileType shape = c.Shape;
+
+      return ConnectorProfileType.Round == shape
+        ? 2 * c.Radius
+        : c.Height;
+    }
+
+    /// <summary>
     /// Resize ducts to ensure that branch ducts are no 
     /// larger than the main duct they are tapping into.
     /// </summary>
     void DuctResize( Document doc )
     {
-      Parameter ductHeight;
-
-      double updatedHeight = 0;
-
       FilteredElementCollector ductCollector
         = new FilteredElementCollector( doc )
           .OfClass( typeof( Duct ) );
@@ -61,10 +83,6 @@ namespace BuildingCoder
           int i = 0;
           foreach( Duct d in ductCollector )
           {
-            double largestConnector = 0.0;
-            double previous = 0.0;
-            double cnnctrDim = 0.0;
-
             ConnectorSet dctCnnctrs = d.ConnectorManager.Connectors;
 
             int nDCs = dctCnnctrs.Size;
@@ -74,6 +92,9 @@ namespace BuildingCoder
             }
             else
             {
+              double ductDim = GetDuctDim( d );
+              double largestConnector = 0.0;
+
               foreach( Connector c in dctCnnctrs )
               {
                 if( c.ConnectorType.ToString().Equals( "End" ) )
@@ -84,84 +105,43 @@ namespace BuildingCoder
                 else
                 {
                   ConnectorSet taps = c.AllRefs;
+
+                  double maxTapDim = 0.0;
+
                   foreach( Connector cd in taps )
                   {
-                    ConnectorProfileType cShape = cd.Shape;
-                    string shapeType = cShape.ToString();
+                    double tapDim = GetConnectorDim( cd );
 
-                    if( shapeType.Equals( "Round" ) )
+                    if( maxTapDim < tapDim )
                     {
-                      cnnctrDim = cd.Radius * 2.0;
-                    }
-                    if( shapeType.Equals( "Rectangular" )
-                      || shapeType.Equals( "Oval" ) )
-                    {
-                      cnnctrDim = cd.Height;
+                      maxTapDim = tapDim;
                     }
                   }
 
-                  if( cnnctrDim >= previous )
+                  if( largestConnector < maxTapDim )
                   {
-                    largestConnector = cnnctrDim;
-                    previous = largestConnector;
-                  }
-                  else
-                  {
-                    largestConnector = previous;
+                    largestConnector = maxTapDim;
                   }
                 }
               }
 
-              try
+              if( largestConnector > ductDim )
               {
-                if( largestConnector >= d.Height )
+                double updatedHeight = largestConnector
+                  + twoInches;
+
+                Parameter ductHeight 
+                  = d.get_Parameter( bipHeight )
+                  ?? d.get_Parameter( bipDiameter );
+
+                double oldHeight = ductHeight.AsDouble();
+
+                if( !Util.IsEqual( oldHeight, updatedHeight ) )
                 {
-                  updatedHeight = largestConnector
-                    + twoInches;
+                  ductHeight.Set( updatedHeight );
 
-                  //++i;
+                  ++i;
                 }
-                else
-                {
-                  updatedHeight = d.Height;
-                }
-              }
-              catch
-              {
-                if( largestConnector >= d.Diameter )
-                {
-                  updatedHeight = largestConnector
-                    + twoInches;
-
-                  //++i;
-                }
-                else
-                {
-                  updatedHeight = d.Diameter;
-                }
-              }
-
-              //try
-              //{
-              //  ductHeight = d.get_Parameter( bipHeight );
-              //  ductHeight.Set( updatedHeight );
-              //}
-              //catch( NullReferenceException )
-              //{
-              //  ductHeight = d.get_Parameter( bipDiameter );
-              //  ductHeight.Set( updatedHeight );
-              //}
-
-              ductHeight = d.get_Parameter( bipHeight )
-                ?? d.get_Parameter( bipDiameter );
-
-              double oldHeight = ductHeight.AsDouble();
-
-              if( !Util.IsEqual( oldHeight, updatedHeight ) )
-              {
-                ductHeight.Set( updatedHeight );
-
-                ++i;
               }
             }
           }
