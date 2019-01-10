@@ -279,6 +279,7 @@ using System.Runtime.InteropServices;
 // 2019-01-03 2019.0.144.14 export room boundaries in millimetres
 // 2019-01-09 2019.0.144.15 update copyright year to 2019
 // 2019-01-10 2019.0.145.0 implemented CmdDuctResize for https://forums.autodesk.com/t5/revit-api-forum/find-all-ducts-that-have-been-tapped-into/m-p/8485269
+// 2019-01-10 2019.0.145.0 fixed compilation error 
 //
 [assembly: AssemblyVersion( "2019.0.145.0" )]
 [assembly: AssemblyFileVersion( "2019.0.145.0" )]

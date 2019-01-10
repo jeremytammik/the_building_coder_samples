@@ -282,7 +282,9 @@ namespace BuildingCoder
           TaskDialog taskDialog = new TaskDialog( "Revit" );
           if( i > 0 )
           {
-            taskDialog.MainContent = i + " out of " + ductCollector.Count().ToString() + " ducts will be re-sized"
+            ICollection<Element> c = ductCollector as ICollection<Element>;
+            int n = c.Count;
+            taskDialog.MainContent = i + " out of " + n.ToString() + " ducts will be re-sized"
               + "\n\n" + "Click either [OK] to Commit, or [Cancel] to Roll back the transaction.";
           }
           else
