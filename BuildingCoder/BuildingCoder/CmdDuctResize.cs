@@ -195,7 +195,7 @@ namespace BuildingCoder
 
           taskDialog.CommonButtons = buttons;
 
-          if( 0 < i && TaskDialogResult.Ok == taskDialog.Show() )
+          if( TaskDialogResult.Ok == taskDialog.Show() && 0 < i )
           {
             // For many various reasons, a transaction may not be committed
             // if the changes made during the transaction do not result a valid model.
