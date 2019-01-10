@@ -281,6 +281,9 @@ using System.Runtime.InteropServices;
 // 2019-01-10 2019.0.145.0 implemented CmdDuctResize for https://forums.autodesk.com/t5/revit-api-forum/find-all-ducts-that-have-been-tapped-into/m-p/8485269
 // 2019-01-10 2019.0.145.0 fixed compilation error
 // 2019-01-10 2019.0.145.0 replaced DuctResize with second version by jared in https://forums.autodesk.com/t5/revit-api-forum/find-all-ducts-that-have-been-tapped-into/m-p/8485269
+// 2019-01-10 2019.0.145.1 replace DuctResize by second version from Jared
+// 2019-01-10 2019.0.145.2 check for null instead of exception, no rollback required, ask only if needed
+// 2019-01-10 2019.0.145.3 only set updated height if it differs from old, show results dialogue when nothing was changed, use GetElementCount and only count really modified ducts, successfully tested
 //
-[assembly: AssemblyVersion( "2019.0.145.0" )]
-[assembly: AssemblyFileVersion( "2019.0.145.0" )]
+[assembly: AssemblyVersion( "2019.0.145.3" )]
+[assembly: AssemblyFileVersion( "2019.0.145.3" )]
