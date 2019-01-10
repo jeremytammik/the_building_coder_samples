@@ -31,20 +31,27 @@ namespace BuildingCoder
     /// Resize ducts to ensure that branch ducts are no 
     /// larger than the main duct they are tapping into.
     /// </summary>
-    /// 
     public void DuctResize( Document doc )
     {
-      BuiltInParameter crvCharLength = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
-      Parameter ductHeight;
-      double updatedHeight = 0;
-      double twoInches = UnitUtils.Convert( 2.0, DisplayUnitType.DUT_DECIMAL_INCHES, DisplayUnitType.DUT_DECIMAL_FEET );
+      BuiltInParameter crvCharLength 
+        = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
 
-      FilteredElementCollector ductCollector = new FilteredElementCollector( doc )
-        .OfClass( typeof( Duct ) );
+      Parameter ductHeight;
+
+      double updatedHeight = 0;
+
+      double twoInches = UnitUtils.Convert( 2.0,
+        DisplayUnitType.DUT_DECIMAL_INCHES, 
+        DisplayUnitType.DUT_DECIMAL_FEET );
+
+      FilteredElementCollector ductCollector 
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( Duct ) );
 
       using( Transaction transaction = new Transaction( doc ) )
       {
-        if( transaction.Start( "Resize Ducts for Taps" ) == TransactionStatus.Started )
+        if( transaction.Start( "Resize Ducts for Taps" ) 
+          == TransactionStatus.Started )
         {
           int i = 0;
           foreach( Duct d in ductCollector )
@@ -62,7 +69,6 @@ namespace BuildingCoder
             }
             else
             {
-
               foreach( Connector c in dctCnnctrs )
               {
                 if( c.ConnectorType.ToString().Equals( "End" ) )
@@ -71,11 +77,9 @@ namespace BuildingCoder
                 }
                 else
                 {
-
                   ConnectorSet taps = c.AllRefs;
                   foreach( Connector cd in taps )
                   {
-
                     ConnectorProfileType cShape = cd.Shape;
                     string shapeType = cShape.ToString();
 
@@ -131,33 +135,39 @@ namespace BuildingCoder
                 crvCharLength = BuiltInParameter.RBS_CURVE_HEIGHT_PARAM;
                 ductHeight = d.get_Parameter( crvCharLength );
                 ductHeight.Set( updatedHeight );
-
               }
               catch( NullReferenceException )
               {
                 crvCharLength = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
                 ductHeight = d.get_Parameter( crvCharLength );
                 ductHeight.Set( updatedHeight );
-
               }
             }
-
           }
 
-          // Ask the end user whether the changes are to be committed or not
+          // Ask the end user whether the 
+          // changes are to be committed or not
+
           TaskDialog taskDialog = new TaskDialog( "Revit" );
           if( i > 0 )
           {
             int n = ( ductCollector as ICollection<Element> ).Count;
-            taskDialog.MainContent = i + " out of " + n.ToString() + " ducts will be re-sized"
-            + "\n\n" + "Click either [OK] to Commit, or [Cancel] to Roll back the transaction.";
+            taskDialog.MainContent = i + " out of " 
+              + n.ToString() + " ducts will be re-sized"
+              + "\n\nClick [OK] to Commit or [Cancel] "
+              + "to Roll back the transaction.";
           }
           else
           {
-            taskDialog.MainContent = "None of the ducts need to be re-sized"
-            + "\n\n" + "Click either [OK] to Commit, or [Cancel] to Roll back the transaction.";
+            taskDialog.MainContent 
+              = "None of the ducts need to be re-sized"
+              + "\n\nClick [OK] to Commit or [Cancel] "
+              + "to Roll back the transaction.";
           }
-          TaskDialogCommonButtons buttons = TaskDialogCommonButtons.Ok | TaskDialogCommonButtons.Cancel;
+          TaskDialogCommonButtons buttons 
+            = TaskDialogCommonButtons.Ok 
+              | TaskDialogCommonButtons.Cancel;
+
           taskDialog.CommonButtons = buttons;
 
           if( TaskDialogResult.Ok == taskDialog.Show() )
@@ -168,7 +178,8 @@ namespace BuildingCoder
             // the resulting status would be RolledBack instead of Committed.
             if( TransactionStatus.Committed != transaction.Commit() )
             {
-              TaskDialog.Show( "Failure", "Transaction could not be committed" );
+              TaskDialog.Show( "Failure", 
+                "Transaction could not be committed" );
             }
           }
           else
@@ -177,7 +188,6 @@ namespace BuildingCoder
           }
         }
       }
-
     }
 
     public Result Execute(
