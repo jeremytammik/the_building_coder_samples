@@ -27,22 +27,27 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdDuctResize : IExternalCommand
   {
+    const BuiltInParameter bipDiameter 
+      = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
+
+    const BuiltInParameter bipHeight
+       = BuiltInParameter.RBS_CURVE_HEIGHT_PARAM;
+
+    //double twoInches = UnitUtils.Convert( 2.0,
+    //  DisplayUnitType.DUT_DECIMAL_INCHES,
+    //  DisplayUnitType.DUT_DECIMAL_FEET );
+
+    const double twoInches = 1.0 / 6.0; // two twelfths of a foot is a sixth
+
     /// <summary>
     /// Resize ducts to ensure that branch ducts are no 
     /// larger than the main duct they are tapping into.
     /// </summary>
-    public void DuctResize( Document doc )
+    void DuctResize( Document doc )
     {
-      BuiltInParameter crvCharLength 
-        = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
-
       Parameter ductHeight;
 
       double updatedHeight = 0;
-
-      double twoInches = UnitUtils.Convert( 2.0,
-        DisplayUnitType.DUT_DECIMAL_INCHES, 
-        DisplayUnitType.DUT_DECIMAL_FEET );
 
       FilteredElementCollector ductCollector 
         = new FilteredElementCollector( doc )
@@ -73,7 +78,8 @@ namespace BuildingCoder
               {
                 if( c.ConnectorType.ToString().Equals( "End" ) )
                 {
-                  //Do nothing because I am not interested in the "End" Connectors
+                  // Do nothing because I am not 
+                  // interested in the "End" Connectors
                 }
                 else
                 {
@@ -87,7 +93,8 @@ namespace BuildingCoder
                     {
                       cnnctrDim = cd.Radius * 2.0;
                     }
-                    if( shapeType.Equals( "Rectangular" ) || shapeType.Equals( "Oval" ) )
+                    if( shapeType.Equals( "Rectangular" ) 
+                      || shapeType.Equals( "Oval" ) )
                     {
                       cnnctrDim = cd.Height;
                     }
@@ -109,8 +116,10 @@ namespace BuildingCoder
               {
                 if( largestConnector >= d.Height )
                 {
-                  updatedHeight = largestConnector + twoInches;
-                  i++;
+                  updatedHeight = largestConnector 
+                    + twoInches;
+
+                  ++i;
                 }
                 else
                 {
@@ -121,8 +130,10 @@ namespace BuildingCoder
               {
                 if( largestConnector >= d.Diameter )
                 {
-                  updatedHeight = largestConnector + twoInches;
-                  i++;
+                  updatedHeight = largestConnector 
+                    + twoInches;
+
+                  ++i;
                 }
                 else
                 {
@@ -130,18 +141,21 @@ namespace BuildingCoder
                 }
               }
 
-              try
-              {
-                crvCharLength = BuiltInParameter.RBS_CURVE_HEIGHT_PARAM;
-                ductHeight = d.get_Parameter( crvCharLength );
-                ductHeight.Set( updatedHeight );
-              }
-              catch( NullReferenceException )
-              {
-                crvCharLength = BuiltInParameter.RBS_CURVE_DIAMETER_PARAM;
-                ductHeight = d.get_Parameter( crvCharLength );
-                ductHeight.Set( updatedHeight );
-              }
+              //try
+              //{
+              //  ductHeight = d.get_Parameter( bipHeight );
+              //  ductHeight.Set( updatedHeight );
+              //}
+              //catch( NullReferenceException )
+              //{
+              //  ductHeight = d.get_Parameter( bipDiameter );
+              //  ductHeight.Set( updatedHeight );
+              //}
+
+              ductHeight = d.get_Parameter( bipHeight ) 
+                ?? d.get_Parameter( bipDiameter );
+
+              ductHeight.Set( updatedHeight );
             }
           }
 
