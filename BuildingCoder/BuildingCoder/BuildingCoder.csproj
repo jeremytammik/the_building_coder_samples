@@ -132,6 +132,7 @@
     <Compile Include="CmdDimensionWallsIterateFaces.cs" />
     <Compile Include="CmdDisallowJoin.cs" />
     <Compile Include="CmdDocumentVersion.cs" />
+    <Compile Include="CmdDuctResize.cs" />
     <Compile Include="CmdDuplicateElements.cs" />
     <Compile Include="CmdDutAbbreviation.cs" />
     <Compile Include="CmdEllipticalArc.cs" />

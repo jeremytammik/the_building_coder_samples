@@ -1223,4 +1223,12 @@ Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdMultistoryStairSubelements # version 2018.0.144.0
 
+ADN Bc A-I
+Duct Resize
+Ensure that branch ducts are no larger than the main duct they are tapping into
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdDuctResize # version 2018.0.145.0
+
 
