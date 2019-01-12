@@ -44,13 +44,15 @@ namespace BuildingCoder
     /// diameter if round, else height.
     /// </summary>
     static double GetDuctDim( Duct d )
-    {
-      ConnectorProfileType shape = d.DuctType.Shape;
-
-      return ConnectorProfileType.Round == shape
-        ? d.Diameter
-        : d.Height;
-    }
+		{
+			double? ductD = d.Diameter;
+			if (ductD == null) {
+				return d.Height;
+			}
+			else {
+				return d.Diameter;
+			}
+		}
 
     /// <summary>
     /// Return dimension for this connector:
