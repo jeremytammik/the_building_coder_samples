@@ -285,6 +285,7 @@ using System.Runtime.InteropServices;
 // 2019-01-10 2019.0.145.2 check for null instead of exception, no rollback required, ask only if needed
 // 2019-01-10 2019.0.145.3 only set updated height if it differs from old, show results dialogue when nothing was changed, use GetElementCount and only count really modified ducts, successfully tested
 // 2019-01-10 2019.0.145.4 rebuilt duct size retrieval logic from scratch and eliminated catch-all exception handler
+// 2019-01-14 2019.0.145.5 implemented GetDuctShape
 //
-[assembly: AssemblyVersion( "2019.0.145.4" )]
-[assembly: AssemblyFileVersion( "2019.0.145.4" )]
+[assembly: AssemblyVersion( "2019.0.145.5" )]
+[assembly: AssemblyFileVersion( "2019.0.145.5" )]

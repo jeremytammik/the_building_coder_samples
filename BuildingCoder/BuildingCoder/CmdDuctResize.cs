@@ -40,13 +40,62 @@ namespace BuildingCoder
     const double twoInches = 1.0 / 6.0; // two twelfths of a foot is a sixth
 
     /// <summary>
+    /// Return shape of this duct, retrieved 
+    /// from its first or first two connectors.
+    /// </summary>
+    static ConnectorProfileType GetDuctShape( Duct d )
+    {
+      // According to Jared, DuctType.Shape is unreliable:
+
+      //ConnectorProfileType shape = d.DuctType.Shape;
+
+      Debug.Assert( null != d.ConnectorManager, 
+        "expected a valid connector manager on a duct" );
+
+      ConnectorSet cons = d.ConnectorManager.Connectors;
+
+      Debug.Assert( null != cons, 
+        "expected valid connectors on a duct" );
+
+      Debug.Assert( 2 <= cons.Size, 
+        "expected at least two connectors on a duct" );
+
+      ConnectorProfileType shape
+        = ConnectorProfileType.Invalid;
+
+      foreach( Connector c in cons )
+      {
+
+#if DEBUG
+        if( ConnectorProfileType.Invalid != shape )
+        {
+          Debug.Assert( shape == c.Shape,
+              "expected same shape on first two duct connectors" );
+          break;
+        }
+#endif // DEBUG
+
+        shape = c.Shape;
+
+        Debug.Assert( ConnectorProfileType.Invalid != shape,
+          "expected valid shape on first two duct connectors" );
+
+#if !DEBUG
+        break;
+#endif // DEBUG
+
+      }
+      return shape;
+    }
+
+    /// <summary>
     /// Return dimension for this duct:
     /// diameter if round, else height.
     /// </summary>
-    static double GetDuctDim( Duct d )
+    static double GetDuctDim( 
+      Duct d,
+      ConnectorProfileType shape )
     {
-      ConnectorProfileType shape = d.DuctType.Shape;
-
       return ConnectorProfileType.Round == shape
         ? d.Diameter
         : d.Height;
@@ -83,6 +132,7 @@ namespace BuildingCoder
           int i = 0;
           foreach( Duct d in ductCollector )
           {
+            ConnectorProfileType shape = GetDuctShape( d );
             ConnectorSet dctCnnctrs = d.ConnectorManager.Connectors;
 
             int nDCs = dctCnnctrs.Size;
@@ -92,7 +142,8 @@ namespace BuildingCoder
             }
             else
             {
-              double ductDim = GetDuctDim( d );
+              double ductDim = GetDuctDim( d, shape );
+
               double largestConnector = 0.0;
 
               foreach( Connector c in dctCnnctrs )
@@ -129,6 +180,9 @@ namespace BuildingCoder
               {
                 double updatedHeight = largestConnector
                   + twoInches;
+
+                // Use duct shape vaiable here instead of 
+                // checking parameter for null?
 
                 Parameter ductHeight 
                   = d.get_Parameter( bipHeight )
