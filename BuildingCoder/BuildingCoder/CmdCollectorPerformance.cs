@@ -1445,7 +1445,7 @@ TaskDialog.Show( "Revit", collector.Count() +
     /// <param name="links">Linked documents</param>
     /// <param name="ids">Return intersecting element ids</param>
     /// <returns>Number of intersecting elements found</returns>
-    int GetIntersectingLinkedElementIds( 
+    int GetIntersectingLinkedElementIds(
       Element e,
       IList<RevitLinkInstance> links,
       List<ElementId> ids )
@@ -1456,15 +1456,15 @@ TaskDialog.Show( "Revit", collector.Count() +
       foreach( RevitLinkInstance i in links )
       {
         Transform transform = i.GetTransform(); // GetTransform or GetTotalTransform or what?
-        if( !transform.AlmostEqual( Transform.Identity) )
+        if( !transform.AlmostEqual( Transform.Identity ) )
         {
-          solid = SolidUtils.CreateTransformed( 
+          solid = SolidUtils.CreateTransformed(
             solid, transform.Inverse );
         }
-        ElementIntersectsSolidFilter filter 
+        ElementIntersectsSolidFilter filter
           = new ElementIntersectsSolidFilter( solid );
 
-        FilteredElementCollector intersecting 
+        FilteredElementCollector intersecting
           = new FilteredElementCollector( i.GetLinkDocument() )
             .WherePasses( filter );
 
@@ -2438,23 +2438,23 @@ TaskDialog.Show( "Revit", collector.Count() +
       foreach( Element e in els )
       {
         Category cat = e.Category;
-        ElementId idTyp = e.GetTypeId();
-        ElementId idCat = ( null == cat ) 
+
+        ElementId idCat = ( null == cat )
           ? ElementId.InvalidElementId
           : e.Category.Id;
 
-        if( null != idCat && null != idTyp )
+        ElementId idTyp = e.GetTypeId()
+          ?? ElementId.InvalidElementId;
+
+        if( !map.ContainsKey( idCat ) )
         {
-          if( !map.ContainsKey( idCat ) )
-          {
-            map.Add( idCat, new Dictionary<ElementId, int>() );
-          }
-          if( !map[idCat].ContainsKey( idTyp ) )
-          {
-            map[idCat].Add( idTyp, 0 );
-          }
-          ++map[idCat][idTyp];
+          map.Add( idCat, new Dictionary<ElementId, int>() );
         }
+        if( !map[idCat].ContainsKey( idTyp ) )
+        {
+          map[idCat].Add( idTyp, 0 );
+        }
+        ++map[idCat][idTyp];
       }
 
       List<ElementId> idsCat = new List<ElementId>( map.Keys );
@@ -2468,6 +2468,7 @@ TaskDialog.Show( "Revit", collector.Count() +
         idsTyp.Sort();
         n = idsTyp.Count;
         Debug.Print( "  {0} type{1}:", n, Util.PluralSuffix( n ) );
+
         foreach( ElementId id2 in idsTyp )
         {
           n = map[id][id2];
