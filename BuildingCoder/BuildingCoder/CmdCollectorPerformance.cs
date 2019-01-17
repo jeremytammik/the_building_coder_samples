@@ -2419,6 +2419,62 @@ TaskDialog.Show( "Revit", collector.Count() +
     }
     #endregion // Retrieve Family Instances Satisfying Filter Rule
 
+    #region Determine element count for each type of each category
+    /// <summary>
+    /// Determine element count for each type of each category
+    /// </summary>
+    void GetCountPerTypePerCategory( Document doc )
+    {
+      FilteredElementCollector els
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType();
+
+      // Map category id to dictionary mapping
+      // type id to element count
+
+      Dictionary<ElementId, Dictionary<ElementId, int>> map
+        = new Dictionary<ElementId, Dictionary<ElementId, int>>();
+
+      foreach( Element e in els )
+      {
+        Category cat = e.Category;
+        ElementId idCat = ( null != cat ) ? e.Category.Id : null;
+        ElementId idTyp = e.GetTypeId();
+
+        if( null != idCat && null != idTyp && ElementId.InvalidElementId != idTyp )
+        {
+          if( !map.ContainsKey( idCat ) )
+          {
+            map.Add( idCat, new Dictionary<ElementId, int>() );
+          }
+          if( !map[idCat].ContainsKey( idTyp ) )
+          {
+            map[idCat].Add( idTyp, 0 );
+          }
+          ++map[idCat][idTyp];
+        }
+      }
+
+      List<ElementId> idsCat = new List<ElementId>( map.Keys );
+      idsCat.Sort();
+      int n = idsCat.Count;
+      Debug.Print( "{0} categor{1}:", n, Util.PluralSuffixY( n ) );
+
+      foreach( ElementId id in idsCat )
+      {
+        List<ElementId> idsTyp = new List<ElementId>( map[id].Keys );
+        idsTyp.Sort();
+        n = idsTyp.Count;
+        Debug.Print( "  {0} type{1}:", n, Util.PluralSuffix( n ) );
+        foreach( ElementId id2 in idsTyp )
+        {
+          n = map[id][id2];
+          Debug.Print( "    {0} element{1}:", n, Util.PluralSuffix( n ) );
+        }
+      }
+    }
+    #endregion // Get count of all elements of each type of each category
+
     void RunBenchmark()
     {
       // Create a number of levels for us to play with:

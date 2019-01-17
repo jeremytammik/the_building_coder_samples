@@ -286,6 +286,7 @@ using System.Runtime.InteropServices;
 // 2019-01-10 2019.0.145.3 only set updated height if it differs from old, show results dialogue when nothing was changed, use GetElementCount and only count really modified ducts, successfully tested
 // 2019-01-10 2019.0.145.4 rebuilt duct size retrieval logic from scratch and eliminated catch-all exception handler
 // 2019-01-14 2019.0.145.5 implemented GetDuctShape
+// 2019-01-17 2019.0.145.6 implemented GetCountPerTypePerCategory for https://forums.autodesk.com/t5/revit-api-forum/alternate-to-slow-filter/td-p/8528704
 //
-[assembly: AssemblyVersion( "2019.0.145.5" )]
-[assembly: AssemblyFileVersion( "2019.0.145.5" )]
+[assembly: AssemblyVersion( "2019.0.145.6" )]
+[assembly: AssemblyFileVersion( "2019.0.145.6" )]
