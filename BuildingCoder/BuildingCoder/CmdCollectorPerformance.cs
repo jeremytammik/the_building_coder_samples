@@ -2439,13 +2439,11 @@ TaskDialog.Show( "Revit", collector.Count() +
       {
         Category cat = e.Category;
         ElementId idTyp = e.GetTypeId();
-        ElementId idCat = ( null != cat ) 
-          ? e.Category.Id 
-          : null;
+        ElementId idCat = ( null == cat ) 
+          ? ElementId.InvalidElementId
+          : e.Category.Id;
 
-        if( null != idCat 
-          && null != idTyp 
-          && ElementId.InvalidElementId != idTyp )
+        if( null != idCat && null != idTyp )
         {
           if( !map.ContainsKey( idCat ) )
           {
