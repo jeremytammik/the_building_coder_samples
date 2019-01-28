@@ -464,9 +464,9 @@ namespace BuildingCoder
       //  .OfClass( typeof( SpatialElement ) )
       //  .OfType<Room>();
 
-      FilteredElementCollector collector
-        = new FilteredElementCollector( doc )
-          .OfClass( typeof( SpatialElement ) );
+        FilteredElementCollector collector
+          = new FilteredElementCollector( doc )
+            .OfClass( typeof( SpatialElement ) );
 
       IEnumerable<Element> rooms = collector
         .Where<Element>( e => e is Room );
