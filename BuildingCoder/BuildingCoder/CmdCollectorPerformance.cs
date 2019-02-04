@@ -1254,6 +1254,37 @@ namespace BuildingCoder
     }
     #endregion // Retrieve openings in wall
 
+    #region Retrieve ducst and pipes intersecting wall
+    /// <summary>
+    /// Retrieve ducts and pipes intersecting a given wall.
+    /// </summary>
+    FilteredElementCollector GetWallMepClashes( Wall wall )
+    {
+      Document doc = wall.Document;
+
+      var cats = new List<BuiltInCategory>
+      {
+        BuiltInCategory.OST_DuctCurves,
+        BuiltInCategory.OST_PipeCurves
+      };
+
+      var mepfilter = new ElementMulticategoryFilter( cats );
+
+      BoundingBoxXYZ bb = wall.get_BoundingBox( null );
+      Outline o = new Outline( bb.Min, bb.Max );
+
+      var bbfilter = new BoundingBoxIsInsideFilter( o );
+
+      var clashingElements 
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .WherePasses( mepfilter )
+          .WherePasses( bbfilter );
+
+      return clashingElements;
+    }
+    #endregion // Retrieve openings in wall
+
     #region Retrieve all edges in model
     void RetrieveEdges(
       Document doc,
