@@ -288,6 +288,7 @@ using System.Runtime.InteropServices;
 // 2019-01-14 2019.0.145.5 implemented GetDuctShape
 // 2019-01-17 2019.0.145.6 implemented GetCountPerTypePerCategory for https://forums.autodesk.com/t5/revit-api-forum/alternate-to-slow-filter/td-p/8528704
 // 2019-02-04 2019.0.145.7 implemented GetWallMepClashes for https://forums.autodesk.com/t5/revit-api-forum/aborting-long-running-elementintersectselementfilter/m-p/8566911
+// 2019-02-14 2019.0.145.8 added CreateSweepWithMultipleLoops from https://forums.autodesk.com/t5/revit-api-forum/how-to-create-a-sweep-with-multiple-closed-loops-in-profile/m-p/8477617 
 //
-[assembly: AssemblyVersion( "2019.0.145.7" )]
-[assembly: AssemblyFileVersion( "2019.0.145.7" )]
+[assembly: AssemblyVersion( "2019.0.145.8" )]
+[assembly: AssemblyFileVersion( "2019.0.145.8" )]

@@ -22,6 +22,65 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdNewSweptBlend : IExternalCommand
   {
+    #region Create sweep with multiple loops
+    /// <summary>
+    /// Create sweep with multiple loops, for
+    /// https://forums.autodesk.com/t5/revit-api-forum/how-to-create-a-sweep-with-multiple-closed-loops-in-profile/m-p/8477617
+    /// </summary>
+    public Sweep CreateSweepWithMultipleLoops(
+      Document doc )
+    {
+      CurveArray path = new CurveArray();
+      path.Append( Line.CreateBound( new XYZ( 0, 0, 0 ), new XYZ( 0, 5, 0 ) ) );
+
+      XYZ p1 = new XYZ( 0, 0, 0 );
+      XYZ p2 = new XYZ( 10, 0, 0 );
+      XYZ p3 = new XYZ( 10, 15, 0 );
+      XYZ p4 = new XYZ( 0, 15, 0 );
+      XYZ a1 = new XYZ( 1, 5, 0 );
+      XYZ a2 = new XYZ( 3, 5, 0 );
+      XYZ a3 = new XYZ( 3, 10, 0 );
+      XYZ a4 = new XYZ( 1, 10, 0 );
+      XYZ b1 = new XYZ( 5, 5, 0 );
+      XYZ b2 = new XYZ( 7, 5, 0 );
+      XYZ b3 = new XYZ( 7, 10, 0 );
+      XYZ b4 = new XYZ( 5, 10, 0 );
+
+      Sweep sweep = null;
+      CurveArrArray arrcurve = new CurveArrArray();
+      CurveArray curve = new CurveArray();
+      curve.Append( Line.CreateBound( p1, p2 ) );
+      curve.Append( Line.CreateBound( p2, p3 ) );
+      curve.Append( Line.CreateBound( p3, p4 ) );
+      curve.Append( Line.CreateBound( p4, p1 ) );
+      //curve.Append(Line.CreateBound(a1, a2));
+      //curve.Append(Line.CreateBound(a2, a3));
+      //curve.Append(Line.CreateBound(a3, a4));
+      //curve.Append(Line.CreateBound(a4, a1));
+      curve.Append( Line.CreateBound( a1, a4 ) );
+      curve.Append( Line.CreateBound( a4, a3 ) );
+      curve.Append( Line.CreateBound( a3, a2 ) );
+      curve.Append( Line.CreateBound( a2, a1 ) );
+      //curve.Append(Line.CreateBound(b1, b2));
+      //curve.Append(Line.CreateBound(b2, b3));
+      //curve.Append(Line.CreateBound(b3, b4));
+      //curve.Append(Line.CreateBound(b4, b1));
+      curve.Append( Line.CreateBound( b1, b4 ) );
+      curve.Append( Line.CreateBound( b4, b3 ) );
+      curve.Append( Line.CreateBound( b3, b2 ) );
+      curve.Append( Line.CreateBound( b2, b1 ) );
+
+      arrcurve.Append( curve );
+      Application app = doc.Application;
+      SweepProfile profile = app.Create.NewCurveLoopsProfile( arrcurve );
+      Plane plane = Plane.CreateByNormalAndOrigin( XYZ.BasisZ, XYZ.Zero );
+      SketchPlane sketchPlane = SketchPlane.Create( doc, plane );
+      sweep = doc.FamilyCreate.NewSweep( true, path, sketchPlane, 
+        profile, 0, ProfilePlaneLocation.Start );
+      return sweep;
+    }
+    #endregion // Create sweep with multiple loops
+
     /// <summary>
     /// Create a sketch plane. This helper method is
     /// copied from the GenericModelCreation SDK sample.
