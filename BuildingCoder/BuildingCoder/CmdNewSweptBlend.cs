@@ -30,8 +30,15 @@ namespace BuildingCoder
     public Sweep CreateSweepWithMultipleLoops(
       Document doc )
     {
+      // Extrusion path
+
       CurveArray path = new CurveArray();
-      path.Append( Line.CreateBound( new XYZ( 0, 0, 0 ), new XYZ( 0, 5, 0 ) ) );
+
+      path.Append( Line.CreateBound( XYZ.Zero, 
+        new XYZ( 0, 5, 0 ) ) );
+
+      // Profile vertices: rectangle with two
+      // rectangular holes
 
       XYZ p1 = new XYZ( 0, 0, 0 );
       XYZ p2 = new XYZ( 10, 0, 0 );
@@ -46,37 +53,41 @@ namespace BuildingCoder
       XYZ b3 = new XYZ( 7, 10, 0 );
       XYZ b4 = new XYZ( 5, 10, 0 );
 
-      Sweep sweep = null;
       CurveArrArray arrcurve = new CurveArrArray();
       CurveArray curve = new CurveArray();
       curve.Append( Line.CreateBound( p1, p2 ) );
       curve.Append( Line.CreateBound( p2, p3 ) );
       curve.Append( Line.CreateBound( p3, p4 ) );
       curve.Append( Line.CreateBound( p4, p1 ) );
-      //curve.Append(Line.CreateBound(a1, a2));
-      //curve.Append(Line.CreateBound(a2, a3));
-      //curve.Append(Line.CreateBound(a3, a4));
-      //curve.Append(Line.CreateBound(a4, a1));
+      arrcurve.Append( curve );
+      curve = new CurveArray();
       curve.Append( Line.CreateBound( a1, a4 ) );
       curve.Append( Line.CreateBound( a4, a3 ) );
       curve.Append( Line.CreateBound( a3, a2 ) );
       curve.Append( Line.CreateBound( a2, a1 ) );
-      //curve.Append(Line.CreateBound(b1, b2));
-      //curve.Append(Line.CreateBound(b2, b3));
-      //curve.Append(Line.CreateBound(b3, b4));
-      //curve.Append(Line.CreateBound(b4, b1));
+      arrcurve.Append( curve );
+      curve = new CurveArray();
       curve.Append( Line.CreateBound( b1, b4 ) );
       curve.Append( Line.CreateBound( b4, b3 ) );
       curve.Append( Line.CreateBound( b3, b2 ) );
       curve.Append( Line.CreateBound( b2, b1 ) );
-
       arrcurve.Append( curve );
+
       Application app = doc.Application;
-      SweepProfile profile = app.Create.NewCurveLoopsProfile( arrcurve );
-      Plane plane = Plane.CreateByNormalAndOrigin( XYZ.BasisZ, XYZ.Zero );
-      SketchPlane sketchPlane = SketchPlane.Create( doc, plane );
-      sweep = doc.FamilyCreate.NewSweep( true, path, sketchPlane, 
-        profile, 0, ProfilePlaneLocation.Start );
+
+      SweepProfile profile = app.Create
+        .NewCurveLoopsProfile( arrcurve );
+
+      Plane plane = Plane.CreateByNormalAndOrigin( 
+        XYZ.BasisZ, XYZ.Zero );
+
+      SketchPlane sketchPlane = SketchPlane.Create( 
+        doc, plane );
+
+      Sweep sweep = doc.FamilyCreate.NewSweep( true, 
+        path, sketchPlane, profile, 0, 
+        ProfilePlaneLocation.Start );
+
       return sweep;
     }
     #endregion // Create sweep with multiple loops
@@ -319,7 +330,7 @@ namespace BuildingCoder
 
           CreateNewSweptBlend( doc );
           CreateNewSweptBlendArc( doc );
-
+          CreateSweepWithMultipleLoops( doc );
           tx.Commit();
 
           return Result.Succeeded;
