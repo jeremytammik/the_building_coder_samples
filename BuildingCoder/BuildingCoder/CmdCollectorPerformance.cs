@@ -1306,6 +1306,8 @@ namespace BuildingCoder
 
     #region Retrieve pipes belonging to specific system type
     /// <summary>
+    /// Retrieve all pipes belonging to 
+    /// a given pipe system type, cf.
     /// https://forums.autodesk.com/t5/revit-api-forum/filteredelementcollector-by-pipe-system-types/m-p/8620113
     /// </summary>
     FilteredElementCollector GetPipesForSystemType(
