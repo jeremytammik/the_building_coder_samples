@@ -1158,6 +1158,31 @@ namespace BuildingCoder
         .Where( x => x.FamilyName.Equals( familyName ) ) // family
         .FirstOrDefault( x => x.Name == typeName ); // family type
     }
+
+  /// <summary>
+  /// Predicate returning true for the desired title
+  /// block type and false for all others.
+  /// </summary>
+  bool IsCorrectTitleBlock( Element e )
+  {
+    return false;
+  }
+
+  ElementId GetSpecificTitleBlockType( Document doc )
+  {
+    // Create a filter to get a specific title block type:
+
+    Element title_block_type
+      = new FilteredElementCollector( doc )
+        .OfCategory( BuiltInCategory.OST_TitleBlocks )
+        .WhereElementIsElementType()
+        .FirstOrDefault<Element>( e 
+          => IsCorrectTitleBlock( e ) );
+
+    // Use null-conditional Elvis operator:
+
+    return title_block_type?.Id;
+  }
     #endregion // Return first title block family symbol of specific named family and type
 
     #region Retrieve named family symbols using either LINQ or a parameter filter

@@ -290,6 +290,7 @@ using System.Runtime.InteropServices;
 // 2019-02-04 2019.0.145.7 implemented GetWallMepClashes for https://forums.autodesk.com/t5/revit-api-forum/aborting-long-running-elementintersectselementfilter/m-p/8566911
 // 2019-02-14 2019.0.145.8 added CreateSweepWithMultipleLoops from https://forums.autodesk.com/t5/revit-api-forum/how-to-create-a-sweep-with-multiple-closed-loops-in-profile/m-p/8477617 
 // 2019-02-26 2019.0.145.9 added GetPipesForSystemType from https://forums.autodesk.com/t5/revit-api-forum/filteredelementcollector-by-pipe-system-types/m-p/8620113
+// 2019-02-26 2019.0.145.10 implemented GetSpecificTitleBlockType for https://forums.autodesk.com/t5/revit-api-forum/insert-specific-title-block/m-p/8621988
 //
-[assembly: AssemblyVersion( "2019.0.145.9" )]
-[assembly: AssemblyFileVersion( "2019.0.145.9" )]
+[assembly: AssemblyVersion( "2019.0.145.10" )]
+[assembly: AssemblyFileVersion( "2019.0.145.10" )]
