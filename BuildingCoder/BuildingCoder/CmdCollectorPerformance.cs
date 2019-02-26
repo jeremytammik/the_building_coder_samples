@@ -1308,8 +1308,6 @@ namespace BuildingCoder
     /// <summary>
     /// https://forums.autodesk.com/t5/revit-api-forum/filteredelementcollector-by-pipe-system-types/m-p/8620113
     /// </summary>
-    /// <param name="doc"></param>
-    /// <param name="curves"></param>
     FilteredElementCollector GetPipesForSystemType(
       Document doc,
       string system_name )
