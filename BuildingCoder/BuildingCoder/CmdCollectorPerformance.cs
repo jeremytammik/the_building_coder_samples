@@ -719,6 +719,25 @@ namespace BuildingCoder
     #endregion // Retrieve all rooms on a given level
 
     #region Filter for concrete ramps
+    /// <summary>
+    /// Retrieve all ramps
+    /// </summary>
+    void f_ramps( Document doc )
+    {
+      FilteredElementCollector collector
+        = new FilteredElementCollector( doc )
+          .OfCategory( BuiltInCategory.OST_Ramps )
+          .WhereElementIsNotElementType();
+
+      foreach( Element e in collector )
+      {
+        Debug.Print( e.GetType().Name );
+      }
+    }
+
+    /// <summary>
+    /// Retrieve all concrete ramps
+    /// </summary>
     IEnumerable<Element> findConcreteRamps( Document doc )
     {
       return new FilteredElementCollector( doc )
@@ -1571,21 +1590,6 @@ TaskDialog.Show( "Revit", collector.Count() +
       return collector.WherePasses( filter );
     }
     #endregion // Retrieve stairs on level
-
-    #region Filter for ramps
-    void f_ramps( Document doc )
-    {
-      FilteredElementCollector collector
-        = new FilteredElementCollector( doc )
-          .OfCategory( BuiltInCategory.OST_Ramps )
-          .WhereElementIsNotElementType();
-
-      foreach( Element e in collector )
-      {
-        Debug.Print( e.GetType().Name );
-      }
-    }
-    #endregion // Filter for ramps
 
     #region More parameter filter samples
     // 383_param_filter.htm
