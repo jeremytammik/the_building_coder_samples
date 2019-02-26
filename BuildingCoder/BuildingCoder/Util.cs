@@ -780,9 +780,8 @@ namespace BuildingCoder
     const double _inchToMm = 25.4;
     const double _footToMm = 12 * _inchToMm;
     const double _footToMeter = _footToMm * 0.001;
-
-    const double _cubicFootToCubicMeter
-      = _footToMeter * _footToMeter * _footToMeter;
+    const double _sqfToSqm = _footToMeter * _footToMeter;
+    const double _cubicFootToCubicMeter = _footToMeter * _sqfToSqm;
 
     /// <summary>
     /// Convert a given length in feet to millimetres.
