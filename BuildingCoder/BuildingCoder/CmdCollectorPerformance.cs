@@ -1304,6 +1304,43 @@ namespace BuildingCoder
     }
     #endregion // Retrieve ducts and pipes intersecting wall
 
+    #region Retrieve pipes belonging to specific system type
+    /// <summary>
+    /// https://forums.autodesk.com/t5/revit-api-forum/filteredelementcollector-by-pipe-system-types/m-p/8620113
+    /// </summary>
+    /// <param name="doc"></param>
+    /// <param name="curves"></param>
+    FilteredElementCollector GetPipesForSystemType(
+      Document doc,
+      string system_name )
+    {
+      FilteredElementCollector fec
+        = new FilteredElementCollector( doc );
+
+      // Identify the parameter to be filtered by
+      ParameterValueProvider pvp
+        = new ParameterValueProvider( new ElementId(
+          BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM ) );
+
+      // Set string evaluator so that it equals string
+      FilterStringRuleEvaluator fsre = new FilterStringEquals();
+
+      //Create a filter rule where string value equals system_name
+      FilterRule fr = new FilterStringRule(
+        pvp, fsre, system_name, true );
+
+      // Create Filter
+      ElementParameterFilter epf
+        = new ElementParameterFilter( fr );
+
+      // Apply filter to filtered element collector
+      fec = fec.WherePasses( epf );
+
+      return fec;
+    }
+
+    #endregion // Retrieve pipes belonging to specific system type
+
     #region Retrieve all edges in model
     void RetrieveEdges(
       Document doc,
