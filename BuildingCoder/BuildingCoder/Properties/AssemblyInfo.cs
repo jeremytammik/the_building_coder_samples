@@ -291,6 +291,7 @@ using System.Runtime.InteropServices;
 // 2019-02-14 2019.0.145.8 added CreateSweepWithMultipleLoops from https://forums.autodesk.com/t5/revit-api-forum/how-to-create-a-sweep-with-multiple-closed-loops-in-profile/m-p/8477617 
 // 2019-02-26 2019.0.145.9 added GetPipesForSystemType from https://forums.autodesk.com/t5/revit-api-forum/filteredelementcollector-by-pipe-system-types/m-p/8620113
 // 2019-02-26 2019.0.145.10 implemented GetSpecificTitleBlockType for https://forums.autodesk.com/t5/revit-api-forum/insert-specific-title-block/m-p/8621988
+// 2019-03-02 2019.0.145.11 eliminated all deprecated API calls to achieve zero compilation warnings
 //
-[assembly: AssemblyVersion( "2019.0.145.10" )]
-[assembly: AssemblyFileVersion( "2019.0.145.10" )]
+[assembly: AssemblyVersion( "2019.0.145.11" )]
+[assembly: AssemblyFileVersion( "2019.0.145.11" )]
