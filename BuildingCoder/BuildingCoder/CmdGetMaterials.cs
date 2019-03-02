@@ -73,7 +73,8 @@ namespace BuildingCoder
         int size = asset.Size;
         for( int assetIdx = 0; assetIdx < size; assetIdx++ )
         {
-          AssetProperty aProperty = asset[assetIdx];
+          //AssetProperty aProperty = asset[assetIdx]; // 2018
+          AssetProperty aProperty = asset.Get( assetIdx ); // 2019
 
           if( aProperty.NumberOfConnectedProperties < 1 )
             continue;
@@ -96,8 +97,12 @@ namespace BuildingCoder
             // you can still reference the string name 
             // instead: "unifiedbitmap_Bitmap"
 
-            AssetPropertyString path = connectedAsset[
-              UnifiedBitmap.UnifiedbitmapBitmap] 
+            //AssetPropertyString path = connectedAsset[ // 2018
+            //  UnifiedBitmap.UnifiedbitmapBitmap]
+            //    as AssetPropertyString;
+
+            AssetPropertyString path = connectedAsset // 2019
+              .FindByName( UnifiedBitmap.UnifiedbitmapBitmap )
                 as AssetPropertyString;
 
             // This will be a relative path to the 
@@ -410,7 +415,8 @@ namespace BuildingCoder
                 int size = asset.Size;
                 for( int i = 0; i < size; i++ )
                 {
-                  AssetProperty subproperty = asset[i];
+                  //AssetProperty subproperty = asset[i]; // 2018
+                  AssetProperty subproperty = asset.Get( i ); // 2019
                   Tuple<Type, Object> valueAndType = GetTypeAndValue( subproperty, level + 1 );
                   String indent = "";
                   if( level > 0 )
@@ -651,7 +657,9 @@ namespace BuildingCoder
         //It means that each AssetProperty will be a property of Asset
         for( int index = 0; index < m_asset.Size; index++ )
         {
-          AssetProperty assetProperty = m_asset[index];
+          //AssetProperty assetProperty = m_asset[index]; // 2018
+          AssetProperty assetProperty = m_asset.Get( index ); // 2019
+
           if( null != assetProperty )
           {
             AssetPropertyPropertyDescriptor assetPropertyPropertyDescriptor = new AssetPropertyPropertyDescriptor( assetProperty );
@@ -734,8 +742,12 @@ namespace BuildingCoder
       foreach( Asset asset in assets )
       {
         String libraryName = asset.LibraryName;
-        AssetPropertyString uiname = asset["UIName"] as AssetPropertyString;
-        AssetPropertyString baseSchema = asset["BaseSchema"] as AssetPropertyString;
+
+        //AssetPropertyString uiname = asset["UIName"] as AssetPropertyString; // 2018
+        AssetPropertyString uiname = asset.FindByName( "UIName" ) as AssetPropertyString; // 2019
+
+        //AssetPropertyString baseSchema = asset["BaseSchema"] as AssetPropertyString; // 2018
+        AssetPropertyString baseSchema = asset.FindByName( "BaseSchema" ) as AssetPropertyString; // 2019
 
         assetLabel += libraryName + " | " + uiname.Value + " | " + baseSchema.Value;
         assetLabel += "\n";
