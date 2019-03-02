@@ -2505,12 +2505,16 @@ TaskDialog.Show( "Revit", collector.Count() +
             .WhereElementIsNotElementType()
             .WherePasses( catfilter );
 
-        foreach( FilterRule rule in pfe.GetRules() )
-        {
-          IEnumerable<Element> elemsByFilter2
-            = elemsByFilter.Where( e
-              => rule.ElementPasses( e ) );
-        }
+        //foreach( FilterRule rule in pfe.GetRules() ) // 2018
+        //{
+        //  IEnumerable<Element> elemsByFilter2
+        //    = elemsByFilter.Where( e
+        //      => rule.ElementPasses( e ) );
+        //}
+
+        ElementFilter ef = pfe.GetElementFilter(); // 2019
+        IEnumerable<Element> elemsByFilter2
+          = elemsByFilter.WherePasses( ef );
         #endregion
       }
     }
