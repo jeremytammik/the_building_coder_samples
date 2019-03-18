@@ -292,6 +292,7 @@ using System.Runtime.InteropServices;
 // 2019-02-26 2019.0.145.9 added GetPipesForSystemType from https://forums.autodesk.com/t5/revit-api-forum/filteredelementcollector-by-pipe-system-types/m-p/8620113
 // 2019-02-26 2019.0.145.10 implemented GetSpecificTitleBlockType for https://forums.autodesk.com/t5/revit-api-forum/insert-specific-title-block/m-p/8621988
 // 2019-03-02 2019.0.145.11 eliminated all deprecated API calls to achieve zero compilation warnings
+// 2019-03-08 2019.0.145.12 implemented CreateCurveLoop and OffsetPoints for https://forums.autodesk.com/t5/revit-api-forum/offset-xyz-points/m-p/8665334
 //
-[assembly: AssemblyVersion( "2019.0.145.11" )]
-[assembly: AssemblyFileVersion( "2019.0.145.11" )]
+[assembly: AssemblyVersion( "2019.0.145.12" )]
+[assembly: AssemblyFileVersion( "2019.0.145.12" )]

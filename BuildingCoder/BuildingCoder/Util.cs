@@ -506,6 +506,42 @@ namespace BuildingCoder
 
       return Arc.Create( ps, pe, midPointArc );
     }
+
+    /// <summary>
+    /// Create a new CurveLoop from a list of points.
+    /// </summary>
+    public static CurveLoop CreateCurveLoop(
+      List<XYZ> pts )
+    {
+      int n = pts.Count;
+      CurveLoop curveLoop = new CurveLoop();
+      for( int i = 1; i < n; ++i )
+      {
+        curveLoop.Append( Line.CreateBound(
+          pts[i - 1], pts[i] ) );
+      }
+      curveLoop.Append( Line.CreateBound(
+        pts[n], pts[0] ) );
+      return curveLoop;
+    }
+
+    /// <summary>
+    /// Offset a list of points by a distance in a given direction in or out of the curve loop.
+    /// </summary>
+    public static List<XYZ> OffsetPoints( 
+      List<XYZ> pts,
+      double offset,
+      XYZ normal )
+    {
+      CurveLoop curveLoop = CreateCurveLoop( pts );
+
+      CurveLoop curveLoop2 = CurveLoop.CreateViaOffset( 
+        curveLoop, offset, normal );
+
+      return new List<XYZ>( 
+        curveLoop2.Select<Curve, XYZ>( 
+          c => c.GetEndPoint( 0 ) ) );
+    }
     #endregion // Geometrical Calculation
 
     #region Colour Conversion
