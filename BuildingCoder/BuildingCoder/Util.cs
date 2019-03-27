@@ -62,8 +62,8 @@ namespace BuildingCoder
       return tolerance > Math.Abs( a );
     }
 
-    public static bool IsEqual( 
-      double a, 
+    public static bool IsEqual(
+      double a,
       double b,
       double tolerance = _eps )
     {
@@ -75,13 +75,13 @@ namespace BuildingCoder
       double b,
       double tolerance = _eps )
     {
-      return IsEqual( a, b, tolerance ) 
-        ? 0 
+      return IsEqual( a, b, tolerance )
+        ? 0
         : ( a < b ? -1 : 1 );
     }
 
-    public static int Compare( 
-      XYZ p, 
+    public static int Compare(
+      XYZ p,
       XYZ q,
       double tolerance = _eps )
     {
@@ -172,8 +172,8 @@ namespace BuildingCoder
     /// vectors can be considered equal with the 
     /// given tolerance.
     /// </summary>
-    public static bool IsEqual( 
-      XYZ p, 
+    public static bool IsEqual(
+      XYZ p,
       XYZ q,
       double tolerance = _eps )
     {
@@ -361,6 +361,24 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Return the bounding box of a curve loop.
+    /// </summary>
+    public static BoundingBoxXYZ GetBoundingBox(
+      CurveLoop curveLoop )
+    {
+      List<XYZ> pts = new List<XYZ>();
+      foreach( Curve c in curveLoop )
+      {
+        pts.AddRange( c.Tessellate() );
+      }
+
+      BoundingBoxXYZ bb = new BoundingBoxXYZ();
+      bb.Clear();
+      bb.ExpandToContain( pts );
+      return bb;
+    }
+
+    /// <summary>
     /// Return the bottom four XYZ corners of the given 
     /// bounding box in the XY plane at the given 
     /// Z elevation in the order lower left, lower 
@@ -439,8 +457,8 @@ namespace BuildingCoder
     /// I finally found out that the transformation 
     /// consists of a displacement vector and a rotation matrix.
     /// </summary>
-    public static double[,] 
-      CalculateMatrixForGlobalToLocalCoordinateSystem( 
+    public static double[,]
+      CalculateMatrixForGlobalToLocalCoordinateSystem(
         Face face )
     {
       // face.Evaluate uses a rotation matrix and
@@ -450,10 +468,10 @@ namespace BuildingCoder
       XYZ unitVectorUWithDisplacement = face.Evaluate( UV.BasisU );
       XYZ unitVectorVWithDisplacement = face.Evaluate( UV.BasisV );
 
-      XYZ unitVectorU = unitVectorUWithDisplacement 
+      XYZ unitVectorU = unitVectorUWithDisplacement
         - originDisplacementVectorUV;
 
-      XYZ unitVectorV = unitVectorVWithDisplacement 
+      XYZ unitVectorV = unitVectorVWithDisplacement
         - originDisplacementVectorUV;
 
       // The rotation matrix A is composed of
@@ -475,10 +493,10 @@ namespace BuildingCoder
     /// Create an arc in the XY plane from a given
     /// start point, end point and radius. 
     /// </summary>
-    public static Arc CreateArc2dFromRadiusStartAndEndPoint( 
-      XYZ ps, 
-      XYZ pe, 
-      double radius, 
+    public static Arc CreateArc2dFromRadiusStartAndEndPoint(
+      XYZ ps,
+      XYZ pe,
+      double radius,
       bool largeSagitta = false,
       bool clockwise = false )
     {
@@ -526,21 +544,21 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Offset a list of points by a distance in a given direction in or out of the curve loop.
+    /// Offset a list of points by a distance in a 
+    /// given direction in or out of the curve loop.
     /// </summary>
-    public static List<XYZ> OffsetPoints( 
+    public static IEnumerable<XYZ> OffsetPoints(
       List<XYZ> pts,
       double offset,
       XYZ normal )
     {
       CurveLoop curveLoop = CreateCurveLoop( pts );
 
-      CurveLoop curveLoop2 = CurveLoop.CreateViaOffset( 
+      CurveLoop curveLoop2 = CurveLoop.CreateViaOffset(
         curveLoop, offset, normal );
 
-      return new List<XYZ>( 
-        curveLoop2.Select<Curve, XYZ>( 
-          c => c.GetEndPoint( 0 ) ) );
+      return curveLoop2.Select<Curve, XYZ>(
+          c => c.GetEndPoint( 0 ) );
     }
     #endregion // Geometrical Calculation
 
@@ -549,14 +567,14 @@ namespace BuildingCoder
     /// Revit text colour parameter value stored as an integer 
     /// in text note type BuiltInParameter.LINE_COLOR.
     /// </summary>
-    public static int ToColorParameterValue( 
-      int red, 
-      int green, 
+    public static int ToColorParameterValue(
+      int red,
+      int green,
       int blue )
     {
       // from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
 
-      int c = red + (green << 8) + (blue << 16);
+      int c = red + ( green << 8 ) + ( blue << 16 );
 
 #if DEBUG
       int c2 = red + 256 * green + 65536 * blue;
@@ -570,7 +588,7 @@ namespace BuildingCoder
     /// Revit text colour parameter value stored as an integer 
     /// in text note type BuiltInParameter.LINE_COLOR.
     /// </summary>
-    public static int GetRevitTextColorFromSystemColor( 
+    public static int GetRevitTextColorFromSystemColor(
       System.Drawing.Color color )
     {
       // from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
@@ -979,12 +997,12 @@ namespace BuildingCoder
     /// or vector with its coordinates
     /// formatted to two decimal places.
     /// </summary>
-    public static string PointString( 
+    public static string PointString(
       UV p,
       bool onlySpaceSeparator = false )
     {
-      string format_string = onlySpaceSeparator 
-        ? "{0} {1}" 
+      string format_string = onlySpaceSeparator
+        ? "{0} {1}"
         : "({0},{1})";
 
       return string.Format( format_string,
@@ -997,7 +1015,7 @@ namespace BuildingCoder
     /// or vector with its coordinates
     /// formatted to two decimal places.
     /// </summary>
-    public static string PointString( 
+    public static string PointString(
       XYZ p,
       bool onlySpaceSeparator = false )
     {
@@ -1029,7 +1047,7 @@ namespace BuildingCoder
     /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
-    public static string BoundingBoxString( 
+    public static string BoundingBoxString(
       BoundingBoxUV bb,
       bool onlySpaceSeparator = false )
     {
@@ -1047,7 +1065,7 @@ namespace BuildingCoder
     /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
-    public static string BoundingBoxString( 
+    public static string BoundingBoxString(
       BoundingBoxXYZ bb,
       bool onlySpaceSeparator = false )
     {
@@ -1088,7 +1106,7 @@ namespace BuildingCoder
     /// Return a string for a list of doubles 
     /// formatted to two decimal places.
     /// </summary>
-    public static string DoubleArrayString( 
+    public static string DoubleArrayString(
       IEnumerable<double> a,
       bool onlySpaceSeparator = false )
     {
@@ -1115,7 +1133,7 @@ namespace BuildingCoder
         : ", ";
 
       return string.Join( separator,
-        pts.Select<UV, string>( p 
+        pts.Select<UV, string>( p
           => PointString( p, onlySpaceSeparator ) ) );
     }
 
@@ -1124,7 +1142,7 @@ namespace BuildingCoder
     /// with its coordinates formatted to two
     /// decimal places.
     /// </summary>
-    public static string PointArrayString( 
+    public static string PointArrayString(
       IEnumerable<XYZ> pts,
       bool onlySpaceSeparator = false )
     {
@@ -1133,7 +1151,7 @@ namespace BuildingCoder
         : ", ";
 
       return string.Join( separator,
-        pts.Select<XYZ, string>( p 
+        pts.Select<XYZ, string>( p
           => PointString( p, onlySpaceSeparator ) ) );
     }
 
@@ -2025,6 +2043,18 @@ namespace BuildingCoder
   public static class JtBoundingBoxXyzExtensionMethods
   {
     /// <summary>
+    /// Make this bounding box empty by setting the
+    /// Min value to plus infinity and Max to minus.
+    /// </summary>
+    public static void Clear(
+      this BoundingBoxXYZ bb )
+    {
+      double infinity = double.MaxValue;
+      bb.Min = new XYZ( infinity, infinity, infinity );
+      bb.Max = -bb.Min;
+    }
+
+    /// <summary>
     /// Expand the given bounding box to include 
     /// and contain the given point.
     /// </summary>
@@ -2039,6 +2069,25 @@ namespace BuildingCoder
       bb.Max = new XYZ( Math.Max( bb.Max.X, p.X ),
         Math.Max( bb.Max.Y, p.Y ),
         Math.Max( bb.Max.Z, p.Z ) );
+    }
+
+    /// <summary>
+    /// Expand the given bounding box to include 
+    /// and contain the given points.
+    /// </summary>
+    public static void ExpandToContain(
+      this BoundingBoxXYZ bb,
+      IEnumerable<XYZ> pts )
+    {
+      bb.ExpandToContain( new XYZ(
+        pts.Min<XYZ, double>( p => p.X ),
+        pts.Min<XYZ, double>( p => p.Y ),
+        pts.Min<XYZ, double>( p => p.Z ) ) );
+
+      bb.ExpandToContain( new XYZ(
+        pts.Max<XYZ, double>( p => p.X ),
+        pts.Max<XYZ, double>( p => p.Y ),
+        pts.Max<XYZ, double>( p => p.Z ) ) );
     }
 
     /// <summary>

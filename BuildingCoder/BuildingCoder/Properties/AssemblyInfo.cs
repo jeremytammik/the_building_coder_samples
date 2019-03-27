@@ -293,6 +293,7 @@ using System.Runtime.InteropServices;
 // 2019-02-26 2019.0.145.10 implemented GetSpecificTitleBlockType for https://forums.autodesk.com/t5/revit-api-forum/insert-specific-title-block/m-p/8621988
 // 2019-03-02 2019.0.145.11 eliminated all deprecated API calls to achieve zero compilation warnings
 // 2019-03-08 2019.0.145.12 implemented CreateCurveLoop and OffsetPoints for https://forums.autodesk.com/t5/revit-api-forum/offset-xyz-points/m-p/8665334
+// 2019-03-27 2019.0.145.13 implemented bounding box Clear, ExpandToContain enum of points and GetBoundingBox for CurveLoop for https://forums.autodesk.com/t5/revit-api-forum/how-to-get-width-and-height-of-curveloop/m-p/8686230
 //
-[assembly: AssemblyVersion( "2019.0.145.12" )]
-[assembly: AssemblyFileVersion( "2019.0.145.12" )]
+[assembly: AssemblyVersion( "2019.0.145.13" )]
+[assembly: AssemblyFileVersion( "2019.0.145.13" )]

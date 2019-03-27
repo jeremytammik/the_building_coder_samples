@@ -230,10 +230,7 @@ namespace BuildingCoder
       IList<IList<BoundarySegment>> boundary )
     {
       BoundingBoxXYZ bb = new BoundingBoxXYZ();
-      double infinity = double.MaxValue;
-
-      bb.Min = new XYZ( infinity, infinity, infinity );
-      bb.Max = -bb.Min;
+      bb.Clear();
 
       foreach( IList<BoundarySegment> loop in boundary )
       {
