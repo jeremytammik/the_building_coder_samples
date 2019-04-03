@@ -1103,6 +1103,19 @@ namespace BuildingCoder
         .Where( x => x.Symbol.Family.Name.Equals( familyName ) ) // family
         .Where( x => x.Name.Equals( typeName ) ); // family type               
     }
+
+    /// <summary>
+    /// Get instances by element type
+    /// </summary>
+    static IEnumerable<Element> GetInstancesOfElementType( 
+      ElementType type )
+    {
+      int iid = type.Id.IntegerValue;
+      return new FilteredElementCollector( type.Document )
+        .OfClass( typeof( FamilyInstance ) )
+        .Where( e => e.GetTypeId().IntegerValue.Equals( 
+          iid ) );
+    }
     #endregion // Retrieve all family instances of specific named family and type
 
     #region Retrieve generic family symbols whose name contains "test"
