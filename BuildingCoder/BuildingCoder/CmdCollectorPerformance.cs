@@ -1112,7 +1112,8 @@ namespace BuildingCoder
     {
       int iid = type.Id.IntegerValue;
       return new FilteredElementCollector( type.Document )
-        .OfClass( typeof( FamilyInstance ) )
+        .WhereElementIsNotElementType()
+        //.OfClass( typeof( FamilyInstance ) ) // excludes walls, floors, pipes, etc.; all system family elements
         .Where( e => e.GetTypeId().IntegerValue.Equals( 
           iid ) );
     }
