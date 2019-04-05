@@ -295,6 +295,7 @@ using System.Runtime.InteropServices;
 // 2019-03-08 2019.0.145.12 implemented CreateCurveLoop and OffsetPoints for https://forums.autodesk.com/t5/revit-api-forum/offset-xyz-points/m-p/8665334
 // 2019-03-27 2019.0.145.13 implemented bounding box Clear, ExpandToContain enum of points and GetBoundingBox for CurveLoop for https://forums.autodesk.com/t5/revit-api-forum/how-to-get-width-and-height-of-curveloop/m-p/8686230
 // 2019-04-03 2019.0.145.14 implemented GetInstancesOfElementType for https://forums.autodesk.com/t5/revit-api-forum/get-all-instances-of-given-elementtype/m-p/8703667
+// 2019-04-03 2019.0.145.15 Sudhan corrected GetFamilyInstancesByFamilyAndType
 //
-[assembly: AssemblyVersion( "2019.0.145.14" )]
-[assembly: AssemblyFileVersion( "2019.0.145.14" )]
+[assembly: AssemblyVersion( "2019.0.145.15" )]
+[assembly: AssemblyFileVersion( "2019.0.145.15" )]

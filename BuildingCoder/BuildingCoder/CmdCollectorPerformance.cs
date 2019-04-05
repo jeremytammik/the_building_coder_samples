@@ -1101,7 +1101,8 @@ namespace BuildingCoder
         .OfClass( typeof( FamilyInstance ) )
         .Cast<FamilyInstance>()
         .Where( x => x.Symbol.Family.Name.Equals( familyName ) ) // family
-        .Where( x => x.Name.Equals( typeName ) ); // family type               
+        //.Where( x => x.Name.Equals( typeName ) // family type               
+        .Where( x => x.Symbol.Name.Equals( typeName ) ); // family type               
     }
 
     /// <summary>
