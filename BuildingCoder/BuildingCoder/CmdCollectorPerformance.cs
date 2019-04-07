@@ -1210,59 +1210,47 @@ namespace BuildingCoder
         .OfClass( typeof( FamilySymbol ) );
     }
 
-    static IList<Element> Linq( Document doc, string familySymbolName )
+    static IEnumerable<Element> Linq( 
+      Document doc, 
+      string familySymbolName )
     {
-      IList<Element> elements
-        = GetStructuralColumnSymbolCollector( doc )
-          .ToElements();
-
-      elements = elements.OfType<FamilySymbol>()
-        .Where( x => x.Name == familySymbolName )
-        .Cast<Element>()
-        .ToList();
-
-      return elements;
+      return GetStructuralColumnSymbolCollector( doc )
+        .Where( x => x.Name == familySymbolName );
     }
 
-    static IList<Element> Linq2( Document doc, string familySymbolName )
+    static IEnumerable<Element> Linq2( 
+      Document doc, 
+      string familySymbolName )
     {
-      IList<Element> elements
-        = GetStructuralColumnSymbolCollector( doc )
-          .ToElements();
-
-      elements = elements.OfType<FamilySymbol>()
-        .Where( x => x.get_Parameter( BuiltInParameter.SYMBOL_NAME_PARAM ).AsString() == familySymbolName )
-        .Cast<Element>()
-        .ToList();
-
-      return elements;
+      return GetStructuralColumnSymbolCollector( doc )
+        .Where( x => x.get_Parameter( 
+          BuiltInParameter.SYMBOL_NAME_PARAM )
+            .AsString() == familySymbolName );
     }
 
-    private static IList<Element> FilterRule( Document doc, string familySymbolName )
+    private static IEnumerable<Element> FilterRule( 
+      Document doc, 
+      string familySymbolName )
     {
-      IList<Element> elements
-        = GetStructuralColumnSymbolCollector( doc )
-          .WherePasses(
-            new ElementParameterFilter(
-              new FilterStringRule(
-                new ParameterValueProvider( new ElementId( BuiltInParameter.SYMBOL_NAME_PARAM ) ),
-                new FilterStringEquals(), familySymbolName, true ) ) )
-          .ToElements();
-
-      return elements;
+      return GetStructuralColumnSymbolCollector( doc )
+        .WherePasses(
+          new ElementParameterFilter(
+            new FilterStringRule(
+              new ParameterValueProvider(
+                new ElementId( BuiltInParameter.SYMBOL_NAME_PARAM ) ),
+              new FilterStringEquals(), familySymbolName, true ) ) );
     }
 
-    private static IList<Element> Factory( Document doc, string familySymbolName )
+    private static IEnumerable<Element> Factory( 
+      Document doc, 
+      string familySymbolName )
     {
-      IList<Element> elements
-        = GetStructuralColumnSymbolCollector( doc )
-          .WherePasses(
-            new ElementParameterFilter(
-              ParameterFilterRuleFactory.CreateEqualsRule(
-                new ElementId( BuiltInParameter.SYMBOL_NAME_PARAM ), familySymbolName, true ) ) )
-          .ToElements();
-
-      return elements;
+      return GetStructuralColumnSymbolCollector( doc )
+        .WherePasses(
+          new ElementParameterFilter(
+            ParameterFilterRuleFactory.CreateEqualsRule(
+              new ElementId( BuiltInParameter.SYMBOL_NAME_PARAM ),
+              familySymbolName, true ) ) );
     }
     #endregion // Retrieve named family symbols using either LINQ or a parameter filter
 
