@@ -13,6 +13,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -316,5 +317,53 @@ namespace BuildingCoder
       }
       return Result.Succeeded;
     }
+
+    #region Set Floor Level and Offset
+    void SetFloorLevelAndOffset( Document doc )
+    {
+      // Pick first floor found
+
+      Floor floor
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .OfCategory( BuiltInCategory.OST_Floors )
+          .OfClass( typeof( Floor ) )
+          .FirstElement() as Floor;
+
+      // Get first level not used by floor
+
+      int levelIdInt = floor.LevelId.IntegerValue;
+
+      Element level
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .OfCategory( BuiltInCategory.OST_Levels )
+          .OfClass( typeof( Level ) )
+          .FirstOrDefault<Element>( e 
+            => e.Id.IntegerValue.Equals( 
+              levelIdInt ) );
+
+      if( null != level )
+      {
+        using( Transaction tx = new Transaction( doc ) )
+        {
+          tx.Start( "Set Floor Level" );
+
+          // from https://forums.autodesk.com/t5/revit-api-forum/changing-the-level-id-and-offset-height-of-floors/m-p/8714247
+
+          Parameter p = floor.get_Parameter( 
+            BuiltInParameter.LEVEL_PARAM );
+
+          Parameter p1 = floor.get_Parameter( 
+            BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM );
+
+          p.Set( level.Id ); // set new level Id
+          p1.Set( 2 ); // set new offset from level
+
+          tx.Commit();
+        }
+      }
+    }
+    #endregion // Set Floor Level and Offset
   }
 }

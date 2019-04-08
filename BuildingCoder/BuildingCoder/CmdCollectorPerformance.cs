@@ -1228,7 +1228,7 @@ namespace BuildingCoder
             .AsString() == familySymbolName );
     }
 
-    private static IEnumerable<Element> FilterRule( 
+    static IEnumerable<Element> FilterRule( 
       Document doc, 
       string familySymbolName )
     {
@@ -1241,7 +1241,7 @@ namespace BuildingCoder
               new FilterStringEquals(), familySymbolName, true ) ) );
     }
 
-    private static IEnumerable<Element> Factory( 
+    static IEnumerable<Element> Factory( 
       Document doc, 
       string familySymbolName )
     {
