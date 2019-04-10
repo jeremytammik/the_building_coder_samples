@@ -345,21 +345,19 @@ namespace BuildingCoder
 
       if( null != level )
       {
+        // from https://forums.autodesk.com/t5/revit-api-forum/changing-the-level-id-and-offset-height-of-floors/m-p/8714247
+
+        Parameter p = floor.get_Parameter(
+          BuiltInParameter.LEVEL_PARAM );
+
+        Parameter p1 = floor.get_Parameter(
+          BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM );
+
         using( Transaction tx = new Transaction( doc ) )
         {
           tx.Start( "Set Floor Level" );
-
-          // from https://forums.autodesk.com/t5/revit-api-forum/changing-the-level-id-and-offset-height-of-floors/m-p/8714247
-
-          Parameter p = floor.get_Parameter( 
-            BuiltInParameter.LEVEL_PARAM );
-
-          Parameter p1 = floor.get_Parameter( 
-            BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM );
-
           p.Set( level.Id ); // set new level Id
           p1.Set( 2 ); // set new offset from level
-
           tx.Commit();
         }
       }
