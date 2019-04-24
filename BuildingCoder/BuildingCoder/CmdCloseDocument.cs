@@ -44,10 +44,19 @@ namespace BuildingCoder
 
         SendKeys.SendWait( "^{F4}" );
       }
-      catch( Exception ex )
+      catch (Exception ex)
       {
         Util.ErrorMsg( ex.Message );
       }
+    }
+
+    static void CloseDocByCommand( UIApplication uiapp )
+    {
+      RevitCommandId closeDoc
+        = RevitCommandId.LookupPostableCommandId(
+          PostableCommand.Close );
+
+      uiapp.PostCommand( closeDoc );
     }
   }
 }
