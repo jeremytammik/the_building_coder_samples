@@ -298,6 +298,7 @@ using System.Runtime.InteropServices;
 // 2019-04-03 2019.0.145.15 Sudhan corrected GetFamilyInstancesByFamilyAndType
 // 2019-04-07 2019.0.145.16 cleaned up samples demonstrating retrieving named family symbols using either LINQ or a parameter filter
 // 2019-04-08 2019.0.145.17 implemented SetFloorLevelAndOffset for https://forums.autodesk.com/t5/revit-api-forum/changing-the-level-id-and-offset-height-of-floors/m-p/8714247
+// 2019-04-24 2020.0.145.0 flat migration to Revit 2020
 //
-[assembly: AssemblyVersion( "2019.0.145.17" )]
-[assembly: AssemblyFileVersion( "2019.0.145.17" )]
+[assembly: AssemblyVersion( "2020.0.145.0" )]
+[assembly: AssemblyFileVersion( "2020.0.145.0" )]
