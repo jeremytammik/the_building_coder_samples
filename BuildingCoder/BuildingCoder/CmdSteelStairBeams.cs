@@ -119,55 +119,56 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      Transaction t = new Transaction( doc );
-
-      t.Start( "Create Steel Stair Beams" );
-
-      // Check whether the required family is loaded:
-
-      FilteredElementCollector collector
-        = new FilteredElementCollector( doc )
-          .OfClass( typeof( Family ) );
-
-      // If the family is not already loaded, do so:
-
-      if( !collector.Any<Element>(
-        e => e.Name.Equals( FamilyName ) ) )
+      using( Transaction t = new Transaction( doc ) )
       {
-        FamilySymbol symbol;
+        t.Start( "Create Steel Stair Beams" );
 
-        if( !doc.LoadFamilySymbol(
-          _family_path, SymbolName, out symbol ) )
+        // Check whether the required family is loaded:
+
+        FilteredElementCollector collector
+          = new FilteredElementCollector( doc )
+            .OfClass( typeof( Family ) );
+
+        // If the family is not already loaded, do so:
+
+        if( !collector.Any<Element>(
+          e => e.Name.Equals( FamilyName ) ) )
         {
-          message = string.Format(
-            "Unable to load '{0}' from '{1}'.",
-            SymbolName, _family_path );
+          FamilySymbol symbol;
+
+          if( !doc.LoadFamilySymbol(
+            _family_path, SymbolName, out symbol ) )
+          {
+            message = string.Format(
+              "Unable to load '{0}' from '{1}'.",
+              SymbolName, _family_path );
+
+            t.RollBack();
+
+            return Result.Failed;
+          }
+        }
+
+        try
+        {
+          // Create a couple of connected beams:
+
+          BeamCreator s = new BeamCreator( doc );
+
+          s.Run();
+
+          t.Commit();
+
+          return Result.Succeeded;
+        }
+        catch( Exception ex )
+        {
+          message = ex.Message;
 
           t.RollBack();
 
           return Result.Failed;
         }
-      }
-
-      try
-      {
-        // Create a couple of connected beams:
-
-        BeamCreator s = new BeamCreator( doc );
-
-        s.Run();
-
-        t.Commit();
-
-        return Result.Succeeded;
-      }
-      catch( Exception ex )
-      {
-        message = ex.Message;
-
-        t.RollBack();
-
-        return Result.Failed;
       }
     }
   }
