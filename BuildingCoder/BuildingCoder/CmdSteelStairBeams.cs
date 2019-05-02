@@ -22,11 +22,11 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  class SteelStairs
+  class BeamCreator
   {
     Document _doc;
 
-    public SteelStairs( Document doc )
+    public BeamCreator( Document doc )
     {
       _doc = doc;
     }
@@ -153,7 +153,7 @@ namespace BuildingCoder
       {
         // Create a couple of connected beams:
 
-        SteelStairs s = new SteelStairs( doc );
+        BeamCreator s = new BeamCreator( doc );
 
         s.Run();
 

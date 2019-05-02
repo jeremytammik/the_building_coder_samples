@@ -992,6 +992,10 @@ namespace BuildingCoder
     #endregion // Filter for detail curves
 
     #region Delete non-room-separating curve elements
+    // for https://forums.autodesk.com/t5/revit-api-forum/deleting-lines-that-are-not-assigned-to-the-lt-room-separation/m-p/8765491
+    /// <summary>
+    /// Delete all non-room-separating curve elements
+    /// </summary>
     void DeleteNonRoomSeparators( Document doc )
     {
       ElementCategoryFilter non_room_separator 
