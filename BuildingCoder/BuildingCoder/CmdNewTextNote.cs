@@ -428,5 +428,27 @@ namespace BuildingCoder
       return commandResult;
     }
     #endregion // Solution 2 using Graphics.MeasureString
+
+    #region Get specific TextNoteType by name
+    // implemented for https://forums.autodesk.com/t5/revit-api-forum/creating-a-textnote-with-a-specific-type-i-e-1-10-quot-arial-1/m-p/8765648
+    /// <summary>
+    /// Return the first text note type matching the given name.
+    /// Note that TextNoteType is a subclass of ElementType,
+    /// so this method is more restrictive above all faster
+    /// than Util.GetElementTypeByName.
+    /// This filter could be speeded up by using a (quick)
+    /// parameter filter instead of the (slower than slow)
+    /// LINQ post-processing.
+    /// </summary>
+    TextNoteType GetTextNoteTypeByName( 
+      Document doc, 
+      string name )
+    {
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( TextNoteType ) )
+        .First( q => q.Name.Equals( name ) )
+          as TextNoteType;
+    }
+    #endregion // Get specific TextNoteType by name
   }
 }

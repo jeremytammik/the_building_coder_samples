@@ -300,6 +300,7 @@ using System.Runtime.InteropServices;
 // 2019-04-08 2019.0.145.17 implemented SetFloorLevelAndOffset for https://forums.autodesk.com/t5/revit-api-forum/changing-the-level-id-and-offset-height-of-floors/m-p/8714247
 // 2019-04-24 2020.0.145.0 flat migration to Revit 2020
 // 2019-04-24 2020.0.145.1 implemented CloseDocByCommand suggested by Bogdan
+// 2019-05-02 2020.0.145.2 implemented GetElementTypeByName, GetFamilySymbolByName and GetTextNoteTypeByName
 //
-[assembly: AssemblyVersion( "2020.0.145.1" )]
-[assembly: AssemblyFileVersion( "2020.0.145.1" )]
+[assembly: AssemblyVersion( "2020.0.145.2" )]
+[assembly: AssemblyFileVersion( "2020.0.145.2" )]

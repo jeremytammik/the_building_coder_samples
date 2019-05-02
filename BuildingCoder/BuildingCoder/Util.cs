@@ -77,7 +77,7 @@ namespace BuildingCoder
     {
       return IsEqual( a, b, tolerance )
         ? 0
-        : ( a < b ? -1 : 1 );
+        : (a < b ? -1 : 1);
     }
 
     public static int Compare(
@@ -87,11 +87,11 @@ namespace BuildingCoder
     {
       int d = Compare( p.X, q.X, tolerance );
 
-      if( 0 == d )
+      if (0 == d)
       {
         d = Compare( p.Y, q.Y, tolerance );
 
-        if( 0 == d )
+        if (0 == d)
         {
           d = Compare( p.Z, q.Z, tolerance );
         }
@@ -120,25 +120,25 @@ namespace BuildingCoder
 
       int d = Compare( ang_a, ang_b );
 
-      if( 0 == d )
+      if (0 == d)
       {
         // Compare distance of unbounded line to origin
 
-        double da = ( qa.X * pa.Y - qa.Y * pa.Y )
+        double da = (qa.X * pa.Y - qa.Y * pa.Y)
           / va.GetLength();
 
-        double db = ( qb.X * pb.Y - qb.Y * pb.Y )
+        double db = (qb.X * pb.Y - qb.Y * pb.Y)
           / vb.GetLength();
 
         d = Compare( da, db );
 
-        if( 0 == d )
+        if (0 == d)
         {
           // Compare distance of start point to origin
 
           d = Compare( pa.GetLength(), pb.GetLength() );
 
-          if( 0 == d )
+          if (0 == d)
           {
             // Compare distance of end point to origin
 
@@ -153,12 +153,12 @@ namespace BuildingCoder
     {
       int d = Compare( a.Normal, b.Normal );
 
-      if( 0 == d )
+      if (0 == d)
       {
         d = Compare( a.SignedDistanceTo( XYZ.Zero ),
           b.SignedDistanceTo( XYZ.Zero ) );
 
-        if( 0 == d )
+        if (0 == d)
         {
           d = Compare( a.XVec.AngleOnPlaneTo(
             b.XVec, b.Normal ), 0 );
@@ -293,9 +293,9 @@ namespace BuildingCoder
       Debug.Assert( 0 == a.GetLowerBound( 0 ), "expected zero-based array" );
       Debug.Assert( 0 < a.GetUpperBound( 0 ), "expected non-empty array" );
       double max = a[0];
-      for( int i = 1; i <= a.GetUpperBound( 0 ); ++i )
+      for (int i = 1; i <= a.GetUpperBound( 0 ); ++i)
       {
-        if( max < a[i] )
+        if (max < a[i])
         {
           max = a[i];
         }
@@ -319,8 +319,8 @@ namespace BuildingCoder
       double limit = 1.0 / 64;
 
       XYZ pick_cardinal_axis
-        = ( IsZero( normal.X, limit )
-          && IsZero( normal.Y, limit ) )
+        = (IsZero( normal.X, limit )
+          && IsZero( normal.Y, limit ))
             ? XYZ.BasisY
             : XYZ.BasisZ;
 
@@ -333,7 +333,7 @@ namespace BuildingCoder
     /// </summary>
     public static XYZ Midpoint( XYZ p, XYZ q )
     {
-      return 0.5 * ( p + q );
+      return 0.5 * (p + q);
     }
 
     /// <summary>
@@ -367,7 +367,7 @@ namespace BuildingCoder
       CurveLoop curveLoop )
     {
       List<XYZ> pts = new List<XYZ>();
-      foreach( Curve c in curveLoop )
+      foreach (Curve c in curveLoop)
       {
         pts.AddRange( c.Tessellate() );
       }
@@ -431,10 +431,10 @@ namespace BuildingCoder
 
       XYZ p5 = null;
 
-      double c = ( v2.X * w.Y - v2.Y * w.X )
-        / ( v2.X * v1.Y - v2.Y * v1.X );
+      double c = (v2.X * w.Y - v2.Y * w.X)
+        / (v2.X * v1.Y - v2.Y * v1.X);
 
-      if( !double.IsInfinity( c ) )
+      if (!double.IsInfinity( c ))
       {
         double x = p1.X + c * v1.X;
         double y = p1.Y + c * v1.Y;
@@ -502,7 +502,7 @@ namespace BuildingCoder
     {
       // https://forums.autodesk.com/t5/revit-api-forum/create-a-curve-when-only-the-start-point-end-point-amp-radius-is/m-p/7830079
 
-      XYZ midPointChord = 0.5 * ( ps + pe );
+      XYZ midPointChord = 0.5 * (ps + pe);
       XYZ v = pe - ps;
       double d = 0.5 * v.GetLength(); // half chord length
 
@@ -533,7 +533,7 @@ namespace BuildingCoder
     {
       int n = pts.Count;
       CurveLoop curveLoop = new CurveLoop();
-      for( int i = 1; i < n; ++i )
+      for (int i = 1; i < n; ++i)
       {
         curveLoop.Append( Line.CreateBound(
           pts[i - 1], pts[i] ) );
@@ -574,7 +574,7 @@ namespace BuildingCoder
     {
       // from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
 
-      int c = red + ( green << 8 ) + ( blue << 16 );
+      int c = red + (green << 8) + (blue << 16);
 
 #if DEBUG
       int c2 = red + 256 * green + 65536 * blue;
@@ -790,7 +790,7 @@ namespace BuildingCoder
     /// </summary>
     public static List<XYZ> ConvexHull( List<XYZ> points )
     {
-      if( points == null ) throw new ArgumentNullException( nameof( points ) );
+      if (points == null) throw new ArgumentNullException( nameof( points ) );
       XYZ startPoint = points.MinBy( p => p.X );
       var convexHullPoints = new List<XYZ>();
       XYZ walkingPoint = startPoint;
@@ -802,12 +802,12 @@ namespace BuildingCoder
         XYZ rv = refVector;
         walkingPoint = points.MinBy( p =>
         {
-          double angle = ( p - wp ).AngleOnPlaneTo( rv, XYZ.BasisZ );
-          if( angle < 1e-10 ) angle = 2 * Math.PI;
+          double angle = (p - wp).AngleOnPlaneTo( rv, XYZ.BasisZ );
+          if (angle < 1e-10) angle = 2 * Math.PI;
           return angle;
         } );
         refVector = wp - walkingPoint;
-      } while( walkingPoint != startPoint );
+      } while (walkingPoint != startPoint);
       convexHullPoints.Reverse();
       return convexHullPoints;
     }
@@ -852,7 +852,7 @@ namespace BuildingCoder
     public static int FootToMmInt( double length )
     {
       //return (int) ( _feet_to_mm * d + 0.5 );
-      return (int) Math.Round( _footToMm * length,
+      return (int)Math.Round( _footToMm * length,
         MidpointRounding.AwayFromZero );
     }
 
@@ -1183,7 +1183,7 @@ namespace BuildingCoder
 
       Arc arc = c as Arc;
 
-      if( null != arc )
+      if (null != arc)
       {
         s += string.Format( " center {0} radius {1}",
           PointString( arc.Center ), arc.Radius );
@@ -1270,7 +1270,7 @@ namespace BuildingCoder
     public static string ElementDescription(
       Element e )
     {
-      if( null == e )
+      if (null == e)
       {
         return "<null>";
       }
@@ -1283,16 +1283,16 @@ namespace BuildingCoder
 
       string typeName = e.GetType().Name;
 
-      string categoryName = ( null == e.Category )
+      string categoryName = (null == e.Category)
         ? string.Empty
         : e.Category.Name + " ";
 
-      string familyName = ( null == fi )
+      string familyName = (null == fi)
         ? string.Empty
         : fi.Symbol.Family.Name + " ";
 
-      string symbolName = ( null == fi
-        || e.Name.Equals( fi.Symbol.Name ) )
+      string symbolName = (null == fi
+        || e.Name.Equals( fi.Symbol.Name ))
           ? string.Empty
           : fi.Symbol.Name + " ";
 
@@ -1318,10 +1318,10 @@ namespace BuildingCoder
       p = XYZ.Zero;
       bool rc = false;
       Location loc = e.Location;
-      if( null != loc )
+      if (null != loc)
       {
         LocationPoint lp = loc as LocationPoint;
-        if( null != lp )
+        if (null != lp)
         {
           p = lp.Point;
           rc = true;
@@ -1348,7 +1348,7 @@ namespace BuildingCoder
     public static XYZ GetFamilyInstanceLocation(
       FamilyInstance fi )
     {
-      return ( (LocationPoint) fi?.Location )?.Point;
+      return ((LocationPoint)fi?.Location)?.Point;
     }
     #endregion // Display a message
 
@@ -1357,7 +1357,7 @@ namespace BuildingCoder
       UIDocument uidoc,
       string description )
     {
-      if( ViewType.Internal == uidoc.ActiveView.ViewType )
+      if (ViewType.Internal == uidoc.ActiveView.ViewType)
       {
         TaskDialog.Show( "Error",
           "Cannot pick element in this view: "
@@ -1393,7 +1393,7 @@ namespace BuildingCoder
 
         return uidoc.Document.GetElement( r ); // 2012
       }
-      catch( Autodesk.Revit.Exceptions.OperationCanceledException )
+      catch (Autodesk.Revit.Exceptions.OperationCanceledException)
       {
         return null;
       }
@@ -1407,9 +1407,9 @@ namespace BuildingCoder
 
       Element e = null;
 
-      if( 1 == ids.Count )
+      if (1 == ids.Count)
       {
-        foreach( ElementId id in ids )
+        foreach (ElementId id in ids)
         {
           e = uidoc.Document.GetElement( id );
         }
@@ -1424,13 +1424,13 @@ namespace BuildingCoder
     {
       bool rc = null != e;
 
-      if( rc )
+      if (rc)
       {
         Type t2 = e.GetType();
 
         rc = t2.Equals( t );
 
-        if( !rc && acceptDerivedClass )
+        if (!rc && acceptDerivedClass)
         {
           rc = t2.IsSubclassOf( t );
         }
@@ -1446,7 +1446,7 @@ namespace BuildingCoder
     {
       Element e = GetSingleSelectedElement( uidoc );
 
-      if( !HasRequestedType( e, t, acceptDerivedClass ) )
+      if (!HasRequestedType( e, t, acceptDerivedClass ))
       {
         e = Util.SelectSingleElement(
           uidoc, description );
@@ -1475,7 +1475,7 @@ namespace BuildingCoder
       ICollection<ElementId> ids
         = uidoc.Selection.GetElementIds();
 
-      if( 0 < ids.Count )
+      if (0 < ids.Count)
       {
         a.AddRange( ids
           .Select<ElementId, Element>(
@@ -1492,7 +1492,7 @@ namespace BuildingCoder
     }
     #endregion // Element Selection
 
-    #region Element filtering
+    #region Element Filtering
     /// <summary>
     /// Return all elements of the requested class i.e. System.Type
     /// matching the given built-in category in the given document.
@@ -1602,20 +1602,20 @@ namespace BuildingCoder
         = new FilteredElementCollector( doc )
           .OfClass( typeof( Family ) );
 
-      foreach( Family f in collector )
+      foreach (Family f in collector)
       {
-        if( f.Name.Equals( familyName ) )
+        if (f.Name.Equals( familyName ))
         {
           //foreach( FamilySymbol symbol in f.Symbols ) // 2014
 
           ISet<ElementId> ids = f.GetFamilySymbolIds(); // 2015
 
-          foreach( ElementId id in ids )
+          foreach (ElementId id in ids)
           {
             FamilySymbol symbol = doc.GetElement( id )
               as FamilySymbol;
 
-            if( symbol.Name == symbolName )
+            if (symbol.Name == symbolName)
             {
               return symbol;
             }
@@ -1624,7 +1624,42 @@ namespace BuildingCoder
       }
       return null;
     }
-    #endregion // Element filtering
+
+    /// <summary>
+    /// Return the first element type matching the given name.
+    /// This filter could be speeded up by using a (quick)
+    /// parameter filter instead of the (slower than slow)
+    /// LINQ post-processing.
+    /// </summary>
+    public static ElementType GetElementTypeByName(
+      Document doc,
+      string name )
+    {
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( ElementType ) )
+        .First( q => q.Name.Equals( name ) )
+          as ElementType;
+    }
+
+    /// <summary>
+    /// Return the first family symbol matching the given name.
+    /// Note that FamilySymbol is a subclass of ElementType,
+    /// so this method is more restrictive above all faster
+    /// than the previous one.
+    /// This filter could be speeded up by using a (quick)
+    /// parameter filter instead of the (slower than slow)
+    /// LINQ post-processing.
+    /// </summary>
+    public static ElementType GetFamilySymbolByName(
+      Document doc,
+      string name )
+    {
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( FamilySymbol ) )
+        .First( q => q.Name.Equals( name ) )
+          as FamilySymbol;
+    }
+    #endregion // Element Filtering
 
     #region MEP utilities
     /// <summary>
@@ -1639,7 +1674,7 @@ namespace BuildingCoder
       MEPCurve mc = e as MEPCurve;
       FamilyInstance fi = e as FamilyInstance;
 
-      if( null == mc && null == fi )
+      if (null == mc && null == fi)
       {
         throw new ArgumentException(
           "Element is neither an MEP curve nor a fitting." );
@@ -1672,18 +1707,18 @@ namespace BuildingCoder
 
       bool hasTwoConnectors = 2 == cm.Connectors.Size;
 
-      foreach( Connector c in cm.Connectors )
+      foreach (Connector c in cm.Connectors)
       {
-        if( c.Origin.IsAlmostEqualTo( location ) )
+        if (c.Origin.IsAlmostEqualTo( location ))
         {
           targetConnector = c;
 
-          if( !hasTwoConnectors )
+          if (!hasTwoConnectors)
           {
             break;
           }
         }
-        else if( hasTwoConnectors )
+        else if (hasTwoConnectors)
         {
           otherConnector = c;
         }
@@ -1702,11 +1737,11 @@ namespace BuildingCoder
       Connector targetConnector = null;
       double minDist = double.MaxValue;
 
-      foreach( Connector c in connectors )
+      foreach (Connector c in connectors)
       {
         double d = c.Origin.DistanceTo( p );
 
-        if( d < minDist )
+        if (d < minDist)
         {
           targetConnector = c;
           minDist = d;
@@ -1743,7 +1778,7 @@ namespace BuildingCoder
     {
       ConnectorManager cm = GetConnectorManager( a );
 
-      if( null == cm )
+      if (null == cm)
       {
         throw new ArgumentException(
           "Element a has no connectors." );
@@ -1754,7 +1789,7 @@ namespace BuildingCoder
 
       cm = GetConnectorManager( b );
 
-      if( null == cm )
+      if (null == cm)
       {
         throw new ArgumentException(
           "Element b has no connectors." );
@@ -1873,20 +1908,20 @@ namespace BuildingCoder
       Func<tsource, tkey> selector,
       IComparer<tkey> comparer )
     {
-      if( source == null ) throw new ArgumentNullException( nameof( source ) );
-      if( selector == null ) throw new ArgumentNullException( nameof( selector ) );
-      if( comparer == null ) throw new ArgumentNullException( nameof( comparer ) );
-      using( IEnumerator<tsource> sourceIterator = source.GetEnumerator() )
+      if (source == null) throw new ArgumentNullException( nameof( source ) );
+      if (selector == null) throw new ArgumentNullException( nameof( selector ) );
+      if (comparer == null) throw new ArgumentNullException( nameof( comparer ) );
+      using (IEnumerator<tsource> sourceIterator = source.GetEnumerator())
       {
-        if( !sourceIterator.MoveNext() )
+        if (!sourceIterator.MoveNext())
           throw new InvalidOperationException( "Sequence was empty" );
         tsource min = sourceIterator.Current;
         tkey minKey = selector( min );
-        while( sourceIterator.MoveNext() )
+        while (sourceIterator.MoveNext())
         {
           tsource candidate = sourceIterator.Current;
           tkey candidateProjected = selector( candidate );
-          if( comparer.Compare( candidateProjected, minKey ) < 0 )
+          if (comparer.Compare( candidateProjected, minKey ) < 0)
           {
             min = candidate;
             minKey = candidateProjected;
@@ -1905,8 +1940,8 @@ namespace BuildingCoder
       Func<TSource, TElement> elementSelector,
       IEqualityComparer<TElement> comparer )
     {
-      if( source == null ) throw new ArgumentNullException( "source" );
-      if( elementSelector == null ) throw new ArgumentNullException( "elementSelector" );
+      if (source == null) throw new ArgumentNullException( "source" );
+      if (elementSelector == null) throw new ArgumentNullException( "elementSelector" );
 
       // you can unroll this into a foreach if you want efficiency gain, but for brevity...
       return new HashSet<TElement>(
@@ -1963,13 +1998,13 @@ namespace BuildingCoder
     public static bool IsPhysicalElement(
       this Element e )
     {
-      if( e.Category == null ) return false;
+      if (e.Category == null) return false;
       // does this produce same result as 
       // WhereElementIsViewIndependent ?
-      if( e.ViewSpecific ) return false;
+      if (e.ViewSpecific) return false;
       // exclude specific unwanted categories
-      if( ( (BuiltInCategory) e.Category.Id.IntegerValue )
-        == BuiltInCategory.OST_HVAC_Zones )
+      if (((BuiltInCategory)e.Category.Id.IntegerValue)
+        == BuiltInCategory.OST_HVAC_Zones)
       {
         return false;
       }
@@ -2036,7 +2071,7 @@ namespace BuildingCoder
       double da = a.DistanceTo( p );
       double db = p.DistanceTo( b );
       // da + db is always greater or equal f
-      return ( ( da + db ) - f ) * f < tolerance;
+      return ((da + db) - f) * f < tolerance;
     }
   }
 
@@ -2174,13 +2209,13 @@ namespace BuildingCoder
 
       List<XYZ> polygon = new List<XYZ>( n );
 
-      foreach( Edge e in ea )
+      foreach (Edge e in ea)
       {
         IList<XYZ> pts = e.Tessellate();
 
         n = polygon.Count;
 
-        if( 0 < n )
+        if (0 < n)
         {
           Debug.Assert( pts[0]
             .IsAlmostEqualTo( polygon[n - 1] ),
@@ -2215,7 +2250,7 @@ namespace BuildingCoder
           BindingFlags.Instance
           | BindingFlags.NonPublic );
 
-      if( null == mi )
+      if (null == mi)
       {
         throw new InvalidOperationException(
           "Could not find getParameter method" );
@@ -2286,7 +2321,7 @@ namespace BuildingCoder
         "GetEndPoint",
         new Type[] { typeof( int ) } );
 
-      if( met == null )
+      if (met == null)
       {
         met = curva.GetType().GetMethod(
           "get_EndPoint",
@@ -2316,7 +2351,7 @@ namespace BuildingCoder
       List<Type> ls = doc.GetType().Assembly
       .GetTypes().Where( a => a.IsClass && a
       .Name == "ExternalDefinitonCreationOptions" ).ToList();
-      if( ls.Count > 0 )
+      if (ls.Count > 0)
       {
         Type t = ls[0];
         ConstructorInfo c = t
@@ -2350,7 +2385,7 @@ namespace BuildingCoder
       Element value = null;
       MethodInfo met = doc.GetType()
       .GetMethod( "get_Element", new Type[] { typeof( ElementId ) } );
-      if( met == null )
+      if (met == null)
         met = doc.GetType()
         .GetMethod( "GetElement", new Type[] { typeof( ElementId ) } );
       value = met.Invoke( doc,
@@ -2375,11 +2410,11 @@ namespace BuildingCoder
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       string metodo = "CreateBound";
-      if( bound == false ) metodo =
-        "CreateUnbound";
+      if (bound == false) metodo =
+       "CreateUnbound";
       MethodInfo met = typeof( Line )
       .GetMethod( metodo, tipos );
-      if( met != null )
+      if (met != null)
       {
         value = met.Invoke( null,
           parametros ) as Line;
@@ -2411,7 +2446,7 @@ namespace BuildingCoder
       .GetType() ).ToArray();
       MethodInfo met = typeof( Wall )
       .GetMethod( "Create", tipos );
-      if( met != null )
+      if (met != null)
       {
         value = met.Invoke( null,
           parametros ) as Wall;
@@ -2442,7 +2477,7 @@ namespace BuildingCoder
       string metodo = "Create";
       MethodInfo met = typeof( Arc )
       .GetMethod( metodo, tipos );
-      if( met != null )
+      if (met != null)
       {
         value = met.Invoke( null,
           parametros ) as Arc;
@@ -2461,13 +2496,13 @@ namespace BuildingCoder
       char valor = ',';
       MethodInfo met = doc.GetType()
       .GetMethod( "GetUnits" );
-      if( met != null )
+      if (met != null)
       {
         object temp = met.Invoke( doc, null );
         PropertyInfo prop = temp.GetType()
         .GetProperty( "DecimalSymbol" );
         object o = prop.GetValue( temp, null );
-        if( o.ToString() == "Comma" )
+        if (o.ToString() == "Comma")
           valor = ',';
         else
           valor = '.';
@@ -2479,7 +2514,7 @@ namespace BuildingCoder
         PropertyInfo prop = temp.GetType()
         .GetProperty( "DecimalSymbolType" );
         object o = prop.GetValue( temp, null );
-        if( o.ToString() == "DST_COMMA" )
+        if (o.ToString() == "DST_COMMA")
           valor = ',';
         else
           valor = '.';
@@ -2498,7 +2533,7 @@ namespace BuildingCoder
             firstElement, secondElement };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
-      if( ls.Count > 0 )
+      if (ls.Count > 0)
       {
         Type t = ls[0];
         MethodInfo met = t
@@ -2518,7 +2553,7 @@ namespace BuildingCoder
             firstElement, secondElement };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
-      if( ls.Count > 0 )
+      if (ls.Count > 0)
       {
         Type t = ls[0];
         MethodInfo met = t
@@ -2539,12 +2574,12 @@ namespace BuildingCoder
             firstElement, secondElement };
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
-      if( ls.Count > 0 )
+      if (ls.Count > 0)
       {
         Type t = ls[0];
         MethodInfo met = t
         .GetMethod( "AreElementsJoined", tipos );
-        value = (bool) met.Invoke( null,
+        value = (bool)met.Invoke( null,
           parametros );
       }
       return value;
@@ -2555,7 +2590,7 @@ namespace BuildingCoder
       List<Type> ls = doc.GetType().Assembly
       .GetTypes().Where( a => a.IsClass && a
       .Name == "AreaVolumeSettings" ).ToList();
-      if( ls.Count > 0 )
+      if (ls.Count > 0)
       {
         Type t = ls[0];
         object[] parametros = new object[] {
@@ -2590,7 +2625,7 @@ namespace BuildingCoder
     {
       Group value = null;
       ElementSet eleset = new ElementSet();
-      foreach( Element ele in elementos )
+      foreach (Element ele in elementos)
       {
         eleset.Insert( ele );
       }
@@ -2599,7 +2634,7 @@ namespace BuildingCoder
       object obj = doc.Create;
       MethodInfo met = obj.GetType()
       .GetMethod( "NewGroup", new Type[] { col.GetType() } );
-      if( met != null )
+      if (met != null)
       {
         met.Invoke( obj, new object[] { col } );
       }
@@ -2619,7 +2654,7 @@ namespace BuildingCoder
       object obj = doc;
       MethodInfo met = obj.GetType()
       .GetMethod( "Delete", new Type[] { typeof( Element ) } );
-      if( met != null )
+      if (met != null)
       {
         met.Invoke( obj, new object[] { ele } );
       }
@@ -2639,11 +2674,11 @@ namespace BuildingCoder
       Element value = null;
       Document doc = ele.Document;
       Type t = ele.GetType();
-      if( t.GetProperty( "Level" ) != null )
+      if (t.GetProperty( "Level" ) != null)
         value = t.GetProperty( "Level" )
         .GetValue( ele, null ) as Element;
       else
-        value = doc.GetElement2( (ElementId) t
+        value = doc.GetElement2( (ElementId)t
         .GetProperty( "LevelId" ).GetValue( ele, null ) );
       return value;
     }
@@ -2653,16 +2688,16 @@ namespace BuildingCoder
       List<Material> value = new List<Material>();
       Document doc = ele.Document;
       Type t = ele.GetType();
-      if( t.GetProperty( "Materials" ) != null )
-        value = ( (IEnumerable) t
-        .GetProperty( "Materials" ).GetValue( ele, null ) ).Cast<Material>()
+      if (t.GetProperty( "Materials" ) != null)
+        value = ((IEnumerable)t
+        .GetProperty( "Materials" ).GetValue( ele, null )).Cast<Material>()
         .ToList();
       else
       {
         MethodInfo met = t
         .GetMethod( "GetMaterialIds", new Type[] { typeof( bool ) } );
-        value = ( (ICollection<ElementId>) met
-        .Invoke( ele, new object[] { false } ) )
+        value = ((ICollection<ElementId>)met
+        .Invoke( ele, new object[] { false } ))
         .Select( a => doc.GetElement2( a ) ).Cast<Material>().ToList();
       }
       return value;
@@ -2674,17 +2709,17 @@ namespace BuildingCoder
       Type t = ele.GetType();
       MethodInfo met = t
       .GetMethod( "LookupParameter", new Type[] { typeof( string ) } );
-      if( met == null )
+      if (met == null)
         met = t.GetMethod( "get_Parameter",
           new Type[] { typeof( string ) } );
       value = met.Invoke( ele,
         new object[] { nome_paramentro } ) as Parameter;
-      if( value == null )
+      if (value == null)
       {
         var pas = ele.Parameters
         .Cast<Parameter>().ToList();
-        if( pas.Exists( a => a.Definition
-        .Name.ToLower() == nome_paramentro.Trim().ToLower() ) )
+        if (pas.Exists( a => a.Definition
+        .Name.ToLower() == nome_paramentro.Trim().ToLower() ))
           value = pas.First( a => a
           .Definition.Name.ToLower() == nome_paramentro.Trim()
           .ToLower() );
@@ -2699,7 +2734,7 @@ namespace BuildingCoder
       Type t = ele.GetType();
       MethodInfo met = t
       .GetMethod( "LookupParameter", new Type[] { typeof( BuiltInParameter ) } );
-      if( met == null )
+      if (met == null)
         met = t.GetMethod( "get_Parameter",
           new Type[] { typeof( BuiltInParameter ) } );
       value = met.Invoke( ele,
@@ -2714,16 +2749,16 @@ namespace BuildingCoder
       MethodInfo met = t
       .GetMethod( "GetMaterialArea", new Type[] { typeof(ElementId),
             typeof(bool) } );
-      if( met != null )
+      if (met != null)
       {
-        value = (double) met.Invoke( ele,
+        value = (double)met.Invoke( ele,
           new object[] { m.Id, false } );
       }
       else
       {
         met = t.GetMethod( "GetMaterialArea",
           new Type[] { typeof( Element ) } );
-        value = (double) met.Invoke( ele,
+        value = (double)met.Invoke( ele,
           new object[] { m } );
       }
       return value;
@@ -2736,16 +2771,16 @@ namespace BuildingCoder
       MethodInfo met = t
       .GetMethod( "GetMaterialVolume", new Type[] { typeof(ElementId),
             typeof(bool) } );
-      if( met != null )
+      if (met != null)
       {
-        value = (double) met.Invoke( ele,
+        value = (double)met.Invoke( ele,
           new object[] { m.Id, false } );
       }
       else
       {
         met = t
         .GetMethod( "GetMaterialVolume", new Type[] { typeof( ElementId ) } );
-        value = (double) met.Invoke( ele,
+        value = (double)met.Invoke( ele,
           new object[] { m.Id } );
       }
       return value;
@@ -2759,11 +2794,11 @@ namespace BuildingCoder
       object obj = ele.get_Geometry( op );
       PropertyInfo prop = obj.GetType()
       .GetProperty( "Objects" );
-      if( prop != null )
+      if (prop != null)
       {
         obj = prop.GetValue( obj, null );
         IEnumerable arr = obj as IEnumerable;
-        foreach( GeometryObject geo in arr )
+        foreach (GeometryObject geo in arr)
         {
           value.Add( geo );
         }
@@ -2772,7 +2807,7 @@ namespace BuildingCoder
       {
         IEnumerable<GeometryObject> geos =
         obj as IEnumerable<GeometryObject>;
-        foreach( var geo in geos )
+        foreach (var geo in geos)
         {
           value.Add( geo );
         }
@@ -2787,7 +2822,7 @@ namespace BuildingCoder
     {
       MethodInfo met = fsymbol.GetType()
       .GetMethod( "Activate" );
-      if( met != null )
+      if (met != null)
       {
         met.Invoke( fsymbol, null );
       }
@@ -2804,7 +2839,7 @@ namespace BuildingCoder
       .GetType() ).ToArray();
       MethodInfo met = def.GetType()
       .GetMethod( "SetAllowVaryBetweenGroups", tipos );
-      if( met != null )
+      if (met != null)
       {
         met.Invoke( def, parametros );
       }
@@ -2817,7 +2852,7 @@ namespace BuildingCoder
       ElementId value = null;
       PropertyInfo prop = part.GetType()
       .GetProperty( "OriginalDividedElementId" );
-      if( prop != null )
+      if (prop != null)
         value = prop.GetValue( part,
           null ) as ElementId;
       else
@@ -2844,18 +2879,18 @@ namespace BuildingCoder
       List<Element> value = new List<Element>();
       sel.GetElementIds();
       Type t = sel.GetType();
-      if( t.GetMethod( "GetElementIds" ) != null )
+      if (t.GetMethod( "GetElementIds" ) != null)
       {
         MethodInfo met = t
         .GetMethod( "GetElementIds" );
-        value = ( (ICollection<ElementId>) met
-        .Invoke( sel, null ) ).Select( a => doc.GetElement2( a ) )
+        value = ((ICollection<ElementId>)met
+        .Invoke( sel, null )).Select( a => doc.GetElement2( a ) )
         .ToList();
       }
       else
       {
-        value = ( (IEnumerable) t
-        .GetProperty( "Elements" ).GetValue( sel, null ) ).Cast<Element>()
+        value = ((IEnumerable)t
+        .GetProperty( "Elements" ).GetValue( sel, null )).Cast<Element>()
         .ToList();
       }
       return value;
@@ -2872,7 +2907,7 @@ namespace BuildingCoder
       .GetType() ).ToArray();
       MethodInfo met = sel.GetType()
       .GetMethod( "SetElementIds", tipos );
-      if( met != null )
+      if (met != null)
       {
         met.Invoke( sel, parametros );
       }
@@ -2881,7 +2916,7 @@ namespace BuildingCoder
         PropertyInfo prop = sel.GetType()
         .GetProperty( "Elements" );
         object temp = prop.GetValue( sel, null );
-        if( elementos.Count == 0 )
+        if (elementos.Count == 0)
         {
           met = temp.GetType()
           .GetMethod( "Clear" );
@@ -2889,7 +2924,7 @@ namespace BuildingCoder
         }
         else
         {
-          foreach( ElementId id in elementos )
+          foreach (ElementId id in elementos)
           {
             Element elemento = doc
             .GetElement2( id );
@@ -2909,7 +2944,7 @@ namespace BuildingCoder
     {
       PropertyInfo prop = sel.GetType()
         .GetProperty( "Elements" );
-      if( prop != null )
+      if (prop != null)
       {
         object obj = prop.GetValue( sel, null );
         MethodInfo met = obj.GetType()
@@ -2946,13 +2981,13 @@ namespace BuildingCoder
         .Where( a => a.IsEnum
           && a.Name == "ViewDuplicateOption" )
         .ToList();
-      if( ls.Count > 0 )
+      if (ls.Count > 0)
       {
         Type t = ls[0];
         object obj = view;
         MethodInfo met = view.GetType().GetMethod(
           "Duplicate", new Type[] { t } );
-        if( met != null )
+        if (met != null)
         {
           value = met.Invoke( obj,
             new object[] { 2 } ) as ElementId;
@@ -2972,7 +3007,7 @@ namespace BuildingCoder
           a => a.IsClass
             && a.Name == "OverrideGraphicSettings" )
         .ToList();
-      if( ls.Count > 0 )
+      if (ls.Count > 0)
       {
         Type t = ls[0];
         ConstructorInfo construtor = t
@@ -2991,7 +3026,7 @@ namespace BuildingCoder
           .GetMethod( "SetElementOverrides",
             new Type[] { typeof(ElementId),
             obj.GetType() } );
-        foreach( ElementId id in ids )
+        foreach (ElementId id in ids)
         {
           met.Invoke( view, new object[] { id, obj } );
         }
@@ -3019,7 +3054,7 @@ namespace BuildingCoder
       ElementId value = null;
       PropertyInfo prop = view.GetType()
         .GetProperty( "ViewTemplateId" );
-      if( prop != null )
+      if (prop != null)
       {
         value = prop.GetValue( view,
           null ) as ElementId;
@@ -3032,7 +3067,7 @@ namespace BuildingCoder
     {
       PropertyInfo prop = view.GetType()
         .GetProperty( "ViewTemplateId" );
-      if( prop != null )
+      if (prop != null)
       {
         prop.SetValue( view, id, null );
       }
@@ -3045,7 +3080,7 @@ namespace BuildingCoder
       string metodo = "Flip";
       MethodInfo met = typeof( Wall )
         .GetMethod( metodo );
-      if( met != null )
+      if (met != null)
       {
         met.Invoke( wall, null );
       }
