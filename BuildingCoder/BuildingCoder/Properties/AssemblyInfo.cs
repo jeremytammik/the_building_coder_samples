@@ -302,6 +302,7 @@ using System.Runtime.InteropServices;
 // 2019-04-24 2020.0.145.1 implemented CloseDocByCommand suggested by Bogdan
 // 2019-05-02 2020.0.145.2 implemented GetElementTypeByName, GetFamilySymbolByName and GetTextNoteTypeByName
 // 2019-05-02 2020.0.145.3 implemented DeleteNonRoomSeparators for https://forums.autodesk.com/t5/revit-api-forum/deleting-lines-that-are-not-assigned-to-the-lt-room-separation/m-p/8765491
+// 2019-05-02 2020.0.145.4 renamed BeamCreator and cleanup
 //
-[assembly: AssemblyVersion( "2020.0.145.3" )]
-[assembly: AssemblyFileVersion( "2020.0.145.3" )]
+[assembly: AssemblyVersion( "2020.0.145.4" )]
+[assembly: AssemblyFileVersion( "2020.0.145.4" )]
