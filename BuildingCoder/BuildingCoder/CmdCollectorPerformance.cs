@@ -991,6 +991,23 @@ namespace BuildingCoder
     }
     #endregion // Filter for detail curves
 
+    #region Delete non-room-separating curve elements
+    void DeleteNonRoomSeparators( Document doc )
+    {
+      ElementCategoryFilter non_room_separator 
+        = new ElementCategoryFilter( 
+          BuiltInCategory.OST_RoomSeparationLines, 
+          true );
+
+      FilteredElementCollector a
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( CurveElement ) )
+          .WherePasses( non_room_separator );
+
+      doc.Delete( a.ToElementIds() );
+    }
+    #endregion // Filter for non-room-separating curve elements
+
     #region Filter for views
     void f_views()
     {
