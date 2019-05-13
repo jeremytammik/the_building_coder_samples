@@ -53,28 +53,36 @@ namespace BuildingCoder
       _folder = path.Substring( 0, i );
     }
 
-    public string Document {
+    public string Document
+    {
       get { return _document; }
     }
-    public string Element {
+    public string Element
+    {
       get { return _elementName; }
     }
-    public int Id {
+    public int Id
+    {
       get { return _id; }
     }
-    public string X {
+    public string X
+    {
       get { return Util.RealString( _x ); }
     }
-    public string Y {
+    public string Y
+    {
       get { return Util.RealString( _y ); }
     }
-    public string Z {
+    public string Z
+    {
       get { return Util.RealString( _z ); }
     }
-    public string UniqueId {
+    public string UniqueId
+    {
       get { return _uniqueId; }
     }
-    public string Folder {
+    public string Folder
+    {
       get { return _folder; }
     }
   }
@@ -204,5 +212,71 @@ namespace BuildingCoder
       }
     }
     #endregion // AddFaceBasedFamilyToLinks
+
+    #region Tag elements in linked documents
+    /// <summary>
+    /// Tag all walls in all linked documents
+    /// </summary>
+    void TagAllLinkedWalls( Document doc )
+    {
+      // Point near my wall
+      XYZ xyz = new XYZ( -20, 20, 0 );
+
+      // At first need to find our links
+      FilteredElementCollector collector
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( RevitLinkInstance ) );
+
+      foreach( Element elem in collector )
+      {
+        // Get linkInstance
+        RevitLinkInstance instance = elem as RevitLinkInstance;
+
+        // Get linkDocument
+        Document linkDoc = instance.GetLinkDocument();
+
+        // Get linkType
+        RevitLinkType type = doc.GetElement( instance.GetTypeId() )
+          as RevitLinkType;
+
+        // Check if link is loaded
+        if( RevitLinkType.IsLoaded( doc, type.Id ) )
+        {
+          // Find walls for tagging
+          FilteredElementCollector walls
+            = new FilteredElementCollector( linkDoc )
+              .OfCategory( BuiltInCategory.OST_Walls )
+              .OfClass( typeof( Wall ) );
+
+          // Create reference
+          foreach( Wall wall in walls )
+          {
+            Reference newRef = new Reference( wall )
+              .CreateLinkReference( instance );
+
+            // Create transaction
+            using( Transaction tx = new Transaction( doc ) )
+            {
+              tx.Start( "Create tags" );
+
+              IndependentTag newTag = IndependentTag.Create( 
+                doc, doc.ActiveView.Id, newRef, true, 
+                TagMode.TM_ADDBY_MATERIAL, 
+                TagOrientation.Horizontal, xyz );
+
+              // Use TaggedElementId.LinkInstanceId and 
+              // TaggedElementId.LinkInstanceId to retrieve 
+              // the id of the tagged link and element:
+
+              ElementId linkInstid = newTag.TaggedElementId.LinkInstanceId;
+              ElementId linkedElementId = newTag.TaggedElementId.LinkedElementId;
+
+              tx.Commit();
+            }
+          }
+        }
+      }
+    }
+    #endregion // Tag elements in linked documents
   }
 }

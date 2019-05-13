@@ -109,9 +109,8 @@ namespace BuildingCoder
       // map with key = viewport element id and
       // value = sheet element id:
 
-      Dictionary<ElementId, ElementId>
-        mapViewportToSheet =
-        new Dictionary<ElementId, ElementId>();
+      Dictionary<ElementId, ElementId> mapViewportToSheet 
+        = new Dictionary<ElementId, ElementId>();
 
       foreach( ViewSheet sheet in sheets )
       {

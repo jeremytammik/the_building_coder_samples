@@ -303,6 +303,7 @@ using System.Runtime.InteropServices;
 // 2019-05-02 2020.0.145.2 implemented GetElementTypeByName, GetFamilySymbolByName and GetTextNoteTypeByName
 // 2019-05-02 2020.0.145.3 implemented DeleteNonRoomSeparators for https://forums.autodesk.com/t5/revit-api-forum/deleting-lines-that-are-not-assigned-to-the-lt-room-separation/m-p/8765491
 // 2019-05-02 2020.0.145.4 renamed BeamCreator and cleanup
-//
-[assembly: AssemblyVersion( "2020.0.145.4" )]
-[assembly: AssemblyFileVersion( "2020.0.145.4" )]
+// 2019-05-13 2020.0.145.5 added TagAllLinkedWalls from https://forums.autodesk.com/t5/revit-api-forum/tagging-linked-elements-using-revit-api/m-p/8787094
+// 
+[assembly: AssemblyVersion( "2020.0.145.5" )]
+[assembly: AssemblyFileVersion( "2020.0.145.5" )]
