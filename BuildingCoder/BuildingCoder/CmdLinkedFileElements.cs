@@ -230,14 +230,15 @@ namespace BuildingCoder
       foreach( Element elem in collector )
       {
         // Get linkInstance
-        RevitLinkInstance instance = elem as RevitLinkInstance;
+        RevitLinkInstance instance = elem 
+          as RevitLinkInstance;
 
         // Get linkDocument
         Document linkDoc = instance.GetLinkDocument();
 
         // Get linkType
-        RevitLinkType type = doc.GetElement( instance.GetTypeId() )
-          as RevitLinkType;
+        RevitLinkType type = doc.GetElement( 
+          instance.GetTypeId() ) as RevitLinkType;
 
         // Check if link is loaded
         if( RevitLinkType.IsLoaded( doc, type.Id ) )
@@ -268,8 +269,9 @@ namespace BuildingCoder
               // TaggedElementId.LinkInstanceId to retrieve 
               // the id of the tagged link and element:
 
-              ElementId linkInstid = newTag.TaggedElementId.LinkInstanceId;
-              ElementId linkedElementId = newTag.TaggedElementId.LinkedElementId;
+              LinkElementId linkId = newTag.TaggedElementId;
+              ElementId linkInsancetId = linkId.LinkInstanceId;
+              ElementId linkedElementId = linkId.LinkedElementId;
 
               tx.Commit();
             }

@@ -304,6 +304,7 @@ using System.Runtime.InteropServices;
 // 2019-05-02 2020.0.145.3 implemented DeleteNonRoomSeparators for https://forums.autodesk.com/t5/revit-api-forum/deleting-lines-that-are-not-assigned-to-the-lt-room-separation/m-p/8765491
 // 2019-05-02 2020.0.145.4 renamed BeamCreator and cleanup
 // 2019-05-13 2020.0.145.5 added TagAllLinkedWalls from https://forums.autodesk.com/t5/revit-api-forum/tagging-linked-elements-using-revit-api/m-p/8787094
+// 2019-05-14 2020.0.145.6 implemented CreateCylinder for https://forums.autodesk.com/t5/revit-api-forum/how-to-find-one-element-inside-other-element/m-p/8789016
 // 
-[assembly: AssemblyVersion( "2020.0.145.5" )]
-[assembly: AssemblyFileVersion( "2020.0.145.5" )]
+[assembly: AssemblyVersion( "2020.0.145.6" )]
+[assembly: AssemblyFileVersion( "2020.0.145.6" )]

@@ -637,8 +637,50 @@ namespace BuildingCoder
     }
 
     /// <summary>
+    /// Create and return a cylinder
+    /// with a given origin, radius and axis.
+    /// Very similar to CreateCone!
+    /// </summary>
+    static public Solid CreateCylinder(
+      XYZ origin,
+      XYZ axis_vector,
+      double radius,
+      double height )
+    {
+      XYZ az = axis_vector.Normalize();
+
+      XYZ ax, ay;
+      GetArbitraryAxes( az, out ax, out ay );
+
+      // Define a rectangle in XZ plane
+
+      XYZ px = origin + radius * ax;
+      XYZ pxz = origin + radius * ax + height * az;
+      XYZ pz = origin + height * az;
+
+      List<Curve> profile = new List<Curve>();
+
+      profile.Add( Line.CreateBound( origin, px ) );
+      profile.Add( Line.CreateBound( px, pxz ) );
+      profile.Add( Line.CreateBound( pxz, pz ) );
+      profile.Add( Line.CreateBound( pz, origin ) );
+
+      CurveLoop curveLoop = CurveLoop.Create( profile );
+
+      Frame frame = new Frame( origin, ax, ay, az );
+
+      Solid cone = GeometryCreationUtilities
+        .CreateRevolvedGeometry( frame,
+          new CurveLoop[] { curveLoop },
+          0, 2 * Math.PI );
+
+      return cone;
+    }
+
+    /// <summary>
     /// Create a cone-shaped solid at the given base
     /// location pointing along the given axis.
+    /// Very similar to CreateCylinder!
     /// </summary>
     static public Solid CreateCone(
       XYZ center,
