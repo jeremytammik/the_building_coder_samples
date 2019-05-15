@@ -537,12 +537,12 @@ namespace BuildingCoder
           .WhereElementIsNotElementType()
           .WhereElementIsViewIndependent();
 
-      IEnumerable<BoundingBoxXYZ> bbs = quick_model_elements
+      IEnumerable<BoundingBoxXYZ> boxes = quick_model_elements
         .Where<Element>( e => null != e.Category )
         .Select<Element, BoundingBoxXYZ>( e
            => e.get_BoundingBox( null ) );
 
-      return bbs.Aggregate<BoundingBoxXYZ>( ( a, b )
+      return boxes.Aggregate<BoundingBoxXYZ>( ( a, b )
         => { a.ExpandToContain( b ); return a; } );
     }
     #endregion // Get Model Extents
