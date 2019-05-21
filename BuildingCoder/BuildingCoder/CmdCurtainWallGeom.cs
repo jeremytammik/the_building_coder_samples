@@ -76,7 +76,7 @@ namespace BuildingCoder
     }
     #endregion // Retrieve Curtain Wall Panel Geometry with Basic Wall Panel
 
-    #region list_wall_geom
+    #region List Wall Geometry
     void list_wall_geom( Wall w, Application app )
     {
       string s = "";
@@ -135,7 +135,7 @@ namespace BuildingCoder
       }
       TaskDialog.Show( "revit", s );
     }
-    #endregion // list_wall_geom
+    #endregion // List Wall Geometry
 
     public Result Execute(
       ExternalCommandData commandData,
