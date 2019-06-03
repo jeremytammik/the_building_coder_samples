@@ -55,39 +55,38 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
 
-      Transaction tx = new Transaction( doc,
-        "Duplicate Elements" );
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Duplicate Elements" );
 
-      tx.Start();
+        //Group group = doc.Create.NewGroup( // 2012
+        //  uidoc.Selection.Elements );
 
-      //Group group = doc.Create.NewGroup( // 2012
-      //  uidoc.Selection.Elements );
+        Group group = doc.Create.NewGroup( // 2013
+          uidoc.Selection.GetElementIds() );
 
-      Group group = doc.Create.NewGroup( // 2013
-        uidoc.Selection.GetElementIds() );
+        LocationPoint location = group.Location
+          as LocationPoint;
 
-      LocationPoint location = group.Location
-        as LocationPoint;
+        XYZ p = location.Point;
+        XYZ newPoint = new XYZ( p.X, p.Y + 10, p.Z );
 
-      XYZ p = location.Point;
-      XYZ newPoint = new XYZ( p.X, p.Y + 10, p.Z );
+        Group newGroup = doc.Create.PlaceGroup(
+          newPoint, group.GroupType );
 
-      Group newGroup = doc.Create.PlaceGroup(
-        newPoint, group.GroupType );
+        //group.Ungroup(); // 2012
+        group.UngroupMembers(); // 2013
 
-      //group.Ungroup(); // 2012
-      group.UngroupMembers(); // 2013
+        //ElementSet eSet = newGroup.Ungroup(); // 2012
 
-      //ElementSet eSet = newGroup.Ungroup(); // 2012
+        ICollection<ElementId> eIds
+          = newGroup.UngroupMembers(); // 2013
 
-      ICollection<ElementId> eIds 
-        = newGroup.UngroupMembers(); // 2013
+        // change the property or parameter values
+        // of the member elements as required...
 
-      // change the property or parameter values
-      // of the member elements as required...
-
-      tx.Commit();
-
+        tx.Commit();
+      }
       return Result.Succeeded;
     }
   }

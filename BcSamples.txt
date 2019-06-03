@@ -1231,4 +1231,12 @@ Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdDuctResize # version 2018.0.145.0
 
+ADN Bc A-I
+BIM360 Links
+Retrieve and list BIM360 linked models
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdBim360Links # version 2018.0.146.0
+
 
