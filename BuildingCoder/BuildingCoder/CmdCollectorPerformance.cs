@@ -998,9 +998,9 @@ namespace BuildingCoder
     /// </summary>
     void DeleteNonRoomSeparators( Document doc )
     {
-      ElementCategoryFilter non_room_separator 
-        = new ElementCategoryFilter( 
-          BuiltInCategory.OST_RoomSeparationLines, 
+      ElementCategoryFilter non_room_separator
+        = new ElementCategoryFilter(
+          BuiltInCategory.OST_RoomSeparationLines,
           true );
 
       FilteredElementCollector a
@@ -1122,21 +1122,21 @@ namespace BuildingCoder
         .OfClass( typeof( FamilyInstance ) )
         .Cast<FamilyInstance>()
         .Where( x => x.Symbol.Family.Name.Equals( familyName ) ) // family
-        //.Where( x => x.Name.Equals( typeName ) // family type               
+                                                                 //.Where( x => x.Name.Equals( typeName ) // family type               
         .Where( x => x.Symbol.Name.Equals( typeName ) ); // family type               
     }
 
     /// <summary>
     /// Get instances by element type
     /// </summary>
-    static IEnumerable<Element> GetInstancesOfElementType( 
+    static IEnumerable<Element> GetInstancesOfElementType(
       ElementType type )
     {
       int iid = type.Id.IntegerValue;
       return new FilteredElementCollector( type.Document )
         .WhereElementIsNotElementType()
         //.OfClass( typeof( FamilyInstance ) ) // excludes walls, floors, pipes, etc.; all system family elements
-        .Where( e => e.GetTypeId().IntegerValue.Equals( 
+        .Where( e => e.GetTypeId().IntegerValue.Equals(
           iid ) );
     }
     #endregion // Retrieve all family instances of specific named family and type
@@ -1195,30 +1195,30 @@ namespace BuildingCoder
         .FirstOrDefault( x => x.Name == typeName ); // family type
     }
 
-  /// <summary>
-  /// Predicate returning true for the desired title
-  /// block type and false for all others.
-  /// </summary>
-  bool IsCorrectTitleBlock( Element e )
-  {
-    return false;
-  }
+    /// <summary>
+    /// Predicate returning true for the desired title
+    /// block type and false for all others.
+    /// </summary>
+    bool IsCorrectTitleBlock( Element e )
+    {
+      return false;
+    }
 
-  ElementId GetSpecificTitleBlockType( Document doc )
-  {
-    // Create a filter to get a specific title block type:
+    ElementId GetSpecificTitleBlockType( Document doc )
+    {
+      // Create a filter to get a specific title block type:
 
-    Element title_block_type
-      = new FilteredElementCollector( doc )
-        .OfCategory( BuiltInCategory.OST_TitleBlocks )
-        .WhereElementIsElementType()
-        .FirstOrDefault<Element>( e 
-          => IsCorrectTitleBlock( e ) );
+      Element title_block_type
+        = new FilteredElementCollector( doc )
+          .OfCategory( BuiltInCategory.OST_TitleBlocks )
+          .WhereElementIsElementType()
+          .FirstOrDefault<Element>( e
+            => IsCorrectTitleBlock( e ) );
 
-    // Use null-conditional Elvis operator:
+      // Use null-conditional Elvis operator:
 
-    return title_block_type?.Id;
-  }
+      return title_block_type?.Id;
+    }
     #endregion // Return first title block family symbol of specific named family and type
 
     #region Retrieve named family symbols using either LINQ or a parameter filter
@@ -1231,26 +1231,26 @@ namespace BuildingCoder
         .OfClass( typeof( FamilySymbol ) );
     }
 
-    static IEnumerable<Element> Linq( 
-      Document doc, 
+    static IEnumerable<Element> Linq(
+      Document doc,
       string familySymbolName )
     {
       return GetStructuralColumnSymbolCollector( doc )
         .Where( x => x.Name == familySymbolName );
     }
 
-    static IEnumerable<Element> Linq2( 
-      Document doc, 
+    static IEnumerable<Element> Linq2(
+      Document doc,
       string familySymbolName )
     {
       return GetStructuralColumnSymbolCollector( doc )
-        .Where( x => x.get_Parameter( 
+        .Where( x => x.get_Parameter(
           BuiltInParameter.SYMBOL_NAME_PARAM )
             .AsString() == familySymbolName );
     }
 
-    static IEnumerable<Element> FilterRule( 
-      Document doc, 
+    static IEnumerable<Element> FilterRule(
+      Document doc,
       string familySymbolName )
     {
       return GetStructuralColumnSymbolCollector( doc )
@@ -1262,8 +1262,8 @@ namespace BuildingCoder
               new FilterStringEquals(), familySymbolName, true ) ) );
     }
 
-    static IEnumerable<Element> Factory( 
-      Document doc, 
+    static IEnumerable<Element> Factory(
+      Document doc,
       string familySymbolName )
     {
       return GetStructuralColumnSymbolCollector( doc )
@@ -1387,8 +1387,47 @@ namespace BuildingCoder
 
       return fec;
     }
-
     #endregion // Retrieve pipes belonging to specific system type
+
+    #region Retrieve descriptions from all AssemblyInstance objects and their members
+    /// <summary>
+    /// Retrieve descriptions from all 
+    /// AssemblyInstance objects and their members, cf.
+    /// 15478004 [Get list of elements in Assembly]
+    /// https://forums.autodesk.com/t5/revit-api-forum/get-list-of-elements-in-assembly/m-p/8857972
+    /// </summary>
+    List<string> ListElementsInAssembly(
+      Document doc )
+    {
+      Guid fp_description_param_guid
+        = new Guid( "ac6ed937-ffb7-4b18-9c69-7541f5c0319d" );
+
+      FilteredElementCollector assemblies
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( AssemblyInstance ) );
+
+      List<string> descriptions = new List<string>();
+
+      foreach( AssemblyInstance a in assemblies )
+      {
+        descriptions.Add( a.get_Parameter(
+          fp_description_param_guid ).AsString() );
+
+        ICollection<ElementId> ids = a.GetMemberIds();
+
+        foreach( ElementId id in ids )
+        {
+          Element e = doc.GetElement( id );
+          descriptions.Add( e.get_Parameter(
+            fp_description_param_guid ).AsString() );
+        }
+      }
+
+      Debug.Print( string.Join( "\r\n", descriptions ) );
+
+      return descriptions;
+    }
+    #endregion // Retrieve descriptions from all AssemblyInstance objects and their members
 
     #region Retrieve all edges in model
     void RetrieveEdges(
@@ -2665,10 +2704,12 @@ TaskDialog.Show( "Revit", collector.Count() +
       UIDocument uidoc = app.ActiveUIDocument;
       _doc = uidoc.Document;
 
+      ListElementsInAssembly( _doc );
+
       //RunBenchmark();
 
       Element wall = Util.SelectSingleElementOfType(
-        uidoc, typeof( Wall ), "a wall", true );
+  uidoc, typeof( Wall ), "a wall", true );
 
       GetInstancesIntersectingElement( wall );
 

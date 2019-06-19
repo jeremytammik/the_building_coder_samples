@@ -306,6 +306,7 @@ using System.Runtime.InteropServices;
 // 2019-05-13 2020.0.145.5 added TagAllLinkedWalls from https://forums.autodesk.com/t5/revit-api-forum/tagging-linked-elements-using-revit-api/m-p/8787094
 // 2019-05-14 2020.0.145.6 implemented CreateCylinder for https://forums.autodesk.com/t5/revit-api-forum/how-to-find-one-element-inside-other-element/m-p/8789016
 // 2019-06-03 2020.0.146.0 implemented CmdBim360Links
+// 2019-06-19 2020.0.146.1 implemented ListElementsInAssembly for https://forums.autodesk.com/t5/revit-api-forum/get-list-of-elements-in-assembly/m-p/8857972
 // 
-[assembly: AssemblyVersion( "2020.0.146.0" )]
-[assembly: AssemblyFileVersion( "2020.0.146.0" )]
+[assembly: AssemblyVersion( "2020.0.146.1" )]
+[assembly: AssemblyFileVersion( "2020.0.146.1" )]
