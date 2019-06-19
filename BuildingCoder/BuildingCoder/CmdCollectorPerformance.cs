@@ -1399,8 +1399,10 @@ namespace BuildingCoder
     List<string> ListElementsInAssembly(
       Document doc )
     {
-      Guid fp_description_param_guid
-        = new Guid( "ac6ed937-ffb7-4b18-9c69-7541f5c0319d" );
+      // 'FP Description' shared parameter GUID
+
+      Guid guid = new Guid( 
+        "ac6ed937-ffb7-4b18-9c69-7541f5c0319d" );
 
       FilteredElementCollector assemblies
         = new FilteredElementCollector( doc )
@@ -1408,18 +1410,30 @@ namespace BuildingCoder
 
       List<string> descriptions = new List<string>();
 
+      int n;
+      string s;
+
       foreach( AssemblyInstance a in assemblies )
       {
-        descriptions.Add( a.get_Parameter(
-          fp_description_param_guid ).AsString() );
-
         ICollection<ElementId> ids = a.GetMemberIds();
+
+        n = ids.Count;
+
+        s = string.Format(
+          "\r\nAssembly {0} has {1} member{2}{3}",
+          a.get_Parameter( guid ).AsString(),
+          n, Util.PluralSuffix( n ), Util.DotOrColon( n ) );
+
+        descriptions.Add( s );
+
+        n = 0;
 
         foreach( ElementId id in ids )
         {
           Element e = doc.GetElement( id );
-          descriptions.Add( e.get_Parameter(
-            fp_description_param_guid ).AsString() );
+
+          descriptions.Add( string.Format( "{0}: {1}",
+            n++, e.get_Parameter( guid ).AsString() ) );
         }
       }
 
