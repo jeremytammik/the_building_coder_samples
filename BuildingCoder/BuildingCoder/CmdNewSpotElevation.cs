@@ -117,26 +117,28 @@ namespace BuildingCoder
     {
       using( var trans = new Transaction( doc ) )
       {
-        trans.Start( "Map LMV Camera" );
+        trans.Start( "Map Forge Viewer Camera" );
 
-        IEnumerable<ViewFamilyType> viewFamilyTypes
-          = from elem
-            in new FilteredElementCollector( doc )
-              .OfClass( typeof( ViewFamilyType ) )
-            let type = elem as ViewFamilyType
-            where type.ViewFamily == ViewFamily.ThreeDimensional
-            select type;
+        ViewFamilyType typ
+          = new FilteredElementCollector( doc )
+            .OfClass( typeof( ViewFamilyType ) )
+            .Cast<ViewFamilyType>()
+            .First<ViewFamilyType>( 
+              x => x.ViewFamily.Equals( 
+                ViewFamily.ThreeDimensional ) );
 
-        // Create a new Perspective View3D
+        // Create a new perspective 3D view
 
-        View3D view3D = View3D.CreatePerspective(
-          doc, viewFamilyTypes.First().Id );
+        View3D view3D = View3D.CreatePerspective( 
+          doc, typ.Id );
 
         Random rnd = new Random();
-        view3D.Name = string.Format( "Camera{0}", rnd.Next() );
+        view3D.Name = string.Format( "Camera{0}", 
+          rnd.Next() );
 
-        // By default, the 3D view uses a default orientation.
-        // Change the orientation by creating and setting a ViewOrientation3D
+        // By default, the 3D view uses a default 
+        // orientation. Change that by creating and 
+        // setting up a suitable ViewOrientation3D.
 
         var position = new XYZ( -15.12436009332275,
           -8.984616232971192, 4.921260089050291 );
@@ -153,7 +155,7 @@ namespace BuildingCoder
 
         view3D.SetOrientation( orientation );
 
-        // Turn off the far clip plane 
+        // Turn off the far clip plane, etc.
 
         view3D.LookupParameter( "Far Clip Active" )
           .Set( 0 );
