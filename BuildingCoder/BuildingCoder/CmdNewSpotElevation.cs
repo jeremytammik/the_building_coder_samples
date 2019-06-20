@@ -109,6 +109,68 @@ namespace BuildingCoder
 #endif // 0
     #endregion // Language Independent View Type Id
 
+    #region Create Perspective View to Match Forge Viewer Camera Settings
+    /// <summary>
+    /// Create perspective view with camera settings 
+    /// matching the Forge Viewer.
+    /// </summary>
+    void CreatePerspectiveViewMatchingCameera(
+      Document doc )
+    {
+      using( var trans = new Transaction( doc ) )
+      {
+        trans.Start( "Map LMV Camera" );
+
+        IEnumerable<ViewFamilyType> viewFamilyTypes
+          = from elem
+            in new FilteredElementCollector( doc )
+              .OfClass( typeof( ViewFamilyType ) )
+            let type = elem as ViewFamilyType
+            where type.ViewFamily == ViewFamily.ThreeDimensional
+            select type;
+
+        // Create a new Perspective View3D
+
+        View3D view3D = View3D.CreatePerspective(
+          doc, viewFamilyTypes.First().Id );
+
+        Random rnd = new Random();
+        view3D.Name = string.Format( "Camera{0}", rnd.Next() );
+
+        // By default, the 3D view uses a default orientation.
+        // Change the orientation by creating and setting a ViewOrientation3D
+
+        var position = new XYZ( -15.12436009332275,
+          -8.984616232971192, 4.921260089050291 );
+
+        var up = new XYZ( 0, 0, 1 );
+
+        var target = new XYZ( -15.02436066552734,
+          -8.984211875061035, 4.921260089050291 );
+
+        var sightDir = target.Subtract( position ).Normalize();
+
+        var orientation = new ViewOrientation3D(
+          position, up, sightDir );
+
+        view3D.SetOrientation( orientation );
+
+        // Turn off the far clip plane 
+
+        view3D.LookupParameter( "Far Clip Active" )
+          .Set( 0 );
+
+        view3D.LookupParameter( "Crop Region Visible" )
+          .Set( 1 );
+
+        view3D.LookupParameter( "Crop View" )
+          .Set( 1 );
+
+        trans.Commit();
+      }
+    }
+    #endregion // Create Perspective View to Match Forge Viewer Camera Settings
+
     #region Create Isometric View from Revit 2013 What's New sample code
     /// <summary>
     /// Sample code from Revit API help file What's New 
