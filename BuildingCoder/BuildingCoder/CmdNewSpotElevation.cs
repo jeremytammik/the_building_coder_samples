@@ -109,7 +109,7 @@ namespace BuildingCoder
 #endif // 0
     #endregion // Language Independent View Type Id
 
-    #region Revit 2013 What's New sample code
+    #region Create Isometric View from Revit 2013 What's New sample code
     /// <summary>
     /// Sample code from Revit API help file What's New 
     /// section on View API and View Creation.
@@ -151,7 +151,7 @@ namespace BuildingCoder
       view.SetOrientation( new ViewOrientation3D(
         eyePosition, upDirection, forwardDirection ) );
     }
-    #endregion // Revit 2013 What's New sample code
+    #endregion // Create Isometric View from Revit 2013 What's New sample code
 
     /// <summary>
     /// Simulate VSTA macro Application class member variable:
