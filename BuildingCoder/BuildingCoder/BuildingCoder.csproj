@@ -184,6 +184,7 @@
     <Compile Include="CmdProcessVisibleDwg.cs" />
     <Compile Include="CmdProjectParameterGuids.cs" />
     <Compile Include="CmdPurgeLineStyles.cs" />
+    <Compile Include="CmdRebarCurves.cs" />
     <Compile Include="CmdRollingOffset.cs" />
     <Compile Include="CmdRoomNeighbours.cs" />
     <Compile Include="CmdNestedFamilies.cs" />

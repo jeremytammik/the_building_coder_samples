@@ -1215,7 +1215,7 @@ Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdExportIfc # version 2018.0.143.0
 
-ADN BcJ-Q
+ADN Bc J-Q
 MultistoryStairSubelements
 Access all subelements of all MultistoryStair instances
 LargeImage:
@@ -1238,5 +1238,13 @@ LargeImage:
 Image:
 C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdBim360Links # version 2018.0.146.0
+
+ADN Bc R-Z
+Rebar Curves
+Retrieve and duplicate all rebar centreline curves with model curves
+LargeImage:
+Image:
+C:\a\vs\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdRebarCurves # version 2018.0.147.0
 
 
