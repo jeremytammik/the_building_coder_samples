@@ -11,25 +11,24 @@
 
 #region Namespaces
 using System.Collections.Generic;
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using System;
 using Autodesk.Revit.DB.Structure;
+using Autodesk.Revit.UI;
 #endregion // Namespaces
 
 namespace BuildingCoder
 {
-  // I’m using a filter which will give me all rebar 
-  // elements.For each rear we will calculate for each 
+  // I’m using a filter which gives me all rebar 
+  // elements. For each rebar, we calculate for each 
   // bar in set it’s curves using Rebar.GetCenterlineCurves.
-  // In case of shape driven, we will also move the curves 
-  // for the bar at position `i` to their real position.
+  // In case of shape driven, we also move the curves for
+  // the bar at position `i` to their real position.
 
   [Transaction( TransactionMode.ReadOnly )]
   class CmdRebarCurves : IExternalCommand
   {
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
