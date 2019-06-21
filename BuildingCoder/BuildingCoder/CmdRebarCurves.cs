@@ -19,30 +19,22 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  // I’m using a filter which gives me all rebar 
-  // elements. For each rebar, we calculate for each 
-  // bar in set it’s curves using Rebar.GetCenterlineCurves.
-  // In case of shape driven, we also move the curves for
-  // the bar at position `i` to their real position.
-
   [Transaction( TransactionMode.ReadOnly )]
   class CmdRebarCurves : IExternalCommand
   {
-
-    public Result Execute(
-      ExternalCommandData commandData,
-      ref string message,
-      ElementSet elements )
+    static IList<Curve> GetRebarCurves( Document doc )
     {
-      UIApplication app = commandData.Application;
-      UIDocument uidoc = app.ActiveUIDocument;
-      Document doc = uidoc.Document;
+      // I’m using a filter which gives me all rebar 
+      // elements. For each rebar, we calculate for each 
+      // bar in set it’s curves using Rebar.GetCenterlineCurves.
+      // In case of shape driven, we also move the curves for
+      // the bar at position `i` to their real position.
 
-      FilteredElementCollector rebars 
+      IList<Curve> curves = new List<Curve>();
+
+      FilteredElementCollector rebars
         = new FilteredElementCollector( doc )
           .OfClass( typeof( Rebar ) );
-
-      IList<Curve> curves = new List<Curve>(); // collect all the curves.
 
       foreach( Rebar rebar in rebars )
       {
@@ -55,17 +47,17 @@ namespace BuildingCoder
           // positioned at the location of the first bar 
           // in set.
 
-          IList<Curve> centerlineCurves 
-            = rebar.GetCenterlineCurves( 
-              true, false, false, 
-              MultiplanarOption.IncludeAllMultiplanarCurves, 
+          IList<Curve> centerlineCurves
+            = rebar.GetCenterlineCurves(
+              true, false, false,
+              MultiplanarOption.IncludeAllMultiplanarCurves,
               i );
 
           // Move the curves to their position.
 
           if( rebar.IsRebarShapeDriven() )
           {
-            RebarShapeDrivenAccessor accessor 
+            RebarShapeDrivenAccessor accessor
               = rebar.GetShapeDrivenAccessor();
 
             Transform trf = accessor
@@ -85,6 +77,20 @@ namespace BuildingCoder
           }
         }
       }
+      return curves;
+    }
+
+    public Result Execute(
+      ExternalCommandData commandData,
+      ref string message,
+      ElementSet elements )
+    {
+      UIApplication app = commandData.Application;
+      UIDocument uidoc = app.ActiveUIDocument;
+      Document doc = uidoc.Document;
+
+      IList<Curve> curves = GetRebarCurves( doc );
+
       return Result.Succeeded;
     }
   }

@@ -112,7 +112,7 @@ namespace BuildingCoder
     /// Create perspective view with camera settings 
     /// matching the Forge Viewer.
     /// </summary>
-    void CreatePerspectiveViewMatchingCameera(
+    void CreatePerspectiveViewMatchingCamera(
       Document doc )
     {
       using( var trans = new Transaction( doc ) )

@@ -307,7 +307,7 @@ using System.Runtime.InteropServices;
 // 2019-05-14 2020.0.145.6 implemented CreateCylinder for https://forums.autodesk.com/t5/revit-api-forum/how-to-find-one-element-inside-other-element/m-p/8789016
 // 2019-06-03 2020.0.146.0 implemented CmdBim360Links
 // 2019-06-19 2020.0.146.1 implemented ListElementsInAssembly for https://forums.autodesk.com/t5/revit-api-forum/get-list-of-elements-in-assembly/m-p/8857972
-// 2019-06-20 2020.0.146.2 implemented CreatePerspectiveViewMatchingCameera
+// 2019-06-20 2020.0.146.2 implemented CreatePerspectiveViewMatchingCamera
 // 2019-06-21 2020.0.147.0 implemented CmdRebarCurves
 // 
 [assembly: AssemblyVersion( "2020.0.147.0" )]
