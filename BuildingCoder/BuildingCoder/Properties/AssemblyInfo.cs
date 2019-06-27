@@ -309,6 +309,7 @@ using System.Runtime.InteropServices;
 // 2019-06-19 2020.0.146.1 implemented ListElementsInAssembly for https://forums.autodesk.com/t5/revit-api-forum/get-list-of-elements-in-assembly/m-p/8857972
 // 2019-06-20 2020.0.146.2 implemented CreatePerspectiveViewMatchingCamera
 // 2019-06-21 2020.0.147.0 implemented CmdRebarCurves
+// 2019-06-21 2020.0.147.1 added summary report to CmdRebarCurves
 // 
-[assembly: AssemblyVersion( "2020.0.147.0" )]
-[assembly: AssemblyFileVersion( "2020.0.147.0" )]
+[assembly: AssemblyVersion( "2020.0.147.1" )]
+[assembly: AssemblyFileVersion( "2020.0.147.1" )]

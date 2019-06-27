@@ -15,6 +15,7 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
+using System.Diagnostics;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -36,9 +37,15 @@ namespace BuildingCoder
         = new FilteredElementCollector( doc )
           .OfClass( typeof( Rebar ) );
 
+      int n, nElements = 0, nCurves = 0;
+
       foreach( Rebar rebar in rebars )
       {
-        int n = rebar.NumberOfBarPositions;
+        ++nElements;
+
+        n = rebar.NumberOfBarPositions;
+
+        nCurves += n;
 
         for( int i = 0; i < n; ++i )
         {
@@ -77,6 +84,16 @@ namespace BuildingCoder
           }
         }
       }
+
+      n = curves.Count;
+
+      Debug.Print( "Processed {0} rebar element{1} "
+        + "with {2} bar position{3}, extracted {4} "
+        + "curve{5}",
+        nElements, Util.PluralSuffix( nElements ),
+        nCurves, Util.PluralSuffix( nCurves ),
+        n, Util.PluralSuffix( n ) );
+
       return curves;
     }
 
