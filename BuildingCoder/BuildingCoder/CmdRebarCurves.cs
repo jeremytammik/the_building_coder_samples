@@ -106,7 +106,29 @@ namespace BuildingCoder
       UIDocument uidoc = app.ActiveUIDocument;
       Document doc = uidoc.Document;
 
+      // Retrieve all rebar curves
+
       IList<Curve> curves = GetRebarCurves( doc );
+
+      // Create a simplified 3D shape to represent them
+      //
+      // A sweep would be nice and easy; however, 
+      // NewSweep only works in the family environment.
+      // Next idea: for straight line segments, it is 
+      // trivial to create an extruded regular polygon.
+      // For curves ones not quite so easy. However, we
+      // could do the following: 
+      // From the curve, generate a certain number of 
+      // offset curves parallel to the original.
+      // Tesselate each of them -- no, that will be too fine.
+      // Calculate a certain number of points along them.
+      // Generate triangles between the points to define 
+      // a DirectShape approximating the rebar.
+
+      foreach(Curve c in curves)
+      {
+        //CreateTubeAroundCurve( doc, c );
+      }
 
       return Result.Succeeded;
     }
