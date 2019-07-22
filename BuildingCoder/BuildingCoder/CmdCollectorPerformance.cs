@@ -2655,6 +2655,7 @@ TaskDialog.Show( "Revit", collector.Count() +
     }
     #endregion // Get count of all elements of each type of each category
 
+    #region Return element id of "Light Source" graphics style
     /// <summary>
     /// Return element id of "Light Source" graphics style
     /// </summary>
@@ -2670,6 +2671,7 @@ TaskDialog.Show( "Revit", collector.Count() +
           => e.Name.ToLower().Contains( "light source" ) )
             .Id;
     }
+    #endregion // Return element id of "Light Source" graphics style
 
     void RunBenchmark()
     {
