@@ -310,6 +310,7 @@ using System.Runtime.InteropServices;
 // 2019-06-20 2020.0.146.2 implemented CreatePerspectiveViewMatchingCamera
 // 2019-06-21 2020.0.147.0 implemented CmdRebarCurves
 // 2019-06-21 2020.0.147.1 added summary report to CmdRebarCurves
+// 2019-07-22 2020.0.147.2 implemented GetLightSourceGraphicsStyleElementId
 // 
-[assembly: AssemblyVersion( "2020.0.147.1" )]
-[assembly: AssemblyFileVersion( "2020.0.147.1" )]
+[assembly: AssemblyVersion( "2020.0.147.2" )]
+[assembly: AssemblyFileVersion( "2020.0.147.2" )]

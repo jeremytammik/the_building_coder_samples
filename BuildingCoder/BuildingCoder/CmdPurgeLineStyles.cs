@@ -34,8 +34,8 @@ namespace BuildingCoder
       string name_substring )
     {
       FilteredElementCollector graphic_styles
-            = new FilteredElementCollector( doc )
-      .OfClass( typeof( GraphicsStyle ) );
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( GraphicsStyle ) );
 
       int n1 = graphic_styles.Count<Element>();
 

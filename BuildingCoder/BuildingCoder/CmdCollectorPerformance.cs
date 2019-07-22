@@ -2655,6 +2655,22 @@ TaskDialog.Show( "Revit", collector.Count() +
     }
     #endregion // Get count of all elements of each type of each category
 
+    /// <summary>
+    /// Return element id of "Light Source" graphics style
+    /// </summary>
+    ElementId GetLightSourceGraphicsStyleElementId(
+      Document doc )
+    {
+      FilteredElementCollector graphic_styles
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( GraphicsStyle ) );
+
+      return graphic_styles
+        .First<Element>( e 
+          => e.Name.ToLower().Contains( "light source" ) )
+            .Id;
+    }
+
     void RunBenchmark()
     {
       // Create a number of levels for us to play with:
