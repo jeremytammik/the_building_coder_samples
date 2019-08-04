@@ -311,6 +311,7 @@ using System.Runtime.InteropServices;
 // 2019-06-21 2020.0.147.0 implemented CmdRebarCurves
 // 2019-06-21 2020.0.147.1 added summary report to CmdRebarCurves
 // 2019-07-22 2020.0.147.1 implemented GetLightSourceGraphicsStyleElementId
+// 2019-08-04 2020.0.147.2 added Intersect from https://github.com/ArashPartow/wykobi
 // 
-[assembly: AssemblyVersion( "2020.0.147.1" )]
-[assembly: AssemblyFileVersion( "2020.0.147.1" )]
+[assembly: AssemblyVersion( "2020.0.147.2" )]
+[assembly: AssemblyFileVersion( "2020.0.147.2" )]

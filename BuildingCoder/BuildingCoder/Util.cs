@@ -408,6 +408,195 @@ namespace BuildingCoder
       return GetBottomCorners( b, b.Min.Z );
     }
 
+    #region Intersect
+#if INTERSECT
+    // from /a/src/cpp/wykobi/wykobi.inl
+    // from https://github.com/ArashPartow/wykobi
+    bool Intersect<T>( 
+      T x1, T y1,
+      T x2, T y2,
+      T x3, T y3,
+      T x4, T y4)
+   {
+      T ax = x2 - x1;
+      T bx = x3 - x4;
+
+    T lowerx;
+    T upperx;
+    T uppery;
+    T lowery;
+
+      if (ax<T(0.0))
+      {
+         lowerx = x2;
+         upperx = x1;
+      }
+      else
+      {
+         upperx = x2;
+         lowerx = x1;
+      }
+
+      if (bx > T(0.0))
+      {
+         if ((upperx<x4) || (x3<lowerx))
+         return false;
+      }
+      else if ((upperx<x3) || (x4<lowerx))
+         return false;
+
+      const T ay = y2 - y1;
+const T by = y3 - y4;
+
+      if (ay<T(0.0))
+      {
+         lowery = y2;
+         uppery = y1;
+      }
+      else
+      {
+         uppery = y2;
+         lowery = y1;
+      }
+
+      if (by > T(0.0))
+      {
+         if ((uppery<y4) || (y3<lowery))
+            return false;
+      }
+      else if ((uppery<y3) || (y4<lowery))
+         return false;
+
+      const T cx = x1 - x3;
+const T cy = y1 - y3;
+const T d = ( by * cx ) - ( bx * cy );
+const T f = ( ay * bx ) - ( ax * by );
+
+      if (f > T(0.0))
+      {
+         if ((d<T(0.0)) || (d > f))
+            return false;
+      }
+      else if ((d > T(0.0)) || (d<f))
+         return false;
+
+      const T e = ( ax * cy ) - ( ay * cx );
+
+      if (f > T(0.0))
+      {
+         if ((e<T(0.0)) || (e > f))
+            return false;
+      }
+      else if ((e > T(0.0)) || (e<f))
+         return false;
+
+      return true;
+   }
+
+   bool Intersect<T>(T x1, T y1,
+                         T x2, T y2,
+                         T x3, T y3,
+                         T x4, T y4,
+                               out T ix, out T iy)
+{
+  const T ax = x2 - x1;
+  const T bx = x3 - x4;
+
+  T lowerx;
+  T upperx;
+  T uppery;
+  T lowery;
+
+  if( ax < T( 0.0 ) )
+  {
+    lowerx = x2;
+    upperx = x1;
+  }
+  else
+  {
+    upperx = x2;
+    lowerx = x1;
+  }
+
+  if( bx > T( 0.0 ) )
+  {
+    if( ( upperx < x4 ) || ( x3 < lowerx ) )
+      return false;
+  }
+  else if( ( upperx < x3 ) || ( x4 < lowerx ) )
+    return false;
+
+  const T ay = y2 - y1;
+  const T by = y3 - y4;
+
+  if( ay < T( 0.0 ) )
+  {
+    lowery = y2;
+    uppery = y1;
+  }
+  else
+  {
+    uppery = y2;
+    lowery = y1;
+  }
+
+  if( by > T( 0.0 ) )
+  {
+    if( ( uppery < y4 ) || ( y3 < lowery ) )
+      return false;
+  }
+  else if( ( uppery < y3 ) || ( y4 < lowery ) )
+    return false;
+
+  const T cx = x1 - x3;
+  const T cy = y1 - y3;
+  const T d = ( by * cx ) - ( bx * cy );
+  const T f = ( ay * bx ) - ( ax * by );
+
+  if( f > T( 0.0 ) )
+  {
+    if( ( d < T( 0.0 ) ) || ( d > f ) )
+      return false;
+  }
+  else if( ( d > T( 0.0 ) ) || ( d < f ) )
+    return false;
+
+  const T e = ( ax * cy ) - ( ay * cx );
+
+  if( f > T( 0.0 ) )
+  {
+    if( ( e < T( 0.0 ) ) || ( e > f ) )
+      return false;
+  }
+  else if( ( e > T( 0.0 ) ) || ( e < f ) )
+    return false;
+
+  T ratio = ( ax * -by ) - ( ay * -bx );
+
+  if( not_equal( ratio, T( 0.0 ) ) )
+  {
+    ratio = ( ( cy * -bx ) - ( cx * -by ) ) / ratio;
+    ix = x1 + ( ratio * ax );
+    iy = y1 + ( ratio * ay );
+  }
+  else
+  {
+    if( is_equal( ( ax * -cy ), ( -cx * ay ) ) )
+    {
+      ix = x3;
+      iy = y3;
+    }
+    else
+    {
+      ix = x4;
+      iy = y4;
+    }
+  }
+  return true;
+}
+#endif // INTERSECT
+    #endregion // Intersect
+
     /// <summary>
     /// Return the 2D intersection point between two 
     /// unbounded lines defined in the XY plane by the 
@@ -560,9 +749,9 @@ namespace BuildingCoder
       return curveLoop2.Select<Curve, XYZ>(
           c => c.GetEndPoint( 0 ) );
     }
-    #endregion // Geometrical Calculation
+#endregion // Geometrical Calculation
 
-    #region Colour Conversion
+#region Colour Conversion
     /// <summary>
     /// Revit text colour parameter value stored as an integer 
     /// in text note type BuiltInParameter.LINE_COLOR.
@@ -595,9 +784,9 @@ namespace BuildingCoder
 
       return ToColorParameterValue( color.R, color.G, color.B );
     }
-    #endregion // Colour Conversion
+#endregion // Colour Conversion
 
-    #region Create Various Solids
+#region Create Various Solids
     /// <summary>
     /// Create and return a solid sphere 
     /// with a given radius and centre point.
@@ -821,9 +1010,9 @@ namespace BuildingCoder
 
       return transformBox;
     }
-    #endregion // Create Various Solids
+#endregion // Create Various Solids
 
-    #region Convex Hull
+#region Convex Hull
     /// <summary>
     /// Return the convex hull of a list of points 
     /// using the Jarvis march or Gift wrapping:
@@ -853,9 +1042,9 @@ namespace BuildingCoder
       convexHullPoints.Reverse();
       return convexHullPoints;
     }
-    #endregion // Convex Hull
+#endregion // Convex Hull
 
-    #region Unit Handling
+#region Unit Handling
     /// <summary>
     /// Base units currently used internally by Revit.
     /// </summary>
@@ -964,9 +1153,9 @@ namespace BuildingCoder
       "mm^3", // DUT_CUBIC_MILLIMETERS = 25,
       "l" // DUT_LITERS = 26,
       };
-    #endregion // Unit Handling
+#endregion // Unit Handling
 
-    #region Formatting
+#region Formatting
     /// <summary>
     /// Return an English plural suffix for the given
     /// number of items, i.e. 's' for zero or more
@@ -1268,9 +1457,9 @@ namespace BuildingCoder
 
       return s;
     }
-    #endregion // Formatting
+#endregion // Formatting
 
-    #region Display a message
+#region Display a message
     const string _caption = "The Building Coder";
 
     public static void InfoMsg( string msg )
@@ -1392,9 +1581,9 @@ namespace BuildingCoder
     {
       return ( (LocationPoint) fi?.Location )?.Point;
     }
-    #endregion // Display a message
+#endregion // Display a message
 
-    #region Element Selection
+#region Element Selection
     public static Element SelectSingleElement(
       UIDocument uidoc,
       string description )
@@ -1532,9 +1721,9 @@ namespace BuildingCoder
       }
       return 0 < a.Count;
     }
-    #endregion // Element Selection
+#endregion // Element Selection
 
-    #region Element Filtering
+#region Element Filtering
     /// <summary>
     /// Return all elements of the requested class i.e. System.Type
     /// matching the given built-in category in the given document.
@@ -1701,9 +1890,9 @@ namespace BuildingCoder
         .First( q => q.Name.Equals( name ) )
           as FamilySymbol;
     }
-    #endregion // Element Filtering
+#endregion // Element Filtering
 
-    #region MEP utilities
+#region MEP utilities
     /// <summary>
     /// Return the given element's connector manager, 
     /// using either the family instance MEPModel or 
@@ -1871,9 +2060,9 @@ namespace BuildingCoder
       return cons.Distinct( new ConnectorXyzComparer() )
         .ToHashSet();
     }
-    #endregion // MEP utilities
+#endregion // MEP utilities
 
-    #region Compatibility fix for spelling error change
+#region Compatibility fix for spelling error change
     /// <summary>
     /// Wrapper to fix a spelling error prior to Revit 2016.
     /// </summary>
@@ -1929,10 +2118,10 @@ namespace BuildingCoder
           as Definition;
       }
     }
-    #endregion // Compatibility fix for spelling error change
+#endregion // Compatibility fix for spelling error change
   }
 
-  #region Extension Method Classes
+#region Extension Method Classes
 
   public static class IEnumerableExtensions
   {
@@ -2340,9 +2529,9 @@ namespace BuildingCoder
       return s;
     }
   }
-  #endregion // Extension Method Classes
+#endregion // Extension Method Classes
 
-  #region Compatibility Methods by Magson Leone
+#region Compatibility Methods by Magson Leone
   /// <summary>
   /// These compatibility helper methods make use of 
   /// Reflection to determine which Revit method is
@@ -2352,7 +2541,7 @@ namespace BuildingCoder
   /// </summary>
   public static class CompatibilityMethods
   {
-    #region Autodesk.Revit.DB.Curve
+#region Autodesk.Revit.DB.Curve
     public static XYZ GetPoint2(
       this Curve curva,
       int i )
@@ -2375,9 +2564,9 @@ namespace BuildingCoder
 
       return value;
     }
-    #endregion // Autodesk.Revit.DB.Curve
+#endregion // Autodesk.Revit.DB.Curve
 
-    #region Autodesk.Revit.DB.Definitions
+#region Autodesk.Revit.DB.Definitions
     public static Definition Create2(
       this Definitions definitions,
       Document doc,
@@ -2417,9 +2606,9 @@ namespace BuildingCoder
       }
       return value;
     }
-    #endregion // Autodesk.Revit.DB.Definitions
+#endregion // Autodesk.Revit.DB.Definitions
 
-    #region Autodesk.Revit.DB.Document
+#region Autodesk.Revit.DB.Document
     public static Element GetElement2(
       this Document doc,
       ElementId id )
@@ -2708,9 +2897,9 @@ namespace BuildingCoder
               .Id } );
       }
     }
-    #endregion // Autodesk.Revit.DB.Document
+#endregion // Autodesk.Revit.DB.Document
 
-    #region Autodesk.Revit.DB.Element
+#region Autodesk.Revit.DB.Element
     public static Element Level2( this Element ele )
     {
       Element value = null;
@@ -2856,9 +3045,9 @@ namespace BuildingCoder
       }
       return value;
     }
-    #endregion // Autodesk.Revit.DB.Element
+#endregion // Autodesk.Revit.DB.Element
 
-    #region Autodesk.Revit.DB.FamilySymbol
+#region Autodesk.Revit.DB.FamilySymbol
     public static void EnableFamilySymbol2(
       this FamilySymbol fsymbol )
     {
@@ -2869,9 +3058,9 @@ namespace BuildingCoder
         met.Invoke( fsymbol, null );
       }
     }
-    #endregion // Autodesk.Revit.DB.FamilySymbol
+#endregion // Autodesk.Revit.DB.FamilySymbol
 
-    #region Autodesk.Revit.DB.InternalDefinition
+#region Autodesk.Revit.DB.InternalDefinition
     public static void VaryGroup2(
       this InternalDefinition def, Document doc )
     {
@@ -2886,9 +3075,9 @@ namespace BuildingCoder
         met.Invoke( def, parametros );
       }
     }
-    #endregion // Autodesk.Revit.DB.InternalDefinition
+#endregion // Autodesk.Revit.DB.InternalDefinition
 
-    #region Autodesk.Revit.DB.Part
+#region Autodesk.Revit.DB.Part
     public static ElementId GetSource2( this Part part )
     {
       ElementId value = null;
@@ -2912,9 +3101,9 @@ namespace BuildingCoder
       }
       return value;
     }
-    #endregion // Autodesk.Revit.DB.Part
+#endregion // Autodesk.Revit.DB.Part
 
-    #region Autodesk.Revit.UI.Selection.Selection
+#region Autodesk.Revit.UI.Selection.Selection
     public static List<Element> GetSelection2(
       this Selection sel, Document doc )
     {
@@ -3002,9 +3191,9 @@ namespace BuildingCoder
         met.Invoke( sel, new object[] { ids } );
       }
     }
-    #endregion // Autodesk.Revit.UI.Selection.Selection
+#endregion // Autodesk.Revit.UI.Selection.Selection
 
-    #region Autodesk.Revit.UI.UIApplication
+#region Autodesk.Revit.UI.UIApplication
     public static System.Drawing.Rectangle
       GetDrawingArea2( this UIApplication ui )
     {
@@ -3012,9 +3201,9 @@ namespace BuildingCoder
       .Windows.Forms.Screen.PrimaryScreen.Bounds;
       return value;
     }
-    #endregion // Autodesk.Revit.UI.UIApplication
+#endregion // Autodesk.Revit.UI.UIApplication
 
-    #region Autodesk.Revit.DB.View
+#region Autodesk.Revit.DB.View
     public static ElementId Duplicate2( this View view )
     {
       ElementId value = null;
@@ -3087,9 +3276,9 @@ namespace BuildingCoder
         met.Invoke( view, new object[] { ids, espessura } );
       }
     }
-    #endregion // Autodesk.Revit.DB.View
+#endregion // Autodesk.Revit.DB.View
 
-    #region Autodesk.Revit.DB.Viewplan
+#region Autodesk.Revit.DB.Viewplan
     public static ElementId GetViewTemplateId2(
       this ViewPlan view )
     {
@@ -3114,9 +3303,9 @@ namespace BuildingCoder
         prop.SetValue( view, id, null );
       }
     }
-    #endregion // Autodesk.Revit.DB.Viewplan
+#endregion // Autodesk.Revit.DB.Viewplan
 
-    #region Autodesk.Revit.DB.Wall
+#region Autodesk.Revit.DB.Wall
     public static void FlipWall2( this Wall wall )
     {
       string metodo = "Flip";
@@ -3133,7 +3322,7 @@ namespace BuildingCoder
         met.Invoke( wall, null );
       }
     }
-    #endregion // Autodesk.Revit.DB.Wall
+#endregion // Autodesk.Revit.DB.Wall
   }
-  #endregion // Compatibility Methods by Magson Leone
+#endregion // Compatibility Methods by Magson Leone
 }
