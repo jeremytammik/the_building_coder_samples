@@ -308,5 +308,243 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    #region Dimension Filled Region Alexander
+    [Transaction( TransactionMode.Manual )]
+    public class CreateFillledRegionDimensionsCommand : IExternalCommand
+    {
+      public Result Execute( 
+        ExternalCommandData commandData, 
+        ref string message, 
+        ElementSet elements )
+      {
+        var uiapp = commandData.Application;
+        var uidoc = uiapp.ActiveUIDocument;
+        var doc = uidoc.Document;
+
+        var view = uidoc.ActiveGraphicalView;
+
+        var filledRegions = FindFilledRegions( doc, view.Id );
+
+        using( var transaction = new Transaction( doc, 
+          "filled regions dimensions" ) )
+        {
+          transaction.Start();
+
+          foreach( var filledRegion in filledRegions )
+          {
+            CreateDimensions( filledRegion, 
+              -1 * view.RightDirection );
+
+            CreateDimensions( filledRegion, view.UpDirection );
+          }
+
+          transaction.Commit();
+        }
+        return Result.Succeeded;
+      }
+
+      private static void CreateDimensions( 
+        FilledRegion filledRegion, 
+        XYZ dimensionDirection )
+      {
+        var document = filledRegion.Document;
+
+        var view = (View) document.GetElement( 
+          filledRegion.OwnerViewId );
+
+        var edgesDirection = dimensionDirection.CrossProduct( 
+          view.ViewDirection );
+
+        var edges = FindRegionEdges( filledRegion )
+          .Where( x => IsEdgeDirectionSatisfied( x, edgesDirection ) )
+          .ToList();
+
+        if( edges.Count < 2 )
+          return;
+
+        var shift = UnitUtils.ConvertToInternalUnits( 
+          -10 * view.Scale, DisplayUnitType.DUT_MILLIMETERS ) 
+          * edgesDirection;
+
+        var dimensionLine = Line.CreateUnbound( 
+          filledRegion.get_BoundingBox( view ).Min 
+          + shift, dimensionDirection );
+
+        var references = new ReferenceArray();
+
+        foreach( var edge in edges )
+          references.Append( edge.Reference );
+
+        document.Create.NewDimension( view, dimensionLine, 
+          references );
+      }
+
+      private static bool IsEdgeDirectionSatisfied( 
+        Edge edge, 
+        XYZ edgeDirection )
+      {
+        var edgeCurve = edge.AsCurve() as Line;
+
+        if( edgeCurve == null )
+          return false;
+
+        return edgeCurve.Direction.CrossProduct( 
+          edgeDirection ).IsAlmostEqualTo( XYZ.Zero );
+      }
+
+      private static IEnumerable<Edge> FindRegionEdges( 
+        FilledRegion filledRegion )
+      {
+        var view = (View) filledRegion.Document.GetElement( 
+          filledRegion.OwnerViewId );
+
+        var options = new Options
+        {
+          View = view,
+          ComputeReferences = true
+        };
+
+        return filledRegion
+          .get_Geometry( options )
+          .OfType<Solid>()
+          .SelectMany( x => x.Edges.Cast<Edge>() );
+      }
+
+      private static IEnumerable<FilledRegion> 
+        FindFilledRegions( 
+          Document document, 
+          ElementId viewId )
+      {
+        var collector = new FilteredElementCollector( 
+          document, viewId );
+
+        return collector
+          .OfClass( typeof( FilledRegion ) )
+          .Cast<FilledRegion>();
+      }
+    }
+    #endregion // Dimension Filled Region Alexander
+
+    #region Dimension Filled Region Jorge
+    private void CreateDimensions(
+      FilledRegion filledRegion,
+      XYZ dimensionDirection,
+      string typeName )
+    {
+      var document = filledRegion.Document;
+
+      var view = (View) document.GetElement( 
+        filledRegion.OwnerViewId );
+
+      var edgesDirection = dimensionDirection.CrossProduct( 
+        view.ViewDirection );
+
+      var edges = FindRegionEdges( filledRegion )
+        .Where( x => IsEdgeDirectionSatisfied( x, edgesDirection ) )
+        .ToList();
+
+      if( edges.Count < 2 )
+        return;
+
+      // Se hace este ajuste para que la distancia no 
+      // depende de la escala. <<<<<< evaluar para 
+      // información de acotado y etiquetado!!!
+
+      var shift = UnitUtils.ConvertToInternalUnits( 
+        5 * view.Scale, DisplayUnitType.DUT_MILLIMETERS ) 
+        * edgesDirection;
+
+      var dimensionLine = Line.CreateUnbound(
+        filledRegion.get_BoundingBox( view ).Min + shift,
+        dimensionDirection );
+
+      var references = new ReferenceArray();
+
+      foreach( var edge in edges )
+        references.Append( edge.Reference );
+
+      Dimension dim = document.Create.NewDimension( 
+        view, dimensionLine, references );
+
+      ElementId dr_id = DimensionTypeId(
+        document, typeName );
+
+      if( dr_id != null )
+      {
+        dim.ChangeTypeId( dr_id );
+      }
+    }
+
+    private static bool IsEdgeDirectionSatisfied( 
+      Edge edge, 
+      XYZ edgeDirection )
+    {
+      var edgeCurve = edge.AsCurve() as Line;
+
+      if( edgeCurve == null )
+        return false;
+
+      return edgeCurve.Direction.CrossProduct( 
+        edgeDirection ).IsAlmostEqualTo( XYZ.Zero );
+    }
+
+    private static IEnumerable<FilledRegion> 
+      FindFilledRegions( 
+        Document document, 
+        ElementId viewId )
+    {
+      var collector = new FilteredElementCollector( 
+        document, viewId );
+
+      return collector
+        .OfClass( typeof( FilledRegion ) )
+        .Cast<FilledRegion>();
+    }
+
+    private static IEnumerable<Edge> 
+      FindRegionEdges( 
+        FilledRegion filledRegion )
+    {
+      var view = (View) filledRegion.Document.GetElement( 
+        filledRegion.OwnerViewId );
+
+      var options = new Options
+      {
+        View = view,
+        ComputeReferences = true
+      };
+
+      return filledRegion
+        .get_Geometry( options )
+        .OfType<Solid>()
+        .SelectMany( x => x.Edges.Cast<Edge>() );
+    }
+
+    private static ElementId DimensionTypeId(
+      Document doc,
+      string typeName )
+    {
+      FilteredElementCollector mt_coll 
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( DimensionType ) )
+          .WhereElementIsElementType();
+
+      DimensionType dimType = null;
+
+      foreach( Element type in mt_coll )
+      {
+        if( type is DimensionType )
+        {
+          if( type.Name == typeName )
+          {
+            dimType = type as DimensionType;
+            break;
+          }
+        }
+      }
+      return dimType.Id;
+    }
+    #endregion // Dimension Filled Region Jorge
   }
 }
