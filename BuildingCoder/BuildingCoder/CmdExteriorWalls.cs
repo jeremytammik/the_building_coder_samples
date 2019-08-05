@@ -15,6 +15,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.UI;
 using System.Diagnostics;
+using System.Linq;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -279,6 +280,18 @@ namespace BuildingCoder
       uidoc.Selection.SetElementIds( ids );
 
       return Result.Succeeded;
+    }
+
+    /// <summary>
+    /// Convert a newline-separated string of integers
+    /// to a list of ElementId instances suitable for
+    /// passing into SetElementIds.
+    /// </summary>
+    List<ElementId> GetElementIdsFromString( string x )
+    {
+      return new List<ElementId>( x.Split( '\n' )
+        .Select<string, ElementId>( s 
+          => new ElementId( int.Parse( s ) ) ) );
     }
   }
 }

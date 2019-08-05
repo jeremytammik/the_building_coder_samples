@@ -1220,6 +1220,25 @@ namespace BuildingCoder
     }
     #endregion // Return first title block family symbol of specific named family and type
 
+    #region Pull Text from Annotation Tags
+    /// <summary>
+    /// Return the text from all annotation tags 
+    /// in a list of strings
+    /// </summary>
+    List<string> PullTextFromAnnotationTags(
+      Document doc )
+    {
+      FilteredElementCollector tags
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( IndependentTag ) );
+
+      return new List<string>( tags
+        .Cast<IndependentTag>()
+        .Select<IndependentTag, string>(
+          t => t.TagText ) );
+    }
+    #endregion //Pull Text from Annotation Tags
+
     #region Retrieve named family symbols using either LINQ or a parameter filter
     static FilteredElementCollector
       GetStructuralColumnSymbolCollector(
@@ -1400,7 +1419,7 @@ namespace BuildingCoder
     {
       // 'FP Description' shared parameter GUID
 
-      Guid guid = new Guid( 
+      Guid guid = new Guid(
         "ac6ed937-ffb7-4b18-9c69-7541f5c0319d" );
 
       FilteredElementCollector assemblies
@@ -2667,7 +2686,7 @@ TaskDialog.Show( "Revit", collector.Count() +
           .OfClass( typeof( GraphicsStyle ) );
 
       return graphic_styles
-        .First<Element>( e 
+        .First<Element>( e
           => e.Name.ToLower().Contains( "light source" ) )
             .Id;
     }
