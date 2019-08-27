@@ -314,6 +314,7 @@ using System.Runtime.InteropServices;
 // 2019-08-04 2020.0.147.2 added Intersect from https://github.com/ArashPartow/wykobi
 // 2019-08-05 2020.0.147.3 implemented PullTextFromAnnotationTags for case 15623936
 // 2019-08-05 2020.0.147.4 added code by Alexander and Jorge to dimension filled regions from https://forums.autodesk.com/t5/revit-api-forum/create-dimensions-for-filled-region-boundary/m-p/8926301
+// 2019-08-27 2020.0.147.5 cleaned up and added input argumnets to CreatePerspectiveViewMatchingCamera
 // 
-[assembly: AssemblyVersion( "2020.0.147.4" )]
-[assembly: AssemblyFileVersion( "2020.0.147.4" )]
+[assembly: AssemblyVersion( "2020.0.147.5" )]
+[assembly: AssemblyFileVersion( "2020.0.147.5" )]

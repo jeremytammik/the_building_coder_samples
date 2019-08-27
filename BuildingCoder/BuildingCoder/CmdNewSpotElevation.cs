@@ -113,7 +113,9 @@ namespace BuildingCoder
     /// matching the Forge Viewer.
     /// </summary>
     void CreatePerspectiveViewMatchingCamera(
-      Document doc )
+      Document doc,
+      XYZ camera_position,
+      XYZ target )
     {
       using( var trans = new Transaction( doc ) )
       {
@@ -140,18 +142,18 @@ namespace BuildingCoder
         // orientation. Change that by creating and 
         // setting up a suitable ViewOrientation3D.
 
-        var position = new XYZ( -15.12436009332275,
-          -8.984616232971192, 4.921260089050291 );
+        //var position = new XYZ( -15.12436009332275,
+        //  -8.984616232971192, 4.921260089050291 );
 
-        var up = new XYZ( 0, 0, 1 );
+        var up = XYZ.BasisZ;
 
-        var target = new XYZ( -15.02436066552734,
-          -8.984211875061035, 4.921260089050291 );
+        //var target = new XYZ( -15.02436066552734,
+        //  -8.984211875061035, 4.921260089050291 );
 
-        var sightDir = target.Subtract( position ).Normalize();
+        var sightDir = target.Subtract( camera_position ).Normalize();
 
         var orientation = new ViewOrientation3D(
-          position, up, sightDir );
+          camera_position, up, sightDir );
 
         view3D.SetOrientation( orientation );
 
