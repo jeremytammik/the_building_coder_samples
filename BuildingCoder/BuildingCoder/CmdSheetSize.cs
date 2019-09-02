@@ -22,6 +22,11 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdSheetSize : IExternalCommand
   {
+    /// <summary>
+    /// Read the title block parameters to retrieve the 
+    /// label parameters Sheet Number, Author and Client 
+    /// Name
+    /// </summary>
     static void ReadTitleBlockLabelParameters(
       Document doc )
     {
@@ -64,9 +69,9 @@ namespace BuildingCoder
         string s_client_name = p.AsValueString();
 
         Debug.Print(
-          "Title block <{0}> type {1} <{2}>: "
-          + "{3} designed by {4} for client {5}",
-          tb.Id.IntegerValue,
+          "Title block {0} <{1}> of type {2} <{3}>: "
+          + "{4} project author {5} for client {6}",
+          tb.Name, tb.Id.IntegerValue,
           type.Name, typeId.IntegerValue,
           s_sheet_number, s_project_author, 
           s_client_name );
