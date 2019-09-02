@@ -22,6 +22,57 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdSheetSize : IExternalCommand
   {
+    static void ReadTitleBlockLabelParameters(
+      Document doc )
+    {
+      FilteredElementCollector title_block_instances
+        = new FilteredElementCollector( doc )
+          .OfCategory( BuiltInCategory.OST_TitleBlocks )
+          .OfClass( typeof( FamilyInstance ) );
+
+      Parameter p;
+
+      Debug.Print( "Title block instances:" );
+
+      foreach( FamilyInstance tb in title_block_instances )
+      {
+        ElementId typeId = tb.GetTypeId();
+        Element type = doc.GetElement( typeId );
+
+        p = tb.get_Parameter(
+          BuiltInParameter.SHEET_NUMBER );
+
+        Debug.Assert( null != p,
+          "expected valid sheet number" );
+
+        string s_sheet_number = p.AsString();
+
+        p = tb.get_Parameter(
+          BuiltInParameter.PROJECT_AUTHOR );
+
+        Debug.Assert( null != p,
+          "expected valid project author" );
+
+        string s_project_author = p.AsValueString();
+
+        p = tb.get_Parameter(
+          BuiltInParameter.CLIENT_NAME );
+
+        Debug.Assert( null != p,
+          "expected valid client name" );
+
+        string s_client_name = p.AsValueString();
+
+        Debug.Print(
+          "Title block <{0}> type {1} <{2}>: "
+          + "{3} designed by {4} for client {5}",
+          tb.Id.IntegerValue,
+          type.Name, typeId.IntegerValue,
+          s_sheet_number, s_project_author, 
+          s_client_name );
+      }
+    }
+
     ///
     /// Return a string value for the specified
     /// built-in parameter if it is available on
