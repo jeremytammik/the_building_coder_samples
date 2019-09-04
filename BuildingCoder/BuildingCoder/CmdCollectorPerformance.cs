@@ -1173,7 +1173,29 @@ namespace BuildingCoder
 
       return genericSymbolsNamedTest;
     }
-    #endregion // Retrieve all family instances of specific named family and type
+    #endregion // Retrieve generic family symbols whose name contains "test"
+
+    #region Retrieve door family symbols that can be used in a curtain wall
+    /// <summary>
+    /// Given an existing selected curtain wall door 
+    /// instance, return all other door symbols that 
+    /// can be used in this curtain wall, from
+    /// https://forums.autodesk.com/t5/revit-api-forum/builtincategory-of-doors-and-curtain-wall-doors/m-p/9002988
+    /// </summary>
+    static IEnumerable<FamilySymbol>
+      GetDoorSymbolsForCurtainWall(
+        FamilyInstance door_inst  )
+    {
+      Document doc = door_inst.Document;
+      FamilySymbol symbol = door_inst.Symbol;
+      IEnumerable<FamilySymbol> CW_doors
+        = new FilteredElementCollector(
+          doc, symbol.GetSimilarTypes() )
+            .OfCategory( BuiltInCategory.OST_Doors )
+            .Cast<FamilySymbol>();
+      return CW_doors;
+    }
+    #endregion // Retrieve door family symbols that can be used in a curtain wall
 
     #region Return first title block family symbol of specific named family and type
     /// <summary>

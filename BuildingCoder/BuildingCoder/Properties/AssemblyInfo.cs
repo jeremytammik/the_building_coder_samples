@@ -316,6 +316,7 @@ using System.Runtime.InteropServices;
 // 2019-08-05 2020.0.147.4 added code by Alexander and Jorge to dimension filled regions from https://forums.autodesk.com/t5/revit-api-forum/create-dimensions-for-filled-region-boundary/m-p/8926301
 // 2019-08-27 2020.0.147.5 cleaned up and added input argumnets to CreatePerspectiveViewMatchingCamera
 // 2019-09-02 2020.0.147.6 implemented ReadTitleBlockLabelParameters for 15711698 [Get Label Parameters]
+// 2019-09-04 2020.0.147.7 added GetDoorSymbolsForCurtainWall from https://forums.autodesk.com/t5/revit-api-forum/builtincategory-of-doors-and-curtain-wall-doors/m-p/9002988
 // 
-[assembly: AssemblyVersion( "2020.0.147.6" )]
-[assembly: AssemblyFileVersion( "2020.0.147.6" )]
+[assembly: AssemblyVersion( "2020.0.147.7" )]
+[assembly: AssemblyFileVersion( "2020.0.147.7" )]
