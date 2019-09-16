@@ -317,6 +317,7 @@ using System.Runtime.InteropServices;
 // 2019-08-27 2020.0.147.5 cleaned up and added input argumnets to CreatePerspectiveViewMatchingCamera
 // 2019-09-02 2020.0.147.6 implemented ReadTitleBlockLabelParameters for 15711698 [Get Label Parameters]
 // 2019-09-04 2020.0.147.7 added GetDoorSymbolsForCurtainWall from https://forums.autodesk.com/t5/revit-api-forum/builtincategory-of-doors-and-curtain-wall-doors/m-p/9002988
+// 2019-09-16 2020.0.147.8 added GetSunDirection from https://thebuildingcoder.typepad.com/blog/2013/06/sun-direction-shadow-calculation-and-wizard-update.html#comment-4614771756
 // 
-[assembly: AssemblyVersion( "2020.0.147.7" )]
-[assembly: AssemblyFileVersion( "2020.0.147.7" )]
+[assembly: AssemblyVersion( "2020.0.147.8" )]
+[assembly: AssemblyFileVersion( "2020.0.147.8" )]

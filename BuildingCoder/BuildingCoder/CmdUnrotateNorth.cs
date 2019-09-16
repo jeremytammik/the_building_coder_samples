@@ -26,10 +26,78 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdUnrotateNorth : IExternalCommand
   {
-    #region Set project location to city location
-    void SetSiteLocationToCity1( Document doc )
+    #region Get Sun Direction Adjusted for Project True North
+    // Shared by Mohsen Assaqqaf in a comment on The Building Coder:
+    // https://thebuildingcoder.typepad.com/blog/2013/06/sun-direction-shadow-calculation-and-wizard-update.html#comment-4614771756
+    // I found that this method for getting the vector 
+    // of the sun does not take into account the True 
+    // North angle of the project, so I updated it 
+    // myself using the following code:
+    /// <summary>
+    /// Get sun direction adjusted for project true north
+    /// </summary>
+    static XYZ GetSunDirection( View view )
     {
-      Autodesk.Revit.DB.CitySet cities = doc.Application.Cities;
+      Document doc = view.Document;
+
+      // Get sun and shadow settings from the 3D View
+      SunAndShadowSettings sunSettings
+        = view.SunAndShadowSettings;
+
+      // Set the initial direction of the sun at ground level (like sunrise level)
+      XYZ initialDirection = XYZ.BasisY;
+
+      // Get the altitude of the sun from the sun settings
+      double altitude = sunSettings.GetFrameAltitude(
+        sunSettings.ActiveFrame );
+
+      // Create a transform along the X axis based on the altitude of the sun
+      Transform altitudeRotation = Transform
+        .CreateRotation( XYZ.BasisX, altitude );
+
+      // Create a rotation vector for the direction of the altitude of the sun
+      XYZ altitudeDirection = altitudeRotation
+        .OfVector( initialDirection );
+
+      // Get the azimuth from the sun settings of the scene
+      double azimuth = sunSettings.GetFrameAzimuth(
+        sunSettings.ActiveFrame );
+
+      // Correct the value of the actual azimuth with true north
+
+      // Get the true north angle of the project
+      Element projectInfoElement
+        = new FilteredElementCollector( doc )
+          .OfCategory( BuiltInCategory.OST_ProjectBasePoint )
+          .FirstElement();
+
+      BuiltInParameter bipAtn
+        = BuiltInParameter.BASEPOINT_ANGLETON_PARAM;
+
+      Parameter patn = projectInfoElement.get_Parameter(
+        bipAtn );
+
+      double trueNorthAngle = patn.AsDouble();
+
+      // Add the true north angle to the azimuth
+      double actualAzimuth = 2 * Math.PI - azimuth + trueNorthAngle;
+
+      // Create a rotation vector around the Z axis
+      Transform azimuthRotation = Transform
+        .CreateRotation( XYZ.BasisZ, actualAzimuth );
+
+      // Finally, calculate the direction of the sun
+      XYZ sunDirection = azimuthRotation.OfVector(
+        altitudeDirection );
+
+      return sunDirection;
+    }
+    #endregion // Get Sun Direction Adjusted for Project True North
+
+    #region Set project location to city location
+    void SetSiteLocationToCity( Document doc )
+    {
+      CitySet cities = doc.Application.Cities;
       int nCount = cities.Size;
       try
       {
