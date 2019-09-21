@@ -1533,13 +1533,13 @@ namespace BuildingCoder
     }
     #endregion // Retrieve linked documents
 
-      #region Retrieve family instances intersecting BIM element
-      /// <summary>
-      /// Retrieve all family instances intersecting a
-      /// given BIM element, e.g. all columns 
-      /// intersecting a wall.
-      /// </summary>
-      void GetInstancesIntersectingElement( Element e )
+    #region Retrieve family instances intersecting BIM element
+    /// <summary>
+    /// Retrieve all family instances intersecting a
+    /// given BIM element, e.g. all columns 
+    /// intersecting a wall.
+    /// </summary>
+    void GetInstancesIntersectingElement( Element e )
     {
       #region Joe's code
 #if JOE_CODE
