@@ -1520,13 +1520,26 @@ namespace BuildingCoder
     }
     #endregion // Retrieve all edges in model
 
-    #region Retrieve family instances intersecting BIM element
-    /// <summary>
-    /// Retrieve all family instances intersecting a
-    /// given BIM element, e.g. all columns 
-    /// intersecting a wall.
-    /// </summary>
-    void GetInstancesIntersectingElement( Element e )
+    #region Retrieve linked documents
+    IEnumerable<Document> GetLinkedDocuments(
+      Document doc )
+    {
+      return new FilteredElementCollector( doc )
+        .OfCategory( BuiltInCategory.OST_RvtLinks )
+        .WhereElementIsNotElementType()
+        .Cast<RevitLinkInstance>()
+        .Select<RevitLinkInstance, Document>( 
+          link => link.GetLinkDocument() );
+    }
+    #endregion // Retrieve linked documents
+
+      #region Retrieve family instances intersecting BIM element
+      /// <summary>
+      /// Retrieve all family instances intersecting a
+      /// given BIM element, e.g. all columns 
+      /// intersecting a wall.
+      /// </summary>
+      void GetInstancesIntersectingElement( Element e )
     {
       #region Joe's code
 #if JOE_CODE
