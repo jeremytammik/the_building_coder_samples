@@ -320,6 +320,7 @@ using System.Runtime.InteropServices;
 // 2019-09-16 2020.0.147.8 added GetSunDirection from https://thebuildingcoder.typepad.com/blog/2013/06/sun-direction-shadow-calculation-and-wizard-update.html#comment-4614771756
 // 2019-09-18 2020.0.147.9 moved to new installation location on new machine
 // 2019-09-21 2020.0.147.10 implemented GetLinkedDocuments for https://forums.autodesk.com/t5/revit-api-forum/return-revit-model-linked-to-a-project/m-p/9038578
+// 2019-09-26 2020.0.147.11 implemented GetFamilyNames for https://forums.autodesk.com/t5/revit-api-forum/get-all-family-names-from-document-through-api/td-p/8932624
 // 
-[assembly: AssemblyVersion( "2020.0.147.10" )]
-[assembly: AssemblyFileVersion( "2020.0.147.10" )]
+[assembly: AssemblyVersion( "2020.0.147.11" )]
+[assembly: AssemblyFileVersion( "2020.0.147.11" )]

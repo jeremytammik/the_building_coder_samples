@@ -1140,6 +1140,21 @@ namespace BuildingCoder
     }
     #endregion // Retrieve all family instances of specific named family and type
 
+    #region Retrieve all family names both standard and system
+    /// <summary>
+    /// Retrieve all family names both standard and system
+    /// </summary>
+    static IEnumerable<string> GetFamilyNames( 
+      Document doc )
+    {
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( ElementType ) )
+        .Cast<ElementType>()
+        .Select<ElementType, string>( a => a.FamilyName )
+        .Distinct<string>();
+    }
+    #endregion // Retrieve all family names both standard and system
+
     #region Retrieve generic family symbols whose name contains "test"
     /// <summary>
     /// Retrieve generic family symbols whose name contains "test"
