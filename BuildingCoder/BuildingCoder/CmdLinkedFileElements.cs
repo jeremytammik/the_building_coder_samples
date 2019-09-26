@@ -270,7 +270,7 @@ namespace BuildingCoder
               // the id of the tagged link and element:
 
               LinkElementId linkId = newTag.TaggedElementId;
-              ElementId linkInsancetId = linkId.LinkInstanceId;
+              ElementId linkInstanceId = linkId.LinkInstanceId;
               ElementId linkedElementId = linkId.LinkedElementId;
 
               tx.Commit();
