@@ -77,7 +77,7 @@ namespace BuildingCoder
     {
       return IsEqual( a, b, tolerance )
         ? 0
-        : ( a < b ? -1 : 1 );
+        : (a < b ? -1 : 1);
     }
 
     public static int Compare(
@@ -124,10 +124,10 @@ namespace BuildingCoder
       {
         // Compare distance of unbounded line to origin
 
-        double da = ( qa.X * pa.Y - qa.Y * pa.Y )
+        double da = (qa.X * pa.Y - qa.Y * pa.Y)
           / va.GetLength();
 
-        double db = ( qb.X * pb.Y - qb.Y * pb.Y )
+        double db = (qb.X * pb.Y - qb.Y * pb.Y)
           / vb.GetLength();
 
         d = Compare( da, db );
@@ -292,12 +292,12 @@ namespace BuildingCoder
       Debug.Assert( 1 == a.Rank, "expected one-dimensional array" );
       Debug.Assert( 0 == a.GetLowerBound( 0 ), "expected zero-based array" );
       Debug.Assert( 0 < a.GetUpperBound( 0 ), "expected non-empty array" );
-      double max = a[0];
+      double max = a[ 0 ];
       for( int i = 1; i <= a.GetUpperBound( 0 ); ++i )
       {
-        if( max < a[i] )
+        if( max < a[ i ] )
         {
-          max = a[i];
+          max = a[ i ];
         }
       }
       return max;
@@ -319,8 +319,8 @@ namespace BuildingCoder
       double limit = 1.0 / 64;
 
       XYZ pick_cardinal_axis
-        = ( IsZero( normal.X, limit )
-          && IsZero( normal.Y, limit ) )
+        = (IsZero( normal.X, limit )
+          && IsZero( normal.Y, limit ))
             ? XYZ.BasisY
             : XYZ.BasisZ;
 
@@ -333,7 +333,7 @@ namespace BuildingCoder
     /// </summary>
     public static XYZ Midpoint( XYZ p, XYZ q )
     {
-      return 0.5 * ( p + q );
+      return 0.5 * (p + q);
     }
 
     /// <summary>
@@ -620,8 +620,8 @@ const T f = ( ay * bx ) - ( ax * by );
 
       XYZ p5 = null;
 
-      double c = ( v2.X * w.Y - v2.Y * w.X )
-        / ( v2.X * v1.Y - v2.Y * v1.X );
+      double c = (v2.X * w.Y - v2.Y * w.X)
+        / (v2.X * v1.Y - v2.Y * v1.X);
 
       if( !double.IsInfinity( c ) )
       {
@@ -673,7 +673,7 @@ const T f = ( ay * bx ) - ( ax * by );
       var a21i = unitVectorV.X;
       var a22i = unitVectorV.Y;
 
-      return new double[2, 2] {
+      return new double[ 2, 2 ] {
         { a11i, a12i },
         { a21i, a22i }};
     }
@@ -691,7 +691,7 @@ const T f = ( ay * bx ) - ( ax * by );
     {
       // https://forums.autodesk.com/t5/revit-api-forum/create-a-curve-when-only-the-start-point-end-point-amp-radius-is/m-p/7830079
 
-      XYZ midPointChord = 0.5 * ( ps + pe );
+      XYZ midPointChord = 0.5 * (ps + pe);
       XYZ v = pe - ps;
       double d = 0.5 * v.GetLength(); // half chord length
 
@@ -725,10 +725,10 @@ const T f = ( ay * bx ) - ( ax * by );
       for( int i = 1; i < n; ++i )
       {
         curveLoop.Append( Line.CreateBound(
-          pts[i - 1], pts[i] ) );
+          pts[ i - 1 ], pts[ i ] ) );
       }
       curveLoop.Append( Line.CreateBound(
-        pts[n], pts[0] ) );
+        pts[ n ], pts[ 0 ] ) );
       return curveLoop;
     }
 
@@ -749,9 +749,9 @@ const T f = ( ay * bx ) - ( ax * by );
       return curveLoop2.Select<Curve, XYZ>(
           c => c.GetEndPoint( 0 ) );
     }
-#endregion // Geometrical Calculation
+    #endregion // Geometrical Calculation
 
-#region Colour Conversion
+    #region Colour Conversion
     /// <summary>
     /// Revit text colour parameter value stored as an integer 
     /// in text note type BuiltInParameter.LINE_COLOR.
@@ -763,7 +763,7 @@ const T f = ( ay * bx ) - ( ax * by );
     {
       // from https://forums.autodesk.com/t5/revit-api-forum/how-to-change-text-color/td-p/2567672
 
-      int c = red + ( green << 8 ) + ( blue << 16 );
+      int c = red + (green << 8) + (blue << 16);
 
 #if DEBUG
       int c2 = red + 256 * green + 65536 * blue;
@@ -784,9 +784,9 @@ const T f = ( ay * bx ) - ( ax * by );
 
       return ToColorParameterValue( color.R, color.G, color.B );
     }
-#endregion // Colour Conversion
+    #endregion // Colour Conversion
 
-#region Create Various Solids
+    #region Create Various Solids
     /// <summary>
     /// Create and return a solid sphere 
     /// with a given radius and centre point.
@@ -1010,9 +1010,9 @@ const T f = ( ay * bx ) - ( ax * by );
 
       return transformBox;
     }
-#endregion // Create Various Solids
+    #endregion // Create Various Solids
 
-#region Convex Hull
+    #region Convex Hull
     /// <summary>
     /// Return the convex hull of a list of points 
     /// using the Jarvis march or Gift wrapping:
@@ -1021,7 +1021,8 @@ const T f = ( ay * bx ) - ( ax * by );
     /// </summary>
     public static List<XYZ> ConvexHull( List<XYZ> points )
     {
-      if( points == null ) throw new ArgumentNullException( nameof( points ) );
+      if( points == null )
+        throw new ArgumentNullException( nameof( points ) );
       XYZ startPoint = points.MinBy( p => p.X );
       var convexHullPoints = new List<XYZ>();
       XYZ walkingPoint = startPoint;
@@ -1033,8 +1034,9 @@ const T f = ( ay * bx ) - ( ax * by );
         XYZ rv = refVector;
         walkingPoint = points.MinBy( p =>
         {
-          double angle = ( p - wp ).AngleOnPlaneTo( rv, XYZ.BasisZ );
-          if( angle < 1e-10 ) angle = 2 * Math.PI;
+          double angle = (p - wp).AngleOnPlaneTo( rv, XYZ.BasisZ );
+          if( angle < 1e-10 )
+            angle = 2 * Math.PI;
           return angle;
         } );
         refVector = wp - walkingPoint;
@@ -1042,9 +1044,9 @@ const T f = ( ay * bx ) - ( ax * by );
       convexHullPoints.Reverse();
       return convexHullPoints;
     }
-#endregion // Convex Hull
+    #endregion // Convex Hull
 
-#region Unit Handling
+    #region Unit Handling
     /// <summary>
     /// Base units currently used internally by Revit.
     /// </summary>
@@ -1153,9 +1155,9 @@ const T f = ( ay * bx ) - ( ax * by );
       "mm^3", // DUT_CUBIC_MILLIMETERS = 25,
       "l" // DUT_LITERS = 26,
       };
-#endregion // Unit Handling
+    #endregion // Unit Handling
 
-#region Formatting
+    #region Formatting
     /// <summary>
     /// Return an English plural suffix for the given
     /// number of items, i.e. 's' for zero or more
@@ -1457,9 +1459,9 @@ const T f = ( ay * bx ) - ( ax * by );
 
       return s;
     }
-#endregion // Formatting
+    #endregion // Formatting
 
-#region Display a message
+    #region Display a message
     const string _caption = "The Building Coder";
 
     public static void InfoMsg( string msg )
@@ -1514,16 +1516,16 @@ const T f = ( ay * bx ) - ( ax * by );
 
       string typeName = e.GetType().Name;
 
-      string categoryName = ( null == e.Category )
+      string categoryName = (null == e.Category)
         ? string.Empty
         : e.Category.Name + " ";
 
-      string familyName = ( null == fi )
+      string familyName = (null == fi)
         ? string.Empty
         : fi.Symbol.Family.Name + " ";
 
-      string symbolName = ( null == fi
-        || e.Name.Equals( fi.Symbol.Name ) )
+      string symbolName = (null == fi
+        || e.Name.Equals( fi.Symbol.Name ))
           ? string.Empty
           : fi.Symbol.Name + " ";
 
@@ -1579,11 +1581,11 @@ const T f = ( ay * bx ) - ( ax * by );
     public static XYZ GetFamilyInstanceLocation(
       FamilyInstance fi )
     {
-      return ( (LocationPoint) fi?.Location )?.Point;
+      return ((LocationPoint) fi?.Location)?.Point;
     }
-#endregion // Display a message
+    #endregion // Display a message
 
-#region Element Selection
+    #region Element Selection
     public static Element SelectSingleElement(
       UIDocument uidoc,
       string description )
@@ -1721,9 +1723,9 @@ const T f = ( ay * bx ) - ( ax * by );
       }
       return 0 < a.Count;
     }
-#endregion // Element Selection
+    #endregion // Element Selection
 
-#region Element Filtering
+    #region Element Filtering
     /// <summary>
     /// Return all elements of the requested class i.e. System.Type
     /// matching the given built-in category in the given document.
@@ -1890,9 +1892,9 @@ const T f = ( ay * bx ) - ( ax * by );
         .First( q => q.Name.Equals( name ) )
           as FamilySymbol;
     }
-#endregion // Element Filtering
+    #endregion // Element Filtering
 
-#region MEP utilities
+    #region MEP utilities
     /// <summary>
     /// Return the given element's connector manager, 
     /// using either the family instance MEPModel or 
@@ -2060,9 +2062,9 @@ const T f = ( ay * bx ) - ( ax * by );
       return cons.Distinct( new ConnectorXyzComparer() )
         .ToHashSet();
     }
-#endregion // MEP utilities
+    #endregion // MEP utilities
 
-#region Compatibility fix for spelling error change
+    #region Compatibility fix for spelling error change
     /// <summary>
     /// Wrapper to fix a spelling error prior to Revit 2016.
     /// </summary>
@@ -2118,10 +2120,10 @@ const T f = ( ay * bx ) - ( ax * by );
           as Definition;
       }
     }
-#endregion // Compatibility fix for spelling error change
+    #endregion // Compatibility fix for spelling error change
   }
 
-#region Extension Method Classes
+  #region Extension Method Classes
 
   public static class IEnumerableExtensions
   {
@@ -2139,9 +2141,12 @@ const T f = ( ay * bx ) - ( ax * by );
       Func<tsource, tkey> selector,
       IComparer<tkey> comparer )
     {
-      if( source == null ) throw new ArgumentNullException( nameof( source ) );
-      if( selector == null ) throw new ArgumentNullException( nameof( selector ) );
-      if( comparer == null ) throw new ArgumentNullException( nameof( comparer ) );
+      if( source == null )
+        throw new ArgumentNullException( nameof( source ) );
+      if( selector == null )
+        throw new ArgumentNullException( nameof( selector ) );
+      if( comparer == null )
+        throw new ArgumentNullException( nameof( comparer ) );
       using( IEnumerator<tsource> sourceIterator = source.GetEnumerator() )
       {
         if( !sourceIterator.MoveNext() )
@@ -2171,8 +2176,10 @@ const T f = ( ay * bx ) - ( ax * by );
       Func<TSource, TElement> elementSelector,
       IEqualityComparer<TElement> comparer )
     {
-      if( source == null ) throw new ArgumentNullException( "source" );
-      if( elementSelector == null ) throw new ArgumentNullException( "elementSelector" );
+      if( source == null )
+        throw new ArgumentNullException( "source" );
+      if( elementSelector == null )
+        throw new ArgumentNullException( "elementSelector" );
 
       // you can unroll this into a foreach if you want efficiency gain, but for brevity...
       return new HashSet<TElement>(
@@ -2229,12 +2236,14 @@ const T f = ( ay * bx ) - ( ax * by );
     public static bool IsPhysicalElement(
       this Element e )
     {
-      if( e.Category == null ) return false;
+      if( e.Category == null )
+        return false;
       // does this produce same result as 
       // WhereElementIsViewIndependent ?
-      if( e.ViewSpecific ) return false;
+      if( e.ViewSpecific )
+        return false;
       // exclude specific unwanted categories
-      if( ( (BuiltInCategory) e.Category.Id.IntegerValue )
+      if( ((BuiltInCategory) e.Category.Id.IntegerValue)
         == BuiltInCategory.OST_HVAC_Zones )
       {
         return false;
@@ -2302,7 +2311,7 @@ const T f = ( ay * bx ) - ( ax * by );
       double da = a.DistanceTo( p );
       double db = p.DistanceTo( b );
       // da + db is always greater or equal f
-      return ( ( da + db ) - f ) * f < tolerance;
+      return ((da + db) - f) * f < tolerance;
     }
   }
 
@@ -2448,8 +2457,8 @@ const T f = ( ay * bx ) - ( ax * by );
 
         if( 0 < n )
         {
-          Debug.Assert( pts[0]
-            .IsAlmostEqualTo( polygon[n - 1] ),
+          Debug.Assert( pts[ 0 ]
+            .IsAlmostEqualTo( polygon[ n - 1 ] ),
             "expected last edge end point to "
             + "equal next edge start point" );
 
@@ -2459,8 +2468,8 @@ const T f = ( ay * bx ) - ( ax * by );
       }
       n = polygon.Count;
 
-      Debug.Assert( polygon[0]
-        .IsAlmostEqualTo( polygon[n - 1] ),
+      Debug.Assert( polygon[ 0 ]
+        .IsAlmostEqualTo( polygon[ n - 1 ] ),
         "expected first edge start point to "
         + "equal last edge end point" );
 
@@ -2529,9 +2538,9 @@ const T f = ( ay * bx ) - ( ax * by );
       return s;
     }
   }
-#endregion // Extension Method Classes
+  #endregion // Extension Method Classes
 
-#region Compatibility Methods by Magson Leone
+  #region Compatibility Methods by Magson Leone
   /// <summary>
   /// These compatibility helper methods make use of 
   /// Reflection to determine which Revit method is
@@ -2541,7 +2550,7 @@ const T f = ( ay * bx ) - ( ax * by );
   /// </summary>
   public static class CompatibilityMethods
   {
-#region Autodesk.Revit.DB.Curve
+    #region Autodesk.Revit.DB.Curve
     public static XYZ GetPoint2(
       this Curve curva,
       int i )
@@ -2564,9 +2573,9 @@ const T f = ( ay * bx ) - ( ax * by );
 
       return value;
     }
-#endregion // Autodesk.Revit.DB.Curve
+    #endregion // Autodesk.Revit.DB.Curve
 
-#region Autodesk.Revit.DB.Definitions
+    #region Autodesk.Revit.DB.Definitions
     public static Definition Create2(
       this Definitions definitions,
       Document doc,
@@ -2584,7 +2593,7 @@ const T f = ( ay * bx ) - ( ax * by );
       .Name == "ExternalDefinitonCreationOptions" ).ToList();
       if( ls.Count > 0 )
       {
-        Type t = ls[0];
+        Type t = ls[ 0 ];
         ConstructorInfo c = t
         .GetConstructor( new Type[] { typeof(string),
                 typeof(ParameterType) } );
@@ -2606,9 +2615,9 @@ const T f = ( ay * bx ) - ( ax * by );
       }
       return value;
     }
-#endregion // Autodesk.Revit.DB.Definitions
+    #endregion // Autodesk.Revit.DB.Definitions
 
-#region Autodesk.Revit.DB.Document
+    #region Autodesk.Revit.DB.Document
     public static Element GetElement2(
       this Document doc,
       ElementId id )
@@ -2641,8 +2650,9 @@ const T f = ( ay * bx ) - ( ax * by );
       Type[] tipos = parametros.Select( a => a
       .GetType() ).ToArray();
       string metodo = "CreateBound";
-      if( bound == false ) metodo =
-        "CreateUnbound";
+      if( bound == false )
+        metodo =
+"CreateUnbound";
       MethodInfo met = typeof( Line )
       .GetMethod( metodo, tipos );
       if( met != null )
@@ -2766,7 +2776,7 @@ const T f = ( ay * bx ) - ( ax * by );
       .GetType() ).ToArray();
       if( ls.Count > 0 )
       {
-        Type t = ls[0];
+        Type t = ls[ 0 ];
         MethodInfo met = t
         .GetMethod( "UnjoinGeometry", tipos );
         met.Invoke( null, parametros );
@@ -2786,7 +2796,7 @@ const T f = ( ay * bx ) - ( ax * by );
       .GetType() ).ToArray();
       if( ls.Count > 0 )
       {
-        Type t = ls[0];
+        Type t = ls[ 0 ];
         MethodInfo met = t
         .GetMethod( "JoinGeometry", tipos );
         met.Invoke( null, parametros );
@@ -2807,7 +2817,7 @@ const T f = ( ay * bx ) - ( ax * by );
       .GetType() ).ToArray();
       if( ls.Count > 0 )
       {
-        Type t = ls[0];
+        Type t = ls[ 0 ];
         MethodInfo met = t
         .GetMethod( "AreElementsJoined", tipos );
         value = (bool) met.Invoke( null,
@@ -2823,7 +2833,7 @@ const T f = ( ay * bx ) - ( ax * by );
       .Name == "AreaVolumeSettings" ).ToList();
       if( ls.Count > 0 )
       {
-        Type t = ls[0];
+        Type t = ls[ 0 ];
         object[] parametros = new object[] {
               doc };
         Type[] tipos = parametros
@@ -2897,9 +2907,9 @@ const T f = ( ay * bx ) - ( ax * by );
               .Id } );
       }
     }
-#endregion // Autodesk.Revit.DB.Document
+    #endregion // Autodesk.Revit.DB.Document
 
-#region Autodesk.Revit.DB.Element
+    #region Autodesk.Revit.DB.Element
     public static Element Level2( this Element ele )
     {
       Element value = null;
@@ -2920,15 +2930,15 @@ const T f = ( ay * bx ) - ( ax * by );
       Document doc = ele.Document;
       Type t = ele.GetType();
       if( t.GetProperty( "Materials" ) != null )
-        value = ( (IEnumerable) t
-        .GetProperty( "Materials" ).GetValue( ele, null ) ).Cast<Material>()
+        value = ((IEnumerable) t
+        .GetProperty( "Materials" ).GetValue( ele, null )).Cast<Material>()
         .ToList();
       else
       {
         MethodInfo met = t
         .GetMethod( "GetMaterialIds", new Type[] { typeof( bool ) } );
-        value = ( (ICollection<ElementId>) met
-        .Invoke( ele, new object[] { false } ) )
+        value = ((ICollection<ElementId>) met
+        .Invoke( ele, new object[] { false } ))
         .Select( a => doc.GetElement2( a ) ).Cast<Material>().ToList();
       }
       return value;
@@ -3045,9 +3055,9 @@ const T f = ( ay * bx ) - ( ax * by );
       }
       return value;
     }
-#endregion // Autodesk.Revit.DB.Element
+    #endregion // Autodesk.Revit.DB.Element
 
-#region Autodesk.Revit.DB.FamilySymbol
+    #region Autodesk.Revit.DB.FamilySymbol
     public static void EnableFamilySymbol2(
       this FamilySymbol fsymbol )
     {
@@ -3058,9 +3068,9 @@ const T f = ( ay * bx ) - ( ax * by );
         met.Invoke( fsymbol, null );
       }
     }
-#endregion // Autodesk.Revit.DB.FamilySymbol
+    #endregion // Autodesk.Revit.DB.FamilySymbol
 
-#region Autodesk.Revit.DB.InternalDefinition
+    #region Autodesk.Revit.DB.InternalDefinition
     public static void VaryGroup2(
       this InternalDefinition def, Document doc )
     {
@@ -3075,9 +3085,9 @@ const T f = ( ay * bx ) - ( ax * by );
         met.Invoke( def, parametros );
       }
     }
-#endregion // Autodesk.Revit.DB.InternalDefinition
+    #endregion // Autodesk.Revit.DB.InternalDefinition
 
-#region Autodesk.Revit.DB.Part
+    #region Autodesk.Revit.DB.Part
     public static ElementId GetSource2( this Part part )
     {
       ElementId value = null;
@@ -3101,9 +3111,9 @@ const T f = ( ay * bx ) - ( ax * by );
       }
       return value;
     }
-#endregion // Autodesk.Revit.DB.Part
+    #endregion // Autodesk.Revit.DB.Part
 
-#region Autodesk.Revit.UI.Selection.Selection
+    #region Autodesk.Revit.UI.Selection.Selection
     public static List<Element> GetSelection2(
       this Selection sel, Document doc )
     {
@@ -3114,14 +3124,14 @@ const T f = ( ay * bx ) - ( ax * by );
       {
         MethodInfo met = t
         .GetMethod( "GetElementIds" );
-        value = ( (ICollection<ElementId>) met
-        .Invoke( sel, null ) ).Select( a => doc.GetElement2( a ) )
+        value = ((ICollection<ElementId>) met
+        .Invoke( sel, null )).Select( a => doc.GetElement2( a ) )
         .ToList();
       }
       else
       {
-        value = ( (IEnumerable) t
-        .GetProperty( "Elements" ).GetValue( sel, null ) ).Cast<Element>()
+        value = ((IEnumerable) t
+        .GetProperty( "Elements" ).GetValue( sel, null )).Cast<Element>()
         .ToList();
       }
       return value;
@@ -3191,9 +3201,9 @@ const T f = ( ay * bx ) - ( ax * by );
         met.Invoke( sel, new object[] { ids } );
       }
     }
-#endregion // Autodesk.Revit.UI.Selection.Selection
+    #endregion // Autodesk.Revit.UI.Selection.Selection
 
-#region Autodesk.Revit.UI.UIApplication
+    #region Autodesk.Revit.UI.UIApplication
     public static System.Drawing.Rectangle
       GetDrawingArea2( this UIApplication ui )
     {
@@ -3201,9 +3211,9 @@ const T f = ( ay * bx ) - ( ax * by );
       .Windows.Forms.Screen.PrimaryScreen.Bounds;
       return value;
     }
-#endregion // Autodesk.Revit.UI.UIApplication
+    #endregion // Autodesk.Revit.UI.UIApplication
 
-#region Autodesk.Revit.DB.View
+    #region Autodesk.Revit.DB.View
     public static ElementId Duplicate2( this View view )
     {
       ElementId value = null;
@@ -3214,7 +3224,7 @@ const T f = ( ay * bx ) - ( ax * by );
         .ToList();
       if( ls.Count > 0 )
       {
-        Type t = ls[0];
+        Type t = ls[ 0 ];
         object obj = view;
         MethodInfo met = view.GetType().GetMethod(
           "Duplicate", new Type[] { t } );
@@ -3240,7 +3250,7 @@ const T f = ( ay * bx ) - ( ax * by );
         .ToList();
       if( ls.Count > 0 )
       {
-        Type t = ls[0];
+        Type t = ls[ 0 ];
         ConstructorInfo construtor = t
           .GetConstructor( new Type[] { } );
         construtor.Invoke( new object[] { } );
@@ -3276,9 +3286,9 @@ const T f = ( ay * bx ) - ( ax * by );
         met.Invoke( view, new object[] { ids, espessura } );
       }
     }
-#endregion // Autodesk.Revit.DB.View
+    #endregion // Autodesk.Revit.DB.View
 
-#region Autodesk.Revit.DB.Viewplan
+    #region Autodesk.Revit.DB.Viewplan
     public static ElementId GetViewTemplateId2(
       this ViewPlan view )
     {
@@ -3303,9 +3313,9 @@ const T f = ( ay * bx ) - ( ax * by );
         prop.SetValue( view, id, null );
       }
     }
-#endregion // Autodesk.Revit.DB.Viewplan
+    #endregion // Autodesk.Revit.DB.Viewplan
 
-#region Autodesk.Revit.DB.Wall
+    #region Autodesk.Revit.DB.Wall
     public static void FlipWall2( this Wall wall )
     {
       string metodo = "Flip";
@@ -3322,7 +3332,7 @@ const T f = ( ay * bx ) - ( ax * by );
         met.Invoke( wall, null );
       }
     }
-#endregion // Autodesk.Revit.DB.Wall
+    #endregion // Autodesk.Revit.DB.Wall
   }
-#endregion // Compatibility Methods by Magson Leone
+  #endregion // Compatibility Methods by Magson Leone
 }
