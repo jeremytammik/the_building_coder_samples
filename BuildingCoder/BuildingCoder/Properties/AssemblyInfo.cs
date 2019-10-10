@@ -322,6 +322,7 @@ using System.Runtime.InteropServices;
 // 2019-09-21 2020.0.147.10 implemented GetLinkedDocuments for https://forums.autodesk.com/t5/revit-api-forum/return-revit-model-linked-to-a-project/m-p/9038578
 // 2019-09-26 2020.0.147.11 implemented GetFamilyNames for https://forums.autodesk.com/t5/revit-api-forum/get-all-family-names-from-document-through-api/td-p/8932624
 // 2019-10-01 2020.0.147.12 added GetProjectParameterId from https://forums.autodesk.com/t5/revit-api-forum/create-view-filters-for-project-parameter/m-p/9051132
+// 2019-10-10 2020.0.147.13 renamed GetViews for https://forums.autodesk.com/t5/revit-api-forum/load-list-of-3d-views-from-revit/m-p/9078338
 // 
-[assembly: AssemblyVersion( "2020.0.147.12" )]
-[assembly: AssemblyFileVersion( "2020.0.147.12" )]
+[assembly: AssemblyVersion( "2020.0.147.13" )]
+[assembly: AssemblyFileVersion( "2020.0.147.13" )]

@@ -1013,16 +1013,10 @@ namespace BuildingCoder
     #endregion // Filter for non-room-separating curve elements
 
     #region Filter for views
-    void f_views()
+    FilteredElementCollector GetViews( Document doc )
     {
-      //View view;
-      //List<Element> ViewElements
-      //  = view.Elements.OfType<Element>().ToList();
-
-      FilteredElementCollector coll
-        = new FilteredElementCollector( _doc );
-
-      coll.OfClass( typeof( View ) );
+       return new FilteredElementCollector( doc )
+        .OfClass( typeof( View ) );
     }
 
     public static List<View> GetElementViews(
