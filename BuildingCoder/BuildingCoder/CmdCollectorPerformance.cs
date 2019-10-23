@@ -1103,7 +1103,7 @@ namespace BuildingCoder
 
     /// <summary>
     /// Return all views with a 
-    /// "View Templaté" parameter
+    /// "View Template" parameter
     /// </summary>
     static IEnumerable<View> GetViewsWithTemplate(
       Document doc )
