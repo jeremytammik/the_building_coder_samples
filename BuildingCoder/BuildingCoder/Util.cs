@@ -1311,7 +1311,6 @@ const T f = ( ay * bx ) - ( ax * by );
         PointString( bb.Max, onlySpaceSeparator ) );
     }
 
-
     /// <summary>
     /// Return a string for this plane
     /// with its coordinates formatted to two

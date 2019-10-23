@@ -124,9 +124,9 @@ namespace BuildingCoder
             .ToElements() as List<Element>;
 
           List<Element> openingInstances
-            = ( from instances in openings
-                where instances is FamilyInstance
-                select instances ).ToList<Element>();
+            = (from instances in openings
+               where instances is FamilyInstance
+               select instances).ToList<Element>();
           #endregion
 
           int n = openingInstances.Count;
@@ -332,7 +332,7 @@ namespace BuildingCoder
 
       ISet<ElementId> ids = f.GetFamilySymbolIds();
 
-      Category cat = ( 0 == ids.Count )
+      Category cat = (0 == ids.Count)
         ? null
         : doc.GetElement( ids.First<ElementId>() ).Category;
 
@@ -399,7 +399,7 @@ namespace BuildingCoder
             "expected exactly one custom parameter" );
         }
 
-        d.Add( dc.Id.IntegerValue, ps[0].AsDouble() );
+        d.Add( dc.Id.IntegerValue, ps[ 0 ].AsDouble() );
       }
       return d;
     }
@@ -500,9 +500,9 @@ namespace BuildingCoder
 
       foreach( Element e in elementsCollection )
       {
-        if( ( null != e.Category )
-        && ( null != e.LevelId )
-        && ( null != e.get_Geometry( new Options() ) )
+        if( (null != e.Category)
+        && (null != e.LevelId)
+        && (null != e.get_Geometry( new Options() ))
         )
         {
           modelElements.Add( e );
@@ -614,7 +614,7 @@ namespace BuildingCoder
 
         if( map.ContainsKey( lev.Id ) )
         {
-          mapLevelToCategories[lev.Id].Add( cat.Id );
+          mapLevelToCategories[ lev.Id ].Add( cat.Id );
         }
         else
         {
@@ -652,7 +652,7 @@ namespace BuildingCoder
     /// </summary>
     static string GetAreaSchemeNameFromArea( Element e )
     {
-      if( !( e is Area ) )
+      if( !(e is Area) )
       {
         throw new ArgumentException(
           "Expected Area element input argument." );
@@ -1015,7 +1015,7 @@ namespace BuildingCoder
     #region Filter for views
     FilteredElementCollector GetViews( Document doc )
     {
-       return new FilteredElementCollector( doc )
+      return new FilteredElementCollector( doc )
         .OfClass( typeof( View ) );
     }
 
@@ -1100,6 +1100,29 @@ namespace BuildingCoder
         }
       }
     }
+
+    /// <summary>
+    /// Return all views with a 
+    /// "View Templaté" parameter
+    /// </summary>
+    static IEnumerable<View> GetViewsWithTemplate(
+      Document doc )
+    {
+      BuiltInParameter bip_t
+        = BuiltInParameter.VIEW_TEMPLATE;
+
+      FilteredElementCollector views
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .OfClass( typeof( View ) );
+
+      IEnumerable<View> views_w_t = views
+        .Where( v
+          => null != v.get_Parameter( bip_t ) )
+        .Cast<View>();
+
+      return views_w_t;
+    }
     #endregion // Filter for views
 
     #region Retrieve all family instances of specific named family and type
@@ -1138,7 +1161,7 @@ namespace BuildingCoder
     /// <summary>
     /// Retrieve all family names both standard and system
     /// </summary>
-    static IEnumerable<string> GetFamilyNames( 
+    static IEnumerable<string> GetFamilyNames(
       Document doc )
     {
       return new FilteredElementCollector( doc )
@@ -1193,7 +1216,7 @@ namespace BuildingCoder
     /// </summary>
     static IEnumerable<FamilySymbol>
       GetDoorSymbolsForCurtainWall(
-        FamilyInstance door_inst  )
+        FamilyInstance door_inst )
     {
       Document doc = door_inst.Document;
       FamilySymbol symbol = door_inst.Symbol;
@@ -1537,7 +1560,7 @@ namespace BuildingCoder
         .OfCategory( BuiltInCategory.OST_RvtLinks )
         .WhereElementIsNotElementType()
         .Cast<RevitLinkInstance>()
-        .Select<RevitLinkInstance, Document>( 
+        .Select<RevitLinkInstance, Document>(
           link => link.GetLinkDocument() );
     }
     #endregion // Retrieve linked documents
@@ -1617,7 +1640,7 @@ TaskDialog.Show( "Revit", collector.Count() +
         "{0} family instance{1} intersect{2} the "
         + "selected element {3}{4}",
         n, Util.PluralSuffix( n ),
-        ( 1 == n ? "s" : "" ),
+        (1 == n ? "s" : ""),
         Util.ElementDescription( e ),
         Util.DotOrColon( n ) );
 
@@ -1663,7 +1686,7 @@ TaskDialog.Show( "Revit", collector.Count() +
         "{0} structural framing family instance{1} "
         + "intersect{2} the two beams{3}",
         n, Util.PluralSuffix( n ),
-        ( 1 == n ? "s" : "" ),
+        (1 == n ? "s" : ""),
         Util.DotOrColon( n ) );
 
       string id_list = 0 == n
@@ -2455,7 +2478,7 @@ TaskDialog.Show( "Revit", collector.Count() +
 
         if( mapCatToFam.ContainsKey( catName ) )
         {
-          mapCatToFam[catName].Add( f );
+          mapCatToFam[ catName ].Add( f );
         }
         else
         {
@@ -2556,12 +2579,12 @@ TaskDialog.Show( "Revit", collector.Count() +
 
           inside.Min = new XYZ( x, y, 0 );
 
-          double eBBArea = ( elBox.Max.X - elBox.Min.X )
-            * ( elBox.Max.Y - elBox.Min.Y );
+          double eBBArea = (elBox.Max.X - elBox.Min.X)
+            * (elBox.Max.Y - elBox.Min.Y);
 
           double einsideArea =
-            ( inside.Max.X - inside.Min.X )
-            * ( inside.Max.Y - inside.Min.Y );
+            (inside.Max.X - inside.Min.X)
+            * (inside.Max.Y - inside.Min.Y);
 
           double factor = einsideArea / eBBArea;
 
@@ -2679,7 +2702,7 @@ TaskDialog.Show( "Revit", collector.Count() +
       {
         Category cat = e.Category;
 
-        ElementId idCat = ( null == cat )
+        ElementId idCat = (null == cat)
           ? ElementId.InvalidElementId
           : e.Category.Id;
 
@@ -2690,11 +2713,11 @@ TaskDialog.Show( "Revit", collector.Count() +
         {
           map.Add( idCat, new Dictionary<ElementId, int>() );
         }
-        if( !map[idCat].ContainsKey( idTyp ) )
+        if( !map[ idCat ].ContainsKey( idTyp ) )
         {
-          map[idCat].Add( idTyp, 0 );
+          map[ idCat ].Add( idTyp, 0 );
         }
-        ++map[idCat][idTyp];
+        ++map[ idCat ][ idTyp ];
       }
 
       List<ElementId> idsCat = new List<ElementId>( map.Keys );
@@ -2704,14 +2727,14 @@ TaskDialog.Show( "Revit", collector.Count() +
 
       foreach( ElementId id in idsCat )
       {
-        List<ElementId> idsTyp = new List<ElementId>( map[id].Keys );
+        List<ElementId> idsTyp = new List<ElementId>( map[ id ].Keys );
         idsTyp.Sort();
         n = idsTyp.Count;
         Debug.Print( "  {0} type{1}:", n, Util.PluralSuffix( n ) );
 
         foreach( ElementId id2 in idsTyp )
         {
-          n = map[id][id2];
+          n = map[ id ][ id2 ];
           Debug.Print( "    {0} element{1}:", n, Util.PluralSuffix( n ) );
         }
       }
