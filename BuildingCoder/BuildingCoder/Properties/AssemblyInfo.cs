@@ -324,7 +324,7 @@ using System.Runtime.InteropServices;
 // 2019-10-01 2020.0.147.12 added GetProjectParameterId from https://forums.autodesk.com/t5/revit-api-forum/create-view-filters-for-project-parameter/m-p/9051132
 // 2019-10-10 2020.0.147.13 renamed GetViews for https://forums.autodesk.com/t5/revit-api-forum/load-list-of-3d-views-from-revit/m-p/9078338
 // 2019-10-23 2020.0.147.14 implemented GetViewsWithTemplate for https://forums.autodesk.com/t5/revit-api-forum/get-all-views-that-accept-view-template/td-p/9102739
-
+// 2019-10-24 2020.0.147.15 clarification and performance improvement of GetViewsWithTemplate
 // 
-[assembly: AssemblyVersion( "2020.0.147.14" )]
-[assembly: AssemblyFileVersion( "2020.0.147.14" )]
+[assembly: AssemblyVersion( "2020.0.147.15" )]
+[assembly: AssemblyFileVersion( "2020.0.147.15" )]

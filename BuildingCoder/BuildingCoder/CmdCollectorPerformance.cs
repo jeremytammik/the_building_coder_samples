@@ -1102,24 +1102,41 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Return all views with a 
-    /// "View Template" parameter
+    /// Predicate for views with template for
+    /// GetViewsWithTemplate
+    /// </summary>
+    static bool ViewHasTemplate( View v )
+    {
+      return !v.IsTemplate
+        && (v.CanUseTemporaryVisibilityModes()
+          || ((ViewType.Schedule == v.ViewType)
+            && !((ViewSchedule) v).IsTitleblockRevisionSchedule));
+    }
+
+    /// <summary>
+    /// Return all views with a "View Template" 
+    /// parameter for 
+    /// https://forums.autodesk.com/t5/revit-api-forum/get-all-views-that-accept-view-template/m-p/9104937
     /// </summary>
     static IEnumerable<View> GetViewsWithTemplate(
       Document doc )
     {
-      BuiltInParameter bip_t
-        = BuiltInParameter.VIEW_TEMPLATE;
-
       FilteredElementCollector views
         = new FilteredElementCollector( doc )
           .WhereElementIsNotElementType()
           .OfClass( typeof( View ) );
 
+      //BuiltInParameter bip_t
+      //  = BuiltInParameter.VIEW_TEMPLATE;
+      //IEnumerable<View> views_w_t = views
+      //  .Where( v
+      //    => null != v.get_Parameter( bip_t ) )
+      //  .Cast<View>();
+
       IEnumerable<View> views_w_t = views
-        .Where( v
-          => null != v.get_Parameter( bip_t ) )
-        .Cast<View>();
+        .Cast<View>()
+        .Where( v => ViewHasTemplate( v ) )
+        .OrderBy( v => v.Name );
 
       return views_w_t;
     }
