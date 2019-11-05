@@ -1082,6 +1082,98 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    #region Access All Material Asset Properties
+    void GetElementMaterialInfo( Document doc )
+    {
+      FilteredElementCollector collector
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .OfClass( typeof( Material ) );
+
+      try
+      {
+        foreach( Material material in collector )
+        {
+          if( material.Name.Equals( "Air" ) )
+          {
+            AppearanceAssetElement appearanceElement
+              = doc.GetElement( material.AppearanceAssetId )
+                as AppearanceAssetElement;
+
+            Asset appearanceAsset = appearanceElement
+              .GetRenderingAsset();
+
+            List<AssetProperty> assetProperties
+              = new List<AssetProperty>();
+
+            PropertySetElement physicalPropSet
+              = doc.GetElement( material.StructuralAssetId )
+                as PropertySetElement;
+
+            PropertySetElement thermalPropSet
+              = doc.GetElement( material.ThermalAssetId )
+                as PropertySetElement;
+
+            ThermalAsset thermalAsset = thermalPropSet
+              .GetThermalAsset();
+
+            StructuralAsset physicalAsset = physicalPropSet
+              .GetStructuralAsset();
+
+            ICollection<Parameter> physicalParameters
+              = physicalPropSet.GetOrderedParameters();
+
+            ICollection<Parameter> thermalParameters
+              = thermalPropSet.GetOrderedParameters();
+
+            // Appearance Asset
+
+            for( int i = 0; i < appearanceAsset.Size; i++ )
+            {
+              AssetProperty property = appearanceAsset[ i ];
+              assetProperties.Add( property );
+            }
+            foreach( AssetProperty assetProp in assetProperties )
+            {
+              Type type = assetProp.GetType();
+              object assetPropValue = null;
+              var prop = type.GetProperty( "Value" );
+              if( prop != null
+                && prop.GetIndexParameters().Length == 0 )
+              {
+                assetPropValue = prop.GetValue( assetProp );
+              }
+            }
+
+            // Physical (Structural) Asset
+
+            foreach( Parameter p in physicalParameters )
+            {
+              // Work with parameters here
+              // The only parameter not in the orderedParameters 
+              // that is needed is the Asset name, which you 
+              // can get by 'physicalAsset.Name'.
+            }
+
+            // Thermal Asset
+
+            foreach( Parameter p in thermalParameters )
+            {
+              //Work with parameters here
+              //The only parameter not in the orderedParameters 
+              // that is needed is the Asset name, shich you 
+              // can get by 'thermalAsset.Name'.
+            }
+          }
+        }
+      }
+      catch( Exception e )
+      {
+        Console.WriteLine( e.ToString() );
+      }
+    }
+    #endregion // Access All Material Asset Properties
   }
 
   #region Victor sample code 2
