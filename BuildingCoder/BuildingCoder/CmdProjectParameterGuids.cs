@@ -27,6 +27,19 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdProjectParameterGuids : IExternalCommand
   {
+    #region Delete shared parameters
+    /// <summary>
+    /// Delete all shared parameters from document, for
+    /// https://github.com/jeremytammik/RevitLookup/issues/57
+    /// </summary>
+    void DeleteSharedParameters( Document doc )
+    {
+      doc.Delete( new FilteredElementCollector( doc )
+        .OfClass( typeof( SharedParameterElement ) )
+        .ToElementIds() );
+    }
+    #endregion // Delete shared parameters
+
     #region Delete non-shared project parameter
     /// <summary>
     /// Return project parameter id for given name

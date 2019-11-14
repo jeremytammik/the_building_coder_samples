@@ -327,6 +327,7 @@ using System.Runtime.InteropServices;
 // 2019-10-24 2020.0.147.15 clarification and performance improvement of GetViewsWithTemplate
 // 2019-11-05 2020.0.147.16 added GetElementMaterialInfo
 // 2019-11-14 2020.0.147.17 added GetMaterialTags from https://forums.autodesk.com/t5/revit-api-forum/get-all-tags/m-p/9145329
+// 2019-11-14 2020.0.147.18 implemented DeleteSharedParameters for https://github.com/jeremytammik/RevitLookup/issues/57
 // 
-[assembly: AssemblyVersion( "2020.0.147.17" )]
-[assembly: AssemblyFileVersion( "2020.0.147.17" )]
+[assembly: AssemblyVersion( "2020.0.147.18" )]
+[assembly: AssemblyFileVersion( "2020.0.147.18" )]
