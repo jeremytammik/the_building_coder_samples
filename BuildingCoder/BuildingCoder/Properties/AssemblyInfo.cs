@@ -326,6 +326,7 @@ using System.Runtime.InteropServices;
 // 2019-10-23 2020.0.147.14 implemented GetViewsWithTemplate for https://forums.autodesk.com/t5/revit-api-forum/get-all-views-that-accept-view-template/td-p/9102739
 // 2019-10-24 2020.0.147.15 clarification and performance improvement of GetViewsWithTemplate
 // 2019-11-05 2020.0.147.16 added GetElementMaterialInfo
+// 2019-11-14 2020.0.147.17 added GetMaterialTags from https://forums.autodesk.com/t5/revit-api-forum/get-all-tags/m-p/9145329
 // 
-[assembly: AssemblyVersion( "2020.0.147.16" )]
-[assembly: AssemblyFileVersion( "2020.0.147.16" )]
+[assembly: AssemblyVersion( "2020.0.147.17" )]
+[assembly: AssemblyFileVersion( "2020.0.147.17" )]

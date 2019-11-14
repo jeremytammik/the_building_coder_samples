@@ -1291,6 +1291,27 @@ namespace BuildingCoder
     }
     #endregion // Return first title block family symbol of specific named family and type
 
+    #region Retrieve All (Material) Tags
+    /// <summary>
+    /// Return all tags, optionally 
+    /// material tags only
+    /// </summary>
+    IEnumerable<IndependentTag> GetMaterialTags(
+      Document doc,
+      bool material_only )
+    {
+      IEnumerable<IndependentTag> tags
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( IndependentTag ) )
+          .Cast<IndependentTag>();
+
+      return material_only
+        ? tags
+        : tags.Where<IndependentTag>( 
+          tag => tag.IsMaterialTag );
+    }
+    #endregion // Retrieve All (Material) Tags
+
     #region Pull Text from Annotation Tags
     /// <summary>
     /// Return the text from all annotation tags 
@@ -1308,7 +1329,7 @@ namespace BuildingCoder
         .Select<IndependentTag, string>(
           t => t.TagText ) );
     }
-    #endregion //Pull Text from Annotation Tags
+    #endregion // Pull Text from Annotation Tags
 
     #region Retrieve named family symbols using either LINQ or a parameter filter
     static FilteredElementCollector
