@@ -2537,6 +2537,20 @@ const T f = ( ay * bx ) - ( ax * by );
       return s;
     }
   }
+
+  public static class JtFamilyInstanceExtensionMethods
+  {
+    public static string GetColumnLocationMark( 
+      this FamilyInstance f )
+    {
+      Parameter p = f.get_Parameter( 
+        BuiltInParameter.COLUMN_LOCATION_MARK );
+
+      return( p == null )
+        ? string.Empty
+        : p.AsString();
+    }
+  }
   #endregion // Extension Method Classes
 
   #region Compatibility Methods by Magson Leone

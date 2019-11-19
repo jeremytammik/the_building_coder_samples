@@ -1307,7 +1307,7 @@ namespace BuildingCoder
 
       return material_only
         ? tags
-        : tags.Where<IndependentTag>( 
+        : tags.Where<IndependentTag>(
           tag => tag.IsMaterialTag );
     }
     #endregion // Retrieve All (Material) Tags
@@ -2719,6 +2719,110 @@ TaskDialog.Show( "Revit", collector.Count() +
       }
     }
     #endregion // Retrieve Family Instances Satisfying Filter Rule
+
+    #region Retrieve column family instances sorted as in schedule
+    public class ColumnMarkComparer : IComparer<FamilyInstance>
+    {
+      int IComparer<FamilyInstance>.Compare(
+
+        FamilyInstance x,
+        FamilyInstance y )
+      {
+        if( x == null )
+        {
+          return y == null ? 0 : -1;
+        }
+        if( y == null )
+          return 1;
+
+        string[] mark1 = x.GetColumnLocationMark()
+          .Split( '(', ')' );
+
+        string[] mark2 = y.GetColumnLocationMark()
+          .Split( '(', ')' );
+
+        if( mark1.Length < 4 )
+        {
+          return mark2.Length < 4 ? 0 : -1;
+        }
+        if( mark2.Length < 4 )
+          return 1;
+
+        // gridsequence A
+        int res = string.Compare(
+          mark1[ 0 ], mark2[ 0 ] );
+
+        if( res != 0 )
+          return res;
+
+        // gridsequence 1
+        string m12 = mark1[ 2 ].Remove( 0, 1 );
+        string m22 = mark2[ 2 ].Remove( 0, 1 );
+        res = string.Compare( m12, m22 );
+        if( res != 0 )
+          return res;
+
+        // value xxxx
+        double d1 = 0;
+        double d2 = 0;
+        double.TryParse( mark1[ 1 ], out d1 );
+        double.TryParse( mark2[ 1 ], out d2 );
+        if( Math.Round( d1 - d2, 4 ) != 0 )
+        {
+          if( d1 < 0 ^ d2 < 0 )
+          {
+            return d1 < 0 ? 1 : -1;
+          }
+          else
+          {
+            return Math.Abs( d1 ) < Math.Abs( d2 )
+              ? -1
+              : 1;
+          }
+        }
+
+        // value yyyy
+        double.TryParse( mark1[ 3 ], out d1 );
+        double.TryParse( mark2[ 3 ], out d2 );
+        if( Math.Round( d1 - d2, 4 ) != 0 )
+        {
+          if( d1 < 0 ^ d2 < 0 )
+          {
+            return d1 < 0 ? 1 : -1;
+          }
+          else
+          {
+            return Math.Abs( d1 ) < Math.Abs( d2 )
+              ? -1
+              : 1;
+          }
+        }
+        return 0;
+      }
+    }
+
+    /// <summary>
+    /// Return a sorted list of all structural columns.
+    /// The sort order is defined by ColumnMarkComparer
+    /// as requested to to replicate the graphical column 
+    /// schedule sort order with C# in
+    /// https://forums.autodesk.com/t5/revit-api-forum/replicate-graphical-column-schedule-sort-order-with-c/m-p/9105470
+    /// </summary>
+    List<FamilyInstance> GetSortedColumns( Document doc )
+    {
+      List<FamilyInstance> colums
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .OfCategory( BuiltInCategory.OST_StructuralColumns )
+          .OfClass( typeof( FamilyInstance ) )
+          .Cast<FamilyInstance>()
+          .ToList();
+
+      colums.Sort( new ColumnMarkComparer() );
+
+      return colums;
+    }
+    #endregion // Retrieve column family instances sorted as in schedule
 
     #region Determine element count for each type of each category
     /// <summary>
