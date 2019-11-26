@@ -1,7 +1,7 @@
 ﻿#region Header
-//
+//  
 // CmdElectricalLoad.cs - Retrieve electrical load
-//
+//  
 // Copyright (C) 2019 by Alexander Ignatovich and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

@@ -329,7 +329,7 @@ using System.Runtime.InteropServices;
 // 2019-11-14 2020.0.147.17 added GetMaterialTags from https://forums.autodesk.com/t5/revit-api-forum/get-all-tags/m-p/9145329
 // 2019-11-14 2020.0.147.18 implemented DeleteSharedParameters for https://github.com/jeremytammik/RevitLookup/issues/57
 // 2019-11-19 2020.0.147.19 added GetSortedColumns from https://forums.autodesk.com/t5/revit-api-forum/replicate-graphical-column-schedule-sort-order-with-c/m-p/9105470
-// 2019-11-26 2020.0.148.0 integrated pull request #12 implementing CmdElectricalLoad by @CADBIMDeveloper
-//
+// 2019-11-26 2020.0.148.0 integrated pull request #12 implementing CmdElectricalLoad by @CADBIMDeveloper  
+// 
 [assembly: AssemblyVersion( "2020.0.148.0" )]
 [assembly: AssemblyFileVersion( "2020.0.148.0" )]
