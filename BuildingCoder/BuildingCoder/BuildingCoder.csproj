@@ -136,6 +136,7 @@
     <Compile Include="CmdDuctResize.cs" />
     <Compile Include="CmdDuplicateElements.cs" />
     <Compile Include="CmdDutAbbreviation.cs" />
+    <Compile Include="CmdElectricalLoad.cs" />
     <Compile Include="CmdEllipticalArc.cs" />
     <Compile Include="CmdExportIfc.cs" />
     <Compile Include="CmdExportImage.cs" />
