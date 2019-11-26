@@ -1,6 +1,6 @@
 ﻿#region Header
 //
-// CmdElectricalLoad.cs - React to elevation view creation
+// CmdElectricalLoad.cs - Retrieve electrical load
 //
 // Copyright (C) 2019 by Alexander Ignatovich and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //

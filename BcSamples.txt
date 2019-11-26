@@ -1248,4 +1248,10 @@ Image:
 Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdRebarCurves # version 2020.0.147.0
 
-
+ADN Bc A-I
+Electrical load
+Retrieve electrical load from selected family instance
+LargeImage:
+Image:
+Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdElectricalLoad # version 2018.0.148.0
