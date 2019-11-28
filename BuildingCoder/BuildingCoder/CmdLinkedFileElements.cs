@@ -12,9 +12,7 @@
 #region Namespaces
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -280,5 +278,67 @@ namespace BuildingCoder
       }
     }
     #endregion // Tag elements in linked documents
+
+    #region Pick face on element in linked document
+    static IEnumerable<Document> GetLinkedDocuments( 
+      Document doc )
+    {
+      throw new NotImplementedException();
+    }
+
+    public static Face SelectFace( UIApplication uiapp )
+    {
+      Document doc = uiapp.ActiveUIDocument.Document;
+
+      IEnumerable<Document> doc2 = GetLinkedDocuments( 
+        doc );
+
+      Autodesk.Revit.UI.Selection.Selection sel 
+        = uiapp.ActiveUIDocument.Selection;
+
+      Reference pickedRef = sel.PickObject( 
+        Autodesk.Revit.UI.Selection.ObjectType.PointOnElement, 
+        "Please select a Face" );
+
+      Element elem = doc.GetElement( pickedRef.ElementId );
+
+      Type et = elem.GetType();
+
+      if( typeof( RevitLinkType ) == et 
+        || typeof( RevitLinkInstance ) == et 
+        || typeof( Instance ) == et )
+      {
+        foreach( Document d in doc2 )
+        {
+          if( elem.Name.Contains( d.Title ) )
+          {
+            Reference pickedRefInLink = pickedRef
+              .CreateReferenceInLink();
+
+            Element myElement = d.GetElement( 
+              pickedRefInLink.ElementId );
+
+            Face myGeometryObject = myElement
+              .GetGeometryObjectFromReference( 
+                pickedRefInLink ) as Face;
+
+            return myGeometryObject;
+          }
+        }
+      }
+      else
+      {
+        Element myElement = doc.GetElement( 
+          pickedRef.ElementId );
+
+        Face myGeometryObject = myElement
+          .GetGeometryObjectFromReference( pickedRef ) 
+            as Face;
+
+        return myGeometryObject;
+      }
+      return null;
+    }
+    #endregion // Pick face on element in linked document
   }
 }
