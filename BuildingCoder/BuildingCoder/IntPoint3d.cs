@@ -46,7 +46,7 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Convert Revit coordinates XYZ to a 2D 
+    /// Convert Revit coordinates XYZ to a 3D 
     /// millimetre integer point by scaling 
     /// from feet to mm.
     /// </summary>
