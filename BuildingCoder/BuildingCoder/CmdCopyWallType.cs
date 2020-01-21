@@ -9,7 +9,6 @@
 #endregion // Header
 
 #region Namespaces
-using System;
 using System.Diagnostics;
 using System.Reflection;
 using Autodesk.Revit.ApplicationServices;

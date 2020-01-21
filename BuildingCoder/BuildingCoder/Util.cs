@@ -2540,13 +2540,13 @@ const T f = ( ay * bx ) - ( ax * by );
 
   public static class JtFamilyInstanceExtensionMethods
   {
-    public static string GetColumnLocationMark( 
+    public static string GetColumnLocationMark(
       this FamilyInstance f )
     {
-      Parameter p = f.get_Parameter( 
+      Parameter p = f.get_Parameter(
         BuiltInParameter.COLUMN_LOCATION_MARK );
 
-      return( p == null )
+      return (p == null)
         ? string.Empty
         : p.AsString();
     }
