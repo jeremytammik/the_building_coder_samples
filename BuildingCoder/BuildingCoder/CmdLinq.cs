@@ -2,7 +2,7 @@
 //
 // CmdLinq.cs - test linq.
 //
-// Copyright (C) 2009-2019 by Joel Karr and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2009-2020 by Joel Karr and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

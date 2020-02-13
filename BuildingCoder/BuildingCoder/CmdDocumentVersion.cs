@@ -2,7 +2,7 @@
 //
 // CmdDocumentVersion.cs - list DocumentVersion data, i.e. document GUID and save count
 //
-// Copyright (C) 2014-2019 by Jeremy Tammik,
+// Copyright (C) 2014-2020 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

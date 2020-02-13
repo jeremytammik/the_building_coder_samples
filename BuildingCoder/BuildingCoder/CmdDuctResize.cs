@@ -2,7 +2,7 @@
 //
 // CmdDuctResize.cs - Ensure that branch ducts are no larger than the main duct they are tapping into
 //
-// Copyright (C) 2019 by Jared Wilson and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2019-2020 by Jared Wilson and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

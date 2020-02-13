@@ -2,7 +2,7 @@
 //
 // CmdFlatten.cs - convert all Revit elements to DirectShapes retaining shape and category
 //
-// Copyright (C) 2015-2019 by Nikolay Shulga and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2015-2020 by Nikolay Shulga and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Written by Nikolay Shulga.
 //

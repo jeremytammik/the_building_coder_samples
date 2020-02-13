@@ -2,7 +2,7 @@
 //
 // CmdMidCurve.cs - create a series of model line segments between two curve elements
 //
-// Copyright (C) 2013-2019 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2020 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

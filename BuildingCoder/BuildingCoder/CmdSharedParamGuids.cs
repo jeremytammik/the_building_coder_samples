@@ -2,7 +2,7 @@
 //
 // CmdSharedParamGuids.cs - list all shared parameter GUIDs
 //
-// Copyright (C) 2017-2019 by Alexander Ignatovich and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2017-2020 by Alexander Ignatovich and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

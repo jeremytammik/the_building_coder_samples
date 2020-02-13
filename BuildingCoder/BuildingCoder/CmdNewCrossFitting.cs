@@ -2,7 +2,7 @@
 //
 // CmdNewCrossFitting.cs - Create a new pipe cross fitting
 //
-// Copyright (C) 2014-2019 by Joe Ye and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2014-2020 by Joe Ye and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

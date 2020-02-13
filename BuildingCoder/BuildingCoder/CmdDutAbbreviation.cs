@@ -2,7 +2,7 @@
 //
 // CmdDutAbbreviation.cs - Test the display unit type abbreviation array
 //
-// Copyright (C) 2013-2019 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2013-2020 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

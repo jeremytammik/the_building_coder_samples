@@ -2,7 +2,7 @@
 //
 // CmdProcessVisibleDwg.cs - extract geometry from visible import instance layers in the current view
 //
-// Copyright (C) 2018-2019 by Ryan Goertzen, Goertzen Enterprises, and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2018-2020 by Ryan Goertzen, Goertzen Enterprises, and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

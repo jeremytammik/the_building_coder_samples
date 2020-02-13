@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Autodesk, Inc." )]
 [assembly: AssemblyProduct( "BuildingCoder" )]
-[assembly: AssemblyCopyright( "Copyright © 2008-2019 by Jeremy Tammik, Autodesk, Inc." )]
+[assembly: AssemblyCopyright( "Copyright © 2008-2020 by Jeremy Tammik, Autodesk, Inc." )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -331,6 +331,7 @@ using System.Runtime.InteropServices;
 // 2019-11-19 2020.0.147.19 added GetSortedColumns from https://forums.autodesk.com/t5/revit-api-forum/replicate-graphical-column-schedule-sort-order-with-c/m-p/9105470
 // 2019-11-26 2020.0.148.0 integrated pull request #12 implementing CmdElectricalLoad by @CADBIMDeveloper
 // 2019-11-28 2020.0.148.1 added SelectFace method by Joshua Lumley
+// 2020-02-13 2020.0.148.2 incremented copyright year to 2020
 //
-[assembly: AssemblyVersion( "2020.0.148.1" )]
-[assembly: AssemblyFileVersion( "2020.0.148.1" )]
+[assembly: AssemblyVersion( "2020.0.148.2" )]
+[assembly: AssemblyFileVersion( "2020.0.148.2" )]

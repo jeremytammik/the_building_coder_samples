@@ -2,7 +2,7 @@
 //
 // CmdProjectParameterGuids.cs - determine and report all project parameter GUIDs
 //
-// Copyright (C) 2015-2019 by CoderBoy and Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2015-2020 by CoderBoy and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

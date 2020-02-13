@@ -2,7 +2,7 @@
 //
 // MepSystemSearch.cs - traverse MEP system connectors
 //
-// Copyright (C) 2018-2019 by Geoff Overfield. All rights reserved.
+// Copyright (C) 2018-2020 by Geoff Overfield. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

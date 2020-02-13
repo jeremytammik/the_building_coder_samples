@@ -2,7 +2,7 @@
 //
 // CmdPartAtom.cs - extract part atom from family file
 //
-// Copyright (C) 2010-2019 by By Håvard Dagsvik, Symetri 
+// Copyright (C) 2010-2020 by By Håvard Dagsvik, Symetri 
 // and Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

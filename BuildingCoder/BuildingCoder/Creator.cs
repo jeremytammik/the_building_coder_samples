@@ -2,7 +2,7 @@
 //
 // Creator.cs - model line creator helper class
 //
-// Copyright (C) 2008-2019 by Jeremy Tammik,
+// Copyright (C) 2008-2020 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

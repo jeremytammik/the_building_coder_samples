@@ -2,7 +2,7 @@
 //
 // CmdPreprocessFailure.cs - suppress warning message by implementing the IFailuresPreprocessor interface
 //
-// Copyright (C) 2010-2019 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2010-2020 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

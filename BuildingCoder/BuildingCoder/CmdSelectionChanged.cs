@@ -2,7 +2,7 @@
 //
 // CmdSelectionChanged.cs - Implement and subscribe to a custom element selection changed event using UI Automation
 //
-// Copyright (C) 2015-2019 by Vilo and Jeremy Tammik,
+// Copyright (C) 2015-2020 by Vilo and Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

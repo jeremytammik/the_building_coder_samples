@@ -2,7 +2,7 @@
 //
 // CmdMultistoryStairSubelements.cs - Access all subelements of all MultistoryStair instances
 //
-// Copyright (C) 2018-2019 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2018-2020 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //
