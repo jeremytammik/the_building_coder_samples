@@ -764,7 +764,7 @@ namespace BuildingCoder
     /// <summary>
     /// Return a list of all elements with the 
     /// specified value in their shared parameter with 
-    /// the given name oand group. They are retrieved
+    /// the given name and group. They are retrieved
     /// using a parameter filter, and the required 
     /// parameter id is found by temporarily adding 
     /// the shared parameter to the project info.
