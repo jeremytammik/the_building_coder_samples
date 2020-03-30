@@ -332,6 +332,7 @@ using System.Runtime.InteropServices;
 // 2019-11-26 2020.0.148.0 integrated pull request #12 implementing CmdElectricalLoad by @CADBIMDeveloper
 // 2019-11-28 2020.0.148.1 added SelectFace method by Joshua Lumley
 // 2020-02-13 2020.0.148.2 incremented copyright year to 2020
+// 2020-03-30 2020.0.148.3 implemented GetViewSheetSetViewsBenchmark for https://forums.autodesk.com/t5/revit-api-forum/getting-the-views-from-a-viewsheetset-takes-forever/m-p/9403624
 //
-[assembly: AssemblyVersion( "2020.0.148.2" )]
-[assembly: AssemblyFileVersion( "2020.0.148.2" )]
+[assembly: AssemblyVersion( "2020.0.148.3" )]
+[assembly: AssemblyFileVersion( "2020.0.148.3" )]

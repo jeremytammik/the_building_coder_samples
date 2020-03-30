@@ -83,21 +83,21 @@ namespace BuildingCoder
           ElementClassFilter f1
             = new ElementClassFilter(
               typeof( FamilyInstance ) );
-
+      
           ElementCategoryFilter f2
             = new ElementCategoryFilter(
               BuiltInCategory.OST_Doors );
-
+      
           ElementCategoryFilter f3
             = new ElementCategoryFilter(
               BuiltInCategory.OST_Windows );
-
+      
           LogicalOrFilter f4
             = new LogicalOrFilter( f2, f3 );
-
+      
           LogicalAndFilter f5
             = new LogicalAndFilter( f1, f4 );
-
+      
           FilteredElementCollector collector
             = new FilteredElementCollector( doc );
 

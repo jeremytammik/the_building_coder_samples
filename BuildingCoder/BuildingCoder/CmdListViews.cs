@@ -94,6 +94,18 @@ namespace BuildingCoder
       UIApplication app = commandData.Application;
       Document doc = app.ActiveUIDocument.Document;
 
+      bool run_ViewSheetSet_Views_benchmark = true;
+
+      if( run_ViewSheetSet_Views_benchmark )
+      {
+        string s = GetViewSheetSetViewsBenchmark( doc );
+        TaskDialog td = new TaskDialog(
+          "ViewSheetSet.Views Benchmark" );
+        td.MainContent = s;
+        td.Show();
+        return Result.Succeeded;
+      }
+
       FilteredElementCollector sheets
         = new FilteredElementCollector( doc );
 
@@ -175,6 +187,43 @@ namespace BuildingCoder
         }
       }
       return Result.Cancelled;
+    }
+
+    string GetViewSheetSetViewsBenchmark( Document doc )
+    {
+      var sheetSets = new FilteredElementCollector( doc )
+        .OfClass( typeof( ViewSheetSet ) );
+
+      int n = sheetSets.GetElementCount();
+
+      var result = "Total of " + n.ToString() 
+        + " sheet sets in this project.\n\n";
+
+      var stopWatch = new Stopwatch();
+      stopWatch.Start();
+
+      foreach( ViewSheetSet set in sheetSets )
+      {
+        result += set.Name;
+
+        // getting the Views property takes around 
+        // 1.5 seconds on the given sample.rvt file.
+
+        var views = set.Views;
+
+        result += " has " + views.Size.ToString() 
+          + " views.\n";
+      }
+
+      stopWatch.Stop();
+
+      double ms = stopWatch.ElapsedMilliseconds;
+
+      result += "\nOperation completed in "
+        + Math.Round( ms / 1000.0, 3 ) + " seconds.\n"
+        + "Average of " + ms / n + " ms per loop iteration.";
+
+      return result;
     }
   }
 }
