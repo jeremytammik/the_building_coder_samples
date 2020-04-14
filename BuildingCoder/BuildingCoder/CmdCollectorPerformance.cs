@@ -1332,6 +1332,31 @@ namespace BuildingCoder
     #endregion // Pull Text from Annotation Tags
 
     #region Retrieve named family symbols using either LINQ or a parameter filter
+    /// <summary>
+    /// Return the family symbols that can be used for 
+    /// note blocks, excluding the ones that lack a specific 
+    /// paramter. For 
+    /// https://forums.autodesk.com/t5/revit-api-forum/determine-if-a-parameter-exists-for-noteblockfamiles/m-p/9442331
+    /// </summary>
+    static IEnumerable<FamilySymbol>
+      GetNoteBlockSymbolsLackingParameterNamed(
+        Document doc,
+        string parameter_name )
+    {
+      ICollection<ElementId> ids_family 
+        = ViewSchedule.GetValidFamiliesForNoteBlock( 
+          doc );
+
+      IEnumerable<FamilySymbol> symbols
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( FamilySymbol ) )
+          .Cast<FamilySymbol>()
+          .Where( sym => ids_family.Contains( sym.Family.Id ) )
+          .Where( sym => null == sym.LookupParameter( parameter_name ) );
+
+      return symbols;
+    }
+
     static FilteredElementCollector
       GetStructuralColumnSymbolCollector(
         Document doc )

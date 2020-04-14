@@ -333,6 +333,7 @@ using System.Runtime.InteropServices;
 // 2019-11-28 2020.0.148.1 added SelectFace method by Joshua Lumley
 // 2020-02-13 2020.0.148.2 incremented copyright year to 2020
 // 2020-03-30 2020.0.148.3 implemented GetViewSheetSetViewsBenchmark for https://forums.autodesk.com/t5/revit-api-forum/getting-the-views-from-a-viewsheetset-takes-forever/m-p/9403624
+// 2020-04-14 2020.0.148.4 implemented GetNoteBlockSymbolsLackingParameterNamed for https://forums.autodesk.com/t5/revit-api-forum/determine-if-a-parameter-exists-for-noteblockfamiles/m-p/9442331
 //
-[assembly: AssemblyVersion( "2020.0.148.3" )]
-[assembly: AssemblyFileVersion( "2020.0.148.3" )]
+[assembly: AssemblyVersion( "2020.0.148.4" )]
+[assembly: AssemblyFileVersion( "2020.0.148.4" )]
