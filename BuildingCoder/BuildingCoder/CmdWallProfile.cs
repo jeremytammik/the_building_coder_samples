@@ -44,7 +44,7 @@ namespace BuildingCoder
     /// loops of exterior vertical planar face, i.e.
     /// profile of wall elevation incl. holes</param>
     /// <param name="solid">Input solid</param>
-    /// <param name="w">Vector pointing along
+    /// <param name="v">Vector pointing along
     /// wall centre line</param>
     /// <param name="w">Vector pointing towards
     /// exterior wall face</param>
