@@ -336,6 +336,7 @@ using System.Runtime.InteropServices;
 // 2020-04-14 2020.0.148.4 implemented GetNoteBlockSymbolsLackingParameterNamed for https://forums.autodesk.com/t5/revit-api-forum/determine-if-a-parameter-exists-for-noteblockfamiles/m-p/9442331
 // 2020-04-20 2020.0.148.5 fixed typo reported in https://thebuildingcoder.typepad.com/blog/2018/08/wall-profile-command-update.html#comment-4882403071
 // 2020-04-20 2021.0.148.0 flat migration to Revit 2021
+// 2020-05-14 2021.0.148.1 updated Revit and .NET version flags
 //
-[assembly: AssemblyVersion( "2021.0.148.0" )]
-[assembly: AssemblyFileVersion( "2021.0.148.0" )]
+[assembly: AssemblyVersion( "2021.0.148.1" )]
+[assembly: AssemblyFileVersion( "2021.0.148.1" )]
