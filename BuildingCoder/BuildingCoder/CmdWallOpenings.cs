@@ -16,6 +16,7 @@ using System.Linq;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Selection;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -245,5 +246,107 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    #region Determine walls in linked file intersecting pipe
+    /// <summary>
+    /// Determine walls in linked file intersecting pipe
+    /// </summary>
+    public void GetWalls( UIDocument uidoc )
+    {
+      Document doc = uidoc.Document;
+
+      Reference pipeRef = uidoc.Selection.PickObject( 
+        ObjectType.Element );
+
+      Element pipeElem = doc.GetElement( pipeRef );
+
+      LocationCurve lc = pipeElem.Location as LocationCurve;
+      Curve curve = lc.Curve;
+
+      ReferenceComparer reference1 = new ReferenceComparer();
+
+      ElementFilter filter = new ElementCategoryFilter( 
+        BuiltInCategory.OST_Walls );
+
+      FilteredElementCollector collector 
+        = new FilteredElementCollector( doc );
+
+      Func<View3D, bool> isNotTemplate = v3 => !(v3.IsTemplate);
+      View3D view3D = collector
+        .OfClass( typeof( View3D ) )
+        .Cast<View3D>()
+        .First<View3D>( isNotTemplate );
+
+      ReferenceIntersector refIntersector 
+        = new ReferenceIntersector( 
+          filter, FindReferenceTarget.Element, view3D );
+
+      refIntersector.FindReferencesInRevitLinks = true;
+      IList<ReferenceWithContext> referenceWithContext 
+        = refIntersector.Find( 
+          curve.GetEndPoint( 0 ), 
+          (curve as Line).Direction );
+
+      IList<Reference> references 
+        = referenceWithContext
+          .Select( p => p.GetReference() )
+          .Distinct( reference1 )
+          .Where( p => p.GlobalPoint.DistanceTo( 
+            curve.GetEndPoint( 0 ) ) < curve.Length )
+          .ToList();
+
+      IList<Element> walls = new List<Element>();
+      foreach( Reference reference in references )
+      {
+        RevitLinkInstance instance = doc.GetElement( reference )
+        as RevitLinkInstance;
+        Document linkDoc = instance.GetLinkDocument();
+        Element element = linkDoc.GetElement( reference.LinkedElementId );
+        walls.Add( element );
+      }
+      TaskDialog.Show( "Count of wall", walls.Count.ToString() );
+    }
+
+    /// <summary>
+    /// Compare references with linked file support.
+    /// </summary>
+    public class ReferenceComparer : IEqualityComparer<Reference>
+    {
+      public bool Equals( Reference x, Reference y )
+      {
+        if( x.ElementId == y.ElementId )
+        {
+          if( x.LinkedElementId == y.LinkedElementId )
+          {
+            return true;
+          }
+          return false;
+        }
+        return false;
+      }
+
+      public int GetHashCode( Reference obj )
+      {
+        int hashName = obj.ElementId.GetHashCode();
+        int hashId = obj.LinkedElementId.GetHashCode();
+        return hashId ^ hashId;
+      }
+    }
+
+    /// <summary>
+    /// Return a `StableRepresentation` for a linked wall's exterior face.
+    /// </summary>
+    public string GetFaceRefRepresentation( 
+      Wall wall, 
+      Document doc, 
+      RevitLinkInstance instance )
+    {
+      Reference faceRef = HostObjectUtils.GetSideFaces( 
+        wall, ShellLayerType.Exterior ).FirstOrDefault();
+      Reference stRef = faceRef.CreateLinkReference( instance );
+      string stable = stRef.ConvertToStableRepresentation( doc );
+      return stable;
+    }
+    #endregion // Determine walls in linked file intersecting pipe
   }
 }
