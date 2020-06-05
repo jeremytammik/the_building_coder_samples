@@ -118,6 +118,7 @@
     <Compile Include="CmdBrepBuilder.cs" />
     <Compile Include="CmdCategories.cs" />
     <Compile Include="CmdCategorySupportsTypeParameter.cs" />
+    <Compile Include="CmdChangeElementColor.cs" />
     <Compile Include="CmdCloseDocument.cs" />
     <Compile Include="CmdCollectorPerformance.cs" />
     <Compile Include="CmdColumnRound.cs" />

@@ -1255,3 +1255,11 @@ LargeImage:
 Image:
 Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdElectricalLoad # version 2018.0.148.0
+
+ADN Bc A-I
+Change element colour
+Using OverrideGraphicSettings for active view
+LargeImage:
+Image:
+Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdChangeElementColor # version 2020.0.149.0
