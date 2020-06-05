@@ -43,20 +43,24 @@ namespace BuildingCoder
 
     void ChangeElementMaterial( Document doc, ElementId id )
     {
-      List<Material> materials = new List<Material>(
-        new FilteredElementCollector( doc )
-          .WhereElementIsNotElementType()
-          .OfClass( typeof( Material ) )
-          .ToElements()
-          .Cast<Material>() );
-
-      Random r = new Random();
-      int i = r.Next( materials.Count );
-
       Element e = doc.GetElement( id );
 
       if( null != e.Category )
       {
+        int im = e.Category.Material.Id.IntegerValue;
+
+        List<Material> materials = new List<Material>(
+          new FilteredElementCollector( doc )
+            .WhereElementIsNotElementType()
+            .OfClass( typeof( Material ) )
+            .ToElements()
+            .Where<Element>( m 
+              => m.Id.IntegerValue != im )
+            .Cast<Material>() );
+
+        Random r = new Random();
+        int i = r.Next( materials.Count );
+
         using( Transaction tx = new Transaction( doc ) )
         {
           tx.Start( "Change Element Material" );
