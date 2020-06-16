@@ -42,7 +42,7 @@ namespace BuildingCoder
       int nModulesDoc = uidoc_mgr.MacroManager.Count;
 
       int nMacrosDoc = uidoc_mgr.MacroManager
-        .Aggregate<MacroModule, int>( 0, 
+        .Aggregate<MacroModule, int>( 0,
           ( n, m ) => n + m.Count<Macro>() );
 
       TaskDialog dlg = new TaskDialog( "Delete Document Macros" );
@@ -65,7 +65,7 @@ namespace BuildingCoder
 
       TaskDialogResult rslt = dlg.Show();
 
-      if(TaskDialogResult.Yes == rslt )
+      if( TaskDialogResult.Yes == rslt )
       {
         MacroManager mgr = MacroManager.GetMacroManager( doc );
         MacroManagerIterator it = mgr.GetMacroManagerIterator();
