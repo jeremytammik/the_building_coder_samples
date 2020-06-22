@@ -344,5 +344,10 @@ namespace BuildingCoder
         return Result.Failed;
       }
     }
+
+    #region Create Sweep from FamilySymbolProfile
+    // https://forums.autodesk.com/t5/revit-api-forum/can-t-create-sweep-from-familysymbolprofile/m-p/9591593
+
+    #endregion // Create Sweep from FamilySymbolProfile
   }
 }
