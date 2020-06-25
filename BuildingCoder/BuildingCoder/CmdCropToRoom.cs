@@ -12,6 +12,7 @@
 #region Namespaces
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -278,5 +279,60 @@ namespace BuildingCoder
       }
       return Result.Succeeded;
     }
+
+    #region Set View Cropbox to Section Box
+    // https://forums.autodesk.com/t5/revit-api-forum/set-view-cropbox-to-a-section-box/m-p/9600049
+
+    public static void AdjustViewCropToSectionBox( 
+      /*this*/ View3D view )
+    {
+      if( !view.IsSectionBoxActive )
+      {
+        return;
+      }
+      if( !view.CropBoxActive )
+      {
+        view.CropBoxActive = true;
+      }
+      BoundingBoxXYZ CropBox = view.CropBox;
+      BoundingBoxXYZ SectionBox = view.GetSectionBox();
+      Transform T = CropBox.Transform;
+      var Corners = BBCorners( SectionBox, T );
+      double MinX = Corners.Min( j => j.X );
+      double MinY = Corners.Min( j => j.Y );
+      double MinZ = Corners.Min( j => j.Z );
+      double MaxX = Corners.Max( j => j.X );
+      double MaxY = Corners.Max( j => j.Y );
+      double MaxZ = Corners.Max( j => j.Z );
+      CropBox.Min = new XYZ( MinX, MinY, MinZ );
+      CropBox.Max = new XYZ( MaxX, MaxY, MaxZ );
+      view.CropBox = CropBox;
+    }
+
+    private static XYZ[] BBCorners( BoundingBoxXYZ SectionBox, Transform T )
+    {
+      XYZ sbmn = SectionBox.Min;
+      XYZ sbmx = SectionBox.Max;
+      XYZ Btm_LL = sbmn; // Lower Left
+      var Btm_LR = new XYZ( sbmx.X, sbmn.Y, sbmn.Z ); // Lower Right
+      var Btm_UL = new XYZ( sbmn.X, sbmx.Y, sbmn.Z ); // Upper Left
+      var Btm_UR = new XYZ( sbmx.X, sbmx.Y, sbmn.Z ); // Upper Right
+      XYZ Top_UR = sbmx; // Upper Right
+      var Top_UL = new XYZ( sbmn.X, sbmx.Y, sbmx.Z ); // Upper Left
+      var Top_LR = new XYZ( sbmx.X, sbmn.Y, sbmx.Z ); // Lower Right
+      var Top_LL = new XYZ( sbmn.X, sbmn.Y, sbmx.Z ); // Lower Left
+      var Out = new XYZ[ 8 ] {
+        Btm_LL, Btm_LR, Btm_UL, Btm_UR,
+        Top_UR, Top_UL, Top_LR, Top_LL };
+      for( int i = 0, loopTo = Out.Length - 1; i <= loopTo; i++ )
+      {
+        // Transform bounding box coords to model coords
+        Out[ i ] = SectionBox.Transform.OfPoint( Out[ i ] );
+        // Transform bounding box coords to view coords
+        Out[ i ] = T.Inverse.OfPoint( Out[ i ] );
+      }
+      return Out;
+    }
+    #endregion // Set View Cropbox to Section Box
   }
 }

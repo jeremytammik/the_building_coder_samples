@@ -340,6 +340,7 @@ using System.Runtime.InteropServices;
 // 2020-05-19 2021.0.148.2 added GetWalls from https://forums.autodesk.com/t5/revit-api-forum/using-referenceintersector-in-linked-files/m-p/9516302
 // 2020-06-05 2021.0.149.0 implemented CmdChangeElementColor
 // 2020-06-05 2021.0.149.1 implemented change element category material as well in CmdChangeElementColor
+// 2020-06-25 2021.0.149.2 added AdjustViewCropToSectionBox from https://forums.autodesk.com/t5/revit-api-forum/set-view-cropbox-to-a-section-box/m-p/9600049
 //
 [assembly: AssemblyVersion( "2021.0.149.1" )]
 [assembly: AssemblyFileVersion( "2021.0.149.1" )]
