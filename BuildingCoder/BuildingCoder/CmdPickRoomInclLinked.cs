@@ -9,7 +9,6 @@
 #endregion // Header
 
 #region Namespaces
-using System;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Architecture;
@@ -50,7 +49,7 @@ namespace BuildingCoder
         Element e = _doc.GetElement( r );
 
         if( e is RevitLinkInstance )
-        { 
+        {
           RevitLinkInstance li = e as RevitLinkInstance;
 
           LinkedDocument = li.GetLinkDocument();
@@ -77,8 +76,8 @@ namespace BuildingCoder
 
       try
       {
-        r = uidoc.Selection.PickObject( 
-          ObjectType.PointOnElement, 
+        r = uidoc.Selection.PickObject(
+          ObjectType.PointOnElement,
           filter,
           "Please pick a room in current project or linked model" );
       }
@@ -91,7 +90,7 @@ namespace BuildingCoder
 
       if( filter.LastCheckedWasFromLink )
       {
-        e = filter.LinkedDocument.GetElement( 
+        e = filter.LinkedDocument.GetElement(
           r.LinkedElementId );
       }
       else
