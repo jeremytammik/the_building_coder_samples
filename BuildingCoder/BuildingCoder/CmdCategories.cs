@@ -273,7 +273,7 @@ namespace BuildingCoder
       BuiltInCategory.OST_StructuralFraming,
       BuiltInCategory.OST_Windows };
 
-    BuiltInCategory[] _bics_for_SystemFamilies = new BuiltInCategory[]
+    BuiltInCategory[] _bics_for_SystemFamily = new BuiltInCategory[]
     {
       BuiltInCategory.OST_CableTray,
       BuiltInCategory.OST_Ceilings,
