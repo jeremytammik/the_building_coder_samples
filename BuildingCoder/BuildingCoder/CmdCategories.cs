@@ -246,5 +246,48 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    #region Built-in categories for legend components
+    // For https://forums.autodesk.com/t5/revit-api-forum/categories-that-can-create-legend-components/m-p/9659069
+
+    BuiltInCategory [] _bics_for_FamilyInstance = new BuiltInCategory[]
+    {
+      BuiltInCategory.OST_Casework,
+      BuiltInCategory.OST_Columns,
+      BuiltInCategory.OST_Doors,
+      BuiltInCategory.OST_DuctAccessory,
+      BuiltInCategory.OST_DuctFitting,
+      BuiltInCategory.OST_DuctTerminal,
+      BuiltInCategory.OST_ElectricalEquipment,
+      BuiltInCategory.OST_Furniture,
+      BuiltInCategory.OST_LightingFixtures,
+      BuiltInCategory.OST_MechanicalEquipment,
+      BuiltInCategory.OST_PipeAccessory,
+      BuiltInCategory.OST_PipeFitting,
+      BuiltInCategory.OST_Planting,
+      BuiltInCategory.OST_PlumbingFixtures,
+      BuiltInCategory.OST_SpecialityEquipment,
+      BuiltInCategory.OST_Sprinklers,
+      BuiltInCategory.OST_StructuralColumns,
+      BuiltInCategory.OST_StructuralFoundation,
+      BuiltInCategory.OST_StructuralFraming,
+      BuiltInCategory.OST_Windows };
+
+    BuiltInCategory[] _bics_for_SystemFamilies = new BuiltInCategory[]
+    {
+      BuiltInCategory.OST_CableTray,
+      BuiltInCategory.OST_Ceilings,
+      BuiltInCategory.OST_Conduit,
+      BuiltInCategory.OST_CurtainWallPanels,
+      BuiltInCategory.OST_DuctCurves,
+      BuiltInCategory.OST_FlexPipeCurves,
+      BuiltInCategory.OST_Floors,
+      BuiltInCategory.OST_PipeCurves,
+      BuiltInCategory.OST_RoofSoffit,
+      BuiltInCategory.OST_Roofs,
+      BuiltInCategory.OST_StackedWalls,
+      BuiltInCategory.OST_Walls };
+
+    #endregion // Built-in categories for legend components
   }
 }
