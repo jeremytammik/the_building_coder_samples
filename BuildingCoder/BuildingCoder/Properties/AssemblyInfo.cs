@@ -343,7 +343,7 @@ using System.Runtime.InteropServices;
 // 2020-06-25 2021.0.149.2 added AdjustViewCropToSectionBox from https://forums.autodesk.com/t5/revit-api-forum/set-view-cropbox-to-a-section-box/m-p/9600049
 // 2020-07-08 2021.0.150.0 implemented CmdPickRoomInclLinked for https://forums.autodesk.com/t5/revit-api-forum/pickobject-to-select-room-in-current-model-or-linked-models/m-p/9624029
 // 2020-07-28 2021.0.150.1 added built-in categories for legend components For https://forums.autodesk.com/t5/revit-api-forum/categories-that-can-create-legend-components/m-p/9659069
-// 2020-09-03 2021.0.150.2 added modifyParameterValues for https://forums.autodesk.com/t5/revit-api-forum/modify-shared-parameters-for-high-number-of-family-instance/m-p/9727166
+// 2020-09-03 2021.0.150.2 implemented modifyParameterValues for https://forums.autodesk.com/t5/revit-api-forum/modify-shared-parameters-for-high-number-of-family-instance/m-p/9727166
 //
 [assembly: AssemblyVersion( "2021.0.150.2" )]
 [assembly: AssemblyFileVersion( "2021.0.150.2" )]

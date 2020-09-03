@@ -546,48 +546,37 @@ namespace BuildingCoder
 
     #region Modify Many Shared Parameter Values
     // for https://forums.autodesk.com/t5/revit-api-forum/modify-shared-parameters-for-high-number-of-family-instance/m-p/9727166
-    void modifyParameterValues( Document doc, IList<ElementId> ids )
+    class IdForSynchro
+    {
+      public ElementId RevitId { get; set; }
+      public int Param1 { get; set; }
+      public string Param2 { get; set; }
+      public double Param3 { get; set; }
+    }
+
+    void modifyParameterValues( Document doc, IList<IdForSynchro> data )
     {
       using( Transaction tr = new Transaction( doc ) )
       {
-        Parameter param1 = null;
-        Parameter param2;
-        Parameter param3;
-        Parameter param4 = null;
-        Parameter param5 = null;
-        Parameter param6 = null;
-        Parameter param7 = null;
+        Guid guid1 = Guid.Empty;
+        Guid guid2 = Guid.Empty;
+        Guid guid3 = Guid.Empty;
 
         tr.Start( "synchro" );
 
-        for( int i = 0; i < Main.idForSynchros.Count; i++ ) // Main.idForSynchro is the collection of data
+        foreach( IdForSynchro d in data ) // Main.idForSynchro is the collection of data
         {
-          IdForSynchro idForSynchro = Main.idForSynchros[ i ];
-          Element element = doc.GetElement( new ElementId( Convert.ToInt32( idForSynchro.RevitId ) ) );
+          Element e = doc.GetElement( d.RevitId );
 
-          param1 = element.LookupParameter( "PLUGIN_PARAM1" );
-          param2 = element.LookupParameter( "PLUGIN_PARAM2" );
-          param3 = element.LookupParameter( "PLUGIN_PARAM3" );
-          param4 = element.LookupParameter( "PLUGIN_PARAM4" );
-          param5 = element.LookupParameter( "PLUGIN_PARAM5" );
-          param6 = element.LookupParameter( "PLUGIN_PARAM6" );
-          param7 = element.LookupParameter( "PLUGIN_PARAM7" );
-
-          if( param1.AsInteger() < 1 )
+          if( Guid.Empty == guid1 )
           {
-            param1.Set( idForSynchro.param1 );
+            guid1 = e.LookupParameter( "PLUGIN_PARAM1" ).GUID;
+            guid2 = e.LookupParameter( "PLUGIN_PARAM2" ).GUID;
+            guid3 = e.LookupParameter( "PLUGIN_PARAM3" ).GUID;
           }
-
-          string param6Value = DateTime.Parse( idForSynchro.data.param6, CultureInfo.InvariantCulture ).ToLongDateString();
-          string param7Value = DateTime.Parse( idForSynchro.data.param7, CultureInfo.InvariantCulture ).ToLongDateString();
-
-          Utils.SetParameterValueString( param2, idForSynchro.data.param2 );
-          Utils.SetParameterValueString( param3, idForSynchro.data.param2 );
-          Utils.SetParameterValueString( param4, idForSynchro.data.param4 );
-          Utils.SetParameterValueString( param5, idForSynchro.data.param5 );
-          Utils.SetParameterValueString( param6, param6Value );
-          Utils.SetParameterValueString( param7, param7Value );
-
+          e.get_Parameter( guid1 ).Set( d.Param1 );
+          e.get_Parameter( guid2 ).Set( d.Param2 );
+          e.get_Parameter( guid3 ).Set( d.Param3 );
         }
         tr.Commit();
       }
