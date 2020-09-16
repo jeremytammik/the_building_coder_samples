@@ -344,6 +344,7 @@ using System.Runtime.InteropServices;
 // 2020-07-08 2021.0.150.0 implemented CmdPickRoomInclLinked for https://forums.autodesk.com/t5/revit-api-forum/pickobject-to-select-room-in-current-model-or-linked-models/m-p/9624029
 // 2020-07-28 2021.0.150.1 added built-in categories for legend components For https://forums.autodesk.com/t5/revit-api-forum/categories-that-can-create-legend-components/m-p/9659069
 // 2020-09-03 2021.0.150.2 implemented modifyParameterValues for https://forums.autodesk.com/t5/revit-api-forum/modify-shared-parameters-for-high-number-of-family-instance/m-p/9727166
+// 2020-09-16 2021.0.150.3 updated and tested CmdSlopedWall for https://forums.autodesk.com/t5/revit-api-forum/error-in-creating-wall-from-points/m-p/9748013
 //
-[assembly: AssemblyVersion( "2021.0.150.2" )]
-[assembly: AssemblyFileVersion( "2021.0.150.2" )]
+[assembly: AssemblyVersion( "2021.0.150.3" )]
+[assembly: AssemblyFileVersion( "2021.0.150.3" )]

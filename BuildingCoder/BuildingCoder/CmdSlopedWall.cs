@@ -32,9 +32,10 @@ namespace BuildingCoder
       ElementSet elements )
     {
       UIApplication app = commandData.Application;
+      Document doc = app.ActiveUIDocument.Document;
 
-      Autodesk.Revit.Creation.Application ac
-        = app.Application.Create;
+      //Autodesk.Revit.Creation.Application ac
+      //  = app.Application.Create;
 
       //CurveArray profile = ac.NewCurveArray(); // 2012
       List<Curve> profile = new List<Curve>( 4 ); // 2012
@@ -44,7 +45,7 @@ namespace BuildingCoder
       double heightEnd = 8;
 
       XYZ p = XYZ.Zero;
-      XYZ q = ac.NewXYZ( length, 0.0, 0.0 );
+      XYZ q = new XYZ( length, 0.0, 0.0 );
 
       //profile.Append( ac.NewLineBound( p, q ) ); // 2012
       profile.Add( Line.CreateBound( p, q ) ); // 2014
@@ -56,7 +57,7 @@ namespace BuildingCoder
       profile.Add( Line.CreateBound( p, q ) ); // 2014
 
       p = q;
-      q = ac.NewXYZ( 0.0, 0.0, heightStart );
+      q = new XYZ( 0.0, 0.0, heightStart );
 
       //profile.Append( ac.NewLineBound( p, q ) ); // 2012
       //profile.Add( ac.NewLineBound( p, q ) ); // 2013
@@ -68,8 +69,6 @@ namespace BuildingCoder
       //profile.Append( ac.NewLineBound( p, q ) ); // 2012
       //profile.Add( ac.NewLineBound( p, q ) ); // 2013
       profile.Add( Line.CreateBound( p, q ) ); // 2014
-
-      Document doc = app.ActiveUIDocument.Document;
 
       using ( Transaction t = new Transaction( doc ) )
       {
