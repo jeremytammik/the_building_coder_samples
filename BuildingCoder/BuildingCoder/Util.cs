@@ -648,7 +648,7 @@ const T f = ( ay * bx ) - ( ax * by );
     /// linePoint - A point on the line.
     /// lineDirection - The direction vector of the line.
     /// lineParameter - The intersection distance along the line.
-    /// return The point of intersection between the 
+    /// Return - The point of intersection between the 
     /// line and the plane, null if the line is parallel 
     /// to the plane.
     /// </summary>
