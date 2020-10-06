@@ -636,6 +636,51 @@ const T f = ( ay * bx ) - ( ax * by );
     }
 
     /// <summary>
+    /// Return the 3D intersection point between
+    /// a line and a plane.
+    /// https://forums.autodesk.com/t5/revit-api-forum/how-can-we-calculate-the-intersection-between-the-plane-and-the/m-p/9785834
+    /// https://stackoverflow.com/questions/5666222/3d-line-plane-intersection
+    /// Determine the point of intersection between 
+    /// a plane defined by a point and a normal vector 
+    /// and a line defined by a point and a direction vector.
+    /// planePoint - A point on the plane.
+    /// planeNormal - The normal vector of the plane.
+    /// linePoint - A point on the line.
+    /// lineDirection - The direction vector of the line.
+    /// lineParameter - The intersection distance along the line.
+    /// return The point of intersection between the 
+    /// line and the plane, null if the line is parallel 
+    /// to the plane.
+    /// </summary>
+    public static XYZ LinePlaneIntersection(
+      Line line,
+      Plane plane,
+      out double lineParameter )
+    {
+      XYZ planePoint = plane.Origin;
+      XYZ planeNormal = plane.Normal;
+      XYZ linePoint = line.GetEndPoint( 0 );
+
+      XYZ lineDirection = (line.GetEndPoint( 1 ) 
+        - linePoint).Normalize();
+
+      // Is the line parallel to the plane, i.e.,
+      // perpendicular to the plane normal?
+
+      if( IsZero( planeNormal.DotProduct( lineDirection ) ) )
+      {
+        lineParameter = double.NaN;
+        return null;
+      }
+
+      lineParameter = (planeNormal.DotProduct( planePoint ) 
+        - planeNormal.DotProduct( linePoint )) 
+          / planeNormal.DotProduct( lineDirection );
+
+      return linePoint + lineParameter * lineDirection;
+    }
+
+    /// <summary>
     /// Create transformation matrix to transform points 
     /// from the global space (XYZ) to the local space of 
     /// a face (UV representation of a bounding box).
