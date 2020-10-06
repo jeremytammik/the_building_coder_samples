@@ -608,7 +608,9 @@ const T f = ( ay * bx ) - ( ax * by );
     /// case it is empty.
     /// https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
     /// </summary>
-    public static XYZ Intersection( Curve c1, Curve c2 )
+    public static XYZ LineLineIntersection( 
+      Curve c1, 
+      Curve c2 )
     {
       XYZ p1 = c1.GetEndPoint( 0 );
       XYZ q1 = c1.GetEndPoint( 1 );
