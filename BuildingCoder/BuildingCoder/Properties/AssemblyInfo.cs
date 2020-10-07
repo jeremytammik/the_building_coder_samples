@@ -346,6 +346,7 @@ using System.Runtime.InteropServices;
 // 2020-09-03 2021.0.150.2 implemented modifyParameterValues for https://forums.autodesk.com/t5/revit-api-forum/modify-shared-parameters-for-high-number-of-family-instance/m-p/9727166
 // 2020-09-16 2021.0.150.3 updated and tested CmdSlopedWall for https://forums.autodesk.com/t5/revit-api-forum/error-in-creating-wall-from-points/m-p/9748013
 // 2020-10-06 2021.0.150.4 implemented LinePlaneIntersection for https://forums.autodesk.com/t5/revit-api-forum/how-can-we-calculate-the-intersection-between-the-plane-and-the/m-p/9785834
+// 2020-10-07 2021.0.150.5 implemented ZoomToLinkedElement for https://forums.autodesk.com/t5/revit-api-forum/how-to-zoom-elements-in-linked-document-using-revit-api/m-p/9778123
 //
-[assembly: AssemblyVersion( "2021.0.150.4" )]
-[assembly: AssemblyFileVersion( "2021.0.150.4" )]
+[assembly: AssemblyVersion( "2021.0.150.5" )]
+[assembly: AssemblyFileVersion( "2021.0.150.5" )]

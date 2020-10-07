@@ -163,5 +163,38 @@ namespace BuildingCoder
       }
       return rc;
     }
+
+    #region Zoom to linked element
+    // zoom active view to element in linked doc
+    // how to zoom elements in linked document using revit api?
+    // https://forums.autodesk.com/t5/revit-api-forum/how-to-zoom-elements-in-linked-document-using-revit-api/m-p/9778123
+    // use LinkElementId class?
+
+    void ZoomToLinkedElement( 
+      UIDocument uidoc,
+      RevitLinkInstance link,
+      ElementId id )
+    {
+      Document doc = uidoc.Document;
+      View view = doc.ActiveView;
+
+      // Determine active UIView to use
+
+      UIView uiView = uidoc
+        .GetOpenUIViews()
+        .FirstOrDefault<UIView>( uv 
+          => uv.ViewId.Equals( view.Id ) );
+
+      Element e = doc.GetElement( id );
+      LocationPoint lp = e.Location as LocationPoint;
+      Transform transform1 = link.GetTransform();
+      XYZ newLocation2 = transform1.OfPoint( lp.Point );
+      BoundingBoxXYZ bb = e.get_BoundingBox( doc.ActiveView );
+
+      uiView.ZoomAndCenterRectangle( 
+        new XYZ( newLocation2.X - 4, newLocation2.Y - 4, newLocation2.Z - 4 ), 
+        new XYZ( newLocation2.X + 4, newLocation2.Y + 4, newLocation2.Z + 4 ) );
+    }
+    #endregion // Zoom to linked element
   }
 }
