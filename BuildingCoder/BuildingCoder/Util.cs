@@ -600,8 +600,36 @@ const T f = ( ay * bx ) - ( ax * by );
     /// <summary>
     /// Return the 2D intersection point between two 
     /// unbounded lines defined in the XY plane by the 
+    /// given start and end points and vectors. 
+    /// Return null if the two lines are coincident,
+    /// in which case the intersection is an infinite 
+    /// line, or non-coincident and parallel, in which 
+    /// case it is empty.
+    /// https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
+    /// </summary>
+    public static XYZ LineLineIntersection( 
+      XYZ p1, XYZ v1, XYZ p2, XYZ v2 )
+    {
+      XYZ w = p2 - p1;
+      XYZ p5 = null;
+
+      double c = (v2.X * w.Y - v2.Y * w.X)
+        / (v2.X * v1.Y - v2.Y * v1.X);
+
+      if( !double.IsInfinity( c ) )
+      {
+        double x = p1.X + c * v1.X;
+        double y = p1.Y + c * v1.Y;
+
+        p5 = new XYZ( x, y, 0 );
+      }
+      return p5;
+    }
+
+    /// <summary>
+    /// Return the 2D intersection point between two 
+    /// unbounded lines defined in the XY plane by the 
     /// start and end points of the two given curves. 
-    /// By Magson Leone.
     /// Return null if the two lines are coincident,
     /// in which case the intersection is an infinite 
     /// line, or non-coincident and parallel, in which 
@@ -618,21 +646,7 @@ const T f = ( ay * bx ) - ( ax * by );
       XYZ q2 = c2.GetEndPoint( 1 );
       XYZ v1 = q1 - p1;
       XYZ v2 = q2 - p2;
-      XYZ w = p2 - p1;
-
-      XYZ p5 = null;
-
-      double c = (v2.X * w.Y - v2.Y * w.X)
-        / (v2.X * v1.Y - v2.Y * v1.X);
-
-      if( !double.IsInfinity( c ) )
-      {
-        double x = p1.X + c * v1.X;
-        double y = p1.Y + c * v1.Y;
-
-        p5 = new XYZ( x, y, 0 );
-      }
-      return p5;
+      return LineLineIntersection( p1, v1, p2, v2 );
     }
 
     /// <summary>

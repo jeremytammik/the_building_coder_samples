@@ -11,16 +11,16 @@
 
 #region Namespaces
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Mechanical;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using System.Collections.Generic;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -238,9 +238,72 @@ namespace BuildingCoder
     }
 
     #region Determine Elbow Centre Point
+    // for https://forums.autodesk.com/t5/revit-api-forum/how-to-calculate-the-center-point-of-elbow/m-p/9803893
+    /// <summary>
+    /// Return elbow connectors
+    /// </summary>
+    List<Transform> GetElbowConnectors( Element e )
+    {
+      List<Transform> xs = null;
+      FamilyInstance fi = e as FamilyInstance;
+      if( null != fi )
+      {
+        MEPModel m = fi.MEPModel;
+        if( null != m )
+        {
+          ConnectorManager cm = m.ConnectorManager;
+          if( null != cm )
+          {
+            ConnectorSet cs = cm.Connectors;
+            if( 2 == cs.Size )
+            {
+              xs = new List<Transform>( 2 );
+              bool first = true;
+              foreach( Connector c in cs )
+              {
+                if( first )
+                {
+                  xs[0] = c.CoordinateSystem;
+                }
+                else
+                {
+                  xs[1] = c.CoordinateSystem;
+                }
+              }
+            }
+          }
+        }
+      }
+      return xs;
+    }
+    
+    /// <summary>
+    /// Return elbow centre point
+    /// </summary>
     XYZ GetElbowCentre( Element e )
     {
       XYZ pc = null;
+      List<Transform> xs = GetElbowConnectors( e );
+      if( null != xs )
+      {
+        // Get start and end point and direction
+
+        XYZ ps = xs[ 0 ].Origin;
+        XYZ vs = xs[ 0 ].BasisZ;
+
+        XYZ pe = xs[ 1 ].Origin;
+        XYZ ve = xs[ 1 ].BasisZ;
+
+        XYZ w = pe - ps;
+
+        //XYZ pint = Util.LineLineIntersection( 
+        //  ps, vs, pe, ve );
+
+        //if( null != pint )
+        {
+
+        }
+      }
       return pc;
     }
     #endregion // Determine Elbow Centre Point
