@@ -236,5 +236,13 @@ namespace BuildingCoder
       }
       return Result.Failed;
     }
+
+    #region Determine Elbow Centre Point
+    XYZ GetElbowCentre( Element e )
+    {
+      XYZ pc = null;
+      return pc;
+    }
+    #endregion // Determine Elbow Centre Point
   }
 }
