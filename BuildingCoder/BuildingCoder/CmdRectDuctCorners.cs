@@ -240,11 +240,11 @@ namespace BuildingCoder
     #region Determine Elbow Centre Point
     // for https://forums.autodesk.com/t5/revit-api-forum/how-to-calculate-the-center-point-of-elbow/m-p/9803893
     /// <summary>
-    /// Return elbow connectors.
+    /// Return elbow connector transforms.
     /// Return null if the given element is not a 
     /// family instance with exactly two connectors.
     /// </summary>
-    List<Transform> GetElbowConnectors( Element e )
+    List<Transform> GetElbowConnectorTransforms( Element e )
     {
       List<Transform> xs = null;
       FamilyInstance fi = e as FamilyInstance;
@@ -287,7 +287,7 @@ namespace BuildingCoder
     XYZ GetElbowCentre( Element e )
     {
       XYZ pc = null;
-      List<Transform> xs = GetElbowConnectors( e );
+      List<Transform> xs = GetElbowConnectorTransforms( e );
       if( null != xs )
       {
         // Get start and end point and direction
