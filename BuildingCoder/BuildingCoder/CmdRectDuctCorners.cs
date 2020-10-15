@@ -240,7 +240,9 @@ namespace BuildingCoder
     #region Determine Elbow Centre Point
     // for https://forums.autodesk.com/t5/revit-api-forum/how-to-calculate-the-center-point-of-elbow/m-p/9803893
     /// <summary>
-    /// Return elbow connectors
+    /// Return elbow connectors.
+    /// Return null if the given element is not a 
+    /// family instance with exactly two connectors.
     /// </summary>
     List<Transform> GetElbowConnectors( Element e )
     {
@@ -278,7 +280,9 @@ namespace BuildingCoder
     }
     
     /// <summary>
-    /// Return elbow centre point
+    /// Return elbow centre point.
+    /// Return null if the start and end points 
+    /// and direction vectors are not all coplanar.
     /// </summary>
     XYZ GetElbowCentre( Element e )
     {
@@ -294,14 +298,20 @@ namespace BuildingCoder
         XYZ pe = xs[ 1 ].Origin;
         XYZ ve = xs[ 1 ].BasisZ;
 
-        XYZ w = pe - ps;
+        XYZ vd = pe - ps;
 
-        //XYZ pint = Util.LineLineIntersection( 
-        //  ps, vs, pe, ve );
+        // For a regular elbow, Z vector is normal 
+        // of the 2D plane spanned by the coplanar
+        // start and end points and direction vectors.
 
-        //if( null != pint )
+        XYZ vz = vs.CrossProduct( vd );
+
+        if( !vz.IsZeroLength() )
         {
-
+          XYZ vxs = vs.CrossProduct( vz );
+          XYZ vxe = ve.CrossProduct( vz );
+          pc = Util.LineLineIntersection( 
+            ps, vxs, pe, vxe );
         }
       }
       return pc;
