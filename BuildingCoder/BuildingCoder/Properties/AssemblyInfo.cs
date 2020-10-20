@@ -348,7 +348,7 @@ using System.Runtime.InteropServices;
 // 2020-10-06 2021.0.150.4 implemented LinePlaneIntersection for https://forums.autodesk.com/t5/revit-api-forum/how-can-we-calculate-the-intersection-between-the-plane-and-the/m-p/9785834
 // 2020-10-07 2021.0.150.5 implemented ZoomToLinkedElement for https://forums.autodesk.com/t5/revit-api-forum/how-to-zoom-elements-in-linked-document-using-revit-api/m-p/9778123
 // 2020-10-15 2021.0.150.5 implemented GetElbowCentre for https://forums.autodesk.com/t5/revit-api-forum/how-to-calculate-the-center-point-of-elbow/m-p/9803893
-// 2020-10-20 2021.0.150.6 eliminated deprecated API usage warnings by removing calls to pre-ForgeTypeId unit functionality 
+// 2020-10-20 2021.0.150.6 eliminated deprecated API usage warnings by removing calls to pre-ForgeTypeId unit functionality
 //
 [assembly: AssemblyVersion( "2021.0.150.6" )]
 [assembly: AssemblyFileVersion( "2021.0.150.6" )]
