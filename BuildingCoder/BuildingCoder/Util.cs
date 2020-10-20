@@ -1500,6 +1500,8 @@ const T f = ( ay * bx ) - ( ax * by );
         + PointArrayString( curve.Tessellate() );
     }
 
+    #region Using Obsolete pre-Forge Unit API Functionality Deprecated in Revit 2021
+#if USE_PRE_FORGE_UNIT_FUNCTIONALITY
     /// <summary>
     /// Convert a UnitSymbolType enumeration value
     /// to a brief human readable abbreviation string.
@@ -1519,6 +1521,8 @@ const T f = ( ay * bx ) - ( ax * by );
 
       return s;
     }
+#endif // USE_PRE_FORGE_UNIT_FUNCTIONALITY
+    #endregion // Using Obsolete pre-Forge Unit API Functionality Deprecated in Revit 2021
     #endregion // Formatting
 
     #region Display a message

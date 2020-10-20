@@ -21,6 +21,8 @@ using System.Diagnostics;
 
 namespace BuildingCoder
 {
+  #region Using Obsolete pre-Forge Unit API Functionality Deprecated in Revit 2021
+#if USE_PRE_FORGE_UNIT_FUNCTIONALITY
   /// <summary>
   /// Map each DisplayUnitType to a list of all the 
   /// UnitType values that it might be used for, e.g.
@@ -84,7 +86,7 @@ namespace BuildingCoder
       ref string message,
       ElementSet elements )
     {
-      #region Assertions
+#region Assertions
       Debug.Assert( 0 == (int) DisplayUnitType.DUT_METERS, _s );
       Debug.Assert( 1 == (int) DisplayUnitType.DUT_CENTIMETERS, _s );
       Debug.Assert( 2 == (int) DisplayUnitType.DUT_MILLIMETERS, _s );
@@ -112,7 +114,7 @@ namespace BuildingCoder
       Debug.Assert( 24 == (int) DisplayUnitType.DUT_CUBIC_CENTIMETERS, _s );
       Debug.Assert( 25 == (int) DisplayUnitType.DUT_CUBIC_MILLIMETERS, _s );
       Debug.Assert( 26 == (int) DisplayUnitType.DUT_LITERS, _s );
-      #endregion // Assertions
+#endregion // Assertions
 
       MapDutToUt map_dut_to_ut = new MapDutToUt();
 
@@ -161,4 +163,6 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
   }
+#endif // USE_PRE_FORGE_UNIT_FUNCTIONALITY
+#endregion // Using Obsolete pre-Forge Unit API Functionality Deprecated in Revit 2021
 }

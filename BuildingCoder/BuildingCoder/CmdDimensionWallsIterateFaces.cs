@@ -363,8 +363,12 @@ namespace BuildingCoder
         if( edges.Count < 2 )
           return;
 
+        //var shift = UnitUtils.ConvertToInternalUnits(
+        //  -10 * view.Scale, DisplayUnitType.DUT_MILLIMETERS ) // 2020
+        //  * edgesDirection;
+
         var shift = UnitUtils.ConvertToInternalUnits( 
-          -10 * view.Scale, DisplayUnitType.DUT_MILLIMETERS ) 
+          -10 * view.Scale, UnitTypeId.Millimeters ) // 2021
           * edgesDirection;
 
         var dimensionLine = Line.CreateUnbound( 
@@ -451,8 +455,12 @@ namespace BuildingCoder
       // depende de la escala. <<<<<< evaluar para 
       // información de acotado y etiquetado!!!
 
+      //var shift = UnitUtils.ConvertToInternalUnits(
+      //  5 * view.Scale, DisplayUnitType.DUT_MILLIMETERS ) // 2020
+      //  * edgesDirection;
+
       var shift = UnitUtils.ConvertToInternalUnits( 
-        5 * view.Scale, DisplayUnitType.DUT_MILLIMETERS ) 
+        5 * view.Scale, UnitTypeId.Millimeters ) // 2021
         * edgesDirection;
 
       var dimensionLine = Line.CreateUnbound(

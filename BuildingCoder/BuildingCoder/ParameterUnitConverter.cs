@@ -6,6 +6,8 @@ using Autodesk.Revit.DB;
 
 namespace BuildingCoder
 {
+  #region Using Obsolete pre-Forge Unit API Functionality Deprecated in Revit 2021
+#if USE_PRE_FORGE_UNIT_FUNCTIONALITY
   /// <summary>
   /// Implement extension methods for 
   /// the Revit Parameter class:
@@ -22,7 +24,7 @@ namespace BuildingCoder
   {
     private const double METERS_IN_FEET = 0.3048;
 
-    #region AsProjectUnitTypeDouble
+  #region AsProjectUnitTypeDouble
     /// <summary>
     /// Get double value parameter in ProjectUnits
     /// </summary>
@@ -55,7 +57,7 @@ namespace BuildingCoder
 
       switch (dut)
       {
-        #region Length
+  #region Length
 
         case DisplayUnitType.DUT_METERS:
           return imperialValue * METERS_IN_FEET; //feet
@@ -76,9 +78,9 @@ namespace BuildingCoder
         case DisplayUnitType.DUT_MILLIMETERS:
           return imperialValue * METERS_IN_FEET * 1000;
 
-        #endregion // Length
+  #endregion // Length
 
-        #region Area
+  #region Area
 
         case DisplayUnitType.DUT_SQUARE_FEET:
           return imperialValue;
@@ -95,9 +97,9 @@ namespace BuildingCoder
         case DisplayUnitType.DUT_SQUARE_MILLIMETERS:
           return imperialValue * Math.Pow(METERS_IN_FEET * 1000, 2);
 
-        #endregion // Area
+  #endregion // Area
 
-        #region Volume
+  #region Volume
         case DisplayUnitType.DUT_CUBIC_FEET:
           return imperialValue;
         case DisplayUnitType.DUT_CUBIC_CENTIMETERS:
@@ -115,7 +117,7 @@ namespace BuildingCoder
         case DisplayUnitType.DUT_LITERS:
           return imperialValue * 28.31684;
 
-        #endregion // Volume
+  #endregion // Volume
 
         default:
           NotSupported(dut);
@@ -123,9 +125,9 @@ namespace BuildingCoder
       }
       throw new NotSupportedException();
     }
-    #endregion // AsProjectUnitTypeDouble
+  #endregion // AsProjectUnitTypeDouble
 
-    #region AsMetersValue
+  #region AsMetersValue
     /// <summary>
     /// Get double value of parameter in meters unit. 
     /// E.g. Length in meters, Area in square meters 
@@ -159,9 +161,9 @@ namespace BuildingCoder
       }
       throw new NotSupportedException();
     }
-    #endregion // AsMetersValue
+  #endregion // AsMetersValue
 
-    #region ConvertParameterTypeToUnitType
+  #region ConvertParameterTypeToUnitType
     /// <summary>
     /// Returns the UnitType for the given 
     /// ParameterType (where possible).
@@ -203,9 +205,9 @@ namespace BuildingCoder
             + "' to a UnitType.");
       }
     }
-    #endregion // ConvertParameterTypeToUnitType
+  #endregion // ConvertParameterTypeToUnitType
 
-    #region Private Helper Functions
+  #region Private Helper Functions
     static void NotSupported(DisplayUnitType dut)
     {
       throw new NotSupportedException(
@@ -414,6 +416,8 @@ namespace BuildingCoder
     }
 #endif // NEED_BuildUnitTypeToParameterTypeMapping_METHOD
 
-    #endregion Private Helper Functions
+  #endregion Private Helper Functions
   }
+#endif // USE_PRE_FORGE_UNIT_FUNCTIONALITY
+  #endregion // Using Obsolete pre-Forge Unit API Functionality Deprecated in Revit 2021
 }

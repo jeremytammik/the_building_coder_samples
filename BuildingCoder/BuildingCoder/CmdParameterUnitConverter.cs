@@ -20,6 +20,8 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
+  #region Using Obsolete pre-Forge Unit API Functionality Deprecated in Revit 2021
+#if USE_PRE_FORGE_UNIT_FUNCTIONALITY
   [Transaction( TransactionMode.ReadOnly )]
   class CmdParameterUnitConverter : IExternalCommand
   {
@@ -70,4 +72,6 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
   }
+#endif // USE_PRE_FORGE_UNIT_FUNCTIONALITY
+  #endregion // Using Obsolete pre-Forge Unit API Functionality Deprecated in Revit 2021
 }

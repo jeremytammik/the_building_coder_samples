@@ -79,9 +79,13 @@ namespace BuildingCoder
         if( parameterValue == null )
           return null;
 
-        var load = UnitUtils.ConvertFromInternalUnits( 
+        //var load = UnitUtils.ConvertFromInternalUnits(
+        //  parameterValue.Value,
+        //  DisplayUnitType.DUT_VOLT_AMPERES ); // 2020
+
+        var load = UnitUtils.ConvertFromInternalUnits(
           parameterValue.Value,
-          DisplayUnitType.DUT_VOLT_AMPERES );
+          UnitTypeId.VoltAmperes ); // 2021
 
         return new ElectricalApparentLoad( 
           connector.ElectricalSystemType, 
