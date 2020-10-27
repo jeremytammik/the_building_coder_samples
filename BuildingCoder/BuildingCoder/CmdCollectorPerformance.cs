@@ -636,12 +636,69 @@ namespace BuildingCoder
     #endregion // Traverse all model elements top down Levels > Category > Family > Type > Instance
 
     #region Retrieve a sorted list of all levels
+    /// <summary>
+    /// Return a sorted list of all levels
+    /// </summary>
     IOrderedEnumerable<Level> GetSortedLevels( Document doc )
     {
       return new FilteredElementCollector( doc )
         .OfClass( typeof( Level ) )
         .Cast<Level>()
         .OrderBy( lev => lev.Elevation );
+    }
+
+    /// <summary>
+    /// Return a suitable level for the given element.
+    /// If the element has no level defined, return the 
+    /// closest one below the given element Z.
+    /// </summary>
+    public static Level GetLevelFor(
+      Element e,
+      double element_z,
+      IOrderedEnumerable<Level> sorted_levels )
+    {
+      Level level = null;
+
+      // Retrieve the element's Level property:
+
+      ElementId lid = e.LevelId;
+
+      if( null != lid
+        && ElementId.InvalidElementId != lid )
+      {
+        Document doc = e.Document;
+        level = doc.GetElement( lid ) as Level;
+      }
+      else
+      {
+        // If no level is defined, grab the first
+        // one below the element's Z from the list 
+        // of levels sorted by elevation:
+
+        if( element_z < sorted_levels.First().Elevation )
+        {
+          level = sorted_levels.First();
+        }
+        else
+        {
+          foreach( Level l in sorted_levels )
+          {
+            double elev = l.Elevation;
+
+            if( Util.IsEqual( element_z, elev )
+              || element_z <= elev )
+            {
+              level = l;
+              break;
+            }
+          }
+          if( null == level )
+          {
+            level = sorted_levels.Last();
+          }
+        }
+      }
+      return level;
     }
     #endregion // Retrieve a sorted list of all levels
 

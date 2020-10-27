@@ -239,13 +239,13 @@ namespace BuildingCoder
     #region Determine Elbow Centre Point
     // for https://forums.autodesk.com/t5/revit-api-forum/how-to-calculate-the-center-point-of-elbow/m-p/9803893
     /// <summary>
-    /// Return elbow connector transforms.
+    /// Return elbow connectors.
     /// Return null if the given element is not a 
     /// family instance with exactly two connectors.
     /// </summary>
-    List<Transform> GetElbowConnectorTransforms( Element e )
+    List<Connector> GetElbowConnectors( Element e )
     {
-      List<Transform> xs = null;
+      List<Connector> cons = null;
       FamilyInstance fi = e as FamilyInstance;
       if( null != fi )
       {
@@ -258,24 +258,24 @@ namespace BuildingCoder
             ConnectorSet cs = cm.Connectors;
             if( 2 == cs.Size )
             {
-              xs = new List<Transform>( 2 );
+              cons = new List<Connector>( 2 );
               bool first = true;
               foreach( Connector c in cs )
               {
                 if( first )
                 {
-                  xs[0] = c.CoordinateSystem;
+                  cons[0] = c;
                 }
                 else
                 {
-                  xs[1] = c.CoordinateSystem;
+                  cons[1] = c;
                 }
               }
             }
           }
         }
       }
-      return xs;
+      return cons;
     }
     
     /// <summary>
@@ -286,16 +286,16 @@ namespace BuildingCoder
     XYZ GetElbowCentre( Element e )
     {
       XYZ pc = null;
-      List<Transform> xs = GetElbowConnectorTransforms( e );
-      if( null != xs )
+      List<Connector> cons = GetElbowConnectors( e );
+      if( null != cons )
       {
         // Get start and end point and direction
 
-        XYZ ps = xs[ 0 ].Origin;
-        XYZ vs = xs[ 0 ].BasisZ;
+        XYZ ps = cons[ 0 ].CoordinateSystem.Origin;
+        XYZ vs = cons[ 0 ].CoordinateSystem.BasisZ;
 
-        XYZ pe = xs[ 1 ].Origin;
-        XYZ ve = xs[ 1 ].BasisZ;
+        XYZ pe = cons[ 1 ].CoordinateSystem.Origin;
+        XYZ ve = cons[ 1 ].CoordinateSystem.BasisZ;
 
         XYZ vd = pe - ps;
 
