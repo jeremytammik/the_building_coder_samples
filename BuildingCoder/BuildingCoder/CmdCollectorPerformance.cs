@@ -1568,7 +1568,7 @@ namespace BuildingCoder
 
       FilterStringRuleEvaluator fsre = new FilterStringEquals();
 
-      //Create a filter rule where string value equals system_name
+      // Create a filter rule where string value equals system_name
 
       FilterRule fr = new FilterStringRule(
         pvp, fsre, system_name, true );
