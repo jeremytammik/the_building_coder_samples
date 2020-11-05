@@ -1559,22 +1559,27 @@ namespace BuildingCoder
         = new FilteredElementCollector( doc );
 
       // Identify the parameter to be filtered by
+
       ParameterValueProvider pvp
         = new ParameterValueProvider( new ElementId(
           BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM ) );
 
       // Set string evaluator so that it equals string
+
       FilterStringRuleEvaluator fsre = new FilterStringEquals();
 
       //Create a filter rule where string value equals system_name
+
       FilterRule fr = new FilterStringRule(
         pvp, fsre, system_name, true );
 
       // Create Filter
+
       ElementParameterFilter epf
         = new ElementParameterFilter( fr );
 
       // Apply filter to filtered element collector
+
       fec = fec.WherePasses( epf );
 
       return fec;
