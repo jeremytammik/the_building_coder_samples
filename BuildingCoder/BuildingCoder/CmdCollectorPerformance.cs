@@ -1555,9 +1555,6 @@ namespace BuildingCoder
       Document doc,
       string system_name )
     {
-      FilteredElementCollector fec
-        = new FilteredElementCollector( doc );
-
       // Identify the parameter to be filtered by
 
       ParameterValueProvider pvp
@@ -1580,9 +1577,8 @@ namespace BuildingCoder
 
       // Apply filter to filtered element collector
 
-      fec = fec.WherePasses( epf );
-
-      return fec;
+      return new FilteredElementCollector( doc )
+        .WherePasses( epf );
     }
     #endregion // Retrieve pipes belonging to specific system type
 
