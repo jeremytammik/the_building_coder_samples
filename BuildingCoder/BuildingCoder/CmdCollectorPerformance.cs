@@ -699,16 +699,24 @@ namespace BuildingCoder
         //  }
         //}
 
-        foreach( Level l in sorted_levels )
-        {
-          if( Util.IsLessOrEqual( 
-            l.Elevation, element_z ) )
-          {
-            level = l;
-            break;
-          }
-        }
-        if( level == null )
+        // Improved algorithm picking
+        // closest level below or equal
+
+        //foreach( Level l in sorted_levels )
+        //{
+        //  if( Util.IsLessOrEqual( 
+        //    l.Elevation, element_z ) )
+        //  {
+        //    level = l;
+        //    break;
+        //  }
+        //}
+
+        level = sorted_levels.FirstOrDefault( 
+          l => Util.IsLessOrEqual(
+            l.Elevation, element_z ) );
+
+        if( null == level )
         {
           level = sorted_levels.Last();
         }
