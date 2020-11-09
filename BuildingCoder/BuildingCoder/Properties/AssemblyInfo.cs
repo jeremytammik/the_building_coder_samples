@@ -350,6 +350,7 @@ using System.Runtime.InteropServices;
 // 2020-10-15 2021.0.150.5 implemented GetElbowCentre for https://forums.autodesk.com/t5/revit-api-forum/how-to-calculate-the-center-point-of-elbow/m-p/9803893
 // 2020-10-20 2021.0.150.6 eliminated deprecated API usage warnings by removing calls to pre-ForgeTypeId unit functionality
 // 2020-10-27 2021.0.150.7 implemented GetLevelFor for https://thebuildingcoder.typepad.com/blog/2019/03/assigning-a-level-to-an-element-missing-it.html#comment-5127272889
+// 2020-11-09 2021.0.150.8 implemented IsLessOrEqual and improved GetLevelFor
 //
-[assembly: AssemblyVersion( "2021.0.150.7" )]
-[assembly: AssemblyFileVersion( "2021.0.150.7" )]
+[assembly: AssemblyVersion( "2021.0.150.8" )]
+[assembly: AssemblyFileVersion( "2021.0.150.8" )]

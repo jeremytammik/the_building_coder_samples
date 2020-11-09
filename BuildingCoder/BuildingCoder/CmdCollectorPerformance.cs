@@ -639,12 +639,13 @@ namespace BuildingCoder
     /// <summary>
     /// Return a sorted list of all levels
     /// </summary>
-    IOrderedEnumerable<Level> GetSortedLevels( Document doc )
+    IOrderedEnumerable<Level> GetSortedLevels( 
+      Document doc )
     {
       return new FilteredElementCollector( doc )
         .OfClass( typeof( Level ) )
         .Cast<Level>()
-        .OrderBy( lev => lev.Elevation );
+        .OrderByDescending( lev => lev.Elevation );
     }
 
     /// <summary>
@@ -671,31 +672,45 @@ namespace BuildingCoder
       }
       else
       {
-        // If no level is defined, grab the first
-        // one below the element's Z from the list 
-        // of levels sorted by elevation:
+        //// If no level is defined, grab the first
+        //// one below the element's Z from the list 
+        //// of levels sorted by elevation:
 
-        if( element_z < sorted_levels.First().Elevation )
+        //if( element_z < sorted_levels.First().Elevation )
+        //{
+        //  level = sorted_levels.First();
+        //}
+        //else
+        //{
+        //  foreach( Level l in sorted_levels )
+        //  {
+        //    double elev = l.Elevation;
+
+        //    if( Util.IsEqual( element_z, elev )
+        //      || element_z <= elev )
+        //    {
+        //      level = l;
+        //      break;
+        //    }
+        //  }
+        //  if( null == level )
+        //  {
+        //    level = sorted_levels.Last();
+        //  }
+        //}
+
+        foreach( Level l in sorted_levels )
         {
-          level = sorted_levels.First();
+          if( Util.IsLessOrEqual( 
+            l.Elevation, element_z ) )
+          {
+            level = l;
+            break;
+          }
         }
-        else
+        if( level == null )
         {
-          foreach( Level l in sorted_levels )
-          {
-            double elev = l.Elevation;
-
-            if( Util.IsEqual( element_z, elev )
-              || element_z <= elev )
-            {
-              level = l;
-              break;
-            }
-          }
-          if( null == level )
-          {
-            level = sorted_levels.Last();
-          }
+          level = sorted_levels.Last();
         }
       }
       return level;

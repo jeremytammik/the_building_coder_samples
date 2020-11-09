@@ -70,6 +70,14 @@ namespace BuildingCoder
       return IsZero( b - a, tolerance );
     }
 
+    public static bool IsLessOrEqual(
+      double a,
+      double b,
+      double tolerance = _eps )
+    {
+      return IsZero( b - a, tolerance );
+    }
+
     public static int Compare(
       double a,
       double b,
