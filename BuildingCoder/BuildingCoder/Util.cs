@@ -1229,12 +1229,61 @@ const T f = ( ay * bx ) - ( ax * by );
     /// List all Forge type ids
     /// </summary>
     /// <param name="doc"></param>
-    public static void ListForgeTypeIds( Document doc )
+    public static void ListForgeTypeIds()
     {
+      //ForgeTypeId a = SpecTypeId.Acceleration;
+      //Debug.Print( a.TypeId );
+
       Type spityp = typeof( SpecTypeId );
-      foreach( MemberInfo mi in spityp.GetMembers() )
+
+      //foreach( MemberInfo mi in spityp.GetMembers() )
+      //{
+      //  Debug.Print( mi.Name );
+      //}
+
+      PropertyInfo[] ps = spityp.GetProperties(
+        BindingFlags.Public | BindingFlags.Static );
+
+      // Sort properties alphabetically by name 
+
+      Array.Sort( ps, 
+        delegate( PropertyInfo p1, PropertyInfo p2 )
+          { return p1.Name.CompareTo( p2.Name ); } );
+
+      Debug.Print( "{0} properties:", ps.Length );
+
+      foreach( PropertyInfo pi in ps )
       {
-        Debug.Print( mi.Name );
+        if( pi.PropertyType == typeof( ForgeTypeId ) )
+        {
+          object obj = pi.GetValue( null, null);
+
+          ForgeTypeId fti = obj as ForgeTypeId;
+
+          Debug.Print( "{0}: {1}", pi.Name, fti.TypeId );
+        }
+      }
+
+      IList<ForgeTypeId> specs = UnitUtils.GetAllSpecs();
+
+      Debug.Print( "{0} specs:", specs.Count );
+
+      foreach( ForgeTypeId fti in specs )
+      {
+        Debug.Print( "{0}: {1}, {2}", 
+          fti.ToString(), fti.TypeId, 
+          UnitUtils.GetTypeCatalogStringForSpec( fti ) );
+      }
+
+      IList<ForgeTypeId> units = UnitUtils.GetAllUnits();
+
+      Debug.Print( "{0} units:", units.Count );
+
+      foreach( ForgeTypeId fti in units )
+      {
+        Debug.Print( "{0}: {1}, {2}",
+          fti.ToString(), fti.TypeId,
+          UnitUtils.GetTypeCatalogStringForUnit( fti ) );
       }
     }
     #endregion // Unit Handling
