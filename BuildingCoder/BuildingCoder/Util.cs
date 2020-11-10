@@ -1224,6 +1224,19 @@ const T f = ( ay * bx ) - ( ax * by );
       "mm^3", // DUT_CUBIC_MILLIMETERS = 25,
       "l" // DUT_LITERS = 26,
       };
+
+    /// <summary>
+    /// List all Forge type ids
+    /// </summary>
+    /// <param name="doc"></param>
+    public static void ListForgeTypeIds( Document doc )
+    {
+      Type spityp = typeof( SpecTypeId );
+      foreach( MemberInfo mi in spityp.GetMembers() )
+      {
+        Debug.Print( mi.Name );
+      }
+    }
     #endregion // Unit Handling
 
     #region Formatting
