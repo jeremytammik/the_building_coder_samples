@@ -353,6 +353,7 @@ using System.Runtime.InteropServices;
 // 2020-11-09 2021.0.150.8 implemented IsLessOrEqual and improved GetLevelFor
 // 2020-11-10 2021.0.150.9 implemented ListForgeTypeIds
 // 2020-11-25 2021.0.150.10 integrated simple updater sample from https://forums.autodesk.com/t5/revit-api-forum/iupdater-simple-example-needed/m-p/9893248
+// 2021-01-02 2021.0.150.11 implemented CreateConduitOffsets for https://forums.autodesk.com/t5/revit-api-forum/offset-conduit-only-by-z-axis/m-p/9972671
 //
-[assembly: AssemblyVersion( "2021.0.150.10" )]
-[assembly: AssemblyFileVersion( "2021.0.150.10" )]
+[assembly: AssemblyVersion( "2021.0.150.11" )]
+[assembly: AssemblyFileVersion( "2021.0.150.11" )]

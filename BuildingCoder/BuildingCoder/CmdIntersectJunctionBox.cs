@@ -251,5 +251,57 @@ namespace BuildingCoder
 
       return Result.Succeeded;
     }
+
+    #region Create Offset Conduits
+    void CreateConduitOffsets( 
+      Element conduit, 
+      double diameter, 
+      double distance)
+    {
+      Document doc = conduit.Document;
+
+      var obj = conduit.Location as LocationCurve;
+      XYZ start = obj.Curve.GetEndPoint( 0 );
+      XYZ end = obj.Curve.GetEndPoint( 1 );
+      XYZ v = end - start;
+      double vlen = v.GetLength();
+
+      XYZ w = XYZ.BasisZ.CrossProduct( v );
+      XYZ start1 = start + distance * w;
+      XYZ start2 = start - distance * w;
+      XYZ start3 = start + distance * XYZ.BasisZ;
+      XYZ end1 = start1 + v;
+      XYZ end2 = start2 + v;
+      XYZ end3 = start3 + v;
+
+      // Confusing sample code from 
+      // https://forums.autodesk.com/t5/revit-api-forum/offset-conduit-only-by-z-axis/m-p/9972671
+
+      var L = Math.Sqrt( (start.X - end.X) * (start.X - end.X) + (start.Y - end.Y) * (start.Y - end.Y) );
+      double x1startO = start.X + distance * (end.Y - start.Y) / L;
+      double x1endO = end.X + distance * (end.Y - start.Y) / L;
+      double y1startO = start.Y + distance * (start.X - end.X) / L;
+      double y1end0 = end.Y + distance * (start.X - end.X) / L;
+      Conduit conduit1 = Conduit.Create( doc, conduit.GetTypeId(), new XYZ( x1startO, y1startO, start.Z ), new XYZ( x1endO, y1end0, end.Z ), conduit.LevelId );
+      conduit1.get_Parameter( BuiltInParameter.RBS_CONDUIT_DIAMETER_PARAM ).Set( diameter );
+
+      double x2startO = start.X - distance * (end.Y - start.Y) / L;
+      double x2endO = end.X - distance * (end.Y - start.Y) / L;
+      double y2startO = start.Y - distance * (start.X - end.X) / L;
+      double y2end0 = end.Y - distance * (start.X - end.X) / L;
+
+      Conduit conduit2 = Conduit.Create( doc, conduit.GetTypeId(), new XYZ( x2startO, y2startO, start.Z ), new XYZ( x2endO, y2end0, end.Z ), conduit.LevelId );
+      conduit2.get_Parameter( BuiltInParameter.RBS_CONDUIT_DIAMETER_PARAM ).Set( diameter );
+
+      XYZ p0 = new XYZ( start.X - (end.Y - start.Y) * (1 / obj.Curve.ApproximateLength), start.Y + (end.X - start.X) * (1 / obj.Curve.ApproximateLength), start.Z );
+      XYZ p1 = new XYZ( start.X + (end.Y - start.Y) * (1 / obj.Curve.ApproximateLength), start.Y - (end.X - start.X) * (1 / obj.Curve.ApproximateLength), start.Z );
+
+      Conduit conduit3;
+
+      Curve copyCurve = obj.Curve.CreateOffset( -diameter * Math.Sqrt( 3 ) / 2, Line.CreateBound( p0, p1 ).Direction );
+      conduit3 = Conduit.Create( doc, conduit.GetTypeId(), copyCurve.GetEndPoint( 0 ), copyCurve.GetEndPoint( 1 ), conduit.LevelId );
+      conduit3.get_Parameter( BuiltInParameter.RBS_CONDUIT_DIAMETER_PARAM ).Set( diameter );
+    }
+    #endregion Create Offset Conduits
   }
 }
