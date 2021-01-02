@@ -2,7 +2,7 @@
 //
 // CmdListPipeSizes.cs - list pipe sizes in a project
 //
-// Copyright (C) 2015-2020 by Jeremy Tammik,
+// Copyright (C) 2015-2021 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

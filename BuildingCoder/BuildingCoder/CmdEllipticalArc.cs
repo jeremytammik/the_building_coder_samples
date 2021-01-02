@@ -2,7 +2,7 @@
 //
 // CmdEllipticalArc.cs - create an elliptical arc geometry object
 //
-// Copyright (C) 2010-2020 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2010-2021 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

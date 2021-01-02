@@ -2,7 +2,7 @@
 //
 // CmdPickRoomInclLinked.cs - selection filter to pick a room either in current project or linked model
 //
-// Copyright (C) 2020 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2020-2021 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //

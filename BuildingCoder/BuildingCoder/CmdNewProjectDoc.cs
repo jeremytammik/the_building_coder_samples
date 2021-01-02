@@ -2,7 +2,7 @@
 //
 // CmdNewProjectDoc.cs - create a new project document
 //
-// Copyright (C) 2009-2020 by Jeremy Tammik,
+// Copyright (C) 2009-2021 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

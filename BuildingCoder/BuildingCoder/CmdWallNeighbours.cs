@@ -3,7 +3,7 @@
 // CmdWallNeighbours.cs - determine wall
 // neighbours, i.e. walls joined at end points
 //
-// Copyright (C) 2008-2020 by Jeremy Tammik,
+// Copyright (C) 2008-2021 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.

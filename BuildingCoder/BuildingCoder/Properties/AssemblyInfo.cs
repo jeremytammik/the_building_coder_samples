@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Autodesk, Inc." )]
 [assembly: AssemblyProduct( "BuildingCoder" )]
-[assembly: AssemblyCopyright( "Copyright © 2008-2020 by Jeremy Tammik, Autodesk, Inc." )]
+[assembly: AssemblyCopyright( "Copyright © 2008-2021 by Jeremy Tammik, Autodesk, Inc." )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -354,6 +354,7 @@ using System.Runtime.InteropServices;
 // 2020-11-10 2021.0.150.9 implemented ListForgeTypeIds
 // 2020-11-25 2021.0.150.10 integrated simple updater sample from https://forums.autodesk.com/t5/revit-api-forum/iupdater-simple-example-needed/m-p/9893248
 // 2021-01-02 2021.0.150.11 implemented CreateConduitOffsets for https://forums.autodesk.com/t5/revit-api-forum/offset-conduit-only-by-z-axis/m-p/9972671
+// 2021-01-02 2021.0.150.12 incremented copyright year
 //
-[assembly: AssemblyVersion( "2021.0.150.11" )]
-[assembly: AssemblyFileVersion( "2021.0.150.11" )]
+[assembly: AssemblyVersion( "2021.0.150.12" )]
+[assembly: AssemblyFileVersion( "2021.0.150.12" )]
