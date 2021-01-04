@@ -39,7 +39,7 @@ namespace BuildingCoder
         .Faces
         .OfType<Face>();
       int n = faces.Count();
-      Debug.Print( "{0} has {1} face{2}.", 
+      Debug.Print( "{0} has {1} face{2}.",
         e.GetType().Name, n, Util.PluralSuffix( n ) );
       return faces;
     }
@@ -93,7 +93,7 @@ namespace BuildingCoder
         {
           foreach( var f2 in wallFaces )
           {
-            if( f1.Intersect( f2 ) 
+            if( f1.Intersect( f2 )
               == FaceIntersectionFaceResult.Intersecting )
             {
               ++n;
@@ -109,7 +109,7 @@ namespace BuildingCoder
             }
           }
         }
-        Debug.Print( "{0} face-face intersection{1}.", 
+        Debug.Print( "{0} face-face intersection{1}.",
           n, Util.PluralSuffix( n ) );
       }
     }
@@ -128,8 +128,8 @@ namespace BuildingCoder
         FamilyInstance jbox,
         UIDocument uiDoc )
       {
-        XYZ jboxPoint = ( jbox.Location
-          as LocationPoint ).Point;
+        XYZ jboxPoint = (jbox.Location
+          as LocationPoint).Point;
 
         FilteredElementCollector filteredCloserConduits
           = new FilteredElementCollector( uiDoc.Document );
@@ -139,9 +139,9 @@ namespace BuildingCoder
             .OfClass( typeof( Conduit ) )
             .ToList()
             .Where( x
-              => ( ( x as Conduit ).Location as LocationCurve ).Curve
+              => ((x as Conduit).Location as LocationCurve).Curve
                 .GetEndPoint( 0 ).DistanceTo( jboxPoint ) < 30
-              || ( ( x as Conduit ).Location as LocationCurve ).Curve
+              || ((x as Conduit).Location as LocationCurve).Curve
                 .GetEndPoint( 1 ).DistanceTo( jboxPoint ) < 30 )
             .ToList();
 
@@ -156,8 +156,8 @@ namespace BuildingCoder
 
         foreach( GeometryObject geomObje1 in geoEle )
         {
-          GeometryElement geoInstance = ( geomObje1
-            as GeometryInstance ).GetInstanceGeometry();
+          GeometryElement geoInstance = (geomObje1
+            as GeometryInstance).GetInstanceGeometry();
 
           // the geometry of the family instance can be 
           // accessed by this method that returns a 
@@ -177,7 +177,7 @@ namespace BuildingCoder
                   foreach( Element cond in listOfCloserConduit )
                   {
                     Conduit con = cond as Conduit;
-                    Curve conCurve = ( con.Location as LocationCurve ).Curve;
+                    Curve conCurve = (con.Location as LocationCurve).Curve;
                     SetComparisonResult set = face.Intersect( conCurve );
                     if( set.ToString() == "Overlap" )
                     {
@@ -253,26 +253,41 @@ namespace BuildingCoder
     }
 
     #region Create Offset Conduits
-    void CreateConduitOffsets( 
-      Element conduit, 
-      double diameter, 
-      double distance)
+    /// <summary>
+    /// Given a curve element, determine three parallel
+    /// curves on the right, left and above, offset by
+    /// a given radius or half diameter.
+    /// </summary>
+    void CreateConduitOffsets(
+      Element conduit,
+      double diameter,
+      double distance )
     {
       Document doc = conduit.Document;
+
+      // Given element location curve
 
       var obj = conduit.Location as LocationCurve;
       XYZ start = obj.Curve.GetEndPoint( 0 );
       XYZ end = obj.Curve.GetEndPoint( 1 );
-      XYZ v = end - start;
-      double vlen = v.GetLength();
+      XYZ vx = end - start;
 
-      XYZ w = XYZ.BasisZ.CrossProduct( v );
-      XYZ start1 = start + distance * w;
-      XYZ start2 = start - distance * w;
-      XYZ start3 = start + distance * XYZ.BasisZ;
-      XYZ end1 = start1 + v;
-      XYZ end2 = start2 + v;
-      XYZ end3 = start3 + v;
+      // Offsets
+
+      double radius = 0.5 * diameter;
+      double offset_lr = radius;
+      double offset_up = radius * Math.Sqrt( 3 );
+
+      // Assume vx is horizontal to start with
+
+      XYZ vz = XYZ.BasisZ;
+      XYZ vy = vz.CrossProduct( vx );
+      XYZ start1 = start + offset_lr * vy;
+      XYZ start2 = start - offset_lr * vy;
+      XYZ start3 = start + offset_up * vz;
+      XYZ end1 = start1 + vx;
+      XYZ end2 = start2 + vx;
+      XYZ end3 = start3 + vx;
 
       // Confusing sample code from 
       // https://forums.autodesk.com/t5/revit-api-forum/offset-conduit-only-by-z-axis/m-p/9972671
