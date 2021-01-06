@@ -1069,6 +1069,98 @@ namespace BuildingCoder
 
       collector.OfClass( typeof( DetailCurve ) );
     }
+
+    public void GetListOfLinestyles( Document doc )
+    {
+      Category c = doc.Settings.Categories.get_Item(
+        BuiltInCategory.OST_Lines );
+
+      CategoryNameMap subcats = c.SubCategories;
+
+      foreach( Category lineStyle in subcats )
+      {
+        TaskDialog.Show( "Line style", string.Format(
+          "Linestyle {0} id {1}", lineStyle.Name,
+          lineStyle.Id.ToString() ) );
+      }
+
+
+      FilteredElementCollector collector
+        = new FilteredElementCollector( doc );
+
+      ElementCategoryFilter fi 
+        = new ElementCategoryFilter( 
+          BuiltInCategory.OST_GenericLines, true );
+
+      ICollection<Element> collection 
+        = collector.OfClass( typeof( CurveElement ) )
+          .WherePasses( fi )
+          .ToElements();
+
+      TaskDialog.Show( "Number of curves", 
+        collection.Count.ToString() );
+
+      List<Element> detail_lines = new List<Element>();
+
+      foreach( Element e in collection )
+      {
+        if( e is DetailLine )
+        {
+          detail_lines.Add( e );
+        }
+      }
+
+      TaskDialog.Show( "Number of Detail Lines", 
+        detail_lines.Count.ToString() );
+
+      List<Element> some_detail_lines = new List<Element>();
+      foreach( DetailLine dl in detail_lines )
+      {
+        if( dl.LineStyle.Name == "MyNewLineStyle" )
+        {
+          some_detail_lines.Add( dl );
+        }
+      }
+
+      TaskDialog.Show( 
+        "Number of Detail Lines of MyNewLineStyle", 
+        some_detail_lines.Count.ToString() );
+
+
+      Category targetLineStyle = null;
+
+      IEnumerable<GraphicsStyle> gstyles 
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( GraphicsStyle ) )
+          .Cast<GraphicsStyle>()
+          .Where( gs => gs.GraphicsStyleCategory.Id.IntegerValue 
+            == targetLineStyle.Id.IntegerValue );
+
+      ElementId targetGraphicsStyleId 
+        = gstyles.FirstOrDefault().Id;
+
+      CurveElementFilter filter_detail 
+        = new CurveElementFilter( 
+          CurveElementType.DetailCurve );
+
+      FilterRule frule_typeId 
+        = ParameterFilterRuleFactory.CreateEqualsRule( 
+          new ElementId( 
+            BuiltInParameter.BUILDING_CURVE_GSTYLE ), 
+          targetGraphicsStyleId );
+
+      ElementParameterFilter filter_type 
+        = new ElementParameterFilter( 
+          new List<FilterRule>() { frule_typeId } );
+
+      IEnumerable<Element> lines 
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .WhereElementIsCurveDriven()
+          .WherePasses( filter_detail )
+          .WherePasses( filter_type );
+    }
+
     #endregion // Filter for detail curves
 
     #region Delete non-room-separating curve elements

@@ -356,6 +356,7 @@ using System.Runtime.InteropServices;
 // 2021-01-02 2021.0.150.11 implemented CreateConduitOffsets for https://forums.autodesk.com/t5/revit-api-forum/offset-conduit-only-by-z-axis/m-p/9972671
 // 2021-01-02 2021.0.150.12 incremented copyright year
 // 2021-01-04 2021.0.150.13 implemented CreateConduitOffsets for https://forums.autodesk.com/t5/revit-api-forum/offset-conduit-only-by-z-axis/m-p/9972671
+// 2021-01-06 2021.0.150.14 sample code for https://forums.autodesk.com/t5/revit-api-forum/collect-all-detail-lines-of-a-particular-subcategory/td-p/9956260
 //
-[assembly: AssemblyVersion( "2021.0.150.13" )]
-[assembly: AssemblyFileVersion( "2021.0.150.13" )]
+[assembly: AssemblyVersion( "2021.0.150.14" )]
+[assembly: AssemblyFileVersion( "2021.0.150.14" )]
