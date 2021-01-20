@@ -1396,6 +1396,53 @@ namespace BuildingCoder
     }
     #endregion // Retrieve generic family symbols whose name contains "test"
 
+    #region Test FilterStringContains false positives
+    // for REVIT-172990 [Parameter filter with FilterStringContains returns false positive]
+    // https://forums.autodesk.com/t5/revit-api-forum/string-parameter-filtering-is-retrieving-false-data/td-p/10012518
+    public void TestFilterStringContains( Document doc )
+    {
+      BuiltInParameter bip = BuiltInParameter.FIRE_RATING;
+
+      ElementId pid = new ElementId( bip );
+
+      ParameterValueProvider provider
+        = new ParameterValueProvider( pid );
+
+      FilterStringRuleEvaluator evaluator 
+        = new FilterStringContains();
+
+      FilterStringRule rule = new FilterStringRule( 
+        provider, evaluator, "/", false );
+
+      ElementParameterFilter filter 
+        = new ElementParameterFilter( rule );
+
+      var myWalls = new FilteredElementCollector( doc )
+        .OfCategory( BuiltInCategory.OST_Walls )
+        .WherePasses( filter );
+
+      List<ElementId> false_positive_ids 
+        = new List<ElementId>();
+
+      foreach( Element wall in myWalls )
+      {
+        Parameter param = wall.get_Parameter( bip );
+        if( null == param )
+        {
+          false_positive_ids.Add( wall.Id );
+        }
+      }
+      string s = string.Join( ", ", 
+        false_positive_ids.Select<ElementId, string>( 
+          id => id.IntegerValue.ToString() ) );
+
+      TaskDialog dlg = new TaskDialog( "False Positives" );
+      dlg.MainInstruction = "False filtered walls ids: ";
+      dlg.MainContent = s;
+      dlg.Show();
+    }
+    #endregion // Test FilterStringContains false positives
+
     #region Retrieve door family symbols that can be used in a curtain wall
     /// <summary>
     /// Given an existing selected curtain wall door 
