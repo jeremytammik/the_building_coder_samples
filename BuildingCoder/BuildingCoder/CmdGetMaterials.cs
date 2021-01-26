@@ -38,26 +38,26 @@ namespace BuildingCoder
       "Local Path Material"
     };
 
-    void FindTextureBitmapPaths(Document doc)
+    void FindTextureBitmapPaths( Document doc )
     {
       // Find materials
       FilteredElementCollector fec
-        = new FilteredElementCollector(doc);
+        = new FilteredElementCollector( doc );
 
-      fec.OfClass(typeof(Material));
+      fec.OfClass( typeof( Material ) );
 
       IEnumerable<Material> targetMaterials
-        = fec.Cast<Material>().Where<Material>(mtl =>
-         targetMaterialNames.Contains(mtl.Name));
+        = fec.Cast<Material>().Where<Material>( mtl =>
+          targetMaterialNames.Contains( mtl.Name ) );
 
-      foreach (Material material in targetMaterials)
+      foreach( Material material in targetMaterials )
       {
         // Get appearance asset for read
         ElementId appearanceAssetId = material
           .AppearanceAssetId;
 
         AppearanceAssetElement appearanceAssetElem
-          = doc.GetElement(appearanceAssetId)
+          = doc.GetElement( appearanceAssetId )
             as AppearanceAssetElement;
 
         Asset asset = appearanceAssetElem
@@ -70,12 +70,12 @@ namespace BuildingCoder
         // So this would need to be recursive.
 
         int size = asset.Size;
-        for (int assetIdx = 0; assetIdx < size; assetIdx++)
+        for( int assetIdx = 0; assetIdx < size; assetIdx++ )
         {
           //AssetProperty aProperty = asset[assetIdx]; // 2018
-          AssetProperty aProperty = asset.Get(assetIdx); // 2019
+          AssetProperty aProperty = asset.Get( assetIdx ); // 2019
 
-          if (aProperty.NumberOfConnectedProperties < 1)
+          if( aProperty.NumberOfConnectedProperties < 1 )
             continue;
 
           // Find first connected property.  
@@ -84,11 +84,11 @@ namespace BuildingCoder
           // properties based on the number provided.
 
           Asset connectedAsset = aProperty
-            .GetConnectedProperty(0) as Asset;
+            .GetConnectedProperty( 0 ) as Asset;
 
           // We are only checking for bitmap connected assets. 
 
-          if (connectedAsset.Name == "UnifiedBitmapSchema")
+          if( connectedAsset.Name == "UnifiedBitmapSchema" )
           {
             // This line is 2018.1 & up because of the 
             // property reference to UnifiedBitmap
@@ -101,7 +101,7 @@ namespace BuildingCoder
             //    as AssetPropertyString;
 
             AssetPropertyString path = connectedAsset // 2019
-              .FindByName(UnifiedBitmap.UnifiedbitmapBitmap)
+              .FindByName( UnifiedBitmap.UnifiedbitmapBitmap )
                 as AssetPropertyString;
 
             // This will be a relative path to the 
@@ -109,10 +109,10 @@ namespace BuildingCoder
             // render appearance folder, or an 
             // absolute path.
 
-            TaskDialog.Show("Connected bitmap",
-              String.Format("{0} from {2}: {1}",
+            TaskDialog.Show( "Connected bitmap",
+              String.Format( "{0} from {2}: {1}",
                 aProperty.Name, path.Value,
-                connectedAsset.LibraryName));
+                connectedAsset.LibraryName ) );
           }
         }
       }
@@ -123,16 +123,17 @@ namespace BuildingCoder
   #region Victor sample code
   public class ElementComparer : IEqualityComparer<Element>
   {
-    public bool Equals(Element x, Element y)
+    public bool Equals( Element x, Element y )
     {
-      if (x == null || y == null) return false;
+      if( x == null || y == null )
+        return false;
 
       return (x.Id.IntegerValue == y.Id.IntegerValue)
              && (x.GetType() == y.GetType()
-                 && (x.Document.Equals(y.Document)));
+                 && (x.Document.Equals( y.Document )));
     }
 
-    public int GetHashCode(Element obj)
+    public int GetHashCode( Element obj )
     {
       return obj.UniqueId.GetHashCode();
     }
@@ -140,19 +141,19 @@ namespace BuildingCoder
 
   public class MaterialComparer : IEqualityComparer<Material>
   {
-    public bool Equals(Material x, Material y)
+    public bool Equals( Material x, Material y )
     {
-      return x.UniqueId.Equals(y.UniqueId);
+      return x.UniqueId.Equals( y.UniqueId );
     }
 
-    public int GetHashCode(Material obj)
+    public int GetHashCode( Material obj )
     {
       return obj.UniqueId.GetHashCode();
     }
   }
   #endregion // Victor sample code
 
-  [Transaction(TransactionMode.ReadOnly)]
+  [Transaction( TransactionMode.ReadOnly )]
   class CmdGetMaterials : IExternalCommand
   {
     #region List Material Asset Sub-Texture
@@ -229,8 +230,8 @@ namespace BuildingCoder
       /// Public class constructor
       /// </summary>
       /// <param name="assetProperty">the AssetProperty which a AssetPropertyPropertyDescriptor instance describes</param>
-      public AssetPropertyPropertyDescriptor(AssetProperty assetProperty)
-          : base(assetProperty.Name, new Attribute[0])
+      public AssetPropertyPropertyDescriptor( AssetProperty assetProperty )
+          : base( assetProperty.Name, new Attribute[ 0 ] )
       {
         m_assetProperty = assetProperty;
       }
@@ -241,10 +242,10 @@ namespace BuildingCoder
       /// </summary>
       /// <param name="obj">The object to compare to this AssetPropertyPropertyDescriptor. </param>
       /// <returns></returns>
-      public override bool Equals(object obj)
+      public override bool Equals( object obj )
       {
         AssetPropertyPropertyDescriptor other = obj as AssetPropertyPropertyDescriptor;
-        return other != null && other.AssetProperty.Equals(m_assetProperty);
+        return other != null && other.AssetProperty.Equals( m_assetProperty );
       }
 
       /// <summary>
@@ -261,7 +262,7 @@ namespace BuildingCoder
       /// Resets the value for this property of the component to the default value. 
       /// </summary>
       /// <param name="component">The component with the property value that is to be reset to the default value.</param>
-      public override void ResetValue(object component)
+      public override void ResetValue( object component )
       {
 
       }
@@ -271,7 +272,7 @@ namespace BuildingCoder
       /// </summary>
       /// <param name="component">The component to test for reset capability.</param>
       /// <returns>true if resetting the component changes its value; otherwise, false.</returns>
-      public override bool CanResetValue(object component)
+      public override bool CanResetValue( object component )
       {
         return false;
       }
@@ -281,7 +282,7 @@ namespace BuildingCoder
       /// </summary>
       /// <param name="component">The component with the property to be examined for persistence.</param>
       /// <returns>true if the property should be persisted; otherwise, false.</returns>
-      public override bool ShouldSerializeValue(object component)
+      public override bool ShouldSerializeValue( object component )
       {
         return false;
       }
@@ -291,16 +292,16 @@ namespace BuildingCoder
       /// </summary>
       /// <param name="component">The component with the property for which to retrieve the value.</param>
       /// <returns>The value of a property for a given component.</returns>
-      public override object GetValue(object component)
+      public override object GetValue( object component )
       {
-        Tuple<Type, Object> typeAndValue = GetTypeAndValue(m_assetProperty, 0);
+        Tuple<Type, Object> typeAndValue = GetTypeAndValue( m_assetProperty, 0 );
         m_value = typeAndValue.Item2;
         m_valueType = typeAndValue.Item1;
 
         return m_value;
       }
 
-      private static Tuple<Type, Object> GetTypeAndValue(AssetProperty assetProperty, int level)
+      private static Tuple<Type, Object> GetTypeAndValue( AssetProperty assetProperty, int level )
       {
         Object theValue;
         Type valueType;
@@ -308,119 +309,119 @@ namespace BuildingCoder
         //must deal with it separately
         try
         {
-          if (assetProperty is AssetPropertyBoolean)
+          if( assetProperty is AssetPropertyBoolean )
           {
             AssetPropertyBoolean property = assetProperty as AssetPropertyBoolean;
-            valueType = typeof(AssetPropertyBoolean);
+            valueType = typeof( AssetPropertyBoolean );
             theValue = property.Value;
           }
-          else if (assetProperty is AssetPropertyDistance)
+          else if( assetProperty is AssetPropertyDistance )
           {
             AssetPropertyDistance property = assetProperty as AssetPropertyDistance;
-            valueType = typeof(AssetPropertyDistance);
+            valueType = typeof( AssetPropertyDistance );
             theValue = property.Value;
           }
-          else if (assetProperty is AssetPropertyDouble)
+          else if( assetProperty is AssetPropertyDouble )
           {
             AssetPropertyDouble property = assetProperty as AssetPropertyDouble;
-            valueType = typeof(AssetPropertyDouble);
+            valueType = typeof( AssetPropertyDouble );
             theValue = property.Value;
           }
-          else if (assetProperty is AssetPropertyDoubleArray2d)
+          else if( assetProperty is AssetPropertyDoubleArray2d )
           {
             //Default, it is supported by PropertyGrid to display Double []
             //Try to convert DoubleArray to Double []
             AssetPropertyDoubleArray2d property = assetProperty as AssetPropertyDoubleArray2d;
-            valueType = typeof(AssetPropertyDoubleArray2d);
-            theValue = GetSystemArrayAsString(property.Value);
+            valueType = typeof( AssetPropertyDoubleArray2d );
+            theValue = GetSystemArrayAsString( property.Value );
           }
-          else if (assetProperty is AssetPropertyDoubleArray3d)
+          else if( assetProperty is AssetPropertyDoubleArray3d )
           {
             AssetPropertyDoubleArray3d property = assetProperty as AssetPropertyDoubleArray3d;
-            valueType = typeof(AssetPropertyDoubleArray3d);
+            valueType = typeof( AssetPropertyDoubleArray3d );
             //theValue = GetSystemArrayAsString( property.Value ); // 2017
-            theValue = Util.DoubleArrayString(property.GetValueAsDoubles()); // 2018
+            theValue = Util.DoubleArrayString( property.GetValueAsDoubles() ); // 2018
           }
-          else if (assetProperty is AssetPropertyDoubleArray4d)
+          else if( assetProperty is AssetPropertyDoubleArray4d )
           {
             AssetPropertyDoubleArray4d property = assetProperty as AssetPropertyDoubleArray4d;
-            valueType = typeof(AssetPropertyDoubleArray4d);
+            valueType = typeof( AssetPropertyDoubleArray4d );
             //theValue = GetSystemArrayAsString( property.Value ); // 2017
-            theValue = Util.DoubleArrayString(property.GetValueAsDoubles()); // 2018
+            theValue = Util.DoubleArrayString( property.GetValueAsDoubles() ); // 2018
           }
-          else if (assetProperty is AssetPropertyDoubleMatrix44)
+          else if( assetProperty is AssetPropertyDoubleMatrix44 )
           {
             AssetPropertyDoubleMatrix44 property = assetProperty as AssetPropertyDoubleMatrix44;
-            valueType = typeof(AssetPropertyDoubleMatrix44);
-            theValue = GetSystemArrayAsString(property.Value);
+            valueType = typeof( AssetPropertyDoubleMatrix44 );
+            theValue = GetSystemArrayAsString( property.Value );
           }
-          else if (assetProperty is AssetPropertyEnum)
+          else if( assetProperty is AssetPropertyEnum )
           {
             AssetPropertyEnum property = assetProperty as AssetPropertyEnum;
-            valueType = typeof(AssetPropertyEnum);
+            valueType = typeof( AssetPropertyEnum );
             theValue = property.Value;
           }
-          else if (assetProperty is AssetPropertyFloat)
+          else if( assetProperty is AssetPropertyFloat )
           {
             AssetPropertyFloat property = assetProperty as AssetPropertyFloat;
-            valueType = typeof(AssetPropertyFloat);
+            valueType = typeof( AssetPropertyFloat );
             theValue = property.Value;
           }
-          else if (assetProperty is AssetPropertyInteger)
+          else if( assetProperty is AssetPropertyInteger )
           {
             AssetPropertyInteger property = assetProperty as AssetPropertyInteger;
-            valueType = typeof(AssetPropertyInteger);
+            valueType = typeof( AssetPropertyInteger );
             theValue = property.Value;
           }
-          else if (assetProperty is AssetPropertyReference)
+          else if( assetProperty is AssetPropertyReference )
           {
             AssetPropertyReference property = assetProperty as AssetPropertyReference;
-            valueType = typeof(AssetPropertyReference);
+            valueType = typeof( AssetPropertyReference );
             theValue = "REFERENCE"; //property.Type;
           }
-          else if (assetProperty is AssetPropertyString)
+          else if( assetProperty is AssetPropertyString )
           {
             AssetPropertyString property = assetProperty as AssetPropertyString;
-            valueType = typeof(AssetPropertyString);
+            valueType = typeof( AssetPropertyString );
             theValue = property.Value;
           }
-          else if (assetProperty is AssetPropertyTime)
+          else if( assetProperty is AssetPropertyTime )
           {
             AssetPropertyTime property = assetProperty as AssetPropertyTime;
-            valueType = typeof(AssetPropertyTime);
+            valueType = typeof( AssetPropertyTime );
             theValue = property.Value;
           }
           else
           {
-            valueType = typeof(String);
+            valueType = typeof( String );
             theValue = "Unprocessed asset type: " + assetProperty.GetType().Name;
           }
 
-          if (assetProperty.NumberOfConnectedProperties > 0)
+          if( assetProperty.NumberOfConnectedProperties > 0 )
           {
 
             String result = "";
             result = theValue.ToString();
 
-            TaskDialog.Show("Connected properties found", assetProperty.Name + ": " + assetProperty.NumberOfConnectedProperties);
+            TaskDialog.Show( "Connected properties found", assetProperty.Name + ": " + assetProperty.NumberOfConnectedProperties );
             IList<AssetProperty> properties = assetProperty.GetAllConnectedProperties();
 
-            foreach (AssetProperty property in properties)
+            foreach( AssetProperty property in properties )
             {
-              if (property is Asset)
+              if( property is Asset )
               {
                 // Nested?
                 Asset asset = property as Asset;
                 int size = asset.Size;
-                for (int i = 0; i < size; i++)
+                for( int i = 0; i < size; i++ )
                 {
                   //AssetProperty subproperty = asset[i]; // 2018
-                  AssetProperty subproperty = asset.Get(i); // 2019
-                  Tuple<Type, Object> valueAndType = GetTypeAndValue(subproperty, level + 1);
+                  AssetProperty subproperty = asset.Get( i ); // 2019
+                  Tuple<Type, Object> valueAndType = GetTypeAndValue( subproperty, level + 1 );
                   String indent = "";
-                  if (level > 0)
+                  if( level > 0 )
                   {
-                    for (int iLevel = 1; iLevel <= level; iLevel++)
+                    for( int iLevel = 1; iLevel <= level; iLevel++ )
                       indent += "   ";
                   }
                   result += "\n " + indent + "- connected: name: " + subproperty.Name + " | type: " + valueAndType.Item1.Name +
@@ -436,7 +437,7 @@ namespace BuildingCoder
         {
           return null;
         }
-        return new Tuple<Type, Object>(valueType, theValue);
+        return new Tuple<Type, Object>( valueType, theValue );
       }
 
       /// <summary>
@@ -445,7 +446,7 @@ namespace BuildingCoder
       /// </summary>
       /// <param name="component">The component with the property value that is to be set. </param>
       /// <param name="value">The new value.</param>
-      public override void SetValue(object component, object value)
+      public override void SetValue( object component, object value )
       {
         return;
       }
@@ -457,20 +458,20 @@ namespace BuildingCoder
       /// </summary>
       /// <param name="doubleArray">the original Autodesk.Revit.DB.DoubleArray </param>
       /// <returns>The converted Double []</returns>
-      private static Double[] GetSystemArray(DoubleArray doubleArray)
+      private static Double[] GetSystemArray( DoubleArray doubleArray )
       {
-        double[] values = new double[doubleArray.Size];
+        double[] values = new double[ doubleArray.Size ];
         int index = 0;
-        foreach (Double value in doubleArray)
+        foreach( Double value in doubleArray )
         {
-          values[index++] = value;
+          values[ index++ ] = value;
         }
         return values;
       }
 
-      private static String GetSystemArrayAsString(DoubleArray doubleArray)
+      private static String GetSystemArrayAsString( DoubleArray doubleArray )
       {
-        double[] values = GetSystemArray(doubleArray);
+        double[] values = GetSystemArray( doubleArray );
 
         //String result = "";
         //foreach( double d in values )
@@ -481,9 +482,9 @@ namespace BuildingCoder
 
         //return result;
 
-        return string.Join(",",
+        return string.Join( ",",
           values.Select<double, string>(
-            x => x.ToString()));
+            x => x.ToString() ) );
       }
     }
 
@@ -509,7 +510,7 @@ namespace BuildingCoder
       /// Initializes Asset object
       /// </summary>
       /// <param name="asset">an Asset object</param>
-      public RenderAppearanceDescriptor(Asset asset)
+      public RenderAppearanceDescriptor( Asset asset )
       {
         m_asset = asset;
         GetAssetProperties();
@@ -526,7 +527,7 @@ namespace BuildingCoder
       /// <returns>Asset's attributes</returns>
       public AttributeCollection GetAttributes()
       {
-        return TypeDescriptor.GetAttributes(m_asset, false);
+        return TypeDescriptor.GetAttributes( m_asset, false );
       }
 
       /// <summary>
@@ -535,7 +536,7 @@ namespace BuildingCoder
       /// <returns>Asset's class name</returns>
       public string GetClassName()
       {
-        return TypeDescriptor.GetClassName(m_asset, false);
+        return TypeDescriptor.GetClassName( m_asset, false );
       }
 
       /// <summary>
@@ -544,7 +545,7 @@ namespace BuildingCoder
       /// <returns>The name of Asset</returns>
       public string GetComponentName()
       {
-        return TypeDescriptor.GetComponentName(m_asset, false);
+        return TypeDescriptor.GetComponentName( m_asset, false );
       }
 
       /// <summary>
@@ -553,7 +554,7 @@ namespace BuildingCoder
       /// <returns>The converter of the Asset</returns>
       public TypeConverter GetConverter()
       {
-        return TypeDescriptor.GetConverter(m_asset, false);
+        return TypeDescriptor.GetConverter( m_asset, false );
       }
 
       /// <summary>
@@ -563,7 +564,7 @@ namespace BuildingCoder
       /// or null if this object does not have events.</returns>
       public EventDescriptor GetDefaultEvent()
       {
-        return TypeDescriptor.GetDefaultEvent(m_asset, false);
+        return TypeDescriptor.GetDefaultEvent( m_asset, false );
       }
 
       /// <summary>
@@ -573,7 +574,7 @@ namespace BuildingCoder
       /// or null if this object does not have properties.</returns>
       public PropertyDescriptor GetDefaultProperty()
       {
-        return TypeDescriptor.GetDefaultProperty(m_asset, false);
+        return TypeDescriptor.GetDefaultProperty( m_asset, false );
       }
 
       /// <summary>
@@ -582,9 +583,9 @@ namespace BuildingCoder
       /// <param name="editorBaseType">A Type that represents the editor for this object. </param>
       /// <returns>An Object of the specified type that is the editor for this object, 
       /// or null if the editor cannot be found.</returns>
-      public object GetEditor(Type editorBaseType)
+      public object GetEditor( Type editorBaseType )
       {
-        return TypeDescriptor.GetEditor(m_asset, editorBaseType, false);
+        return TypeDescriptor.GetEditor( m_asset, editorBaseType, false );
       }
 
       /// <summary>
@@ -592,9 +593,9 @@ namespace BuildingCoder
       /// </summary>
       /// <param name="attributes">An array of type Attribute that is used as a filter. </param>
       /// <returns>An EventDescriptorCollection that represents the filtered events for this Asset instance.</returns>
-      public EventDescriptorCollection GetEvents(Attribute[] attributes)
+      public EventDescriptorCollection GetEvents( Attribute[] attributes )
       {
-        return TypeDescriptor.GetEvents(m_asset, attributes, false);
+        return TypeDescriptor.GetEvents( m_asset, attributes, false );
       }
 
       /// <summary>
@@ -603,7 +604,7 @@ namespace BuildingCoder
       /// <returns>An EventDescriptorCollection that represents the events for this Asset instance.</returns>
       public EventDescriptorCollection GetEvents()
       {
-        return TypeDescriptor.GetEvents(m_asset, false);
+        return TypeDescriptor.GetEvents( m_asset, false );
       }
 
       /// <summary>
@@ -612,7 +613,7 @@ namespace BuildingCoder
       /// <param name="attributes">An array of type Attribute that is used as a filter.</param>
       /// <returns>A PropertyDescriptorCollection that 
       /// represents the filtered properties for this Asset instance.</returns>
-      public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
+      public PropertyDescriptorCollection GetProperties( Attribute[] attributes )
       {
         return m_propertyDescriptors;
       }
@@ -632,7 +633,7 @@ namespace BuildingCoder
       /// </summary>
       /// <param name="pd">A PropertyDescriptor that represents the property whose owner is to be found. </param>
       /// <returns>Asset object</returns>
-      public object GetPropertyOwner(PropertyDescriptor pd)
+      public object GetPropertyOwner( PropertyDescriptor pd )
       {
         return m_asset;
       }
@@ -643,9 +644,9 @@ namespace BuildingCoder
       /// </summary>
       private void GetAssetProperties()
       {
-        if (null == m_propertyDescriptors)
+        if( null == m_propertyDescriptors )
         {
-          m_propertyDescriptors = new PropertyDescriptorCollection(new AssetPropertyPropertyDescriptor[0]);
+          m_propertyDescriptors = new PropertyDescriptorCollection( new AssetPropertyPropertyDescriptor[ 0 ] );
         }
         else
         {
@@ -654,63 +655,63 @@ namespace BuildingCoder
 
         //For each AssetProperty in Asset, create an AssetPropertyPropertyDescriptor.
         //It means that each AssetProperty will be a property of Asset
-        for (int index = 0; index < m_asset.Size; index++)
+        for( int index = 0; index < m_asset.Size; index++ )
         {
           //AssetProperty assetProperty = m_asset[index]; // 2018
-          AssetProperty assetProperty = m_asset.Get(index); // 2019
+          AssetProperty assetProperty = m_asset.Get( index ); // 2019
 
-          if (null != assetProperty)
+          if( null != assetProperty )
           {
-            AssetPropertyPropertyDescriptor assetPropertyPropertyDescriptor = new AssetPropertyPropertyDescriptor(assetProperty);
-            m_propertyDescriptors.Add(assetPropertyPropertyDescriptor);
+            AssetPropertyPropertyDescriptor assetPropertyPropertyDescriptor = new AssetPropertyPropertyDescriptor( assetProperty );
+            m_propertyDescriptors.Add( assetPropertyPropertyDescriptor );
           }
         }
       }
       #endregion
     }
 
-    public void ShowMaterialInfo(Document doc)
+    public void ShowMaterialInfo( Document doc )
     {
       // Find material
-      FilteredElementCollector fec = new FilteredElementCollector(doc);
-      fec.OfClass(typeof(Material));
+      FilteredElementCollector fec = new FilteredElementCollector( doc );
+      fec.OfClass( typeof( Material ) );
 
       String materialName = "Checker"; // "Copper";//"Prism - Glass - Textured"; // "Parking Stripe"; // "Copper";
                                        // "Carpet (1)";// "Prism - Glass - Textured";// "Parking Stripe"; // "Prism 1";// "Brick, Common" ;// "Acoustic Ceiling Tile 24 x 48";  // "Aluminum"
-      Material mat = fec.Cast<Material>().First<Material>(m => m.Name == materialName);
+      Material mat = fec.Cast<Material>().First<Material>( m => m.Name == materialName );
 
       ElementId appearanceAssetId = mat.AppearanceAssetId;
 
-      AppearanceAssetElement appearanceAsset = doc.GetElement(appearanceAssetId) as AppearanceAssetElement;
+      AppearanceAssetElement appearanceAsset = doc.GetElement( appearanceAssetId ) as AppearanceAssetElement;
 
       Asset renderingAsset = appearanceAsset.GetRenderingAsset();
 
       RenderAppearanceDescriptor rad
-            = new RenderAppearanceDescriptor(renderingAsset);
+            = new RenderAppearanceDescriptor( renderingAsset );
 
       PropertyDescriptorCollection collection = rad.GetProperties();
 
-      TaskDialog.Show("Total properties", "Properties found: " + collection.Count);
+      TaskDialog.Show( "Total properties", "Properties found: " + collection.Count );
 
       string s = ": Material Asset Properties";
 
-      TaskDialog dlg = new TaskDialog(s);
+      TaskDialog dlg = new TaskDialog( s );
 
       dlg.MainInstruction = mat.Name + s;
 
       s = string.Empty;
 
-      List<PropertyDescriptor> orderableCollection = new List<PropertyDescriptor>(collection.Count);
+      List<PropertyDescriptor> orderableCollection = new List<PropertyDescriptor>( collection.Count );
 
-      foreach (PropertyDescriptor descr in collection)
+      foreach( PropertyDescriptor descr in collection )
       {
-        orderableCollection.Add(descr);
+        orderableCollection.Add( descr );
       }
 
-      foreach (AssetPropertyPropertyDescriptor descr in
-               orderableCollection.OrderBy<PropertyDescriptor, String>(pd => pd.Name).Cast<AssetPropertyPropertyDescriptor>())
+      foreach( AssetPropertyPropertyDescriptor descr in
+               orderableCollection.OrderBy<PropertyDescriptor, String>( pd => pd.Name ).Cast<AssetPropertyPropertyDescriptor>() )
       {
-        object value = descr.GetValue(rad);
+        object value = descr.GetValue( rad );
 
         s += "\nname: " + descr.Name
           + " | type: " + descr.PropertyType.Name
@@ -748,10 +749,12 @@ namespace BuildingCoder
       private readonly Element _element;
       private readonly Material _material;
 
-      public ElementMaterial(Element element, Material material)
+      public ElementMaterial( Element element, Material material )
       {
-        if (element == null) throw new ArgumentNullException("element");
-        if (material == null) throw new ArgumentNullException("material");
+        if( element == null )
+          throw new ArgumentNullException( "element" );
+        if( material == null )
+          throw new ArgumentNullException( "material" );
         _element = element;
         _material = material;
       }
@@ -829,10 +832,10 @@ namespace BuildingCoder
     /// from a filtered element collector.
     /// </summary>
     FilteredElementCollector FilterForMaterials(
-      Document doc)
+      Document doc )
     {
-      return new FilteredElementCollector(doc)
-        .OfClass(typeof(Material));
+      return new FilteredElementCollector( doc )
+        .OfClass( typeof( Material ) );
     }
 
     /// <summary>
@@ -842,10 +845,10 @@ namespace BuildingCoder
     /// </summary>
     static string FaceMaterialName(
       Document doc,
-      Face face)
+      Face face )
     {
       ElementId id = face.MaterialElementId;
-      Material m = doc.GetElement(id) as Material;
+      Material m = doc.GetElement( id ) as Material;
       return m.Name;
     }
 
@@ -858,41 +861,41 @@ namespace BuildingCoder
     /// </summary>
     public Material GetMaterial(
       Document doc,
-      FamilyInstance fi)
+      FamilyInstance fi )
     {
       Material material = null;
 
-      foreach (Parameter p in fi.Parameters)
+      foreach( Parameter p in fi.Parameters )
       {
         Definition def = p.Definition;
 
         // the material is stored as element id:
 
-        if (p.StorageType == StorageType.ElementId
+        if( p.StorageType == StorageType.ElementId
           && def.ParameterGroup == BuiltInParameterGroup.PG_MATERIALS
-          && def.ParameterType == ParameterType.Material)
+          && def.ParameterType == ParameterType.Material )
         {
           ElementId materialId = p.AsElementId();
 
-          if (-1 == materialId.IntegerValue)
+          if( -1 == materialId.IntegerValue )
           {
             // invalid element id, so we assume
             // the material is "By Category":
 
-            if (null != fi.Category)
+            if( null != fi.Category )
             {
               material = fi.Category.Material;
 
-              if (null == material)
+              if( null == material )
               {
                 //MaterialOther mat
                 //  = doc.Settings.Materials.AddOther(
                 //    "GoodConditionMat" ); // 2011
 
-                ElementId id = Material.Create(doc, "GoodConditionMat"); // 2012
-                Material mat = doc.GetElement(id) as Material;
+                ElementId id = Material.Create( doc, "GoodConditionMat" ); // 2012
+                Material mat = doc.GetElement( id ) as Material;
 
-                mat.Color = new Color(255, 0, 0);
+                mat.Color = new Color( 255, 0, 0 );
 
                 fi.Category.Material = mat;
 
@@ -925,29 +928,29 @@ namespace BuildingCoder
     /// </summary>
     public List<string> GetMaterials1(
       Document doc,
-      GeometryElement geo)
+      GeometryElement geo )
     {
       List<string> materials = new List<string>();
 
       //foreach( GeometryObject o in geo.Objects ) // 2012
 
-      foreach (GeometryObject o in geo) // 2013
+      foreach( GeometryObject o in geo ) // 2013
       {
-        if (o is Solid)
+        if( o is Solid )
         {
           Solid solid = o as Solid;
-          foreach (Face face in solid.Faces)
+          foreach( Face face in solid.Faces )
           {
             //string s = face.MaterialElement.Name; // 2011
-            string s = FaceMaterialName(doc, face); // 2012
-            materials.Add(s);
+            string s = FaceMaterialName( doc, face ); // 2012
+            materials.Add( s );
           }
         }
-        else if (o is GeometryInstance)
+        else if( o is GeometryInstance )
         {
           GeometryInstance i = o as GeometryInstance;
-          materials.AddRange(GetMaterials1(
-            doc, i.SymbolGeometry));
+          materials.AddRange( GetMaterials1(
+            doc, i.SymbolGeometry ) );
         }
       }
       return materials;
@@ -965,41 +968,41 @@ namespace BuildingCoder
     /// </summary>
     public List<string> GetMaterials(
       Document doc,
-      GeometryElement geo)
+      GeometryElement geo )
     {
       List<string> materials = new List<string>();
 
       //foreach( GeometryObject o in geo.Objects ) // 2012
 
-      foreach (GeometryObject o in geo) // 2013
+      foreach( GeometryObject o in geo ) // 2013
       {
-        if (o is Solid)
+        if( o is Solid )
         {
           Solid solid = o as Solid;
-          if (null != solid)
+          if( null != solid )
           {
-            foreach (Face face in solid.Faces)
+            foreach( Face face in solid.Faces )
             {
               //string s = face.MaterialElement.Name; // 2011
-              string s = FaceMaterialName(doc, face); // 2012
-              materials.Add(s);
+              string s = FaceMaterialName( doc, face ); // 2012
+              materials.Add( s );
             }
           }
         }
-        else if (o is GeometryInstance)
+        else if( o is GeometryInstance )
         {
           GeometryInstance i = o as GeometryInstance;
           //foreach( Object geomObj in i.SymbolGeometry.Objects ) // 2012
-          foreach (Object geomObj in i.SymbolGeometry) // 2013
+          foreach( Object geomObj in i.SymbolGeometry ) // 2013
           {
             Solid solid = geomObj as Solid;
-            if (solid != null)
+            if( solid != null )
             {
-              foreach (Face face in solid.Faces)
+              foreach( Face face in solid.Faces )
               {
                 //string s = face.MaterialElement.Name; // 2011
-                string s = FaceMaterialName(doc, face); // 2012
-                materials.Add(s);
+                string s = FaceMaterialName( doc, face ); // 2012
+                materials.Add( s );
               }
             }
           }
@@ -1011,7 +1014,7 @@ namespace BuildingCoder
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
-      ElementSet elements)
+      ElementSet elements )
     {
       UIApplication app = commandData.Application;
       UIDocument uidoc = app.ActiveUIDocument;
@@ -1023,22 +1026,22 @@ namespace BuildingCoder
       string msg = string.Empty;
       int i, n;
 
-      foreach (ElementId id in ids)
+      foreach( ElementId id in ids )
       {
-        Element e = doc.GetElement(id);
+        Element e = doc.GetElement( id );
 
         // For 0310_ensure_material.htm:
 
-        if (e is FamilyInstance)
+        if( e is FamilyInstance )
         {
-          mat = GetMaterial(doc, e as FamilyInstance);
+          mat = GetMaterial( doc, e as FamilyInstance );
 
           Util.InfoMsg(
             "Family instance element material: "
-            + (null == mat ? "<null>" : mat.Name));
+            + (null == mat ? "<null>" : mat.Name) );
         }
 
-        GeometryElement geo = e.get_Geometry(opt);
+        GeometryElement geo = e.get_Geometry( opt );
 
         // If you are not interested in duplicate
         // materials, you can define a class that
@@ -1047,13 +1050,13 @@ namespace BuildingCoder
         // present in the list, instead of using
         // the standard List<> class:
 
-        List<string> materials = GetMaterials(doc, geo);
+        List<string> materials = GetMaterials( doc, geo );
 
-        msg += "\n" + Util.ElementDescription(e);
+        msg += "\n" + Util.ElementDescription( e );
 
         n = materials.Count;
 
-        if (0 == n)
+        if( 0 == n )
         {
           msg += " has no materials.";
         }
@@ -1063,22 +1066,22 @@ namespace BuildingCoder
 
           msg += string.Format(
             " has {0} material{1}:",
-            n, Util.PluralSuffix(n));
+            n, Util.PluralSuffix( n ) );
 
-          foreach (string s in materials)
+          foreach( string s in materials )
           {
             msg += string.Format(
-              "\n  {0} {1}", i++, s);
+              "\n  {0} {1}", i++, s );
           }
         }
       }
 
-      if (0 == msg.Length)
+      if( 0 == msg.Length )
       {
         msg = "Please select some elements.";
       }
 
-      Util.InfoMsg(msg);
+      Util.InfoMsg( msg );
 
       return Result.Succeeded;
     }
