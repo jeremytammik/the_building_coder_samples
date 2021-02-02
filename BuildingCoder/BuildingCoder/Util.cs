@@ -987,6 +987,35 @@ const T f = ( ay * bx ) - ( ax * by );
     }
 
     /// <summary>
+    /// Create a rotated arc shape for
+    /// https://forums.autodesk.com/t5/revit-api-forum/create-simple-solid-with-createrevolvedgeometry/m-p/10052114
+    /// </summary>
+    static public Solid CreateArcSolid( Arc arc )
+    {
+      XYZ p = arc.GetEndPoint( 0 );
+      XYZ q = arc.GetEndPoint( 1 );
+      XYZ r = q - q.Z * XYZ.BasisZ;
+
+      Frame frame = new Frame( r, 
+        -XYZ.BasisX, -XYZ.BasisY, XYZ.BasisZ );
+
+      Line line2 = Line.CreateBound( q, r );
+      Line line3 = Line.CreateBound( r, p );
+
+      CurveLoop loop = new CurveLoop();
+      loop.Append( arc );
+      loop.Append( line2 );
+      loop.Append( line3 );
+
+      List<CurveLoop> loops = new List<CurveLoop>( 1 );
+      loops.Add( loop );
+
+      return GeometryCreationUtilities
+        .CreateRevolvedGeometry( frame, 
+          loops, 0, 2 * Math.PI );
+    }
+
+    /// <summary>
     /// Create and return a cube of 
     /// side length d at the origin.
     /// </summary>
