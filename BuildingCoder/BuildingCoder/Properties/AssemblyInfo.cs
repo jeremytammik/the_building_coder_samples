@@ -360,6 +360,7 @@ using System.Runtime.InteropServices;
 // 2021-01-20 2021.0.150.15 added TestFilterStringContains for REVIT-172990 [Parameter filter with FilterStringContains returns false positive] and https://forums.autodesk.com/t5/revit-api-forum/string-parameter-filtering-is-retrieving-false-data/td-p/10012518
 // 2021-01-26 2021.0.150.16 whitespace
 // 2021-02-02 2021.0.150.17 added CreateArcSolid from  https://forums.autodesk.com/t5/revit-api-forum/create-simple-solid-with-createrevolvedgeometry/m-p/10052114
+// 2021-02-04 2021.0.150.18 added TwinMotionExportFbx from https://forums.autodesk.com/t5/revit-api-forum/twinmotion-dynamic-link-export-fbx-automatically/m-p/10028748
 //
-[assembly: AssemblyVersion( "2021.0.150.17" )]
-[assembly: AssemblyFileVersion( "2021.0.150.17" )]
+[assembly: AssemblyVersion( "2021.0.150.18" )]
+[assembly: AssemblyFileVersion( "2021.0.150.18" )]

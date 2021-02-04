@@ -12,10 +12,13 @@
 #region Namespaces
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Events;
+using Application = Autodesk.Revit.ApplicationServices.Application;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -43,7 +46,7 @@ namespace BuildingCoder
 
         SendKeys.SendWait( "^{F4}" );
       }
-      catch (Exception ex)
+      catch( Exception ex )
       {
         Util.ErrorMsg( ex.Message );
       }
@@ -57,5 +60,77 @@ namespace BuildingCoder
 
       uiapp.PostCommand( closeDoc );
     }
+
+    #region PostCommand + SendKeys
+    // from https://forums.autodesk.com/t5/revit-api-forum/twinmotion-dynamic-link-export-fbx-automatically/m-p/10028748
+    void OnDialogBoxShowing( 
+      object sender,
+      DialogBoxShowingEventArgs args )
+    {
+      //DialogBoxShowingEventArgs args
+      TaskDialogShowingEventArgs e2 = args
+        as TaskDialogShowingEventArgs;
+
+      e2.OverrideResult( (int) TaskDialogResult.Ok );
+    }
+
+    static async void RunCommands(
+      UIApplication uiapp,
+      RevitCommandId id_addin )
+    {
+      uiapp.PostCommand( id_addin );
+      await Task.Delay( 400 );
+      SendKeys.Send( "{ENTER}" );
+      await Task.Delay( 400 );
+      SendKeys.Send( "{ENTER}" );
+      await Task.Delay( 400 );
+      SendKeys.Send( "{ENTER}" );
+      await Task.Delay( 400 );
+      SendKeys.Send( "{ESCAPE}" );
+      await Task.Delay( 400 );
+      SendKeys.Send( "{ESCAPE}" );
+    }
+
+    public void TwinMotionExportFbx( Document doc )
+    {
+      //Document doc = this.ActiveUIDocument.Document;
+      Application app = doc.Application;
+      UIApplication uiapp = new UIApplication(app);
+
+      try
+      {
+        RevitCommandId id = RevitCommandId
+          .LookupPostableCommandId(
+            PostableCommand.PlaceAComponent );
+
+        string name = "CustomCtrl_%CustomCtrl_%"
+          + "Twinmotion 2020%Twinmotion Direct Link%"
+          + "ExportButton";
+
+        RevitCommandId id_addin = RevitCommandId
+          .LookupCommandId( name );
+
+        if( id_addin != null )
+        {
+          uiapp.DialogBoxShowing += new
+            EventHandler<DialogBoxShowingEventArgs>(
+              OnDialogBoxShowing );
+
+          RunCommands( uiapp, id_addin );
+        }
+      }
+
+      catch
+      {
+        TaskDialog.Show( "Test", "error" );
+      }
+      finally
+      {
+        uiapp.DialogBoxShowing 
+          -= new EventHandler<DialogBoxShowingEventArgs>( 
+            OnDialogBoxShowing );
+      }
+    }
+    #endregion // PostCommand + SendKeys
   }
 }

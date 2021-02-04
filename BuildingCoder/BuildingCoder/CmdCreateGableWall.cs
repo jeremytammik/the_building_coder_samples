@@ -65,7 +65,7 @@ namespace BuildingCoder
       List<Curve> profile = new List<Curve>( // 2013
         pts.Length );
 
-      XYZ q = pts[pts.Length - 1];
+      XYZ q = pts[ pts.Length - 1 ];
 
       foreach( XYZ p in pts )
       {
