@@ -41,31 +41,41 @@ namespace BuildingCoder
       Document doc = view.Document;
 
       // Get sun and shadow settings from the 3D View
+
       SunAndShadowSettings sunSettings
         = view.SunAndShadowSettings;
 
-      // Set the initial direction of the sun at ground level (like sunrise level)
+      // Set the initial direction of the sun 
+      // at ground level (like sunrise level)
+
       XYZ initialDirection = XYZ.BasisY;
 
       // Get the altitude of the sun from the sun settings
+
       double altitude = sunSettings.GetFrameAltitude(
         sunSettings.ActiveFrame );
 
-      // Create a transform along the X axis based on the altitude of the sun
+      // Create a transform along the X axis 
+      // based on the altitude of the sun
+
       Transform altitudeRotation = Transform
         .CreateRotation( XYZ.BasisX, altitude );
 
-      // Create a rotation vector for the direction of the altitude of the sun
+      // Create a rotation vector for the direction 
+      // of the altitude of the sun
+
       XYZ altitudeDirection = altitudeRotation
         .OfVector( initialDirection );
 
       // Get the azimuth from the sun settings of the scene
+
       double azimuth = sunSettings.GetFrameAzimuth(
         sunSettings.ActiveFrame );
 
       // Correct the value of the actual azimuth with true north
 
       // Get the true north angle of the project
+
       Element projectInfoElement
         = new FilteredElementCollector( doc )
           .OfCategory( BuiltInCategory.OST_ProjectBasePoint )
@@ -80,17 +90,27 @@ namespace BuildingCoder
       double trueNorthAngle = patn.AsDouble();
 
       // Add the true north angle to the azimuth
+
       double actualAzimuth = 2 * Math.PI - azimuth + trueNorthAngle;
 
       // Create a rotation vector around the Z axis
+
       Transform azimuthRotation = Transform
         .CreateRotation( XYZ.BasisZ, actualAzimuth );
 
       // Finally, calculate the direction of the sun
+
       XYZ sunDirection = azimuthRotation.OfVector(
         altitudeDirection );
 
-      return sunDirection;
+      // https://github.com/jeremytammik/the_building_coder_samples/issues/14
+      // The resulting sun vector is pointing from the 
+      // ground towards the sun and not from the sun 
+      // towards the ground. I recommend reversing the 
+      // vector at the end before it is returned so it 
+      // points in the same direction as the sun rays.
+
+      return -sunDirection;
     }
     #endregion // Get Sun Direction Adjusted for Project True North
 
