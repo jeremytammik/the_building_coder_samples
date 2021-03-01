@@ -2230,6 +2230,11 @@ const T f = ( ay * bx ) - ( ax * by );
     #endregion // MEP utilities
 
     #region Generate add-in manifest on the fly
+    // Shared by Joshua Lumley in
+    // https://thebuildingcoder.typepad.com/blog/2021/02/addin-file-learning-python-and-ifcjs.html#comment-5276653852
+    /// <summary>
+    /// Generate add-in manifest on the fly
+    /// </summary>
     void GenerateAddInManifest(
       string dll_folder,
       string dll_name )
