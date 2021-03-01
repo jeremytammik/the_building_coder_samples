@@ -100,6 +100,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="UIFrameworkServices">
       <HintPath>C:\Program Files\Autodesk\Revit 2021\UIFrameworkServices.dll</HintPath>
       <Private>False</Private>

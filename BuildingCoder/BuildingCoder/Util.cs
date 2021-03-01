@@ -22,6 +22,8 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using System.Collections;
+using System.IO;
+using System.Xml.Linq;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -2226,6 +2228,62 @@ const T f = ( ay * bx ) - ( ax * by );
         .ToHashSet();
     }
     #endregion // MEP utilities
+
+    #region Generate add-in manifest on the fly
+    void GenerateAddInManifest(
+      string dll_folder,
+      string dll_name )
+    {
+      string sDir = Environment.GetFolderPath(
+        Environment.SpecialFolder.CommonApplicationData )
+        + "\\Autodesk\\Revit\\Addins";
+
+      bool exists = Directory.Exists( sDir );
+
+      if( !exists )
+        Directory.CreateDirectory( sDir );
+
+      XElement XElementAddIn = new XElement( "AddIn",
+        new XAttribute( "Type", "Application" ) );
+
+      XElementAddIn.Add( new XElement( "Name", dll_name ) );
+      XElementAddIn.Add( new XElement( "Assembly", dll_folder + dll_name + ".dll" ) );
+      XElementAddIn.Add( new XElement( "AddInId", Guid.NewGuid().ToString() ) );
+      XElementAddIn.Add( new XElement( "FullClassName", dll_name + ".SettingUpRibbon" ) );
+      XElementAddIn.Add( new XElement( "VendorId", "01" ) );
+      XElementAddIn.Add( new XElement( "VendorDescription", "Joshua Lumley Secrets, twitter @joshnewzealand" ) );
+
+      XElement XElementRevitAddIns = new XElement( "RevitAddIns" );
+      XElementRevitAddIns.Add( XElementAddIn );
+
+      foreach( string d in Directory.GetDirectories( sDir ) )
+      {
+        string myString_ManifestPath = d + "\\" + dll_name + ".addin";
+
+        string[] directories = d.Split( Path.DirectorySeparatorChar );
+
+        if( int.TryParse( directories[ directories.Count() - 1 ],
+          out int myInt_FromTextBox ) )
+        {
+          // install on version 2017 and above?
+
+          if( myInt_FromTextBox >= 2017 )
+          {
+            new XDocument( XElementRevitAddIns ).Save(
+              myString_ManifestPath );
+          }
+          else
+          {
+            if( File.Exists( myString_ManifestPath ) )
+            {
+              File.Delete( myString_ManifestPath );
+            }
+
+          }
+        }
+      }
+    }
+    #endregion // Generate add-in manifest on the fly
 
     #region Compatibility fix for spelling error change
     /// <summary>
