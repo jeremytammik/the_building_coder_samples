@@ -289,5 +289,30 @@ namespace BuildingCoder
         BuiltInCategory.OST_Walls };
 
     #endregion // Built-in categories for legend components
+
+    /// <summary>
+    /// List names of built-in categories in document for
+    /// https://forums.autodesk.com/t5/revit-api-forum/is-there-any-analog-of-labelutils-getlabel-builtincategory/td-p/10139961
+    /// </summary>
+    void BuiltInCategoryNames( Document doc )
+    {
+      Categories categories = doc.Settings.Categories;
+
+      Array bics = Enum.GetValues(
+        typeof( BuiltInCategory ) );
+
+      foreach( BuiltInCategory bic in bics )
+      {
+        try
+        {
+          Category cat = categories.get_Item( bic );
+
+          Debug.Print( cat.Name );
+        }
+        catch( Exception )
+        {
+        }
+      }
+    }
   }
 }

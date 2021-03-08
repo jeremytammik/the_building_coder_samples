@@ -363,6 +363,7 @@ using System.Runtime.InteropServices;
 // 2021-02-04 2021.0.150.18 added TwinMotionExportFbx from https://forums.autodesk.com/t5/revit-api-forum/twinmotion-dynamic-link-export-fbx-automatically/m-p/10028748
 // 2021-02-12 2021.0.150.19 invert result of GetSunDirection as suggested in issue #14
 // 2021-03-01 2021.0.150.20 GenerateAddInManifest to generate add-in manifest on the fly
+// 2021-03-08 2021.0.150.21 implemented BuiltInCategoryNames for https://forums.autodesk.com/t5/revit-api-forum/is-there-any-analog-of-labelutils-getlabel-builtincategory/td-p/10139961
 //
-[assembly: AssemblyVersion( "2021.0.150.20" )]
-[assembly: AssemblyFileVersion( "2021.0.150.20" )]
+[assembly: AssemblyVersion( "2021.0.150.21" )]
+[assembly: AssemblyFileVersion( "2021.0.150.21" )]

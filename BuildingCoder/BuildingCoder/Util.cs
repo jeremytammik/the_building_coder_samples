@@ -17,7 +17,6 @@ using System.Linq;
 using System.Reflection;
 using WinForms = System.Windows.Forms;
 using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
@@ -2270,7 +2269,7 @@ const T f = ( ay * bx ) - ( ax * by );
         if( int.TryParse( directories[ directories.Count() - 1 ],
           out int myInt_FromTextBox ) )
         {
-          // install on version 2017 and above?
+          // Install on version 2017 and above
 
           if( myInt_FromTextBox >= 2017 )
           {
@@ -2283,7 +2282,6 @@ const T f = ( ay * bx ) - ( ax * by );
             {
               File.Delete( myString_ManifestPath );
             }
-
           }
         }
       }
