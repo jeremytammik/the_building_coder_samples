@@ -9,7 +9,9 @@
 #endregion // Header
 
 #region Namespaces
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
@@ -197,5 +199,130 @@ namespace BuildingCoder
       }
       return Result.Succeeded;
     }
+
+
+    #region Create Column Types from List of Dimensions
+    // shared by Richard @RPThomas108 Thomas in 
+    // https://forums.autodesk.com/t5/revit-api-forum/create-columns-types/m-p/10181049
+
+    private class ColumnType : EqualityComparer<ColumnType>
+    {
+      int[] _dim = new int[ 2 ];
+
+      public int H
+      {
+        get { return _dim[ 0 ]; }
+      }
+
+      public int W
+      {
+        get { return _dim[ 1 ]; }
+      }
+
+      public string Name
+      {
+        get { return H.ToString() + "x" + W.ToString(); }
+      }
+
+      public ColumnType( int d1, int d2 )
+      {
+        if( d1 > d2 )
+        {
+          _dim = new int[] { d1, d2 };
+        }
+        else
+        {
+          _dim = new int[] { d2, d1 };
+        }
+      }
+
+      public override bool Equals( ColumnType x, ColumnType y )
+      {
+        return x.H == y.H && x.W == y.W;
+      }
+
+      public override int GetHashCode( ColumnType obj )
+      {
+        return obj.Name.GetHashCode();
+      }
+    }
+
+    private Result CreateColumnTypes( Document doc )
+    {
+      int[] L1 = new int[] { 100, 200, 150, 500, 400, 300, 250, 250 };
+      int[] L2 = new int[] { 200, 200, 150, 500, 400, 300, 250, 250 };
+
+      List<ColumnType> all = new List<ColumnType>();
+
+      for( int i = 0; i < L1.Length; ++i )
+      {
+        all.Add( new ColumnType( L1[ i ], L2[ i ] ) );
+      }
+
+      all = all.Distinct( new ColumnType( 0, 0 ) ).ToList();
+
+      FilteredElementCollector symbols
+        = new FilteredElementCollector( doc )
+          .WhereElementIsElementType()
+          .OfCategory( BuiltInCategory.OST_StructuralColumns );
+
+      // Column name to use
+
+      string column_name = "Concrete-Rectangular-Column";
+
+      IEnumerable<FamilySymbol> existing 
+        = symbols.Cast<FamilySymbol>()
+          .Where<FamilySymbol>( x 
+            => x.FamilyName.Equals( column_name ) ); 
+
+      if( 0 == existing.Count() )
+      {
+        return Result.Cancelled;
+      }
+
+      List<ColumnType> AlreadyExists = new List<ColumnType>();
+      List<ColumnType> ToBeMade = new List<ColumnType>();
+
+      for( int i = 0; i < all.Count ; ++i )
+      {
+        FamilySymbol fs = existing.FirstOrDefault( 
+          x => x.Name == all[ i ].Name );
+
+        if( fs == null )
+        {
+          ToBeMade.Add( all[ i ] );
+        }
+        else
+        {
+          AlreadyExists.Add( all[ i ] );
+        }
+      }
+      if( ToBeMade.Count == 0 )
+      {
+        return Result.Cancelled;
+      }
+
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        if( tx.Start( "Make types" ) == TransactionStatus.Started )
+        {
+          FamilySymbol first = existing.First();
+
+          foreach( ColumnType ct in ToBeMade )
+          {
+            ElementType et = first.Duplicate( ct.Name );
+
+            // Use actual type parameter names
+            // Use GUIDs instead of LookupParameter where possible
+
+            et.LookupParameter( "h" ).Set( 304.8 * ct.H );
+            et.LookupParameter( "b" ).Set( 304.8 * ct.W );
+          }
+          tx.Commit();
+        }
+      }
+      return Result.Succeeded;
+    }
+    #endregion // Create Column Types from List of Dimensions
   }
 }

@@ -79,6 +79,8 @@ namespace BuildingCoder
         ICollection<ElementId> ids = sel.GetElementIds();
         n = ids.Count;
 
+
+
         Debug.Print( "{0} pre-selected elements.",
           n );
 
