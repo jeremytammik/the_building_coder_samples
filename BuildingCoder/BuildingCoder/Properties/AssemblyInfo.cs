@@ -365,6 +365,7 @@ using System.Runtime.InteropServices;
 // 2021-03-01 2021.0.150.20 GenerateAddInManifest to generate add-in manifest on the fly
 // 2021-03-08 2021.0.150.21 implemented BuiltInCategoryNames for https://forums.autodesk.com/t5/revit-api-forum/is-there-any-analog-of-labelutils-getlabel-builtincategory/td-p/10139961
 // 2021-03-24 2021.0.150.22 added CreateColumnTypes from https://forums.autodesk.com/t5/revit-api-forum/create-columns-types/m-p/10181049
+// 2021-03-25 2021.0.150.23 working on SetTagColorToElementColor for https://forums.autodesk.com/t5/revit-api-forum/macro-doesnt-work-properly-on-big-projects/m-p/10186076
 //
-[assembly: AssemblyVersion( "2021.0.150.22" )]
-[assembly: AssemblyFileVersion( "2021.0.150.22" )]
+[assembly: AssemblyVersion( "2021.0.150.23" )]
+[assembly: AssemblyFileVersion( "2021.0.150.23" )]

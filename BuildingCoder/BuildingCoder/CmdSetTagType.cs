@@ -11,12 +11,15 @@
 
 #region Namespaces
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Selection;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -140,10 +143,10 @@ namespace BuildingCoder
 
       double length = 5 * MeterToFeet;
 
-      XYZ [] pts = new XYZ[2];
+      XYZ[] pts = new XYZ[ 2 ];
 
-      pts[0] = XYZ.Zero;
-      pts[1] = new XYZ( length, 0, 0 );
+      pts[ 0 ] = XYZ.Zero;
+      pts[ 1 ] = new XYZ( length, 0, 0 );
 
       // Determine the levels where
       // the wall will be located:
@@ -160,7 +163,7 @@ namespace BuildingCoder
         return Result.Failed;
       }
 
-      using ( Transaction t = new Transaction( doc ) )
+      using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Create Wall, Door and Tag" );
 
@@ -172,7 +175,7 @@ namespace BuildingCoder
         ElementId topLevelId = levelTop.Id;
 
         //Line line = createApp.NewLineBound( pts[0], pts[1] ); // 2013
-        Line line = Line.CreateBound( pts[0], pts[1] ); // 2014
+        Line line = Line.CreateBound( pts[ 0 ], pts[ 1 ] ); // 2014
 
         //Wall wall = createDoc.NewWall( // 2012
         //  line, levelBottom, false );
@@ -190,7 +193,7 @@ namespace BuildingCoder
 
         //double wallThickness = wall.WallType.CompoundStructure.Layers.get_Item( 0 ).Thickness; // 2011
 
-        double wallThickness = wall.WallType.GetCompoundStructure().GetLayers()[0].Width; // 2012
+        double wallThickness = wall.WallType.GetCompoundStructure().GetLayers()[ 0 ].Width; // 2012
 
         // Add door to wall;
         // note that the NewFamilyInstance method
@@ -200,13 +203,13 @@ namespace BuildingCoder
         FamilySymbol doorSymbol = GetFirstFamilySymbol(
           doc, BuiltInCategory.OST_Doors );
 
-        if ( null == doorSymbol )
+        if( null == doorSymbol )
         {
           message = "No door symbol found.";
           return Result.Failed;
         }
 
-        XYZ midpoint = Util.Midpoint( pts[0], pts[1] );
+        XYZ midpoint = Util.Midpoint( pts[ 0 ], pts[ 1 ] );
 
         FamilyInstance door = createDoc
           .NewFamilyInstance(
@@ -251,8 +254,135 @@ namespace BuildingCoder
 
         t.Commit();
       }
-
       return Result.Succeeded;
     }
+
+    #region Set Tag Colour to Element Colour
+    // for https://forums.autodesk.com/t5/revit-api-forum/macro-doesnt-work-properly-on-big-projects/m-p/10186076
+    public void SetTagColorToElementColor( UIDocument uiDoc )
+    {
+      //current document
+      //UIDocument uiDoc = new UIDocument( Document );
+      //Document doc = this.Application.ActiveUIDocument.Document;
+
+      Document doc = uiDoc.Document;
+
+      //current view and open views
+      View curView = doc.ActiveView;
+      var openViews = uiDoc.GetOpenUIViews();
+      List<ElementId> openV1 = new List<ElementId>();
+
+      foreach( var view in openViews )
+      {
+        var i = view.ViewId;
+        openV1.Add( i );
+      }
+
+      //get builtincategory of selected tag
+      Reference sel = uiDoc.Selection.PickObject( ObjectType.Element );
+      Element ele = doc.GetElement( sel.ElementId );
+      Category cat = ele.Category;
+      BuiltInCategory builtInCat = (BuiltInCategory) (cat.Id.IntegerValue);
+      //BuiltInCategory builtInCat = (BuiltInCategory) Enum.Parse(
+      //  typeof( BuiltInCategory ), cat.Category.Id.ToString() );
+
+      // Get all non-template plan views in document
+      var views = new FilteredElementCollector( doc )
+        .OfClass( typeof( ViewPlan ) )
+        .Cast<ViewPlan>()
+        .Where<ViewPlan>( v => !v.IsTemplate )
+        .Where<ViewPlan>( v 
+          => 0 < new FilteredElementCollector( doc, v.Id )
+            .OfCategory( builtInCat )
+            .GetElementCount() );
+
+      // Get all the views with same tag in it
+      //List<View> viewInclude = new List<View>();
+
+      //foreach( var view in views )
+      //{
+      //  uiDoc.ActiveView = view as View;
+      //  var e = new FilteredElementCollector( doc, doc.ActiveView.Id )
+      //    .OfCategory( builtInCat );
+
+      //  if( e.GetElementCount() != 0 )
+      //  {
+      //    viewInclude.Add( view as View );
+      //  }
+      //}
+
+      // Loop through each view and set color for tags
+      foreach( var view in views )
+      {
+        //uiDoc.ActiveView = view as View;
+
+        //get list of tags in active view
+        var tags = new FilteredElementCollector( doc, view.Id )
+          .OfCategory( builtInCat )
+          .WhereElementIsNotElementType();
+
+        //get list of tagged elements
+        List<Element> taggedElements = new List<Element>();
+
+        foreach( var e in tags )
+        {
+          IndependentTag tag = doc.GetElement( e.Id ) as IndependentTag;
+          Element taggedElem = tag.GetTaggedLocalElement();
+          taggedElements.Add( taggedElem );
+        }
+
+        //get the color of the ductsystem
+        List<Color> tagColor = new List<Color>();
+
+        BuiltInParameter builtInParam
+          = (BuiltInParameter) Enum.Parse(
+            typeof( BuiltInParameter ),
+            taggedElements[ 0 ]
+              .GetParameters( "System Type" )[ 0 ]
+              .Id.ToString() );
+
+        foreach( var e in taggedElements )
+        {
+          Element elem = doc.GetElement( e.Id );
+          var param = elem.get_Parameter( builtInParam );
+          if( param == null )
+            return;
+          var systemType = doc.GetElement( param.AsElementId() )
+            as MEPSystemType;
+
+          var c = systemType.LineColor;
+
+          byte systemColorRed = c.Red;
+          byte systemColorGreen = c.Green;
+          byte systemColorblue = c.Blue;
+
+          Color color = new Color( systemColorRed,
+            systemColorGreen, systemColorblue );
+          tagColor.Add( color );
+        }
+
+        var overRide = new OverrideGraphicSettings();
+
+        Transaction trans1 = new Transaction( doc );
+
+        //change the color of the tags in revit
+        trans1.Start( "change color tag" );
+
+        int index = 0;
+
+        foreach( var e in tags )
+        {
+          doc.ActiveView.SetElementOverrides( e.Id,
+            overRide.SetProjectionLineColor(
+              tagColor[ index ] ) );
+          index += 1;
+        }
+
+        trans1.Commit();
+
+        index = 0;
+      }
+    }
+    #endregion // Set Tag Colour to Element Colour
   }
 }
