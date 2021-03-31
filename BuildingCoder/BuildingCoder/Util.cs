@@ -3128,21 +3128,22 @@ const T f = ( ay * bx ) - ( ax * by );
     }
     public static void Delete2(
       this Document doc,
-      Element ele )
+      Element e )
     {
       object obj = doc;
-      MethodInfo met = obj.GetType()
-      .GetMethod( "Delete", new Type[] { typeof( Element ) } );
-      if( met != null )
+      MethodInfo m = obj.GetType().GetMethod( 
+        "Delete", new Type[] { typeof( Element ) } );
+
+      if( m != null )
       {
-        met.Invoke( obj, new object[] { ele } );
+        m.Invoke( obj, new object[] { e } );
       }
       else
       {
-        met = obj.GetType()
-        .GetMethod( "Delete", new Type[] { typeof( ElementId ) } );
-        met.Invoke( obj, new object[] { ele
-              .Id } );
+        m = obj.GetType().GetMethod( 
+          "Delete", new Type[] { typeof( ElementId ) } );
+
+        m.Invoke( obj, new object[] { e.Id } );
       }
     }
     #endregion // Autodesk.Revit.DB.Document
