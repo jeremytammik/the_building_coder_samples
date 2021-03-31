@@ -65,6 +65,8 @@ namespace BuildingCoder
         Group group = doc.Create.NewGroup( // 2013
           uidoc.Selection.GetElementIds() );
 
+        GroupType groupType = group.GroupType;
+
         LocationPoint location = group.Location
           as LocationPoint;
 
@@ -81,6 +83,8 @@ namespace BuildingCoder
 
         ICollection<ElementId> eIds
           = newGroup.UngroupMembers(); // 2013
+
+        doc.Delete2( groupType );
 
         // change the property or parameter values
         // of the member elements as required...
