@@ -205,7 +205,7 @@ namespace BuildingCoder
     // shared by Richard @RPThomas108 Thomas in 
     // https://forums.autodesk.com/t5/revit-api-forum/create-columns-types/m-p/10181049
 
-    private class ColumnType : EqualityComparer<ColumnType>
+    class ColumnType : EqualityComparer<ColumnType>
     {
       int[] _dim = new int[ 2 ];
 
@@ -247,7 +247,7 @@ namespace BuildingCoder
       }
     }
 
-    private Result CreateColumnTypes( Document doc )
+    Result CreateColumnTypes( Document doc )
     {
       int[] L1 = new int[] { 100, 200, 150, 500, 400, 300, 250, 250 };
       int[] L2 = new int[] { 200, 200, 150, 500, 400, 300, 250, 250 };

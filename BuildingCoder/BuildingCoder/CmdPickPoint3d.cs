@@ -10,6 +10,7 @@
 
 #region Namespaces
 using System;
+using System.Text;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -223,6 +224,48 @@ switch( caseSwitch )
         message = "3D point selection cancelled or failed";
         return Result.Failed;
       }
+    }
+
+
+    /// <summary>
+    /// Transform pick point global XYZ coordinates to screen
+    /// By Richard @RPThomas108 Thomas in VB.NET in
+    /// https://forums.autodesk.com/t5/revit-api-forum/finding-distance-between-points-in-multiple-views/m-p/10217818
+    /// </summary>
+    bool TransformPickPointToScreen( UIDocument uidoc )
+    {
+      Document doc = uidoc.Document;
+      View view = uidoc.ActiveGraphicalView;
+
+      Transform t = Transform.Identity;
+      t.Origin = view.Origin;
+      t.BasisX = view.RightDirection; // right on screen
+      t.BasisY = view.UpDirection; // top of screen
+      t.BasisZ = view.ViewDirection; // towards viewer
+
+      Transform x_model_to_screen = t.Inverse;
+
+      Reference r;
+
+      try
+      {
+        r = uidoc.Selection.PickObject( ObjectType.PointOnElement );
+      }
+      catch(Autodesk.Revit.Exceptions.OperationCanceledException)
+      {
+        return false;
+      }
+
+      XYZ p = r.GlobalPoint; // model
+      XYZ q = x_model_to_screen.OfPoint( p ); // screen
+
+      StringBuilder sb = new StringBuilder();
+      sb.AppendFormat( "Model x={0:F3},y={1:F3},z={2:F3}", p.X, p.Y, p.Z );
+      sb.AppendFormat( "Screen x={0:F3},y={1:F3},z={2:F3}", q.X, q.Y, q.Z );
+
+      TaskDialog.Show( "Coords", sb.ToString() );
+
+      return true;
     }
   }
 }
