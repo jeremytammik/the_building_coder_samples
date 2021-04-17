@@ -398,5 +398,22 @@ namespace BuildingCoder
         CreateModelLine( _doc, p, p + normal );
       }
     }
+    
+    /// <summary>
+    /// Create a TextNote on the specified XYZ.
+    /// This function is useful during debugging to attach
+    /// a label to points in space
+    /// </summary>
+    public static TextNote CreateTextNote(string text, XYZ origin, Document doc)
+    {
+      var options = new TextNoteOptions
+      {
+        HorizontalAlignment = HorizontalTextAlignment.Center,
+        VerticalAlignment = VerticalTextAlignment.Middle,
+        TypeId = doc.GetDefaultElementTypeId(ElementTypeGroup.TextNoteType)
+      };
+
+      return TextNote.Create(doc, doc.ActiveView.Id, origin, text, options);
+    }
   }
 }

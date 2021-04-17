@@ -240,6 +240,7 @@
     <Compile Include="CmdSlabBoundaryArea.cs" />
     <Compile Include="CmdCreateSlopedSlab.cs" />
     <Compile Include="CmdSlopedWall.cs" />
+    <Compile Include="CmdSortCurveLoops.cs" />
     <Compile Include="CmdSpaceAdjacency.cs" />
     <Compile Include="CmdStatusBar.cs" />
     <Compile Include="CmdSteelStairBeams.cs" />
