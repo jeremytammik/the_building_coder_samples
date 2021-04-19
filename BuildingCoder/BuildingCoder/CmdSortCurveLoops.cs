@@ -10,7 +10,11 @@
 // - it manages loops on curved faces (instead of co-planar
 //   loops only)
 //
-// Copyright (C) 2008-2021 by stenci and Jeremy Tammik,
+// This command asks the user to pick a face, gets its edge loops, 
+// sorts all the inner loops together with their outer loop, 
+// then creates a text note label on the first edge of each loop.
+//
+// Copyright (C) 2021 by stenci and Jeremy Tammik,
 // https://github.com/stenci and Autodesk Inc. 
 // All rights reserved.
 //
