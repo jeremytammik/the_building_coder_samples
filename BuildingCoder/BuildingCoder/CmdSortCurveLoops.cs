@@ -58,7 +58,7 @@ namespace BuildingCoder
 
       using( var tx = new Transaction( doc ) )
       {
-        tx.Start( "New joint line grid" );
+        tx.Start( "Sort and Mark Face Curve Loops" );
 
         // Sort the loops on the selected face
         var lists = SortCurveLoops( face );
@@ -75,7 +75,6 @@ namespace BuildingCoder
             Creator.CreateTextNote( $"[{i}][{j}]", loop.First().Evaluate( 0.33, true ), doc );
           }
         }
-
         tx.Commit();
       }
 
@@ -124,7 +123,6 @@ namespace BuildingCoder
             innerLoops.RemoveAt( i );
           }
         }
-
         result.Add( list );
       }
 
