@@ -370,6 +370,8 @@ using System.Runtime.InteropServices;
 // 2021-04-08 2021.0.150.24 translated TransformPickPointToScreen from VB.NET to C# for https://forums.autodesk.com/t5/revit-api-forum/finding-distance-between-points-in-multiple-views/m-p/10217818
 // 2021-04-19 2021.0.150.25 integrated `CmdSortCurveLoops` by @stenci from pull request #16 implementing SortCurveLoops that works on curved faces
 // 2021-04-19 2022.0.150.0 flat migration to Revit 2022
+// 2021-04-19 2022.0.150.1 fixed some deprecated API usage warnings
+// 2021-04-19 2022.0.150.2 fixed some more deprecated API usage warnings
 //
-[assembly: AssemblyVersion( "2022.0.150.0" )]
-[assembly: AssemblyFileVersion( "2022.0.150.0" )]
+[assembly: AssemblyVersion( "2022.0.150.2" )]
+[assembly: AssemblyFileVersion( "2022.0.150.2" )]
