@@ -133,9 +133,10 @@ namespace BuildingCoder
         FamilyParameter familyParam
           = doc.FamilyManager.AddParameter(
             "length",
-            BuiltInParameterGroup.PG_IDENTITY_DATA,
-            ParameterType.Length, // 2021 
-            //SpecTypeId.Length, // 2022
+            //BuiltInParameterGroup.PG_IDENTITY_DATA, // 2021
+            GroupTypeId.IdentityData, // 2022
+            //ParameterType.Length, // 2021 
+            SpecTypeId.Length, // 2022
             false );
 
         //dim.Label = familyParam; // 2013

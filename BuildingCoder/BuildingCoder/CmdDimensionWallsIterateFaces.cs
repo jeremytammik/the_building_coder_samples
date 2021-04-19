@@ -107,8 +107,11 @@ namespace BuildingCoder
 
       FamilyParameter param = doc.FamilyManager
         .AddParameter( "width",
-          BuiltInParameterGroup.PG_CONSTRAINTS,
-          ParameterType.Length, false );
+          //BuiltInParameterGroup.PG_CONSTRAINTS, // 2021
+          GroupTypeId.Constraints, // 2022
+          //ParameterType.Length, // 2021
+          SpecTypeId.Length, // 2022
+          false );
 
       //dim.Label = param; // 2013
       dim.FamilyLabel = param; // 2014
