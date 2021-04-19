@@ -45,8 +45,11 @@ namespace BuildingCoder
       FilterStringRuleEvaluator evaluator
         = new FilterStringEquals();
 
-      FilterRule rule = new FilterStringRule(
-        provider, evaluator, view.Name, true );
+      //FilterRule rule = new FilterStringRule( // 2021
+      //  provider, evaluator, view.Name, true );
+
+      FilterRule rule = new FilterStringRule( // 2022
+        provider, evaluator, view.Name );
 
       ElementParameterFilter name_filter
         = new ElementParameterFilter( rule );

@@ -267,9 +267,10 @@ namespace BuildingCoder
               // TaggedElementId.LinkInstanceId to retrieve 
               // the id of the tagged link and element:
 
-              LinkElementId linkId = newTag.TaggedElementId;
-              ElementId linkInstanceId = linkId.LinkInstanceId;
-              ElementId linkedElementId = linkId.LinkedElementId;
+              //LinkElementId linkId = newTag.TaggedElementId; // 2021
+              ICollection<LinkElementId> linkIds = newTag.GetTaggedElementIds(); // 2022
+              ElementId linkInstanceId = linkIds.First().LinkInstanceId;
+              ElementId linkedElementId = linkIds.First().LinkedElementId;
 
               tx.Commit();
             }

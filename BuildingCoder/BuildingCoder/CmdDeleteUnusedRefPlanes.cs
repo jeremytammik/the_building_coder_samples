@@ -113,8 +113,11 @@ namespace BuildingCoder
       FilterStringRuleEvaluator evaluator
         = new FilterStringEquals();
 
-      FilterStringRule rule = new FilterStringRule(
-        provider, evaluator, "", false );
+      //FilterStringRule rule = new FilterStringRule( // 2021
+      //  provider, evaluator, "", false );
+
+      FilterStringRule rule = new FilterStringRule( // 2022
+        provider, evaluator, "" );
 
       ElementParameterFilter filter
         = new ElementParameterFilter( rule );

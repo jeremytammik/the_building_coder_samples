@@ -47,6 +47,8 @@ namespace BuildingCoder
         points[2] = new XYZ( 10.0, 10.0, 0.0 );
         points[3] = new XYZ( 0.0, 10.0, 0.0 );
 
+        // Code for Revit 2021 using CurveArray:
+
         CurveArray curve = new CurveArray();
 
         for( int i = 0; i < n; i++ )
@@ -57,7 +59,7 @@ namespace BuildingCoder
           curve.Append( line );
         }
 
-        doc.Create.NewFloor( curve, true );
+        doc.Create.NewFloor( curve, true ); // 2021
 
         tx.Commit();
       }
@@ -262,7 +264,10 @@ namespace BuildingCoder
           if ( null != f )
           {
             EdgeArrayArray eaa = f.EdgeLoops;
-            CurveArray profile;
+
+            // Code for Revit 2021 and earlier:
+
+            //CurveArray profile; // 2021
 
             #region Attempt to include inner loops
 #if ATTEMPT_TO_INCLUDE_INNER_LOOPS
@@ -275,8 +280,30 @@ namespace BuildingCoder
 #endif // ATTEMPT_TO_INCLUDE_INNER_LOOPS
             #endregion // Attempt to include inner loops
 
+            //{
+            //  profile = new CurveArray();
+
+            //  // Only use first edge array,
+            //  // the outer boundary loop,
+            //  // skip the further items
+            //  // representing holes:
+
+            //  EdgeArray ea = eaa.get_Item( 0 );
+            //  foreach ( Edge e in ea )
+            //  {
+            //    IList<XYZ> pts = e.Tessellate();
+            //    int m = pts.Count;
+            //    XYZ p = pts[0];
+            //    XYZ q = pts[m - 1];
+            //    Line line = Line.CreateBound( p, q );
+            //    profile.Append( line );
+            //  }
+            //}
+
+            List<CurveLoop> loops = new List<CurveLoop>(); // 2022
+
             {
-              profile = new CurveArray();
+              CurveLoop loop = new CurveLoop();
 
               // Only use first edge array,
               // the outer boundary loop,
@@ -284,32 +311,39 @@ namespace BuildingCoder
               // representing holes:
 
               EdgeArray ea = eaa.get_Item( 0 );
-              foreach ( Edge e in ea )
+              foreach( Edge e in ea )
               {
                 IList<XYZ> pts = e.Tessellate();
                 int m = pts.Count;
-                XYZ p = pts[0];
-                XYZ q = pts[m - 1];
+                XYZ p = pts[ 0 ];
+                XYZ q = pts[ m - 1 ];
                 Line line = Line.CreateBound( p, q );
-                profile.Append( line );
+                loop.Append( line );
               }
+              loops = new List<CurveLoop>();
+              loops.Add( loop );
             }
+
             //Level level = floor.Level; // 2013
 
-            Level level = doc.GetElement( floor.LevelId )
-              as Level; // 2014
+            //Level level = doc.GetElement( floor.LevelId )
+            //  as Level; // 2014
 
             // In this case we have a valid floor type given.
             // In general, not that NewFloor will only accept 
             // floor types whose IsFoundationSlab predicate
             // is false.
 
-            floor = creDoc.NewFloor( profile,
-              floor.FloorType, level, true );
+            //floor = creDoc.NewFloor( profile, // 2021
+            //  floor.FloorType, level, true );
+
+            floor = Floor.Create( doc, loops, 
+              floor.FloorType.Id, floor.LevelId ); // 2022
 
             XYZ v = new XYZ( 5, 5, 0 );
 
             //doc.Move( floor, v ); // 2011
+
             ElementTransformUtils.MoveElement( doc, floor.Id, v ); // 2012
           }
         }

@@ -909,9 +909,12 @@ namespace BuildingCoder
           ParameterValueProvider provider
             = new ParameterValueProvider( paraId );
 
-          FilterRule rule = new FilterStringRule( // 2021
-            provider, new FilterStringEquals(),
-            paramValue, true );
+          //FilterRule rule = new FilterStringRule( // 2021
+          //  provider, new FilterStringEquals(),
+          //  paramValue, true );
+
+          FilterRule rule = new FilterStringRule( // 2022
+            provider, new FilterStringEquals(), paramValue );
 
           ElementParameterFilter filter
             = new ElementParameterFilter( rule );
@@ -1380,8 +1383,11 @@ namespace BuildingCoder
       FilterStringRuleEvaluator evaluator
         = new FilterStringContains();
 
-      FilterRule rule = new FilterStringRule(
-        provider, evaluator, "test", false );
+      //FilterRule rule = new FilterStringRule( // 2021
+      //  provider, evaluator, "test", false );
+
+      FilterRule rule = new FilterStringRule( // 2022
+        provider, evaluator, "test" );
 
       ElementParameterFilter filter
         = new ElementParameterFilter( rule );
@@ -1411,8 +1417,11 @@ namespace BuildingCoder
       FilterStringRuleEvaluator evaluator 
         = new FilterStringContains();
 
-      FilterStringRule rule = new FilterStringRule( 
-        provider, evaluator, "/", false );
+      //FilterStringRule rule = new FilterStringRule( // 2021
+      //  provider, evaluator, "/", false );
+
+      FilterStringRule rule = new FilterStringRule( // 2022
+        provider, evaluator, "/" );
 
       ElementParameterFilter filter 
         = new ElementParameterFilter( rule );
@@ -1607,13 +1616,18 @@ namespace BuildingCoder
       Document doc,
       string familySymbolName )
     {
+      //FilterStringRule r = new FilterStringRule( // 2021
+      //  new ParameterValueProvider(
+      //    new ElementId( BuiltInParameter.SYMBOL_NAME_PARAM ) ),
+      //  new FilterStringEquals(), familySymbolName, true );
+
+      FilterStringRule r = new FilterStringRule( // 2022
+        new ParameterValueProvider(
+          new ElementId( BuiltInParameter.SYMBOL_NAME_PARAM ) ),
+        new FilterStringEquals(), familySymbolName );
+
       return GetStructuralColumnSymbolCollector( doc )
-        .WherePasses(
-          new ElementParameterFilter(
-            new FilterStringRule(
-              new ParameterValueProvider(
-                new ElementId( BuiltInParameter.SYMBOL_NAME_PARAM ) ),
-              new FilterStringEquals(), familySymbolName, true ) ) );
+        .WherePasses( new ElementParameterFilter( r ) );
     }
 
     static IEnumerable<Element> Factory(
@@ -1729,8 +1743,11 @@ namespace BuildingCoder
 
       // Create a filter rule where string value equals system_name
 
-      FilterRule fr = new FilterStringRule(
-        pvp, fsre, system_name, true );
+      //FilterRule fr = new FilterStringRule( // 2021
+      //  pvp, fsre, system_name, true );
+
+      FilterRule fr = new FilterStringRule( // 2022
+        pvp, fsre, system_name );
 
       // Create Filter
 
@@ -2181,8 +2198,11 @@ TaskDialog.Show( "Revit", collector.Count() +
 
         string sRoomNumber = "1";
 
-        FilterRule rule = new FilterStringRule(
-          provider, evaluator, sRoomNumber, false );
+        //FilterRule rule = new FilterStringRule( // 2021
+        //  provider, evaluator, sRoomNumber, false );
+
+        FilterRule rule = new FilterStringRule( // 2022
+          provider, evaluator, sRoomNumber );
 
         ElementParameterFilter filter
           = new ElementParameterFilter( rule );
@@ -2218,8 +2238,11 @@ TaskDialog.Show( "Revit", collector.Count() +
       FilterStringRuleEvaluator evaluator
         = new FilterStringContains();
 
-      FilterRule rule = new FilterStringRule(
-        provider, evaluator, "Level", false );
+      //FilterRule rule = new FilterStringRule( // 2021
+      //  provider, evaluator, "Level", false );
+
+      FilterRule rule = new FilterStringRule( // 2022
+        provider, evaluator, "Level" );
 
       ElementParameterFilter filter
         = new ElementParameterFilter( rule );
@@ -2312,8 +2335,11 @@ TaskDialog.Show( "Revit", collector.Count() +
       FilterStringRuleEvaluator fnrvStr
         = new FilterStringContains();
 
-      paramFr = new FilterStringRule(
-        pvp, fnrvStr, ruleValStr, false );
+      //paramFr = new FilterStringRule( // 2021
+      //  pvp, fnrvStr, ruleValStr, false );
+
+      paramFr = new FilterStringRule( // 2022
+        pvp, fnrvStr, ruleValStr );
 
       collector = new FilteredElementCollector( doc );
 
@@ -2404,8 +2430,11 @@ TaskDialog.Show( "Revit", collector.Count() +
       FilterStringRuleEvaluator evaluator
         = new FilterStringEquals();
 
-      FilterRule rule = new FilterStringRule(
-        provider, evaluator, name, true );
+      //FilterRule rule = new FilterStringRule( // 2021
+      //  provider, evaluator, name, true );
+
+      FilterRule rule = new FilterStringRule( // 2022
+        provider, evaluator, name );
 
       ElementParameterFilter filter
         = new ElementParameterFilter( rule );
