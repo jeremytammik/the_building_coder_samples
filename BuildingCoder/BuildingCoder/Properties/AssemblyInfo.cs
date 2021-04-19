@@ -369,6 +369,7 @@ using System.Runtime.InteropServices;
 // 2021-03-31 2021.0.150.23 integrated pull request #15 by @stenci to delete temporary GroupType after deleting temporary Group
 // 2021-04-08 2021.0.150.24 translated TransformPickPointToScreen from VB.NET to C# for https://forums.autodesk.com/t5/revit-api-forum/finding-distance-between-points-in-multiple-views/m-p/10217818
 // 2021-04-19 2021.0.150.25 integrated `CmdSortCurveLoops` by @stenci from pull request #16 implementing SortCurveLoops that works on curved faces
+// 2021-04-19 2022.0.150.0 flat migration to Revit 2022
 //
-[assembly: AssemblyVersion( "2021.0.150.25" )]
-[assembly: AssemblyFileVersion( "2021.0.150.25" )]
+[assembly: AssemblyVersion( "2022.0.150.0" )]
+[assembly: AssemblyFileVersion( "2022.0.150.0" )]
