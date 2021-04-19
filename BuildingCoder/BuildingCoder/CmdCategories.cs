@@ -76,9 +76,13 @@ namespace BuildingCoder
       //Definition def = group.Definitions.Create( // 2014
       //  "ReinforcementParameter", ParameterType.Text );
 
-      ExternalDefinitionCreationOptions opt
+      //ExternalDefinitionCreationOptions opt // 2021
+      //  = new ExternalDefinitionCreationOptions(
+      //    "ReinforcementParameter", ParameterType.Text );
+
+      ExternalDefinitionCreationOptions opt // 2022
         = new ExternalDefinitionCreationOptions(
-          "ReinforcementParameter", ParameterType.Text );
+          "ReinforcementParameter", SpecTypeId.String.Text );
 
       Definition def = group.Definitions.Create( opt ); // 2015
 
