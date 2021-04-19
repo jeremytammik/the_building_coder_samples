@@ -53,19 +53,19 @@ namespace BuildingCoder
     #endregion // HideLightingFixtureHosts
 
     #region ProblemAddingParameterBindingForCategory
-    static Util.SpellingErrorCorrector
-      _spellingErrorCorrector = null;
+    //static Util.SpellingErrorCorrector
+    //  _spellingErrorCorrector = null;
 
     void ProblemAddingParameterBindingForCategory(
       Document doc )
     {
       Application app = doc.Application;
 
-      if( null == _spellingErrorCorrector )
-      {
-        _spellingErrorCorrector
-          = new Util.SpellingErrorCorrector( app );
-      }
+      //if( null == _spellingErrorCorrector )
+      //{
+      //  _spellingErrorCorrector
+      //    = new Util.SpellingErrorCorrector( app );
+      //}
 
       DefinitionFile sharedParametersFile
         = app.OpenSharedParameterFile();
@@ -89,11 +89,12 @@ namespace BuildingCoder
       // To handle both ExternalDefinitonCreationOptions 
       // and ExternalDefinitionCreationOptions:
 
-      def = _spellingErrorCorrector.NewDefinition(
-        group.Definitions, "ReinforcementParameter",
-        ParameterType.Text );
+      //def = _spellingErrorCorrector.NewDefinition(
+      //  group.Definitions, "ReinforcementParameter",
+      //  //ParameterType.Text // 2021
+      //  SpecTypeId.String.Text ); // 2022
 
-      List<BuiltInCategory> bics
+      List <BuiltInCategory> bics
         = new List<BuiltInCategory>();
 
       //bics.Add(BuiltInCategory.OST_AreaRein);

@@ -909,7 +909,7 @@ namespace BuildingCoder
           ParameterValueProvider provider
             = new ParameterValueProvider( paraId );
 
-          FilterRule rule = new FilterStringRule(
+          FilterRule rule = new FilterStringRule( // 2021
             provider, new FilterStringEquals(),
             paramValue, true );
 

@@ -873,7 +873,8 @@ namespace BuildingCoder
 
         if( p.StorageType == StorageType.ElementId
           && def.ParameterGroup == BuiltInParameterGroup.PG_MATERIALS
-          && def.ParameterType == ParameterType.Material )
+          //&& def.ParameterType == ParameterType.Material // 2021)
+          && def.GetDataType() == SpecTypeId.Reference.Material ) // 2022
         {
           ElementId materialId = p.AsElementId();
 

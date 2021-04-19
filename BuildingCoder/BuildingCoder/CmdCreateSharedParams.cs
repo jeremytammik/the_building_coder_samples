@@ -30,7 +30,8 @@ namespace BuildingCoder
     const string _filename = "C:/tmp/SharedParams.txt";
     const string _groupname = "The Building Coder Parameters";
     const string _defname = "SP";
-    ParameterType _deftype = ParameterType.Number;
+    //ParameterType _deftype = ParameterType.Number; // 2021
+    ForgeTypeId _deftype = SpecTypeId.Number; // 2022
 
     // What element types are we interested in? The standard
     // SDK FireRating sample uses BuiltInCategory.OST_Doors.

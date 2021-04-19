@@ -1294,7 +1294,8 @@ const T f = ( ay * bx ) - ( ax * by );
         }
       }
 
-      IList<ForgeTypeId> specs = UnitUtils.GetAllSpecs();
+      //IList<ForgeTypeId> specs = UnitUtils.GetAllSpecs(); // 2021
+      IList<ForgeTypeId> specs = UnitUtils.GetAllMeasurableSpecs(); // 2022
 
       Debug.Print( "{0} specs:", specs.Count );
 
@@ -2288,63 +2289,63 @@ const T f = ( ay * bx ) - ( ax * by );
     }
     #endregion // Generate add-in manifest on the fly
 
-    #region Compatibility fix for spelling error change
-    /// <summary>
-    /// Wrapper to fix a spelling error prior to Revit 2016.
-    /// </summary>
-    public class SpellingErrorCorrector
-    {
-      static bool _in_revit_2015_or_earlier;
-      static Type _external_definition_creation_options_type;
+    //#region Compatibility fix for spelling error change
+    ///// <summary>
+    ///// Wrapper to fix a spelling error prior to Revit 2016.
+    ///// </summary>
+    //public class SpellingErrorCorrector
+    //{
+    //  static bool _in_revit_2015_or_earlier;
+    //  static Type _external_definition_creation_options_type;
 
-      public SpellingErrorCorrector( Application app )
-      {
-        _in_revit_2015_or_earlier = 0
-          <= app.VersionNumber.CompareTo( "2015" );
+    //  public SpellingErrorCorrector( Application app )
+    //  {
+    //    _in_revit_2015_or_earlier = 0
+    //      <= app.VersionNumber.CompareTo( "2015" );
 
-        string s
-          = _in_revit_2015_or_earlier
-            ? "ExternalDefinitonCreationOptions"
-            : "ExternalDefinitionCreationOptions";
+    //    string s
+    //      = _in_revit_2015_or_earlier
+    //        ? "ExternalDefinitonCreationOptions"
+    //        : "ExternalDefinitionCreationOptions";
 
-        _external_definition_creation_options_type
-          = System.Reflection.Assembly
-            .GetExecutingAssembly().GetType( s );
-      }
+    //    _external_definition_creation_options_type
+    //      = System.Reflection.Assembly
+    //        .GetExecutingAssembly().GetType( s );
+    //  }
 
-      object NewExternalDefinitionCreationOptions(
-        string name,
-        ParameterType parameterType )
-      {
-        object[] args = new object[] {
-          name, parameterType };
+    //  object NewExternalDefinitionCreationOptions(
+    //    string name,
+    //    ParameterType parameterType )
+    //  {
+    //    object[] args = new object[] {
+    //      name, parameterType };
 
-        return _external_definition_creation_options_type
-          .GetConstructor( new Type[] {
-            _external_definition_creation_options_type } )
-          .Invoke( args );
-      }
+    //    return _external_definition_creation_options_type
+    //      .GetConstructor( new Type[] {
+    //        _external_definition_creation_options_type } )
+    //      .Invoke( args );
+    //  }
 
-      public Definition NewDefinition(
-        Definitions definitions,
-        string name,
-        ParameterType parameterType )
-      {
-        //return definitions.Create( 
-        //  NewExternalDefinitionCreationOptions() );
+    //  public Definition NewDefinition(
+    //    Definitions definitions,
+    //    string name,
+    //    ParameterType parameterType )
+    //  {
+    //    //return definitions.Create( 
+    //    //  NewExternalDefinitionCreationOptions() );
 
-        object opt
-          = NewExternalDefinitionCreationOptions(
-            name,
-            parameterType );
+    //    object opt
+    //      = NewExternalDefinitionCreationOptions(
+    //        name,
+    //        parameterType );
 
-        return typeof( Definitions ).InvokeMember(
-          "Create", BindingFlags.InvokeMethod, null,
-          definitions, new object[] { opt } )
-          as Definition;
-      }
-    }
-    #endregion // Compatibility fix for spelling error change
+    //    return typeof( Definitions ).InvokeMember(
+    //      "Create", BindingFlags.InvokeMethod, null,
+    //      definitions, new object[] { opt } )
+    //      as Definition;
+    //  }
+    //}
+    //#endregion // Compatibility fix for spelling error change
   }
 
   #region Extension Method Classes
@@ -2813,47 +2814,47 @@ const T f = ( ay * bx ) - ( ax * by );
     }
     #endregion // Autodesk.Revit.DB.Curve
 
-    #region Autodesk.Revit.DB.Definitions
-    public static Definition Create2(
-      this Definitions definitions,
-      Document doc,
-      string nome,
-      ParameterType tipo,
-      bool visibilidade )
-    {
-      // Does this need updating to check for 
-      // ExternalDefinitionCreationOptions with
-      // the additional 'i' in Revit 2016?
+    //#region Autodesk.Revit.DB.Definitions
+    //public static Definition Create2(
+    //  this Definitions definitions,
+    //  Document doc,
+    //  string nome,
+    //  ParameterType tipo,
+    //  bool visibilidade )
+    //{
+    //  // Does this need updating to check for 
+    //  // ExternalDefinitionCreationOptions with
+    //  // the additional 'i' in Revit 2016?
 
-      Definition value = null;
-      List<Type> ls = doc.GetType().Assembly
-      .GetTypes().Where( a => a.IsClass && a
-      .Name == "ExternalDefinitonCreationOptions" ).ToList();
-      if( ls.Count > 0 )
-      {
-        Type t = ls[ 0 ];
-        ConstructorInfo c = t
-        .GetConstructor( new Type[] { typeof(string),
-                typeof(ParameterType) } );
-        object ed = c
-        .Invoke( new object[] { nome, tipo } );
-        ed.GetType().GetProperty( "Visible" )
-        .SetValue( ed, visibilidade, null );
-        value = definitions.GetType()
-        .GetMethod( "Create", new Type[] { t } ).Invoke( definitions,
-          new object[] { ed } ) as Definition;
-      }
-      else
-      {
-        value = definitions.GetType()
-        .GetMethod( "Create", new Type[] { typeof(string),
-                typeof(ParameterType), typeof(bool) } ).Invoke( definitions,
-          new object[] { nome, tipo,
-                visibilidade } ) as Definition;
-      }
-      return value;
-    }
-    #endregion // Autodesk.Revit.DB.Definitions
+    //  Definition value = null;
+    //  List<Type> ls = doc.GetType().Assembly
+    //  .GetTypes().Where( a => a.IsClass && a
+    //  .Name == "ExternalDefinitonCreationOptions" ).ToList();
+    //  if( ls.Count > 0 )
+    //  {
+    //    Type t = ls[ 0 ];
+    //    ConstructorInfo c = t
+    //    .GetConstructor( new Type[] { typeof(string),
+    //            typeof(ParameterType) } );
+    //    object ed = c
+    //    .Invoke( new object[] { nome, tipo } );
+    //    ed.GetType().GetProperty( "Visible" )
+    //    .SetValue( ed, visibilidade, null );
+    //    value = definitions.GetType()
+    //    .GetMethod( "Create", new Type[] { t } ).Invoke( definitions,
+    //      new object[] { ed } ) as Definition;
+    //  }
+    //  else
+    //  {
+    //    value = definitions.GetType()
+    //    .GetMethod( "Create", new Type[] { typeof(string),
+    //            typeof(ParameterType), typeof(bool) } ).Invoke( definitions,
+    //      new object[] { nome, tipo,
+    //            visibilidade } ) as Definition;
+    //  }
+    //  return value;
+    //}
+    //#endregion // Autodesk.Revit.DB.Definitions
 
     #region Autodesk.Revit.DB.Document
     public static Element GetElement2(

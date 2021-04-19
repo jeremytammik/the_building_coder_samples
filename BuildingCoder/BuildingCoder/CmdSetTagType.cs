@@ -327,8 +327,10 @@ namespace BuildingCoder
         foreach( var e in tags )
         {
           IndependentTag tag = doc.GetElement( e.Id ) as IndependentTag;
-          Element taggedElem = tag.GetTaggedLocalElement();
-          taggedElements.Add( taggedElem );
+          //Element taggedElem = tag.GetTaggedLocalElement(); // 2021
+          //taggedElements.Add( taggedElem );
+          ICollection<Element> taggedElems = tag.GetTaggedLocalElements(); // 2022
+          taggedElements.AddRange( taggedElems );
         }
 
         //get the color of the ductsystem
