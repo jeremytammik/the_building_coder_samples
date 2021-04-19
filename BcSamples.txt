@@ -1264,7 +1264,6 @@ Image:
 Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdChangeElementColor # version 2020.0.149.0
 
-
 ADN Bc J-Q
 Pick room in model or link
 Selection filter to pick a room either in current project or linked model
@@ -1273,3 +1272,10 @@ Image:
 Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPickRoomInclLinked # version 2021.0.150.0
 
+ADN Bc R-Z
+Sort Curve Loops
+Retrieve and sort outer and inner face curve loops
+LargeImage:
+Image:
+Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdSortCurveLoops # version 2020.0.150.25
