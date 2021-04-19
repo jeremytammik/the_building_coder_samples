@@ -372,6 +372,7 @@ using System.Runtime.InteropServices;
 // 2021-04-19 2022.0.150.0 flat migration to Revit 2022
 // 2021-04-19 2022.0.150.1 fixed some deprecated API usage warnings
 // 2021-04-19 2022.0.150.2 fixed some more deprecated API usage warnings
+// 2021-04-19 2022.0.150.3 fixed yet more deprecated API usage warnings
 //
-[assembly: AssemblyVersion( "2022.0.150.2" )]
-[assembly: AssemblyFileVersion( "2022.0.150.2" )]
+[assembly: AssemblyVersion( "2022.0.150.3" )]
+[assembly: AssemblyFileVersion( "2022.0.150.3" )]
