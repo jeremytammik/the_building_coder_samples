@@ -19,6 +19,7 @@
 # 2016-05-02 migrated to Revit 2017
 # 2016-07-07 moved to new location on new machine
 # 2019-09-18 moved to new location on new machine
+# 2021-04-20 removed CmdDutAbbreviation and CmdParameterUnitConverter
 #
 # This file is read by the Revit external application RvtSamples,
 # which is included in the standard Revit SDK.
@@ -820,13 +821,13 @@ Image:
 Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdPickPoint3d # version 2012.0.95.0
 
-ADN Bc J-Q
-Parameter Unit Converter
-Test ParameterUnitConverter on all floating point valued parameters on a selected element
-LargeImage:
-Image:
-Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
-BuildingCoder.CmdParameterUnitConverter # version 2012.0.96.0
+#ADN Bc J-Q
+#Parameter Unit Converter
+#Test ParameterUnitConverter on all floating point valued parameters on a selected element
+#LargeImage:
+#Image:
+#Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+#BuildingCoder.CmdParameterUnitConverter # version 2012.0.96.0
 
 # version 2012.0.96.2 added IsTopPlanarFace and IsTopFace predicates in CmdWallTopFaces.cs
 # version 2012.0.96.3 cleaned up deprecated methods in CmdGetMaterials.cs
@@ -903,13 +904,13 @@ Image:
 Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdExportSolidToSat # version 2014.0.104.0
 
-ADN Bc A-I
-Display Unit Type Abbreviation
-Test the display unit type abbreviation array
-LargeImage:
-Image:
-Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
-BuildingCoder.CmdDutAbbreviation # version 2014.0.105.0
+#ADN Bc A-I
+#Display Unit Type Abbreviation
+#Test the display unit type abbreviation array
+#LargeImage:
+#Image:
+#Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+#BuildingCoder.CmdDutAbbreviation # version 2014.0.105.0
 
 ADN Bc R-Z
 Rolling Offset
