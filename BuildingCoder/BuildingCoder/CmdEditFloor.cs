@@ -1,4 +1,4 @@
-#region Header
+﻿#region Header
 //
 // CmdEditFloor.cs - read existing floor geometry and create a new floor
 //
@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -41,11 +40,11 @@ namespace BuildingCoder
         tx.Start( "Create a Floor" );
 
         int n = 4;
-        XYZ[] points = new XYZ[n];
-        points[0] = XYZ.Zero;
-        points[1] = new XYZ( 10.0, 0.0, 0.0 );
-        points[2] = new XYZ( 10.0, 10.0, 0.0 );
-        points[3] = new XYZ( 0.0, 10.0, 0.0 );
+        XYZ[] points = new XYZ[ n ];
+        points[ 0 ] = XYZ.Zero;
+        points[ 1 ] = new XYZ( 10.0, 0.0, 0.0 );
+        points[ 2 ] = new XYZ( 10.0, 10.0, 0.0 );
+        points[ 3 ] = new XYZ( 0.0, 10.0, 0.0 );
 
         // Code for Revit 2021 using CurveArray:
 
@@ -53,8 +52,8 @@ namespace BuildingCoder
 
         for( int i = 0; i < n; i++ )
         {
-          Line line = Line.CreateBound( points[i],
-            points[( i < n - 1 ) ? i + 1 : 0] );
+          Line line = Line.CreateBound( points[ i ],
+            points[ (i < n - 1) ? i + 1 : 0 ] );
 
           curve.Append( line );
         }
@@ -83,8 +82,8 @@ namespace BuildingCoder
         if( null != pf
           && Util.IsHorizontal( pf ) )
         {
-          if( ( null == topFace )
-            || ( topFace.Origin.Z < pf.Origin.Z ) )
+          if( (null == topFace)
+            || (topFace.Origin.Z < pf.Origin.Z) )
           {
             topFace = pf;
           }
@@ -202,7 +201,7 @@ namespace BuildingCoder
         floors, uidoc, typeof( Floor ) ) )
       {
         Selection sel = uidoc.Selection;
-        message = ( 0 < sel.GetElementIds().Count )
+        message = (0 < sel.GetElementIds().Count)
           ? "Please select some floor elements."
           : "No floor elements found.";
         return Result.Failed;
@@ -238,7 +237,7 @@ namespace BuildingCoder
         }
       }
 
-      using ( Transaction t = new Transaction( doc ) )
+      using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Create Model Lines and Floor" );
 
@@ -257,11 +256,11 @@ namespace BuildingCoder
           "{0} top face{1} found.",
           n, Util.PluralSuffix( n ) );
 
-        foreach ( Face f in topFaces )
+        foreach( Face f in topFaces )
         {
-          Floor floor = floors[i++] as Floor;
+          Floor floor = floors[ i++ ] as Floor;
 
-          if ( null != f )
+          if( null != f )
           {
             EdgeArrayArray eaa = f.EdgeLoops;
 
@@ -337,7 +336,7 @@ namespace BuildingCoder
             //floor = creDoc.NewFloor( profile, // 2021
             //  floor.FloorType, level, true );
 
-            floor = Floor.Create( doc, loops, 
+            floor = Floor.Create( doc, loops,
               floor.FloorType.Id, floor.LevelId ); // 2022
 
             XYZ v = new XYZ( 5, 5, 0 );
@@ -373,8 +372,8 @@ namespace BuildingCoder
           .WhereElementIsNotElementType()
           .OfCategory( BuiltInCategory.OST_Levels )
           .OfClass( typeof( Level ) )
-          .FirstOrDefault<Element>( e 
-            => e.Id.IntegerValue.Equals( 
+          .FirstOrDefault<Element>( e
+            => e.Id.IntegerValue.Equals(
               levelIdInt ) );
 
       if( null != level )
@@ -397,5 +396,198 @@ namespace BuildingCoder
       }
     }
     #endregion // Set Floor Level and Offset
+
+    #region SketchEditScope sample
+    class SketchEditScopeSample
+    {
+      // Here's a snippet.
+      // It was uploaded to the preview release:
+      // https://feedback.autodesk.com/project/forum/thread.html?cap=cb0fd5af18bb49b791dfa3f5efc[…]01b3deb82a76}&topid={9C3D609F-0A86-4766-BB12-6315F49BCF03}
+      /*
+       * Sample - Edit Floor Sketch.cs
+       * Created by SharpDevelop.
+       * User: t_matva
+       * Date: 11/17/2020
+       * Time: 11:18 AM
+       * 
+       * To change this template use Tools | Options | Coding | Edit Standard Headers.
+       */
+      //using System;
+      //using Autodesk.Revit.UI;
+      //using Autodesk.Revit.DB;
+      //using Autodesk.Revit.UI.Selection;
+      //using System.Collections.Generic;
+      //using System.Linq;
+      //​
+      //namespace Sample
+      //{
+      //    [Autodesk.Revit.Attributes.Transaction( Autodesk.Revit.Attributes.TransactionMode.Manual )]
+      //    [Autodesk.Revit.DB.Macros.AddInId( "994A64E6-839B-4C1F-B473-1E7C614A5455" )]
+      //    public partial class ThisDocument
+      //    {
+      //      private void Module_Startup( object sender, EventArgs e )
+      //      {
+      //      }
+      //​
+      //      private void Module_Shutdown( object sender, EventArgs e )
+      //      {
+      //      }
+      //​
+      //      #region Revit Macros generated code
+      //      private void InternalStartup()
+      //      {
+      //        this.Startup += new System.EventHandler( Module_Startup );
+      //        this.Shutdown += new System.EventHandler( Module_Shutdown );
+      //      }
+      //      #endregion
+
+      public void CreateFloor( Document doc )
+      {
+        Curve left = Line.CreateBound( new XYZ( 0, 0, 0 ), new XYZ( 0, 100, 0 ) );
+        Curve upper = Line.CreateBound( new XYZ( 0, 100, 0 ), new XYZ( 100, 100, 0 ) );
+        Curve right = Line.CreateBound( new XYZ( 100, 100, 0 ), new XYZ( 100, 0, 0 ) );
+        Curve lower = Line.CreateBound( new XYZ( 100, 0, 0 ), new XYZ( 0, 0, 0 ) );
+
+        CurveLoop floorProfile = new CurveLoop();
+        floorProfile.Append( left );
+        floorProfile.Append( upper );
+        floorProfile.Append( right );
+        floorProfile.Append( lower );
+
+        ElementId levelId = Level.GetNearestLevelId( doc, 0.0 );
+
+        using( Transaction transaction = new Transaction( doc ) )
+        {
+          transaction.Start( "Create floor" );
+          ElementId floorTypeId = Floor.GetDefaultFloorType( doc, false );
+          Floor floor = Floor.Create( doc, 
+            new List<CurveLoop>() { floorProfile }, 
+            floorTypeId, levelId );
+          transaction.Commit();
+        }
+      }
+
+      // Find a line in a sketch, delete it and create an arc in its place.
+      public void ReplaceBoundaryLine( Document doc )
+      {
+        FilteredElementCollector floorCollector 
+          = new FilteredElementCollector( doc )
+            .WhereElementIsNotElementType()
+            .OfCategory( BuiltInCategory.OST_Floors )
+            .OfClass( typeof( Floor ) );
+
+        Floor floor = floorCollector.FirstOrDefault() as Floor;
+        if( floor == null )
+        {
+          TaskDialog.Show( "Error", "doc does not contain a floor." );
+          return;
+        }
+
+        Sketch sketch = doc.GetElement( floor.SketchId ) as Sketch;
+        Line line = null;
+        foreach( CurveArray curveArray in sketch.Profile )
+        {
+          foreach( Curve curve in curveArray )
+          {
+            line = curve as Line;
+            if( line != null )
+            {
+              break;
+            }
+          }
+          if( line != null )
+          {
+            break;
+          }
+        }
+
+        if( line == null )
+        {
+          TaskDialog.Show( "Error", 
+            "Sketch does not contain a straight line." );
+          return;
+        }
+
+        // Start a sketch edit scope
+        SketchEditScope sketchEditScope = new SketchEditScope( doc, 
+          "Replace line with an arc" );
+
+        sketchEditScope.Start( sketch.Id );
+
+        using( Transaction transaction = new Transaction( doc, 
+          "Modify sketch" ) )
+        {
+          transaction.Start();
+
+          // Create arc
+          XYZ normal = line.Direction.CrossProduct( XYZ.BasisZ ).Normalize().Negate();
+          XYZ middle = line.GetEndPoint( 0 ).Add( line.Direction.Multiply( line.Length / 2 ) );
+          Curve arc = Arc.Create( line.GetEndPoint( 0 ), line.GetEndPoint( 1 ), 
+            middle.Add( normal.Multiply( 20 ) ) );
+
+          // Remove element referenced by the found line. 
+          doc.Delete( line.Reference.ElementId );
+
+          // Model curve creation automatically puts the curve 
+          // into the sketch, if sketch edit scope is running.
+
+          doc.Create.NewModelCurve( arc, sketch.SketchPlane );
+
+          transaction.Commit();
+        }
+        sketchEditScope.Commit( new FailuresPreprocessor() );
+      }
+      /// <summary>
+      /// Add new profile to the sketch.
+      /// </summary>
+      public void MakeHole( Document doc )
+      {
+        FilteredElementCollector floorCollector 
+          = new FilteredElementCollector( doc )
+            .WhereElementIsNotElementType()
+            .OfCategory( BuiltInCategory.OST_Floors )
+            .OfClass( typeof( Floor ) );
+
+        Floor floor = floorCollector.FirstOrDefault() as Floor;
+        if( floor == null )
+        {
+          TaskDialog.Show( "Error", "Document does not contain a floor." );
+          return;
+        }
+
+        Sketch sketch = doc.GetElement( floor.SketchId ) as Sketch;
+        // Create a circle inside the floor
+        // Start a sketch edit scope
+        SketchEditScope sketchEditScope = new SketchEditScope( doc, 
+          "Add profile to the sketch" );
+        sketchEditScope.Start( sketch.Id );
+
+        using( Transaction transaction = new Transaction( doc, 
+          "Make a hole" ) )
+        {
+          transaction.Start();
+          // Create and add an ellipse
+          Curve circle = Ellipse.CreateCurve( new XYZ( 50, 50, 0 ), 
+            10, 10, XYZ.BasisX, XYZ.BasisY, 0, 2 * Math.PI );
+
+          // Model curve creation automatically puts the curve 
+          // into the sketch, if sketch edit scope is running.
+
+          doc.Create.NewModelCurve( circle, sketch.SketchPlane );
+          transaction.Commit();
+        }
+        sketchEditScope.Commit( new FailuresPreprocessor() );
+      }
+    }
+
+    public class FailuresPreprocessor : IFailuresPreprocessor
+    {
+      public FailureProcessingResult PreprocessFailures(
+        FailuresAccessor failuresAccessor )
+      {
+        return FailureProcessingResult.Continue;
+      }
+    }
+    #endregion // SketchEditScope sample
   }
 }
