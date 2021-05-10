@@ -16,6 +16,9 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
+using System.IO;
+using System.Linq;
+using System.Diagnostics;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -124,5 +127,49 @@ namespace BuildingCoder
       }
       return Result.Succeeded;
     }
+
+    #region Determine cloud model local cache file path
+    string GetCloudModelLocalCacheFilepath( 
+      Document doc, 
+      string version_number )
+    {
+      string title = doc.Title;
+      string ext = Path.GetExtension( doc.PathName );
+      string localRevitFile = null;
+
+      if( doc.IsModelInCloud )
+      {
+        ModelPath modelPath = doc.GetCloudModelPath();
+        string guid = modelPath.GetModelGUID().ToString();
+
+        string folder = "C:\\Users\\" + Environment.UserName 
+          + "\\AppData\\Local\\Autodesk\\Revit\\Autodesk Revit " 
+          + version_number + "\\CollaborationCache";
+
+        string revitFile = guid + ext;
+
+        string[] files = Directory
+          .GetFiles( folder, revitFile, SearchOption.AllDirectories )
+          .Where( c => !c.Contains( "CentralCache" ) )
+          .ToArray();
+
+        if( 0 < files.Length )
+        {
+          localRevitFile = files[ 0 ];
+        }
+        else
+        {
+          Debug.Print( "Unable to find local rvt for: " + doc.PathName );
+        }
+      }
+      else
+      {
+        localRevitFile = doc.PathName;
+      }
+      return localRevitFile;
+    }
+    #endregion // Determine cloud model local cache file path 
+
+
   }
 }
