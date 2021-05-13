@@ -674,10 +674,14 @@ const T f = ( ay * bx ) - ( ax * by );
     /// Return - The point of intersection between the 
     /// line and the plane, null if the line is parallel 
     /// to the plane.
+    /// If enforceResultOnLine is true, return null if 
+    /// the intersection point is not within the line itself;
+    /// i.e., suppress results on the extension of the line.
     /// </summary>
     public static XYZ LinePlaneIntersection(
       Line line,
       Plane plane,
+      bool enforceResultOnLine,
       out double lineParameter )
     {
       XYZ planePoint = plane.Origin;
@@ -699,6 +703,16 @@ const T f = ( ay * bx ) - ( ax * by );
       lineParameter = (planeNormal.DotProduct( planePoint ) 
         - planeNormal.DotProduct( linePoint )) 
           / planeNormal.DotProduct( lineDirection );
+
+      // Test whether the line parameter is inside 
+      // the line using the "isInside" method.
+
+      if( enforceResultOnLine
+        && !line.IsInside( lineParameter ) )
+      {
+        lineParameter = double.NaN;
+        return null;
+      }
 
       return linePoint + lineParameter * lineDirection;
     }
