@@ -1331,6 +1331,26 @@ const T f = ( ay * bx ) - ( ax * by );
           UnitUtils.GetTypeCatalogStringForUnit( fti ) );
       }
     }
+
+    #region Conditional compilation using ifdef to handle ForgeTypeId
+    public static double InternalUnitToMillimetres( 
+      double a, 
+      bool roundup = false )
+    {
+      double mm;
+
+#if (CONFIG_R2019 || CONFIG_R2020)
+      mm = UnitUtils.ConvertFromInternalUnits(
+        a, DisplayUnitType.DUT_MILLIMETERS );
+#else
+      mm = UnitUtils.ConvertFromInternalUnits( 
+        a, UnitTypeId.Millimeters );
+#endif
+
+      return roundup ? Math.Round( mm, 0 ) : mm;
+    }
+    #endregion // Conditional compilation using ifdef to handle ForgeTypeId
+
     #endregion // Unit Handling
 
     #region Formatting
