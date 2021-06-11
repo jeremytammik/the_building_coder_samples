@@ -378,6 +378,7 @@ using System.Runtime.InteropServices;
 // 2021-05-10 2022.0.150.6 added GetCloudModelLocalCacheFilepath from https://forums.autodesk.com/t5/revit-api-forum/get-bim-360-model-s-quot-absolute-quot-path/m-p/10292538
 // 2021-05-13 2022.0.150.7 added bool enforceResultOnLine argument to LinePlaneIntersection suggested by Miguel B in https://thebuildingcoder.typepad.com/blog/2020/10/high-performance-outline-and-line-plane-intersection.html#comment-5381317900
 // 2021-06-02 2022.0.150.8 added conditional compilation example from https://forums.autodesk.com/t5/revit-api-forum/forgetypeid-how-to-use/m-p/10357374
+// 2021-06-11 2022.0.150.9 added comments to the geometrical comparison methods for https://forums.autodesk.com/t5/revit-api-forum/compare-xyz/td-p/10381691
 //
-[assembly: AssemblyVersion( "2022.0.150.7" )]
-[assembly: AssemblyFileVersion( "2022.0.150.7" )]
+[assembly: AssemblyVersion( "2022.0.150.9" )]
+[assembly: AssemblyFileVersion( "2022.0.150.9" )]

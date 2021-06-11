@@ -30,8 +30,16 @@ namespace BuildingCoder
   class Util
   {
     #region Geometrical Comparison
+    /// <summary>
+    /// Default tolerance used to add fuzz 
+    /// for real number equality detection
+    /// </summary>
     public const double _eps = 1.0e-9;
 
+    /// <summary>
+    /// Default tolerance used to add fuzz 
+    /// for real number equality detection
+    /// </summary>    
     public static double Eps
     {
       get
@@ -56,6 +64,12 @@ namespace BuildingCoder
       }
     }
 
+    /// <summary>
+    /// Predicate to determine whether the given 
+    /// real number should be considered equal to
+    /// zero, adding fuzz according to the specified 
+    /// tolerance
+    /// </summary>
     public static bool IsZero(
       double a,
       double tolerance = _eps )
@@ -63,6 +77,11 @@ namespace BuildingCoder
       return tolerance > Math.Abs( a );
     }
 
+    /// <summary>
+    /// Predicate to determine whether the two given 
+    /// real numbers should be considered equal, adding 
+    /// fuzz according to the specified tolerance
+    /// </summary>
     public static bool IsEqual(
       double a,
       double b,
@@ -71,14 +90,25 @@ namespace BuildingCoder
       return IsZero( b - a, tolerance );
     }
 
+    /// <summary>
+    /// Predicate to determine whether a is 
+    /// smaller than or equal to b, adding fuzz 
+    /// according to the specified tolerance
+    /// </summary>
     public static bool IsLessOrEqual(
       double a,
       double b,
       double tolerance = _eps )
     {
-      return IsZero( b - a, tolerance );
+      return IsEqual( a, b, tolerance )
+        || a < b;
     }
 
+    /// <summary>
+    /// Comparison method for two real numbers
+    /// returning 0 if they are to be considered equal,
+    /// -1 if the first is smaller and +1 otherwise
+    /// </summary>
     public static int Compare(
       double a,
       double b,
@@ -89,6 +119,11 @@ namespace BuildingCoder
         : (a < b ? -1 : 1);
     }
 
+    /// <summary>
+    /// Comparison method for two XYZ objects
+    /// returning 0 if they are to be considered equal,
+    /// -1 if the first is smaller and +1 otherwise
+    /// </summary>
     public static int Compare(
       XYZ p,
       XYZ q,
