@@ -16,7 +16,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using WinForms = System.Windows.Forms;
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
@@ -651,7 +650,7 @@ const T f = ( ay * bx ) - ( ax * by );
     /// case it is empty.
     /// https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
     /// </summary>
-    public static XYZ LineLineIntersection( 
+    public static XYZ LineLineIntersection(
       XYZ p1, XYZ v1, XYZ p2, XYZ v2 )
     {
       XYZ w = p2 - p1;
@@ -680,8 +679,8 @@ const T f = ( ay * bx ) - ( ax * by );
     /// case it is empty.
     /// https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
     /// </summary>
-    public static XYZ LineLineIntersection( 
-      Curve c1, 
+    public static XYZ LineLineIntersection(
+      Curve c1,
       Curve c2 )
     {
       XYZ p1 = c1.GetEndPoint( 0 );
@@ -723,7 +722,7 @@ const T f = ( ay * bx ) - ( ax * by );
       XYZ planeNormal = plane.Normal;
       XYZ linePoint = line.GetEndPoint( 0 );
 
-      XYZ lineDirection = (line.GetEndPoint( 1 ) 
+      XYZ lineDirection = (line.GetEndPoint( 1 )
         - linePoint).Normalize();
 
       // Is the line parallel to the plane, i.e.,
@@ -735,8 +734,8 @@ const T f = ( ay * bx ) - ( ax * by );
         return null;
       }
 
-      lineParameter = (planeNormal.DotProduct( planePoint ) 
-        - planeNormal.DotProduct( linePoint )) 
+      lineParameter = (planeNormal.DotProduct( planePoint )
+        - planeNormal.DotProduct( linePoint ))
           / planeNormal.DotProduct( lineDirection );
 
       // Test whether the line parameter is inside 
@@ -1046,7 +1045,7 @@ const T f = ( ay * bx ) - ( ax * by );
       XYZ q = arc.GetEndPoint( 1 );
       XYZ r = q - q.Z * XYZ.BasisZ;
 
-      Frame frame = new Frame( r, 
+      Frame frame = new Frame( r,
         -XYZ.BasisX, -XYZ.BasisY, XYZ.BasisZ );
 
       Line line2 = Line.CreateBound( q, r );
@@ -1061,7 +1060,7 @@ const T f = ( ay * bx ) - ( ax * by );
       loops.Add( loop );
 
       return GeometryCreationUtilities
-        .CreateRevolvedGeometry( frame, 
+        .CreateRevolvedGeometry( frame,
           loops, 0, 2 * Math.PI );
     }
 
@@ -1325,9 +1324,9 @@ const T f = ( ay * bx ) - ( ax * by );
 
       // Sort properties alphabetically by name 
 
-      Array.Sort( ps, 
-        delegate( PropertyInfo p1, PropertyInfo p2 )
-          { return p1.Name.CompareTo( p2.Name ); } );
+      Array.Sort( ps,
+        delegate ( PropertyInfo p1, PropertyInfo p2 )
+        { return p1.Name.CompareTo( p2.Name ); } );
 
       Debug.Print( "{0} properties:", ps.Length );
 
@@ -1335,7 +1334,7 @@ const T f = ( ay * bx ) - ( ax * by );
       {
         if( pi.PropertyType == typeof( ForgeTypeId ) )
         {
-          object obj = pi.GetValue( null, null);
+          object obj = pi.GetValue( null, null );
 
           ForgeTypeId fti = obj as ForgeTypeId;
 
@@ -1350,8 +1349,8 @@ const T f = ( ay * bx ) - ( ax * by );
 
       foreach( ForgeTypeId fti in specs )
       {
-        Debug.Print( "{0}: {1}, {2}", 
-          fti.ToString(), fti.TypeId, 
+        Debug.Print( "{0}: {1}, {2}",
+          fti.ToString(), fti.TypeId,
           UnitUtils.GetTypeCatalogStringForSpec( fti ) );
       }
 
@@ -1368,8 +1367,8 @@ const T f = ( ay * bx ) - ( ax * by );
     }
 
     #region Conditional compilation using ifdef to handle ForgeTypeId
-    public static double InternalUnitToMillimetres( 
-      double a, 
+    public static double InternalUnitToMillimetres(
+      double a,
       bool roundup = false )
     {
       double mm;
@@ -1378,7 +1377,7 @@ const T f = ( ay * bx ) - ( ax * by );
       mm = UnitUtils.ConvertFromInternalUnits(
         a, DisplayUnitType.DUT_MILLIMETERS );
 #else
-      mm = UnitUtils.ConvertFromInternalUnits( 
+      mm = UnitUtils.ConvertFromInternalUnits(
         a, UnitTypeId.Millimeters );
 #endif
 
@@ -3201,7 +3200,7 @@ const T f = ( ay * bx ) - ( ax * by );
       Element e )
     {
       object obj = doc;
-      MethodInfo m = obj.GetType().GetMethod( 
+      MethodInfo m = obj.GetType().GetMethod(
         "Delete", new Type[] { typeof( Element ) } );
 
       if( m != null )
@@ -3210,7 +3209,7 @@ const T f = ( ay * bx ) - ( ax * by );
       }
       else
       {
-        m = obj.GetType().GetMethod( 
+        m = obj.GetType().GetMethod(
           "Delete", new Type[] { typeof( ElementId ) } );
 
         m.Invoke( obj, new object[] { e.Id } );
