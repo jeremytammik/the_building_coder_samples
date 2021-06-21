@@ -489,7 +489,104 @@ namespace BuildingCoder
       Document doc,
       IList<ElementId> ids )
     {
+      View3D view = doc.ActiveView as View3D;
 
+      if( null == view )
+      {
+        throw new Exception( 
+          "Please run this command in a 3D view." );
+      }
+
+      int allColumns = 0;
+      int successColumns = 0;
+
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Attach Columns Tops" );
+
+        foreach( ElementId elemId in ids )
+        {
+          Element elem = doc.GetElement( elemId );
+
+          if( (BuiltInCategory) elem.Category.Id.IntegerValue 
+            == BuiltInCategory.OST_StructuralColumns )
+          {
+            allColumns++;
+
+            FamilyInstance column = elem as FamilyInstance;
+
+            // Collect beams and slabs
+
+            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
+            builtInCats.Add( BuiltInCategory.OST_Floors );
+            builtInCats.Add( BuiltInCategory.OST_StructuralFraming );
+            ElementMulticategoryFilter filter 
+              = new ElementMulticategoryFilter( builtInCats );
+
+            // Remove old column attachement
+
+            if( ColumnAttachment.GetColumnAttachment( column, 1 ) != null )
+            {
+              ColumnAttachment.RemoveColumnAttachment( column, 1 );
+            }
+
+            BoundingBoxXYZ elemBB = elem.get_BoundingBox( view );
+
+            XYZ elemLoc = (elem.Location as LocationPoint).Point;
+            XYZ elemCenter = new XYZ( elemLoc.X, elemLoc.Y, elemLoc.Z + 0.1 );
+            XYZ b1 = new XYZ( elemBB.Min.X, elemBB.Min.Y, elemBB.Min.Z + 0.1 );
+            XYZ b2 = new XYZ( elemBB.Max.X, elemBB.Max.Y, elemBB.Min.Z + 0.1 );
+            XYZ b3 = new XYZ( elemBB.Min.X, elemBB.Max.Y, elemBB.Min.Z + 0.1 );
+            XYZ b4 = new XYZ( elemBB.Max.X, elemBB.Min.Y, elemBB.Min.Z + 0.1 );
+
+            List<XYZ> points = new List<XYZ>( 5 );
+            points.Add( b1 );
+            points.Add( b2 );
+            points.Add( b3 );
+            points.Add( b4 );
+            points.Add( elemCenter );
+
+            ReferenceIntersector refI = new ReferenceIntersector(
+              filter, FindReferenceTarget.All, view );
+
+            XYZ rayd = XYZ.BasisZ;
+            ReferenceWithContext refC = null;
+            foreach( XYZ pt in points )
+            {
+              refC = refI.FindNearest( pt, rayd );
+              if( refC != null )
+              {
+                break;
+              }
+            }
+
+            if( refC != null )
+            {
+              Reference reference = refC.GetReference();
+              ElementId id = reference.ElementId;
+              Element e = doc.GetElement( id );
+
+              ColumnAttachment.AddColumnAttachment( 
+                doc, column, e, 1, 
+                ColumnAttachmentCutStyle.None, 
+                ColumnAttachmentJustification.Minimum, 
+                0 );
+
+              successColumns++;
+            }
+            else
+            {
+              // Change color of columns to red
+
+              Color color = new Color( (byte) 255, (byte) 0, (byte) 0 );
+              OverrideGraphicSettings ogs = new OverrideGraphicSettings();
+              ogs.SetProjectionLineColor( color );
+              view.SetElementOverrides( elem.Id, ogs );
+            }
+          }
+        }
+        tx.Commit();
+      }
     }
     #endregion // Find Beams and Slabs intersecting Columns
   }
