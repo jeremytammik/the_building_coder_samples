@@ -381,6 +381,7 @@ using System.Runtime.InteropServices;
 // 2021-06-11 2022.0.150.9 added comments to the geometrical comparison methods for https://forums.autodesk.com/t5/revit-api-forum/compare-xyz/td-p/10381691
 // 2021-06-16 2022.0.150.11 added PaintStairs from https://forums.autodesk.com/t5/revit-api-forum/paint-stair-faces/m-p/10388359
 // 2021-06-21 2022.0.150.11 added PaintSelectedFace from https://forums.autodesk.com/t5/revit-api-forum/paint-stair-faces/m-p/10388359
+// 2021-06-21 2022.0.150.12 added AdjustColumnHeightsUsingBoundingBox from https://forums.autodesk.com/t5/revit-api-forum/ray-projection-not-picking-up-beams/m-p/10388868
 //
-[assembly: AssemblyVersion( "2022.0.150.11" )]
-[assembly: AssemblyFileVersion( "2022.0.150.11" )]
+[assembly: AssemblyVersion( "2022.0.150.12" )]
+[assembly: AssemblyFileVersion( "2022.0.150.12" )]

@@ -104,12 +104,12 @@ namespace BuildingCoder
 
     #region Paint Stairs
     // https://forums.autodesk.com/t5/revit-api-forum/paint-stair-faces/m-p/10388359
-    void PaintStairs1( UIDocument uidoc, Material mat )
+    void PaintStairs( UIDocument uidoc, Material mat )
     {
       Document doc = uidoc.Document;
       Selection sel = uidoc.Selection;
 
-      //SurfaceSelectionFilter filter = new SurfaceSelectionFilter();
+      //FaceSelectionFilter filter = new FaceSelectionFilter();
       Reference pickedRef = sel.PickObject(
         ObjectType.PointOnElement,
         //filter, 
@@ -161,7 +161,7 @@ namespace BuildingCoder
       Document doc = uidoc.Document;
       Selection sel = uidoc.Selection;
       List<String> errors = new List<string>();
-      //SurfaceSelectionFilter filter = new SurfaceSelectionFilter();
+      //FaceSelectionFilter filter = new FaceSelectionFilter();
       Reference pickedRef = sel.PickObject(
         ObjectType.PointOnElement,
         //filter, 
@@ -191,7 +191,7 @@ namespace BuildingCoder
           {
 
             Element land = doc.GetElement( id );
-            List<Solid> solids = GetElemSolids( 
+            List<Solid> solids = GetElemSolids(
               land.get_Geometry( new Options() ) );
 
             IsLand = SolidsContainFace( solids, selected_face );
@@ -227,7 +227,7 @@ namespace BuildingCoder
           }
           catch( Exception ex )
           {
-            TaskDialog.Show( "Error painting selected face", 
+            TaskDialog.Show( "Error painting selected face",
               ex.Message );
           }
         }

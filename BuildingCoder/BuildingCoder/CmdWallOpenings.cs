@@ -83,7 +83,7 @@ namespace BuildingCoder
         double dx = x.DistanceTo( _p );
         double dy = y.DistanceTo( _p );
         return Util.IsEqual( dx, dy ) ? 0
-          : ( dx < dy ? -1 : 1 );
+          : (dx < dy ? -1 : 1);
       }
     }
 
@@ -111,7 +111,7 @@ namespace BuildingCoder
       Document doc = wall.Document;
       Level level = doc.GetElement( wall.LevelId ) as Level;
       double elevation = level.Elevation;
-      Curve c = ( wall.Location as LocationCurve ).Curve;
+      Curve c = (wall.Location as LocationCurve).Curve;
       XYZ wallOrigin = c.GetEndPoint( 0 );
       XYZ wallEndPoint = c.GetEndPoint( 1 );
       XYZ wallDirection = wallEndPoint - wallOrigin;
@@ -153,7 +153,7 @@ namespace BuildingCoder
       XYZ q = wallOrigin + _offset * XYZ.BasisZ;
 
       bool wallHasFaceAtStart = Util.IsEqual(
-        pointList[0], q );
+        pointList[ 0 ], q );
 
       if( wallHasFaceAtStart )
       {
@@ -198,8 +198,8 @@ namespace BuildingCoder
       {
         wallOpenings.Add( new WallOpening2d
         {
-          Start = pointList[i],
-          End = pointList[i + 1]
+          Start = pointList[ i ],
+          End = pointList[ i + 1 ]
         } );
       }
       return wallOpenings;
@@ -255,7 +255,7 @@ namespace BuildingCoder
     {
       Document doc = uidoc.Document;
 
-      Reference pipeRef = uidoc.Selection.PickObject( 
+      Reference pipeRef = uidoc.Selection.PickObject(
         ObjectType.Element );
 
       Element pipeElem = doc.GetElement( pipeRef );
@@ -265,10 +265,10 @@ namespace BuildingCoder
 
       ReferenceComparer reference1 = new ReferenceComparer();
 
-      ElementFilter filter = new ElementCategoryFilter( 
+      ElementFilter filter = new ElementCategoryFilter(
         BuiltInCategory.OST_Walls );
 
-      FilteredElementCollector collector 
+      FilteredElementCollector collector
         = new FilteredElementCollector( doc );
 
       Func<View3D, bool> isNotTemplate = v3 => !(v3.IsTemplate);
@@ -277,21 +277,21 @@ namespace BuildingCoder
         .Cast<View3D>()
         .First<View3D>( isNotTemplate );
 
-      ReferenceIntersector refIntersector 
-        = new ReferenceIntersector( 
+      ReferenceIntersector refIntersector
+        = new ReferenceIntersector(
           filter, FindReferenceTarget.Element, view3D );
 
       refIntersector.FindReferencesInRevitLinks = true;
-      IList<ReferenceWithContext> referenceWithContext 
-        = refIntersector.Find( 
-          curve.GetEndPoint( 0 ), 
+      IList<ReferenceWithContext> referenceWithContext
+        = refIntersector.Find(
+          curve.GetEndPoint( 0 ),
           (curve as Line).Direction );
 
-      IList<Reference> references 
+      IList<Reference> references
         = referenceWithContext
           .Select( p => p.GetReference() )
           .Distinct( reference1 )
-          .Where( p => p.GlobalPoint.DistanceTo( 
+          .Where( p => p.GlobalPoint.DistanceTo(
             curve.GetEndPoint( 0 ) ) < curve.Length )
           .ToList();
 
@@ -336,17 +336,161 @@ namespace BuildingCoder
     /// <summary>
     /// Return a `StableRepresentation` for a linked wall's exterior face.
     /// </summary>
-    public string GetFaceRefRepresentation( 
-      Wall wall, 
-      Document doc, 
+    public string GetFaceRefRepresentation(
+      Wall wall,
+      Document doc,
       RevitLinkInstance instance )
     {
-      Reference faceRef = HostObjectUtils.GetSideFaces( 
+      Reference faceRef = HostObjectUtils.GetSideFaces(
         wall, ShellLayerType.Exterior ).FirstOrDefault();
       Reference stRef = faceRef.CreateLinkReference( instance );
       string stable = stRef.ConvertToStableRepresentation( doc );
       return stable;
     }
     #endregion // Determine walls in linked file intersecting pipe
+
+    #region Find Beams and Slabs intersecting Columns
+    // https://forums.autodesk.com/t5/revit-api-forum/ray-projection-not-picking-up-beams/m-p/10388868
+    void AdjustColumnHeightsUsingBoundingBox(
+      Document doc,
+      IList<ElementId> ids )
+    {
+      View view = doc.ActiveView;
+
+      int allColumns = 0;
+      int successColumns = 0;
+
+      if( view is View3D )
+      {
+        using( Transaction tx = new Transaction( doc ) )
+        {
+          tx.Start( "Adjust Column Heights" );
+
+          foreach( ElementId elemId in ids )
+          {
+            Element elem = doc.GetElement( elemId );
+
+            // Check if element is column
+
+            if( (BuiltInCategory) elem.Category.Id.IntegerValue 
+              == BuiltInCategory.OST_StructuralColumns )
+            {
+              allColumns++;
+
+              FamilyInstance column = elem as FamilyInstance;
+
+              // Collect beams and slabs within bounding box
+
+              List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
+              builtInCats.Add( BuiltInCategory.OST_Floors );
+              builtInCats.Add( BuiltInCategory.OST_StructuralFraming );
+              ElementMulticategoryFilter beamSlabFilter 
+                = new ElementMulticategoryFilter( builtInCats );
+
+              BoundingBoxXYZ bb = elem.get_BoundingBox( view );
+              Outline myOutLn = new Outline( bb.Min, bb.Max + 100 * XYZ.BasisZ );
+              BoundingBoxIntersectsFilter bbFilter 
+                = new BoundingBoxIntersectsFilter( myOutLn );
+
+              FilteredElementCollector collector 
+                = new FilteredElementCollector( doc )
+                  .WherePasses( beamSlabFilter )
+                  .WherePasses( bbFilter );
+
+              List<Element> intersectingBeams = new List<Element>();
+              List<Element> intersectingSlabs = new List<Element>();
+
+              if( ColumnAttachment.GetColumnAttachment( 
+                column, 1 ) != null )
+              {
+                // Change color of columns to green
+
+                Color color = new Color( (byte) 0, (byte) 255, (byte) 0 );
+                OverrideGraphicSettings ogs = new OverrideGraphicSettings();
+                ogs.SetProjectionLineColor( color );
+                view.SetElementOverrides( elem.Id, ogs );
+              }
+              else
+              {
+                foreach( Element e in collector )
+                {
+                  if( e.Category.Name == "Structural Framing" )
+                  {
+                    intersectingBeams.Add( e );
+                  }
+                  else if( e.Category.Name == "Floors" )
+                  {
+                    intersectingSlabs.Add( e );
+                  }
+                }
+                if( intersectingBeams.Any() )
+                {
+                  Element lowestBottomElem = intersectingBeams.First();
+                  foreach( Element beam in intersectingBeams )
+                  {
+                    BoundingBoxXYZ thisBeamBB = beam.get_BoundingBox( view );
+                    BoundingBoxXYZ currentLowestBB = lowestBottomElem.get_BoundingBox( view );
+                    if( thisBeamBB.Min.Z < currentLowestBB.Min.Z )
+                    {
+                      lowestBottomElem = beam;
+                    }
+                  }
+                  ColumnAttachment.AddColumnAttachment( 
+                    doc, column, lowestBottomElem, 1, 
+                    ColumnAttachmentCutStyle.None, 
+                    ColumnAttachmentJustification.Minimum, 
+                    0 );
+                  successColumns++;
+                }
+                else if( intersectingSlabs.Any() )
+                {
+                  Element lowestBottomElem = intersectingSlabs.First();
+                  foreach( Element slab in intersectingSlabs )
+                  {
+                    BoundingBoxXYZ thisSlabBB = slab.get_BoundingBox( view );
+                    BoundingBoxXYZ currentLowestBB = lowestBottomElem.get_BoundingBox( view );
+                    if( thisSlabBB.Min.Z < currentLowestBB.Min.Z )
+                    {
+                      lowestBottomElem = slab;
+                    }
+                  }
+                  ColumnAttachment.AddColumnAttachment( 
+                    doc, column, lowestBottomElem, 1, 
+                    ColumnAttachmentCutStyle.None, 
+                    ColumnAttachmentJustification.Minimum, 
+                    0 );
+                  successColumns++;
+                }
+                else
+                {
+                  // Change color of columns to red
+
+                  Color color = new Color( (byte) 255, (byte) 0, (byte) 0 );
+                  OverrideGraphicSettings ogs = new OverrideGraphicSettings();
+                  ogs.SetProjectionLineColor( color );
+                  view.SetElementOverrides( elem.Id, ogs );
+                }
+              }
+            }
+          }
+          tx.Commit();
+        }
+        TaskDialog.Show( "Columns Changed",
+          string.Format( "{0} of {1} Columns Changed",
+          successColumns, allColumns ) );
+      }
+      else
+      {
+        TaskDialog.Show( "Revit", "Run Script in 3D View." );
+      }
+    }
+
+    void AdjustColumnHeightsUsingReferenceIntersector(
+      Document doc,
+      IList<ElementId> ids )
+    {
+
+    }
+    #endregion // Find Beams and Slabs intersecting Columns
   }
 }
