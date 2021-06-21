@@ -372,7 +372,7 @@ namespace BuildingCoder
 
             // Check if element is column
 
-            if( (BuiltInCategory) elem.Category.Id.IntegerValue 
+            if( (BuiltInCategory) elem.Category.Id.IntegerValue
               == BuiltInCategory.OST_StructuralColumns )
             {
               allColumns++;
@@ -384,15 +384,15 @@ namespace BuildingCoder
               List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
               builtInCats.Add( BuiltInCategory.OST_Floors );
               builtInCats.Add( BuiltInCategory.OST_StructuralFraming );
-              ElementMulticategoryFilter beamSlabFilter 
+              ElementMulticategoryFilter beamSlabFilter
                 = new ElementMulticategoryFilter( builtInCats );
 
               BoundingBoxXYZ bb = elem.get_BoundingBox( view );
               Outline myOutLn = new Outline( bb.Min, bb.Max + 100 * XYZ.BasisZ );
-              BoundingBoxIntersectsFilter bbFilter 
+              BoundingBoxIntersectsFilter bbFilter
                 = new BoundingBoxIntersectsFilter( myOutLn );
 
-              FilteredElementCollector collector 
+              FilteredElementCollector collector
                 = new FilteredElementCollector( doc )
                   .WherePasses( beamSlabFilter )
                   .WherePasses( bbFilter );
@@ -400,7 +400,7 @@ namespace BuildingCoder
               List<Element> intersectingBeams = new List<Element>();
               List<Element> intersectingSlabs = new List<Element>();
 
-              if( ColumnAttachment.GetColumnAttachment( 
+              if( ColumnAttachment.GetColumnAttachment(
                 column, 1 ) != null )
               {
                 // Change color of columns to green
@@ -435,10 +435,10 @@ namespace BuildingCoder
                       lowestBottomElem = beam;
                     }
                   }
-                  ColumnAttachment.AddColumnAttachment( 
-                    doc, column, lowestBottomElem, 1, 
-                    ColumnAttachmentCutStyle.None, 
-                    ColumnAttachmentJustification.Minimum, 
+                  ColumnAttachment.AddColumnAttachment(
+                    doc, column, lowestBottomElem, 1,
+                    ColumnAttachmentCutStyle.None,
+                    ColumnAttachmentJustification.Minimum,
                     0 );
                   successColumns++;
                 }
@@ -454,10 +454,10 @@ namespace BuildingCoder
                       lowestBottomElem = slab;
                     }
                   }
-                  ColumnAttachment.AddColumnAttachment( 
-                    doc, column, lowestBottomElem, 1, 
-                    ColumnAttachmentCutStyle.None, 
-                    ColumnAttachmentJustification.Minimum, 
+                  ColumnAttachment.AddColumnAttachment(
+                    doc, column, lowestBottomElem, 1,
+                    ColumnAttachmentCutStyle.None,
+                    ColumnAttachmentJustification.Minimum,
                     0 );
                   successColumns++;
                 }
@@ -493,7 +493,7 @@ namespace BuildingCoder
 
       if( null == view )
       {
-        throw new Exception( 
+        throw new Exception(
           "Please run this command in a 3D view." );
       }
 
@@ -508,7 +508,7 @@ namespace BuildingCoder
         {
           Element elem = doc.GetElement( elemId );
 
-          if( (BuiltInCategory) elem.Category.Id.IntegerValue 
+          if( (BuiltInCategory) elem.Category.Id.IntegerValue
             == BuiltInCategory.OST_StructuralColumns )
           {
             allColumns++;
@@ -520,7 +520,7 @@ namespace BuildingCoder
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
             builtInCats.Add( BuiltInCategory.OST_Floors );
             builtInCats.Add( BuiltInCategory.OST_StructuralFraming );
-            ElementMulticategoryFilter filter 
+            ElementMulticategoryFilter filter
               = new ElementMulticategoryFilter( builtInCats );
 
             // Remove old column attachement
@@ -566,10 +566,10 @@ namespace BuildingCoder
               ElementId id = reference.ElementId;
               Element e = doc.GetElement( id );
 
-              ColumnAttachment.AddColumnAttachment( 
-                doc, column, e, 1, 
-                ColumnAttachmentCutStyle.None, 
-                ColumnAttachmentJustification.Minimum, 
+              ColumnAttachment.AddColumnAttachment(
+                doc, column, e, 1,
+                ColumnAttachmentCutStyle.None,
+                ColumnAttachmentJustification.Minimum,
                 0 );
 
               successColumns++;
