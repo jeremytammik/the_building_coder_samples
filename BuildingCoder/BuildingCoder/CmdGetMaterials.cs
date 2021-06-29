@@ -20,6 +20,8 @@ using Autodesk.Revit.DB.Visual;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Text;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -1178,6 +1180,83 @@ namespace BuildingCoder
       }
     }
     #endregion // Access All Material Asset Properties
+
+    #region Set material appearance asset keyword property
+    //I have an issue setting a string value to the material appearance asset keyword property.
+    //In one material, it can be set as expected, but another material returns an error saying, "The input value is invalid for this AssetPropertyString property.\r\nParameter name: value".
+    //I found the blog article and JIRA ticket REVIT-170824 which explains that the keyword property on the Identity tab is not exposed yet.
+    //https://thebuildingcoder.typepad.com/blog/2019/11/material-physical-and-thermal-assets.html#4
+    //https://jira.autodesk.com/browse/REVIT-170824
+    //I expect the "keyword" property on the appearance tab to accept a string value.
+    //In addition, I can see some error message in the journal file.
+    //Is it possible to set the "keyword" property of the appearance asset?
+
+    void SetMaterialAppearanceAssetKeywordProperty( 
+      Document doc )
+    {
+      FilteredElementCollector materialCollector
+      = new FilteredElementCollector( doc )
+      .OfCategory( BuiltInCategory.OST_Materials )
+      .OfClass( typeof( Material ) );
+      Material material = null;
+      foreach( Element e in materialCollector )
+      {
+        if( e.Name == "HC_CB" )
+        {
+          material = e as Material;
+        }
+      }
+      AppearanceAssetElement assetElem 
+        = doc.GetElement( material.AppearanceAssetId ) 
+          as AppearanceAssetElement;
+
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Transaction Set Keyword" );
+        using( AppearanceAssetEditScope editScope 
+          = new AppearanceAssetEditScope( assetElem.Document ) )
+        {
+          Asset editableAsset = editScope.Start( assetElem.Id );
+          var matclass = material.MaterialClass;
+          string newKeyword = "Test";
+          try
+          {
+            var parameter = editableAsset.FindByName( "keyword" );
+            if( parameter != null )
+            {
+              AssetPropertyString propKeyword = parameter 
+                as AssetPropertyString;
+
+              if( propKeyword != null )
+              {
+                if( string.IsNullOrEmpty( propKeyword.Value ) )
+                {
+                  propKeyword.Value = newKeyword;
+                }
+                else
+                {
+                  if( !propKeyword.Value.Contains( newKeyword ) )
+                  {
+                    StringBuilder str = new StringBuilder();
+                    str.Append( propKeyword.Value );
+                    str.Append( ":" );
+                    str.Append( newKeyword );
+                    propKeyword.Value = str.ToString();
+                  }
+                }
+              }
+            }
+          }
+          catch( Exception ex )
+          {
+            Debug.WriteLine( ex.Message );
+          }
+          editScope.Commit( true );
+        }
+        tx.Commit();
+      }
+    }
+    #endregion // Set material appearance asset keyword property
   }
 
   #region Victor sample code 2
