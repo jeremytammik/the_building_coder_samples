@@ -14,14 +14,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
+using System.Diagnostics;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Visual;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -1190,25 +1189,30 @@ namespace BuildingCoder
     //I expect the "keyword" property on the appearance tab to accept a string value.
     //In addition, I can see some error message in the journal file.
     //Is it possible to set the "keyword" property of the appearance asset?
-
-    void SetMaterialAppearanceAssetKeywordProperty( 
-      Document doc )
+    /// <summary>
+    /// Set material appearance asset keyword property
+    /// </summary>
+    void SetMaterialAppearanceAssetKeywordProperty(
+      AppearanceAssetElement assetElem,
+      string new_keyword )
     {
-      FilteredElementCollector materialCollector
-      = new FilteredElementCollector( doc )
-      .OfCategory( BuiltInCategory.OST_Materials )
-      .OfClass( typeof( Material ) );
-      Material material = null;
-      foreach( Element e in materialCollector )
-      {
-        if( e.Name == "HC_CB" )
-        {
-          material = e as Material;
-        }
-      }
-      AppearanceAssetElement assetElem 
-        = doc.GetElement( material.AppearanceAssetId ) 
-          as AppearanceAssetElement;
+      Document doc = assetElem.Document;
+
+      //FilteredElementCollector materialCollector
+      //  = new FilteredElementCollector( doc )
+      //    .OfCategory( BuiltInCategory.OST_Materials )
+      //    .OfClass( typeof( Material ) );
+      //Material material = null;
+      //foreach( Element e in materialCollector )
+      //{
+      //  if( e.Name == "HC_CB" )
+      //  {
+      //    material = e as Material;
+      //  }
+      //}
+      //AppearanceAssetElement assetElem 
+      //  = doc.GetElement( material.AppearanceAssetId ) 
+      //    as AppearanceAssetElement;
 
       using( Transaction tx = new Transaction( doc ) )
       {
@@ -1217,8 +1221,7 @@ namespace BuildingCoder
           = new AppearanceAssetEditScope( assetElem.Document ) )
         {
           Asset editableAsset = editScope.Start( assetElem.Id );
-          var matclass = material.MaterialClass;
-          string newKeyword = "Test";
+
           try
           {
             var parameter = editableAsset.FindByName( "keyword" );
@@ -1231,17 +1234,15 @@ namespace BuildingCoder
               {
                 if( string.IsNullOrEmpty( propKeyword.Value ) )
                 {
-                  propKeyword.Value = newKeyword;
+                  propKeyword.Value = new_keyword;
                 }
                 else
                 {
-                  if( !propKeyword.Value.Contains( newKeyword ) )
+                  if( !propKeyword.Value.Contains( new_keyword ) )
                   {
-                    StringBuilder str = new StringBuilder();
-                    str.Append( propKeyword.Value );
-                    str.Append( ":" );
-                    str.Append( newKeyword );
-                    propKeyword.Value = str.ToString();
+                    string val = propKeyword.Value 
+                      + ": "+ new_keyword;
+                    propKeyword.Value = val;
                   }
                 }
               }
