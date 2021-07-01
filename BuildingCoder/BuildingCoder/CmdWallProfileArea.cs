@@ -90,7 +90,6 @@ namespace BuildingCoder
       bool rc = ( 2 < n );
       if( 3 == n )
       {
-
         // the general case returns a wrong result for the triangle
         // ((-1 -1 -1) (1 -1 -1) (-1 -1 1)), so implement specific
         // code for triangle:
@@ -104,7 +103,6 @@ namespace BuildingCoder
       }
       else if( 4 == n )
       {
-
         // more efficient code for 4-sided polygons
 
         XYZ a = polygon[0];
@@ -112,10 +110,12 @@ namespace BuildingCoder
         XYZ c = polygon[2];
         XYZ d = polygon[3];
 
-        normal = new XYZ(
-          ( c.Y - a.Y ) * ( d.Z - b.Z ) + ( c.Z - a.Z ) * ( b.Y - d.Y ),
-          ( c.Z - a.Z ) * ( d.X - b.X ) + ( c.X - a.X ) * ( b.Z - d.Z ),
-          ( c.X - a.X ) * ( d.Y - b.Y ) + ( c.Y - a.Y ) * ( b.X - d.X ) );
+        //normal = new XYZ(
+        //  ( c.Y - a.Y ) * ( d.Z - b.Z ) + ( c.Z - a.Z ) * ( b.Y - d.Y ),
+        //  ( c.Z - a.Z ) * ( d.X - b.X ) + ( c.X - a.X ) * ( b.Z - d.Z ),
+        //  ( c.X - a.X ) * ( d.Y - b.Y ) + ( c.Y - a.Y ) * ( b.X - d.X ) );
+
+        normal = (a - c).Cross(b - d);
 
         dist = 0.25 *
           ( normal.X * ( a.X + b.X + c.X + d.X )
