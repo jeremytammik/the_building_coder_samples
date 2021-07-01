@@ -384,6 +384,7 @@ using System.Runtime.InteropServices;
 // 2021-06-21 2022.0.150.12 added AdjustColumnHeightsUsingBoundingBox from https://forums.autodesk.com/t5/revit-api-forum/ray-projection-not-picking-up-beams/m-p/10388868
 // 2021-06-21 2022.0.150.12 added AdjustColumnHeightsUsingReferenceIntersector from https://forums.autodesk.com/t5/revit-api-forum/ray-projection-not-picking-up-beams/m-p/10388868
 // 2021-06-29 2022.0.150.13 added SetMaterialAppearanceAssetKeywordProperty
+// 2021-07-01 2022.0.150.14 added enhancement by Andrey for quadrilateral to GetPolygonPlane
 //
-[assembly: AssemblyVersion( "2022.0.150.13" )]
-[assembly: AssemblyFileVersion( "2022.0.150.13" )]
+[assembly: AssemblyVersion( "2022.0.150.14" )]
+[assembly: AssemblyFileVersion( "2022.0.150.14" )]

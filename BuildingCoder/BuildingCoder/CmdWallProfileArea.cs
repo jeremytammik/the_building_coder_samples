@@ -101,9 +101,9 @@ namespace BuildingCoder
         normal = v.CrossProduct( c - a );
         dist = normal.DotProduct( a );
       }
-      else if( 4 == n )
+      else if( 4 == n ) 
       {
-        // more efficient code for 4-sided polygons
+        // more efficient code for 4-sided quadrilateral polygons
 
         XYZ a = polygon[0];
         XYZ b = polygon[1];
@@ -115,7 +115,7 @@ namespace BuildingCoder
         //  ( c.Z - a.Z ) * ( d.X - b.X ) + ( c.X - a.X ) * ( b.Z - d.Z ),
         //  ( c.X - a.X ) * ( d.Y - b.Y ) + ( c.Y - a.Y ) * ( b.X - d.X ) );
 
-        normal = (a - c).Cross(b - d);
+        normal = (a - c).CrossProduct(b - d);
 
         dist = 0.25 *
           ( normal.X * ( a.X + b.X + c.X + d.X )
@@ -124,7 +124,6 @@ namespace BuildingCoder
       }
       else if( 4 < n )
       {
-
         // general case for n-sided polygons
 
         XYZ a;
