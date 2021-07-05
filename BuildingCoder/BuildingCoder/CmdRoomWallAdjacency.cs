@@ -35,6 +35,83 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   class CmdRoomWallAdjacency : IExternalCommand
   {
+    // Originally implemented by Richard @RPThomas108 Thomas in VB.NET in
+    // https://forums.autodesk.com/t5/revit-api-forum/extract-the-names-of-the-rooms-separated-by-a-wall/m-p/10428696
+
+    /// <summary>
+    /// For all rooms, determine all adjacent walls,
+    /// create dictionary mapping walls to adjacent rooms,
+    /// and tag the walls with the adjacent room names.
+    /// </summary>
+    void TagWallsWithAdjacentRooms( Document doc )
+    {
+      FilteredElementCollector rooms
+        = new FilteredElementCollector( doc )
+          .WhereElementIsNotElementType()
+          .OfCategory( BuiltInCategory.OST_Rooms );
+
+      Dictionary<ElementId, List<string>> map_wall_to_rooms
+        = new Dictionary<ElementId, List<string>>();
+
+      SpatialElementBoundaryOptions opts
+        = new SpatialElementBoundaryOptions();
+
+      foreach( Room room in rooms )
+      {
+        IList<IList<BoundarySegment>> loops 
+          = room.GetBoundarySegments( opts );
+
+        foreach (IList<BoundarySegment> loop in loops )
+        {
+          foreach( BoundarySegment seg in loop )
+          {
+            ElementId idWall = seg.ElementId;
+
+            if( ElementId.InvalidElementId != idWall )
+            {
+              if(!map_wall_to_rooms.ContainsKey(idWall))
+              {
+                map_wall_to_rooms.Add( 
+                  idWall, new List<string>() );
+              }
+
+              string room_name = room.Name;
+
+              if(!map_wall_to_rooms[idWall].Contains( room_name ) )
+              {
+                map_wall_to_rooms[ idWall ].Add( room_name );
+              }
+            }
+          }
+        }
+      }
+
+      using( Transaction tx = new Transaction( doc ) )
+      {
+        tx.Start( "Add list of adjacent rooms to wall comments" );
+
+        Dictionary<ElementId, List<string>>.KeyCollection ids
+          = map_wall_to_rooms.Keys;
+
+        foreach( ElementId id in ids )
+        {
+          Element wall = doc.GetElement( id );
+
+          Parameter p = wall.get_Parameter(
+            BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS );
+
+          if( null != p )
+          {
+            string s = string.Join( " / ", 
+              map_wall_to_rooms[ id ] );
+
+            p.Set( s );
+          }
+        }
+        tx.Commit();
+      }
+    }
+
     void DetermineAdjacentElementLengthsAndWallAreas(
       Room room )
     {

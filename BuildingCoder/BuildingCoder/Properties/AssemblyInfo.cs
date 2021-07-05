@@ -385,6 +385,7 @@ using System.Runtime.InteropServices;
 // 2021-06-21 2022.0.150.12 added AdjustColumnHeightsUsingReferenceIntersector from https://forums.autodesk.com/t5/revit-api-forum/ray-projection-not-picking-up-beams/m-p/10388868
 // 2021-06-29 2022.0.150.13 added SetMaterialAppearanceAssetKeywordProperty
 // 2021-07-01 2022.0.150.14 added enhancement by Andrey for quadrilateral to GetPolygonPlane
+// 2021-07-05 2022.0.150.15 implemented TagWallsWithAdjacentRooms based on Richard @RPThomas108 Thomas VB.NET code in https://forums.autodesk.com/t5/revit-api-forum/extract-the-names-of-the-rooms-separated-by-a-wall/m-p/10428696
 //
-[assembly: AssemblyVersion( "2022.0.150.14" )]
-[assembly: AssemblyFileVersion( "2022.0.150.14" )]
+[assembly: AssemblyVersion( "2022.0.150.15" )]
+[assembly: AssemblyFileVersion( "2022.0.150.15" )]
