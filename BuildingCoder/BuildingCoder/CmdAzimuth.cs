@@ -28,7 +28,7 @@ namespace BuildingCoder
       ref String message,
       ElementSet elements )
     {
-      //Util.ListForgeTypeIds();
+      Util.ListForgeTypeIds();
 
       UIApplication app = commandData.Application;
       UIDocument uidoc = app.ActiveUIDocument;

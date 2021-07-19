@@ -1349,9 +1349,10 @@ const T f = ( ay * bx ) - ( ax * by );
 
       foreach( ForgeTypeId fti in specs )
       {
-        Debug.Print( "{0}: {1}, {2}",
+        Debug.Print( "{0}: {1}, {2}, {3}",
           fti.ToString(), fti.TypeId,
-          UnitUtils.GetTypeCatalogStringForSpec( fti ) );
+          UnitUtils.GetTypeCatalogStringForSpec( fti ),
+          LabelUtils.GetLabelForSpec( fti ) );
       }
 
       IList<ForgeTypeId> units = UnitUtils.GetAllUnits();

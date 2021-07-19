@@ -386,6 +386,7 @@ using System.Runtime.InteropServices;
 // 2021-06-29 2022.0.150.13 added SetMaterialAppearanceAssetKeywordProperty
 // 2021-07-01 2022.0.150.14 added enhancement by Andrey for quadrilateral to GetPolygonPlane
 // 2021-07-05 2022.0.150.15 implemented TagWallsWithAdjacentRooms based on Richard @RPThomas108 Thomas VB.NET code in https://forums.autodesk.com/t5/revit-api-forum/extract-the-names-of-the-rooms-separated-by-a-wall/m-p/10428696
+// 2021-07-19 2022.0.150.16 searching for spec type id short label for https://forums.autodesk.com/t5/revit-api-forum/short-vs-long-unit-label-format/m-p/10478939
 //
-[assembly: AssemblyVersion( "2022.0.150.15" )]
-[assembly: AssemblyFileVersion( "2022.0.150.15" )]
+[assembly: AssemblyVersion( "2022.0.150.16" )]
+[assembly: AssemblyFileVersion( "2022.0.150.16" )]
