@@ -1347,12 +1347,16 @@ const T f = ( ay * bx ) - ( ax * by );
 
       Debug.Print( "{0} specs:", specs.Count );
 
+      Units units_metric = new Units( UnitSystem.Metric );
+      Units units_imperial = new Units( UnitSystem.Imperial );
+
       foreach( ForgeTypeId fti in specs )
       {
         Debug.Print( "{0}: {1}, {2}, {3}",
           fti.ToString(), fti.TypeId,
           UnitUtils.GetTypeCatalogStringForSpec( fti ),
-          LabelUtils.GetLabelForSpec( fti ) );
+          LabelUtils.GetLabelForSpec( fti ),
+          UnitFormatUtils.Format( units_metric, fti, 1, false ) );
       }
 
       IList<ForgeTypeId> units = UnitUtils.GetAllUnits();
