@@ -1352,7 +1352,7 @@ const T f = ( ay * bx ) - ( ax * by );
 
       foreach( ForgeTypeId fti in specs )
       {
-        Debug.Print( "{0}: {1}, {2}, {3}",
+        Debug.Print( "{0}: {1}, {2}, {3}, {4}",
           fti.ToString(), fti.TypeId,
           UnitUtils.GetTypeCatalogStringForSpec( fti ),
           LabelUtils.GetLabelForSpec( fti ),
@@ -1363,11 +1363,22 @@ const T f = ( ay * bx ) - ( ax * by );
 
       Debug.Print( "{0} units:", units.Count );
 
+      string s;
+
       foreach( ForgeTypeId fti in units )
       {
-        Debug.Print( "{0}: {1}, {2}",
+        // this returns false for all units! why?
+        //UnitUtils.IsMeasurableSpec( fti );
+
+        // this throwsz
+        // Autodesk.Revit.Exceptions.FunctionId
+        // "specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(ForgeTypeId).\r\nParameter name: specTypeId"}
+        // s = UnitFormatUtils.Format( units_metric, fti, 1, false );
+
+        Debug.Print( "{0}: {1}, {2}, {3}",
           fti.ToString(), fti.TypeId,
-          UnitUtils.GetTypeCatalogStringForUnit( fti ) );
+          UnitUtils.GetTypeCatalogStringForUnit( fti ),
+          LabelUtils.GetLabelForUnit( fti ) );
       }
     }
 
