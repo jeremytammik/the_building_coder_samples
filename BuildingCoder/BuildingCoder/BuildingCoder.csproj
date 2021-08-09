@@ -247,6 +247,7 @@
     <Compile Include="CmdSwitchDoc.cs" />
     <Compile Include="CmdTransformedCoords.cs" />
     <Compile Include="CmdChangeLinkedFilePath.cs" />
+    <Compile Include="CmdTriangleCount.cs" />
     <Compile Include="CmdUnrotateNorth.cs" />
     <Compile Include="CmdUpdateReferencingSheet.cs" />
     <Compile Include="CmdViewsShowingElements.cs" />

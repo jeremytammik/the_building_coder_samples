@@ -1280,3 +1280,11 @@ LargeImage:
 Image:
 Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdSortCurveLoops # version 2020.0.150.25
+
+ADN Bc R-Z
+Triangle Count
+Determine model total triangle count using custom exporter
+LargeImage:
+Image:
+Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdTriangleCount # version 2020.0.151.0

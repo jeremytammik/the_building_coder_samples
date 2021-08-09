@@ -1363,7 +1363,7 @@ const T f = ( ay * bx ) - ( ax * by );
 
       Debug.Print( "{0} units:", units.Count );
 
-      string s;
+      //string s;
 
       foreach( ForgeTypeId fti in units )
       {
