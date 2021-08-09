@@ -24,7 +24,7 @@ namespace BuildingCoder
   [Transaction( TransactionMode.ReadOnly )]
   public class CmdTriangleCount : IExternalCommand
   {
-    class TriangleCounter : IExportContext
+    class TriangleCounterContext : IExportContext
     {
       private Document document;
 
@@ -42,7 +42,7 @@ namespace BuildingCoder
 
       private bool includeMaterials = true;
 
-      public TriangleCounter( 
+      public TriangleCounterContext( 
         Document document, 
         Func<bool> isCanceled, 
         Action<long, int> callback )
@@ -161,8 +161,18 @@ namespace BuildingCoder
       var uidoc = app.ActiveUIDocument;
       var doc = uidoc.Document;
 
-      TriangleCounter tc = new TriangleCounter( 
-        doc, null, TriangleCountReport );
+      TriangleCounterContext context 
+        = new TriangleCounterContext( 
+          doc, null, TriangleCountReport );
+
+      CustomExporter exporter 
+        = new CustomExporter(
+          doc, context );
+
+      //exporter.IncludeFaces = false;
+      //exporter.ShouldStopOnError = false;
+
+      exporter.Export( doc.ActiveView );
 
       return Result.Succeeded;
     }
