@@ -174,9 +174,6 @@ namespace BuildingCoder
         = new CustomExporter(
           doc, context );
 
-      //exporter.IncludeFaces = false;
-      //exporter.ShouldStopOnError = false;
-
       exporter.Export( doc.ActiveView );
 
       return Result.Succeeded;
