@@ -147,9 +147,12 @@ namespace BuildingCoder
 
     void TriangleCountReport( long nTriangles, int nMaterials )
     {
-      Debug.Print( 
-        "Total number of model triangles and materials: {0}, {1}", 
+      string s = string.Format(
+        "Total number of model triangles and materials: {0}, {1}",
         nTriangles, nMaterials );
+
+      Debug.Print( s );
+      TaskDialog.Show( "Triangle Count", s );
     }
 
     public Result Execute(
