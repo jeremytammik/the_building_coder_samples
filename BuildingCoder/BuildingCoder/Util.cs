@@ -1414,6 +1414,11 @@ const T f = ( ay * bx ) - ( ax * by );
       return 1 == n ? "" : "s";
     }
 
+    public static string PluralSuffix( long n )
+    {
+      return 1 == n ? "" : "s";
+    }
+
     /// <summary>
     /// Return an English plural suffix 'ies' or
     /// 'y' for the given number of items.
