@@ -387,6 +387,7 @@ using System.Runtime.InteropServices;
 // 2021-07-01 2022.0.150.14 added enhancement by Andrey for quadrilateral to GetPolygonPlane
 // 2021-07-05 2022.0.150.15 implemented TagWallsWithAdjacentRooms based on Richard @RPThomas108 Thomas VB.NET code in https://forums.autodesk.com/t5/revit-api-forum/extract-the-names-of-the-rooms-separated-by-a-wall/m-p/10428696
 // 2021-07-19 2022.0.150.16 searching for spec type id short label for https://forums.autodesk.com/t5/revit-api-forum/short-vs-long-unit-label-format/m-p/10478939
+// 2021-08-09 2022.0.151.0 added CmdTriangleCount from https://forums.autodesk.com/t5/revit-api-forum/how-to-get-polygon-count-of-the-project/m-p/10530975
 //
-[assembly: AssemblyVersion( "2022.0.150.16" )]
-[assembly: AssemblyFileVersion( "2022.0.150.16" )]
+[assembly: AssemblyVersion( "2022.0.151.0" )]
+[assembly: AssemblyFileVersion( "2022.0.151.0" )]

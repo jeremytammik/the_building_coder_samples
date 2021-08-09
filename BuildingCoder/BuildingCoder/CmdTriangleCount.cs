@@ -11,11 +11,12 @@
 #endregion // Header
 
 #region Namespaces
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using System;
-using System.Collections.Generic;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -29,17 +30,13 @@ namespace BuildingCoder
 
       private Func<bool> isCanceled;
 
+      /// <summary>
+      /// Callback at end with total count of model 
+      /// geometry triangles and material ids
+      /// </summary>
       private Action<long, int> callback;
 
       private long numTriangles;
-
-      public long TriangleCount
-      {
-        get
-        {
-          return numTriangles;
-        }
-      }
 
       private List<ElementId> materialIds;
 
@@ -148,6 +145,13 @@ namespace BuildingCoder
       }
     }
 
+    void TriangleCountReport( long nTriangles, int nMaterials )
+    {
+      Debug.Print( 
+        "Total number of model triangles and materials: {0}, {1}", 
+        nTriangles, nMaterials );
+    }
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
@@ -157,6 +161,8 @@ namespace BuildingCoder
       var uidoc = app.ActiveUIDocument;
       var doc = uidoc.Document;
 
+      TriangleCounter tc = new TriangleCounter( 
+        doc, null, TriangleCountReport );
 
       return Result.Succeeded;
     }
