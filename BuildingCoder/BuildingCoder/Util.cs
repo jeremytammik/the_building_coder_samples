@@ -255,6 +255,19 @@ namespace BuildingCoder
       return p.CrossProduct( q ).IsZeroLength();
     }
 
+    /// <summary>
+    /// Predicate returning true if three given points are collinear
+    /// </summary>
+    public static bool AreCollinear( XYZ p, XYZ q, XYZ r )
+    {
+      XYZ v = q - p;
+      XYZ w = r - p;
+      return IsParallel( v, w );
+    }
+    
+    /// <summary>
+    /// Predicate returning true if two given lines are collinear
+    /// </summary>
     public static bool IsCollinear( Line a, Line b )
     {
       XYZ v = a.Direction;
