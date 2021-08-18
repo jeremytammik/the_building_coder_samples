@@ -389,6 +389,7 @@ using System.Runtime.InteropServices;
 // 2021-07-19 2022.0.150.16 searching for spec type id short label for https://forums.autodesk.com/t5/revit-api-forum/short-vs-long-unit-label-format/m-p/10478939
 // 2021-08-09 2022.0.151.0 added CmdTriangleCount from https://forums.autodesk.com/t5/revit-api-forum/how-to-get-polygon-count-of-the-project/m-p/10530975
 // 2021-08-16 2022.0.151.1 implemented AreCollinear for https://forums.autodesk.com/t5/revit-api-forum/collinear-3d-points/m-p/10546901
+// 2021-08-18 2022.0.151.2 added CreateFloorAtElevation
 //
-[assembly: AssemblyVersion( "2022.0.151.1" )]
-[assembly: AssemblyFileVersion( "2022.0.151.1" )]
+[assembly: AssemblyVersion( "2022.0.151.2" )]
+[assembly: AssemblyFileVersion( "2022.0.151.2" )]
