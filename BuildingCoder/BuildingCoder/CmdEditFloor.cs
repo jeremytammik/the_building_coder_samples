@@ -25,6 +25,64 @@ namespace BuildingCoder
   [Transaction( TransactionMode.Manual )]
   class CmdEditFloor : IExternalCommand
   {
+    /// The example below shows how to use Floor.Create 
+    /// method to create a new Floor with a specified 
+    /// elevation on a level using a geometry profile 
+    /// and a floor type from Revit 2022 onwards. 
+    /// It shows how to adapt your old code using the
+    /// NewFloor and NewSlab methods, which became 
+    /// obsolete with Revit 2022.
+    /// In this sample, the geometry profile is a 
+    /// CurveLoop of lines; you can also use arcs, 
+    /// ellipses and splines.
+    Floor CreateFloorAtElevation(
+      Document document,
+      double elevation )
+    {
+      // Get a floor type for floor creation
+      // You must provide a valid floor type (unlike the 
+      // obsolete NewFloor and NewSlab methods).
+
+      ElementId floorTypeId = Floor.GetDefaultFloorType(
+        document, false );
+
+      // Get a level
+      // You must provide a valid level (unlike the 
+      // obsolete NewFloor and NewSlab methods).
+
+      double offset;
+      ElementId levelId = Level.GetNearestLevelId(
+        document, elevation, out offset );
+
+      // Build a floor profile for the floor creation
+
+      XYZ first = new XYZ( 0, 0, 0 );
+      XYZ second = new XYZ( 20, 0, 0 );
+      XYZ third = new XYZ( 20, 15, 0 );
+      XYZ fourth = new XYZ( 0, 15, 0 );
+      CurveLoop profile = new CurveLoop();
+      profile.Append( Line.CreateBound( first, second ) );
+      profile.Append( Line.CreateBound( second, third ) );
+      profile.Append( Line.CreateBound( third, fourth ) );
+      profile.Append( Line.CreateBound( fourth, first ) );
+
+      // The elevation of the curve loops is not taken 
+      // into account (unlike the obsolete NewFloor and 
+      // NewSlab methods).
+      // If the default elevation is not what you want, 
+      // you need to set it explicitly.
+
+      var floor = Floor.Create( document, new List<CurveLoop> {
+        profile }, floorTypeId, levelId );
+
+      Parameter param = floor.get_Parameter(
+        BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM );
+
+      param.Set( offset );
+
+      return floor;
+    }
+
     #region Super simple floor creation
     Result Execute2(
       ExternalCommandData commandData,
