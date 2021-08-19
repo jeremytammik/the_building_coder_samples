@@ -859,7 +859,7 @@ const T f = ( ay * bx ) - ( ax * by );
           pts[ i - 1 ], pts[ i ] ) );
       }
       curveLoop.Append( Line.CreateBound(
-        pts[ n ], pts[ 0 ] ) );
+        pts[ n - 1 ], pts[ 0 ] ) );
       return curveLoop;
     }
 
