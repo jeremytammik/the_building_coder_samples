@@ -1288,3 +1288,11 @@ LargeImage:
 Image:
 Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
 BuildingCoder.CmdTriangleCount # version 2020.0.151.0
+
+ADN Bc J-Q
+Log4Net Test
+test using Log4Net in a Revit add-in
+LargeImage:
+Image:
+Y:\a\src\rvt\the_building_coder_samples\BuildingCoder\BuildingCoder\bin\Debug\BuildingCoder.dll
+BuildingCoder.CmdLog4 # version 2020.0.152.0

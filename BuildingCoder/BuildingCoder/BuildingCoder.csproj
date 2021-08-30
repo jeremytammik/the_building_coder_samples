@@ -67,6 +67,10 @@
       <HintPath>C:\Program Files\Autodesk\Revit 2022\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>C:\Program Files\Autodesk\Revit 2022\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -173,6 +177,7 @@
     <Compile Include="CmdListPipeSizes.cs" />
     <Compile Include="CmdListRailingTypes.cs" />
     <Compile Include="CmdListSharedParams.cs" />
+    <Compile Include="CmdLog4.cs" />
     <Compile Include="CmdMepElementShape.cs" />
     <Compile Include="CmdMidCurve.cs" />
     <Compile Include="CmdMirror.cs" />
