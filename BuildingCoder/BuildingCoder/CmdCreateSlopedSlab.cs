@@ -55,7 +55,9 @@ namespace BuildingCoder
           new XYZ( 0, length, height )
         };
 
-        CurveArray profile 
+        #region Before Floor.Create method
+#if BEFORE_FLOOR_CREATE_METHOD
+        CurveArray profile_arr
           = uiapp.Application.Create.NewCurveArray();
 
         Line line = null;
@@ -67,7 +69,7 @@ namespace BuildingCoder
         foreach( XYZ p in pts )
         {
           line = Line.CreateBound( q, p );
-          profile.Append( line );
+          profile_arr.Append( line );
           q = p;
         }
 
@@ -85,8 +87,43 @@ namespace BuildingCoder
           level.Name = "Sloped Slab";
         }
 
-        Floor floor = doc.Create.NewSlab(
-          profile, level, line, 0.5, true );
+        Floor floor1 = doc.Create.NewSlab(
+          profile_arr, level, line, 0.5, true ); // 2021
+#endif // BEFORE_FLOOR_CREATE_METHOD
+         #endregion // Before Floor.Create method
+
+        bool isFoundation = true;
+
+        ElementId floorTypeId = Floor.GetDefaultFloorType( 
+          doc, isFoundation );
+
+        double offset;
+
+        ElementId levelId = Level.GetNearestLevelId(
+          doc, height, out offset );
+
+        // Build a floor profile for the floor creation
+
+        CurveLoop profile = new CurveLoop();
+        profile.Append( Line.CreateBound( pts[ 0 ], pts[ 1 ] ) );
+        profile.Append( Line.CreateBound( pts[ 1 ], pts[ 2 ] ) );
+        profile.Append( Line.CreateBound( pts[ 2 ], pts[ 3 ] ) );
+        profile.Append( Line.CreateBound( pts[ 3 ], pts[ 0 ] ) );
+
+        // The elevation of the curve loops is not taken 
+        // into account (unlike the obsolete NewFloor and 
+        // NewSlab methods).
+        // If the default elevation is not what you want, 
+        // you need to set it explicitly.
+
+        Floor floor = Floor.Create( doc, 
+          new List<CurveLoop> { profile }, 
+          floorTypeId, levelId );
+
+        Parameter param = floor.get_Parameter(
+          BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM );
+
+        param.Set( offset );
 
         tx.Commit();
       }
@@ -94,7 +131,7 @@ namespace BuildingCoder
     }
   }
 
-  #region Unsuccessful attempt to modify existing floor slope
+#region Unsuccessful attempt to modify existing floor slope
   /// <summary>
   /// Unsuccessful attempt to change the 
   /// slope of an existing floor element.
@@ -172,5 +209,5 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
   }
-  #endregion // Unsuccessful attempt to modify existing floor slope
+#endregion // Unsuccessful attempt to modify existing floor slope
 }

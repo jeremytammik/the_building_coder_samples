@@ -391,6 +391,7 @@ using System.Runtime.InteropServices;
 // 2021-08-16 2022.0.151.1 implemented AreCollinear for https://forums.autodesk.com/t5/revit-api-forum/collinear-3d-points/m-p/10546901
 // 2021-08-18 2022.0.151.2 added CreateFloorAtElevation
 // 2021-08-19 2022.0.151.3 integrated pull request #17 by @mmcpt fixing off-by-one error in CreateCurveLoop
+// 2021-08-30 2022.0.151.4 eliminated deprecated API usage of NewFloor and NewSlab methods
 //
-[assembly: AssemblyVersion( "2022.0.151.3" )]
-[assembly: AssemblyFileVersion( "2022.0.151.3" )]
+[assembly: AssemblyVersion( "2022.0.151.4" )]
+[assembly: AssemblyFileVersion( "2022.0.151.4" )]

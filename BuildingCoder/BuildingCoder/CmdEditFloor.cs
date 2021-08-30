@@ -84,6 +84,7 @@ namespace BuildingCoder
     }
 
     #region Super simple floor creation
+#if BEFORE_FLOOR_CREATE_METHOD
     Result Execute2(
       ExternalCommandData commandData,
       ref string message,
@@ -122,6 +123,7 @@ namespace BuildingCoder
       }
       return Result.Succeeded;
     }
+#endif // BEFORE_FLOOR_CREATE_METHOD
     #endregion // Super simple floor creation
 
     /// <summary>
@@ -150,7 +152,7 @@ namespace BuildingCoder
       return topFace;
     }
 
-    #region Attempt to include inner loops
+#region Attempt to include inner loops
 #if ATTEMPT_TO_INCLUDE_INNER_LOOPS
     /// <summary>
     /// Convert an EdgeArrayArray to a CurveArray,
@@ -241,7 +243,7 @@ namespace BuildingCoder
       return ca;
     }
 #endif // ATTEMPT_TO_INCLUDE_INNER_LOOPS
-    #endregion // Attempt to include inner loops
+#endregion // Attempt to include inner loops
 
     public Result Execute(
       ExternalCommandData commandData,
@@ -326,7 +328,7 @@ namespace BuildingCoder
 
             //CurveArray profile; // 2021
 
-            #region Attempt to include inner loops
+#region Attempt to include inner loops
 #if ATTEMPT_TO_INCLUDE_INNER_LOOPS
           bool use_original_loops = true;
           if( use_original_loops )
@@ -335,7 +337,7 @@ namespace BuildingCoder
           }
           else
 #endif // ATTEMPT_TO_INCLUDE_INNER_LOOPS
-            #endregion // Attempt to include inner loops
+#endregion // Attempt to include inner loops
 
             //{
             //  profile = new CurveArray();
@@ -409,7 +411,7 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
 
-    #region Set Floor Level and Offset
+#region Set Floor Level and Offset
     void SetFloorLevelAndOffset( Document doc )
     {
       // Pick first floor found
@@ -453,9 +455,9 @@ namespace BuildingCoder
         }
       }
     }
-    #endregion // Set Floor Level and Offset
+#endregion // Set Floor Level and Offset
 
-    #region SketchEditScope sample
+#region SketchEditScope sample
     class SketchEditScopeSample
     {
       // Here's a snippet.
@@ -646,6 +648,6 @@ namespace BuildingCoder
         return FailureProcessingResult.Continue;
       }
     }
-    #endregion // SketchEditScope sample
+#endregion // SketchEditScope sample
   }
 }
