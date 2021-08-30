@@ -46,21 +46,16 @@ namespace BuildingCoder
         get { return null != mainlogger; }
       }
 
-      public static void InitMainLogger( string name )
+      public static void InitMainLogger( Type type )
       {
-        //string name = type.ToString();
-
+        string name = type.ToString();
         var repository = LogManager.CreateRepository( name );
+        mainlogger = LogManager.GetLogger( name, type );
 
-        //mainlogger = LogManager.GetLogger( name, type );
 
-        mainlogger = LogManager.GetLogger( name );
-
-        //string LogFilePath = Path.Combine( 
-        //  Environment.GetFolderPath( Environment.SpecialFolder.Personal ),
-        //  "Company", "Product" + " " + 2022, "Log", "Revit.log" );
-
-        string LogFilePath = "C:/tmp/revit.log";
+        string LogFilePath = Path.Combine( 
+          Environment.GetFolderPath( Environment.SpecialFolder.Personal ),
+          "Autodesk", "TbcSamples", "Log", "Revit.log" );
 
         RollingFileAppender LogFile = new RollingFileAppender();
         LogFile.File = LogFilePath;
@@ -134,7 +129,7 @@ namespace BuildingCoder
         // In a normal Revit add-in, this initialisation 
         // call might be placed in the OnStartup method.
 
-        Logger.InitMainLogger( "The_Building_Coder" );
+        Logger.InitMainLogger( typeof( CmdLog4 ) );
       }
 
       Logger.Log( new Exception( "sample exception" ) );
