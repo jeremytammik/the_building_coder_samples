@@ -152,7 +152,7 @@ namespace BuildingCoder
       return topFace;
     }
 
-#region Attempt to include inner loops
+    #region Attempt to include inner loops
 #if ATTEMPT_TO_INCLUDE_INNER_LOOPS
     /// <summary>
     /// Convert an EdgeArrayArray to a CurveArray,
@@ -243,7 +243,7 @@ namespace BuildingCoder
       return ca;
     }
 #endif // ATTEMPT_TO_INCLUDE_INNER_LOOPS
-#endregion // Attempt to include inner loops
+    #endregion // Attempt to include inner loops
 
     public Result Execute(
       ExternalCommandData commandData,
@@ -328,7 +328,7 @@ namespace BuildingCoder
 
             //CurveArray profile; // 2021
 
-#region Attempt to include inner loops
+            #region Attempt to include inner loops
 #if ATTEMPT_TO_INCLUDE_INNER_LOOPS
           bool use_original_loops = true;
           if( use_original_loops )
@@ -337,7 +337,7 @@ namespace BuildingCoder
           }
           else
 #endif // ATTEMPT_TO_INCLUDE_INNER_LOOPS
-#endregion // Attempt to include inner loops
+            #endregion // Attempt to include inner loops
 
             //{
             //  profile = new CurveArray();
@@ -411,7 +411,7 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
 
-#region Set Floor Level and Offset
+    #region Set Floor Level and Offset
     void SetFloorLevelAndOffset( Document doc )
     {
       // Pick first floor found
@@ -455,9 +455,9 @@ namespace BuildingCoder
         }
       }
     }
-#endregion // Set Floor Level and Offset
+    #endregion // Set Floor Level and Offset
 
-#region SketchEditScope sample
+    #region SketchEditScope sample
     class SketchEditScopeSample
     {
       // Here's a snippet.
@@ -520,8 +520,8 @@ namespace BuildingCoder
         {
           transaction.Start( "Create floor" );
           ElementId floorTypeId = Floor.GetDefaultFloorType( doc, false );
-          Floor floor = Floor.Create( doc, 
-            new List<CurveLoop>() { floorProfile }, 
+          Floor floor = Floor.Create( doc,
+            new List<CurveLoop>() { floorProfile },
             floorTypeId, levelId );
           transaction.Commit();
         }
@@ -530,7 +530,7 @@ namespace BuildingCoder
       // Find a line in a sketch, delete it and create an arc in its place.
       public void ReplaceBoundaryLine( Document doc )
       {
-        FilteredElementCollector floorCollector 
+        FilteredElementCollector floorCollector
           = new FilteredElementCollector( doc )
             .WhereElementIsNotElementType()
             .OfCategory( BuiltInCategory.OST_Floors )
@@ -563,18 +563,18 @@ namespace BuildingCoder
 
         if( line == null )
         {
-          TaskDialog.Show( "Error", 
+          TaskDialog.Show( "Error",
             "Sketch does not contain a straight line." );
           return;
         }
 
         // Start a sketch edit scope
-        SketchEditScope sketchEditScope = new SketchEditScope( doc, 
+        SketchEditScope sketchEditScope = new SketchEditScope( doc,
           "Replace line with an arc" );
 
         sketchEditScope.Start( sketch.Id );
 
-        using( Transaction transaction = new Transaction( doc, 
+        using( Transaction transaction = new Transaction( doc,
           "Modify sketch" ) )
         {
           transaction.Start();
@@ -582,7 +582,7 @@ namespace BuildingCoder
           // Create arc
           XYZ normal = line.Direction.CrossProduct( XYZ.BasisZ ).Normalize().Negate();
           XYZ middle = line.GetEndPoint( 0 ).Add( line.Direction.Multiply( line.Length / 2 ) );
-          Curve arc = Arc.Create( line.GetEndPoint( 0 ), line.GetEndPoint( 1 ), 
+          Curve arc = Arc.Create( line.GetEndPoint( 0 ), line.GetEndPoint( 1 ),
             middle.Add( normal.Multiply( 20 ) ) );
 
           // Remove element referenced by the found line. 
@@ -602,7 +602,7 @@ namespace BuildingCoder
       /// </summary>
       public void MakeHole( Document doc )
       {
-        FilteredElementCollector floorCollector 
+        FilteredElementCollector floorCollector
           = new FilteredElementCollector( doc )
             .WhereElementIsNotElementType()
             .OfCategory( BuiltInCategory.OST_Floors )
@@ -618,16 +618,16 @@ namespace BuildingCoder
         Sketch sketch = doc.GetElement( floor.SketchId ) as Sketch;
         // Create a circle inside the floor
         // Start a sketch edit scope
-        SketchEditScope sketchEditScope = new SketchEditScope( doc, 
+        SketchEditScope sketchEditScope = new SketchEditScope( doc,
           "Add profile to the sketch" );
         sketchEditScope.Start( sketch.Id );
 
-        using( Transaction transaction = new Transaction( doc, 
+        using( Transaction transaction = new Transaction( doc,
           "Make a hole" ) )
         {
           transaction.Start();
           // Create and add an ellipse
-          Curve circle = Ellipse.CreateCurve( new XYZ( 50, 50, 0 ), 
+          Curve circle = Ellipse.CreateCurve( new XYZ( 50, 50, 0 ),
             10, 10, XYZ.BasisX, XYZ.BasisY, 0, 2 * Math.PI );
 
           // Model curve creation automatically puts the curve 
@@ -648,6 +648,6 @@ namespace BuildingCoder
         return FailureProcessingResult.Continue;
       }
     }
-#endregion // SketchEditScope sample
+    #endregion // SketchEditScope sample
   }
 }

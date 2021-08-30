@@ -90,11 +90,11 @@ namespace BuildingCoder
         Floor floor1 = doc.Create.NewSlab(
           profile_arr, level, line, 0.5, true ); // 2021
 #endif // BEFORE_FLOOR_CREATE_METHOD
-         #endregion // Before Floor.Create method
+        #endregion // Before Floor.Create method
 
         bool isFoundation = true;
 
-        ElementId floorTypeId = Floor.GetDefaultFloorType( 
+        ElementId floorTypeId = Floor.GetDefaultFloorType(
           doc, isFoundation );
 
         double offset;
@@ -116,8 +116,8 @@ namespace BuildingCoder
         // If the default elevation is not what you want, 
         // you need to set it explicitly.
 
-        Floor floor = Floor.Create( doc, 
-          new List<CurveLoop> { profile }, 
+        Floor floor = Floor.Create( doc,
+          new List<CurveLoop> { profile },
           floorTypeId, levelId );
 
         Parameter param = floor.get_Parameter(
@@ -131,7 +131,7 @@ namespace BuildingCoder
     }
   }
 
-#region Unsuccessful attempt to modify existing floor slope
+  #region Unsuccessful attempt to modify existing floor slope
   /// <summary>
   /// Unsuccessful attempt to change the 
   /// slope of an existing floor element.
@@ -209,5 +209,5 @@ namespace BuildingCoder
       return Result.Succeeded;
     }
   }
-#endregion // Unsuccessful attempt to modify existing floor slope
+  #endregion // Unsuccessful attempt to modify existing floor slope
 }

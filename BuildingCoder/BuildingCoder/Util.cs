@@ -264,7 +264,7 @@ namespace BuildingCoder
       XYZ w = r - p;
       return IsParallel( v, w );
     }
-    
+
     /// <summary>
     /// Predicate returning true if two given lines are collinear
     /// </summary>
