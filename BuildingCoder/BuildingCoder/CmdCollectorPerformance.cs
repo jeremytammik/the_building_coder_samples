@@ -83,21 +83,21 @@ namespace BuildingCoder
           ElementClassFilter f1
             = new ElementClassFilter(
               typeof( FamilyInstance ) );
-      
+
           ElementCategoryFilter f2
             = new ElementCategoryFilter(
               BuiltInCategory.OST_Doors );
-      
+
           ElementCategoryFilter f3
             = new ElementCategoryFilter(
               BuiltInCategory.OST_Windows );
-      
+
           LogicalOrFilter f4
             = new LogicalOrFilter( f2, f3 );
-      
+
           LogicalAndFilter f5
             = new LogicalAndFilter( f1, f4 );
-      
+
           FilteredElementCollector collector
             = new FilteredElementCollector( doc );
 
@@ -639,7 +639,7 @@ namespace BuildingCoder
     /// <summary>
     /// Return a sorted list of all levels
     /// </summary>
-    IOrderedEnumerable<Level> GetSortedLevels( 
+    IOrderedEnumerable<Level> GetSortedLevels(
       Document doc )
     {
       return new FilteredElementCollector( doc )
@@ -712,7 +712,7 @@ namespace BuildingCoder
         //  }
         //}
 
-        level = sorted_levels.FirstOrDefault( 
+        level = sorted_levels.FirstOrDefault(
           l => Util.IsLessOrEqual(
             l.Elevation, element_z ) );
 
@@ -1091,16 +1091,16 @@ namespace BuildingCoder
       FilteredElementCollector collector
         = new FilteredElementCollector( doc );
 
-      ElementCategoryFilter fi 
-        = new ElementCategoryFilter( 
+      ElementCategoryFilter fi
+        = new ElementCategoryFilter(
           BuiltInCategory.OST_GenericLines, true );
 
-      ICollection<Element> collection 
+      ICollection<Element> collection
         = collector.OfClass( typeof( CurveElement ) )
           .WherePasses( fi )
           .ToElements();
 
-      TaskDialog.Show( "Number of curves", 
+      TaskDialog.Show( "Number of curves",
         collection.Count.ToString() );
 
       List<Element> detail_lines = new List<Element>();
@@ -1113,7 +1113,7 @@ namespace BuildingCoder
         }
       }
 
-      TaskDialog.Show( "Number of Detail Lines", 
+      TaskDialog.Show( "Number of Detail Lines",
         detail_lines.Count.ToString() );
 
       List<Element> some_detail_lines = new List<Element>();
@@ -1125,38 +1125,38 @@ namespace BuildingCoder
         }
       }
 
-      TaskDialog.Show( 
-        "Number of Detail Lines of MyNewLineStyle", 
+      TaskDialog.Show(
+        "Number of Detail Lines of MyNewLineStyle",
         some_detail_lines.Count.ToString() );
 
 
       Category targetLineStyle = null;
 
-      IEnumerable<GraphicsStyle> gstyles 
+      IEnumerable<GraphicsStyle> gstyles
         = new FilteredElementCollector( doc )
           .OfClass( typeof( GraphicsStyle ) )
           .Cast<GraphicsStyle>()
-          .Where( gs => gs.GraphicsStyleCategory.Id.IntegerValue 
+          .Where( gs => gs.GraphicsStyleCategory.Id.IntegerValue
             == targetLineStyle.Id.IntegerValue );
 
-      ElementId targetGraphicsStyleId 
+      ElementId targetGraphicsStyleId
         = gstyles.FirstOrDefault().Id;
 
-      CurveElementFilter filter_detail 
-        = new CurveElementFilter( 
+      CurveElementFilter filter_detail
+        = new CurveElementFilter(
           CurveElementType.DetailCurve );
 
-      FilterRule frule_typeId 
-        = ParameterFilterRuleFactory.CreateEqualsRule( 
-          new ElementId( 
-            BuiltInParameter.BUILDING_CURVE_GSTYLE ), 
+      FilterRule frule_typeId
+        = ParameterFilterRuleFactory.CreateEqualsRule(
+          new ElementId(
+            BuiltInParameter.BUILDING_CURVE_GSTYLE ),
           targetGraphicsStyleId );
 
-      ElementParameterFilter filter_type 
-        = new ElementParameterFilter( 
+      ElementParameterFilter filter_type
+        = new ElementParameterFilter(
           new List<FilterRule>() { frule_typeId } );
 
-      IEnumerable<Element> lines 
+      IEnumerable<Element> lines
         = new FilteredElementCollector( doc )
           .WhereElementIsNotElementType()
           .WhereElementIsCurveDriven()
@@ -1185,7 +1185,34 @@ namespace BuildingCoder
 
       doc.Delete( a.ToElementIds() );
     }
-    #endregion // Filter for non-room-separating curve elements
+    #endregion // Delete non-room-separating curve elements
+
+    #region Filter for sheets based on browser organisation
+    // for https://forums.autodesk.com/t5/revit-api-forum/change-the-sheet-issue-date-on-sheets-filtered-by-project/td-p/10633770
+    /// <summary>
+    /// Filter for sheets based on browser organisation
+    /// </summary>
+    IEnumerable<ElementId> FilterForSheetsByBrowserOrganisation( 
+      Document doc, 
+      string folder_name )
+    {
+      // Dim Els As List(Of ElementId) = FEC.WherePasses(ECF).ToElementIds _
+      //   .Where( Function( k ) bOrg.GetFolderItems( k )( 1 ).Name = "Type 1" ) _
+      //   .ToList
+
+      BrowserOrganization bOrg = BrowserOrganization
+        .GetCurrentBrowserOrganizationForSheets( doc );
+
+      IEnumerable<ElementId> ids
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( ViewSheet ) )
+          .Where( s => bOrg.GetFolderItems( s.Id ).First().Name.Equals( 
+            folder_name ) )
+          .Select<Element, ElementId>( e => e.Id );
+
+      return ids;
+    }
+    #endregion // Filter for sheets based on browser organisation
 
     #region Filter for views
     FilteredElementCollector GetViews( Document doc )
@@ -1414,7 +1441,7 @@ namespace BuildingCoder
       ParameterValueProvider provider
         = new ParameterValueProvider( pid );
 
-      FilterStringRuleEvaluator evaluator 
+      FilterStringRuleEvaluator evaluator
         = new FilterStringContains();
 
       //FilterStringRule rule = new FilterStringRule( // 2021
@@ -1423,14 +1450,14 @@ namespace BuildingCoder
       FilterStringRule rule = new FilterStringRule( // 2022
         provider, evaluator, "/" );
 
-      ElementParameterFilter filter 
+      ElementParameterFilter filter
         = new ElementParameterFilter( rule );
 
       var myWalls = new FilteredElementCollector( doc )
         .OfCategory( BuiltInCategory.OST_Walls )
         .WherePasses( filter );
 
-      List<ElementId> false_positive_ids 
+      List<ElementId> false_positive_ids
         = new List<ElementId>();
 
       foreach( Element wall in myWalls )
@@ -1441,8 +1468,8 @@ namespace BuildingCoder
           false_positive_ids.Add( wall.Id );
         }
       }
-      string s = string.Join( ", ", 
-        false_positive_ids.Select<ElementId, string>( 
+      string s = string.Join( ", ",
+        false_positive_ids.Select<ElementId, string>(
           id => id.IntegerValue.ToString() ) );
 
       TaskDialog dlg = new TaskDialog( "False Positives" );
@@ -1571,8 +1598,8 @@ namespace BuildingCoder
         Document doc,
         string parameter_name )
     {
-      ICollection<ElementId> ids_family 
-        = ViewSchedule.GetValidFamiliesForNoteBlock( 
+      ICollection<ElementId> ids_family
+        = ViewSchedule.GetValidFamiliesForNoteBlock(
           doc );
 
       IEnumerable<FamilySymbol> symbols

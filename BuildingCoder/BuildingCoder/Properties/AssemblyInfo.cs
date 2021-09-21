@@ -393,6 +393,7 @@ using System.Runtime.InteropServices;
 // 2021-08-19 2022.0.151.3 integrated pull request #17 by @mmcpt fixing off-by-one error in CreateCurveLoop
 // 2021-08-30 2022.0.151.4 eliminated deprecated API usage of NewFloor and NewSlab methods
 // 2021-08-30 2022.0.152.0 implemented CmdLog4 to test using Log4Net in a Revit add-in
+// 2021-09-21 2022.0.152.1 implemented FilterForSheetsByBrowserOrganisation for https://forums.autodesk.com/t5/revit-api-forum/change-the-sheet-issue-date-on-sheets-filtered-by-project/td-p/10633770
 //
-[assembly: AssemblyVersion( "2022.0.152.0" )]
-[assembly: AssemblyFileVersion( "2022.0.152.0" )]
+[assembly: AssemblyVersion( "2022.0.152.1" )]
+[assembly: AssemblyFileVersion( "2022.0.152.1" )]
