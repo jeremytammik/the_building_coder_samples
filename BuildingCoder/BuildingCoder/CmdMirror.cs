@@ -374,34 +374,34 @@ namespace BuildingCoder
     /// Determine and highlight last element by
     /// adding it to the current selection
     /// </summary>
-  public void HighlightLastElement( 
-    UIDocument uidoc )
-  {
-    Document doc = uidoc.Document;
-    Selection selection = uidoc.Selection;
-
-    FilteredElementCollector instances
-      = new FilteredElementCollector( doc )
-        .OfClass( typeof( FamilyInstance ) );
-
-    Options opt = new Options();
-
-    int id_max = instances
-        .Where( e => null != e.Category )
-        .Where( e => (null != e.LevelId 
-          && ElementId.InvalidElementId != e.LevelId) )
-        .Where( e => null != e.get_Geometry( opt ) )
-        .Max<Element, int>( e => e.Id.IntegerValue );
-
-    ElementId last_eid = new ElementId( id_max );
-
-    if( last_eid != null )
+    public void HighlightLastElement(
+      UIDocument uidoc )
     {
-      selection.SetElementIds(
-        new List<ElementId>(
-          new ElementId[] { last_eid } ) );
+      Document doc = uidoc.Document;
+      Selection selection = uidoc.Selection;
+
+      FilteredElementCollector instances
+        = new FilteredElementCollector( doc )
+          .OfClass( typeof( FamilyInstance ) );
+
+      Options opt = new Options();
+
+      int id_max = instances
+          .Where( e => null != e.Category )
+          .Where( e => (null != e.LevelId
+            && ElementId.InvalidElementId != e.LevelId) )
+          .Where( e => null != e.get_Geometry( opt ) )
+          .Max<Element, int>( e => e.Id.IntegerValue );
+
+      ElementId last_eid = new ElementId( id_max );
+
+      if( last_eid != null )
+      {
+        selection.SetElementIds(
+          new List<ElementId>(
+            new ElementId[] { last_eid } ) );
+      }
     }
-  }
     #endregion // GetLastElement2
   }
 }
