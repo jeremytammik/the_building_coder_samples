@@ -368,7 +368,7 @@ namespace BuildingCoder
         e.GetAddedElementIds() );
     }
 
-    #region GetLastElement2
+    #region HighlightLastElement
     // from https://forums.autodesk.com/t5/revit-api-forum/getting-the-last-element-placed-in-a-model/m-p/10645949
     /// <summary>
     /// Determine and highlight last element by
@@ -402,6 +402,6 @@ namespace BuildingCoder
             new ElementId[] { last_eid } ) );
       }
     }
-    #endregion // GetLastElement2
+    #endregion // HighlightLastElement
   }
 }
