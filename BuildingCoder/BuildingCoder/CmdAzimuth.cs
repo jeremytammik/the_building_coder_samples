@@ -88,7 +88,8 @@ namespace BuildingCoder
         {
           Wall wall = e as Wall;
           XYZ w = z.CrossProduct( v ).Normalize();
-          if( wall.Flipped ) { w = -w; }
+          if( wall.Flipped )
+          { w = -w; }
           a = vx.AngleOnPlaneTo( w, z );
           Debug.WriteLine(
             "Angle pointing out of wall = "

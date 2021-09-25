@@ -19,6 +19,7 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Selection;
 #endregion // Namespaces
 
 namespace BuildingCoder
@@ -56,7 +57,7 @@ namespace BuildingCoder
       //ElementTransformUtils.MirrorElements(
       //  doc, elementIds, plane ); // 2012-2015
 
-      using ( Transaction t = new Transaction( doc ) )
+      using( Transaction t = new Transaction( doc ) )
       {
         t.Start( "Mirror Elements" );
 
@@ -130,8 +131,8 @@ namespace BuildingCoder
     }
 
     /// <summary>
-    /// Return all elements in the entire document
-    /// whose element id is greater than 'lastId'.
+    /// Return all document elements whose 
+    /// element id is greater than 'lastId'.
     /// </summary>
     FilteredElementCollector GetElementsAfter(
       Document doc,
@@ -194,7 +195,7 @@ namespace BuildingCoder
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
 
-      using ( Transaction tx = new Transaction( doc ) )
+      using( Transaction tx = new Transaction( doc ) )
       {
         tx.Start( "Mirror and List Added" );
         //Line line = app.Create.NewLine(
@@ -209,7 +210,7 @@ namespace BuildingCoder
         ICollection<ElementId> elementIds
           = uidoc.Selection.GetElementIds(); // 2012
 
-        using ( SubTransaction t = new SubTransaction( doc ) )
+        using( SubTransaction t = new SubTransaction( doc ) )
         {
           // determine newly added elements relying on the
           // element sequence as returned by the filtered collector.
@@ -232,7 +233,7 @@ namespace BuildingCoder
           t.RollBack();
         }
 
-        using ( SubTransaction t = new SubTransaction( doc ) )
+        using( SubTransaction t = new SubTransaction( doc ) )
         {
           // here is an idea for a new approach in 2011:
           // determine newly added elements relying on
@@ -262,7 +263,7 @@ namespace BuildingCoder
           t.RollBack();
         }
 
-        using ( SubTransaction t = new SubTransaction( doc ) )
+        using( SubTransaction t = new SubTransaction( doc ) )
         {
           // similar to the above approach relying on
           // monotonously increasing element id values,
@@ -293,7 +294,7 @@ namespace BuildingCoder
           t.RollBack();
         }
 
-        using ( SubTransaction t = new SubTransaction( doc ) )
+        using( SubTransaction t = new SubTransaction( doc ) )
         {
           // use a local and temporary DocumentChanged event
           // handler to directly obtain a list of all newly
@@ -327,14 +328,14 @@ namespace BuildingCoder
           Debug.Assert( null == _addedElementIds,
             "never expected the event handler to be called" );
 
-          if ( null != _addedElementIds )
+          if( null != _addedElementIds )
           {
             int n = _addedElementIds.Count;
 
             string s = string.Format( _msg, n,
               Util.PluralSuffix( n ) );
 
-            foreach ( ElementId id in _addedElementIds )
+            foreach( ElementId id in _addedElementIds )
             {
               Element e = doc.GetElement( id );
 
@@ -366,5 +367,41 @@ namespace BuildingCoder
       _addedElementIds.AddRange(
         e.GetAddedElementIds() );
     }
+
+    #region GetLastElement2
+    // from https://forums.autodesk.com/t5/revit-api-forum/getting-the-last-element-placed-in-a-model/m-p/10645949
+    /// <summary>
+    /// Determine and highlight last element by
+    /// adding it to the current selection
+    /// </summary>
+  public void HighlightLastElement( 
+    UIDocument uidoc )
+  {
+    Document doc = uidoc.Document;
+    Selection selection = uidoc.Selection;
+
+    FilteredElementCollector instances
+      = new FilteredElementCollector( doc )
+        .OfClass( typeof( FamilyInstance ) );
+
+    Options opt = new Options();
+
+    int id_max = instances
+        .Where( e => null != e.Category )
+        .Where( e => (null != e.LevelId 
+          && ElementId.InvalidElementId != e.LevelId) )
+        .Where( e => null != e.get_Geometry( opt ) )
+        .Max<Element, int>( e => e.Id.IntegerValue );
+
+    ElementId last_eid = new ElementId( id_max );
+
+    if( last_eid != null )
+    {
+      selection.SetElementIds(
+        new List<ElementId>(
+          new ElementId[] { last_eid } ) );
+    }
+  }
+    #endregion // GetLastElement2
   }
 }
