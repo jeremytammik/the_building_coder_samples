@@ -371,8 +371,8 @@ namespace BuildingCoder
     #region HighlightLastElement
     // from https://forums.autodesk.com/t5/revit-api-forum/getting-the-last-element-placed-in-a-model/m-p/10645949
     /// <summary>
-    /// Determine and highlight last element by
-    /// adding it to the current selection
+    /// Find and highlight last family instance element
+    /// by adding it to the current selection
     /// </summary>
     public void HighlightLastElement(
       UIDocument uidoc )
