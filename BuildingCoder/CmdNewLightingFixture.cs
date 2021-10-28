@@ -153,9 +153,9 @@ namespace BuildingCoder
 
             var face = obj as Face;
             var q = r.UVPoint;
+            var p = r.GlobalPoint;
 
 #if DEBUG
-            var p = r.GlobalPoint;
             var ir = face.Project(p);
             var q2 = ir.UVPoint;
             Debug.Assert(q.IsAlmostEqualTo(q2),
