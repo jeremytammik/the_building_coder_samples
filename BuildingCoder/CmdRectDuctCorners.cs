@@ -78,7 +78,6 @@ namespace BuildingCoder
                 //foreach( Duct duct in sel ) // 2014
 
                 foreach (var id in ids) // 2015
-                {
                     if (doc.GetElement(id) is not Duct duct)
                     {
                         Trace.TraceError("The selection is not a duct!");
@@ -92,7 +91,6 @@ namespace BuildingCoder
 
                         AnalyseDuct(duct);
                     }
-                }
             }
             catch (Exception ex)
             {

@@ -393,14 +393,14 @@ namespace BuildingCoder
                         t.Start("Test TextNote lineWidth calculation");
 
                         var textString =
-                            $"{textType.Name} ({fontName} {(textHeight * 304.8):0.##}mm, {textStyle}, {(textWidthScale * 100.0):0.##}%): The quick brown fox jumps over the lazy dog.";
+                            $"{textType.Name} ({fontName} {textHeight * 304.8:0.##}mm, {textStyle}, {textWidthScale * 100.0:0.##}%): The quick brown fox jumps over the lazy dog.";
 
                         var stringWidthPx = GetStringWidth(textString, font);
 
                         var stringWidthIn = stringWidthPx / displayDpiX;
 
                         Debug.WriteLine($"String Width in pixels: {stringWidthPx:F3}");
-                        Debug.WriteLine($"{(stringWidthIn * 25.4 * viewScale):F3} mm at 1:{viewScale}");
+                        Debug.WriteLine($"{stringWidthIn * 25.4 * viewScale:F3} mm at 1:{viewScale}");
 
                         var stringWidthFt = stringWidthIn / 12.0;
 

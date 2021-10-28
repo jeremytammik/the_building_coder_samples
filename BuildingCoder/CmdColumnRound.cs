@@ -26,11 +26,11 @@ namespace BuildingCoder
     [Transaction(TransactionMode.ReadOnly)]
     internal class CmdColumnRound : IExternalCommand
     {
-      /// <summary>
-      ///     Determine the height of a vertical column from
-      ///     its top and bottom level.
-      /// </summary>
-      public double GetColumHeightFromLevels(
+        /// <summary>
+        ///     Determine the height of a vertical column from
+        ///     its top and bottom level.
+        /// </summary>
+        public double GetColumHeightFromLevels(
             Element e)
         {
             if (!IsColumn(e))
@@ -72,11 +72,11 @@ namespace BuildingCoder
         }
 
 
-      /// <summary>
-      ///     Determine the height of any given element
-      ///     from its bounding box.
-      /// </summary>
-      public double GetElementHeightFromBoundingBox(
+        /// <summary>
+        ///     Determine the height of any given element
+        ///     from its bounding box.
+        /// </summary>
+        public double GetElementHeightFromBoundingBox(
             Element e)
         {
             // No need to retrieve the full element geometry.
@@ -138,11 +138,11 @@ namespace BuildingCoder
     }
 #endif // REQUIRES_REVIT_2010_API
 
-      /// <summary>
-      ///     Return true if the given Revit element looks
-      ///     like it might be a column family instance.
-      /// </summary>
-      private bool IsColumn(Element e)
+        /// <summary>
+        ///     Return true if the given Revit element looks
+        ///     like it might be a column family instance.
+        /// </summary>
+        private bool IsColumn(Element e)
         {
             return e is FamilyInstance
                    && null != e.Category

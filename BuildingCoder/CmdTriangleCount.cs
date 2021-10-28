@@ -64,15 +64,15 @@ namespace BuildingCoder
 
         private class TriangleCounterContext : IExportContext
         {
-          /// <summary>
-          ///     Callback at end with total count of model
-          ///     geometry triangles and material ids
-          /// </summary>
-          private readonly Action<long, int> callback;
-
-            private Document document;
+            /// <summary>
+            ///     Callback at end with total count of model
+            ///     geometry triangles and material ids
+            /// </summary>
+            private readonly Action<long, int> callback;
 
             private readonly bool includeMaterials = true;
+
+            private Document document;
 
             private Func<bool> isCanceled;
 

@@ -23,12 +23,12 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Written by Christian @chhadidg73 in the
-  ///     Revit API discussion forum thread
-  ///     http://forums.autodesk.com/t5/revit-api-forum/settangentlock-in-profilesketch/m-p/6587402
-  /// </summary>
-  [Transaction(TransactionMode.ReadOnly)]
+    /// <summary>
+    ///     Written by Christian @chhadidg73 in the
+    ///     Revit API discussion forum thread
+    ///     http://forums.autodesk.com/t5/revit-api-forum/settangentlock-in-profilesketch/m-p/6587402
+    /// </summary>
+    [Transaction(TransactionMode.ReadOnly)]
     internal class CmdSetTangentLock : IExternalCommand
     {
         // Conversion constants from millimetres to feet.

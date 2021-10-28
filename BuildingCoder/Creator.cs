@@ -27,12 +27,14 @@ namespace BuildingCoder
 {
     internal class Creator
     {
+        private readonly Document _credoc;
+
+        private readonly Autodesk.Revit.DB.Document _doc;
+
         // these are
         // Autodesk.Revit.Creation
         // objects!
         private Application _creapp;
-        private readonly Document _credoc;
-        private readonly Autodesk.Revit.DB.Document _doc;
 
         public Creator(Autodesk.Revit.DB.Document doc)
         {

@@ -57,7 +57,6 @@ namespace BuildingCoder
                 var newIds = new List<ElementId>();
 
                 foreach (var selectedId in selectedIds)
-                {
                     if (doc.GetElement(selectedId) is Wall wall)
                     {
                         var faceList = new List<PlanarFace>();
@@ -118,7 +117,6 @@ namespace BuildingCoder
                             }
                         }
                     }
-                }
 
                 if (newIds.Count > 0)
                 {

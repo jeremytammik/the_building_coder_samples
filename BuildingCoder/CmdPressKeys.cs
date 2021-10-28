@@ -99,13 +99,13 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdPressKeys : IExternalCommand
     {
-      /// <summary>
-      ///     Here is a part or our code to start a Revit command.
-      ///     The aim of the code is to set a wall type current in the Revit property window.
-      ///     We only start up the wall command with the API and let the user do the drawing of the wall.
-      ///     This solution can also be used to launch other Revit commands.
-      /// </summary>
-      public Result Execute(
+        /// <summary>
+        ///     Here is a part or our code to start a Revit command.
+        ///     The aim of the code is to set a wall type current in the Revit property window.
+        ///     We only start up the wall command with the API and let the user do the drawing of the wall.
+        ///     This solution can also be used to launch other Revit commands.
+        /// </summary>
+        public Result Execute(
             ExternalCommandData commandData,
             ref string message,
             ElementSet elements)

@@ -34,21 +34,21 @@ namespace BuildingCoder
 
     internal class CmdWallTopFaces : IExternalCommand
     {
-      /// <summary>
-      ///     Super-simple test whether a face is planar
-      ///     and its normal vector points upwards.
-      /// </summary>
-      private static bool IsTopPlanarFace(Face f)
+        /// <summary>
+        ///     Super-simple test whether a face is planar
+        ///     and its normal vector points upwards.
+        /// </summary>
+        private static bool IsTopPlanarFace(Face f)
         {
             return f is PlanarFace face
                    && Util.PointsUpwards(face.FaceNormal);
         }
 
-      /// <summary>
-      ///     Simple test whether a given face normal vector
-      ///     points upwards in the middle of the face.
-      /// </summary>
-      private static bool IsTopFace(Face f)
+        /// <summary>
+        ///     Simple test whether a given face normal vector
+        ///     points upwards in the middle of the face.
+        /// </summary>
+        private static bool IsTopFace(Face f)
         {
             var b = f.GetBoundingBox();
             var p = b.Min;
@@ -58,17 +58,17 @@ namespace BuildingCoder
             return Util.PointsUpwards(normal);
         }
 
-      /// <summary>
-      ///     Define equality between XYZ objects, ensuring
-      ///     that almost equal points compare equal. Cf.
-      ///     CmdNestedInstanceGeo.XyzEqualityComparer,
-      ///     which uses the native Revit API XYZ comparison
-      ///     member method IsAlmostEqualTo. We cannot use
-      ///     it here, because the tolerance built into that
-      ///     method is too fine and does not recognise
-      ///     points that we need to identify as equal.
-      /// </summary>
-      public class XyzEqualityComparer : IEqualityComparer<XYZ>
+        /// <summary>
+        ///     Define equality between XYZ objects, ensuring
+        ///     that almost equal points compare equal. Cf.
+        ///     CmdNestedInstanceGeo.XyzEqualityComparer,
+        ///     which uses the native Revit API XYZ comparison
+        ///     member method IsAlmostEqualTo. We cannot use
+        ///     it here, because the tolerance built into that
+        ///     method is too fine and does not recognise
+        ///     points that we need to identify as equal.
+        /// </summary>
+        public class XyzEqualityComparer : IEqualityComparer<XYZ>
         {
             private readonly double _eps;
 
@@ -93,17 +93,17 @@ namespace BuildingCoder
 
 #if CREATE_MODEL_CURVES_FOR_TOP_FACE_EDGES
 
-      /// <summary>
-      ///     Offset at which to create a model curve copy
-      ///     of all top face edges for debugging purposes.
-      /// </summary>
-      private static readonly XYZ _offset = XYZ.BasisZ / 12;
+        /// <summary>
+        ///     Offset at which to create a model curve copy
+        ///     of all top face edges for debugging purposes.
+        /// </summary>
+        private static readonly XYZ _offset = XYZ.BasisZ / 12;
 
-      /// <summary>
-      ///     Translation transformation to apply to create
-      ///     model curve copies of top face edges.
-      /// </summary>
-      private static readonly Transform _t =
+        /// <summary>
+        ///     Translation transformation to apply to create
+        ///     model curve copies of top face edges.
+        /// </summary>
+        private static readonly Transform _t =
             // Transform.get_Translation( _offset ); // 2013
             Transform.CreateTranslation(_offset); // 2014
 

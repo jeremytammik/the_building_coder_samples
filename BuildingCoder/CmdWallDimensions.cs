@@ -28,15 +28,15 @@ using NormalAndOrigins
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     List dimensions for a quadrilateral wall with
-  ///     openings. In this algorithm, we collect all
-  ///     the faces with parallel normal vectors and
-  ///     calculate the maximal distance between any
-  ///     two pairs of them. This is the wall dimension
-  ///     in that direction.
-  /// </summary>
-  [Transaction(TransactionMode.ReadOnly)]
+    /// <summary>
+    ///     List dimensions for a quadrilateral wall with
+    ///     openings. In this algorithm, we collect all
+    ///     the faces with parallel normal vectors and
+    ///     calculate the maximal distance between any
+    ///     two pairs of them. This is the wall dimension
+    ///     in that direction.
+    /// </summary>
+    [Transaction(TransactionMode.ReadOnly)]
     internal class CmdWallDimensions : IExternalCommand
     {
         public Result Execute(

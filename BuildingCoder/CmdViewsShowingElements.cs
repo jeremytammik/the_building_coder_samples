@@ -29,18 +29,18 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Revit Document and IEnumerable
-  ///     <Element>
-  ///         extension methods.
-  /// </summary>
-  internal static class ExtensionMethods
+    /// <summary>
+    ///     Revit Document and IEnumerable
+    ///     <Element>
+    ///         extension methods.
+    /// </summary>
+    internal static class ExtensionMethods
     {
-      /// <summary>
-      ///     View extension predicate method: does
-      ///     this view intersect the given bounding box?
-      /// </summary>
-      public static bool IntersectsBoundingBox(
+        /// <summary>
+        ///     View extension predicate method: does
+        ///     this view intersect the given bounding box?
+        /// </summary>
+        public static bool IntersectsBoundingBox(
             this View view,
             BoundingBoxXYZ targetBoundingBox)
         {
@@ -102,11 +102,11 @@ namespace BuildingCoder
                 viewOutline, 0);
         }
 
-      /// <summary>
-      ///     Return an enumeration of all views in this
-      ///     document that can display elements at all.
-      /// </summary>
-      private static IEnumerable<View>
+        /// <summary>
+        ///     Return an enumeration of all views in this
+        ///     document that can display elements at all.
+        /// </summary>
+        private static IEnumerable<View>
             FindAllViewsThatCanDisplayElements(
                 this Document doc)
         {
@@ -125,11 +125,11 @@ namespace BuildingCoder
                 .Where(v => !v.IsTemplate);
         }
 
-      /// <summary>
-      ///     Return all views that display
-      ///     any of the given elements.
-      /// </summary>
-      public static IEnumerable<View>
+        /// <summary>
+        ///     Return all views that display
+        ///     any of the given elements.
+        /// </summary>
+        public static IEnumerable<View>
             FindAllViewsWhereAllElementsVisible(
                 this IEnumerable<Element> elements)
         {
@@ -162,12 +162,12 @@ namespace BuildingCoder
                 select v;
         }
 
-      /// <summary>
-      ///     Determine whether an element is visible in a view,
-      ///     by Colin Stark, described in
-      ///     http://stackoverflow.com/questions/44012630/determine-is-a-familyinstance-is-visible-in-a-view
-      /// </summary>
-      public static bool IsElementVisibleInView(
+        /// <summary>
+        ///     Determine whether an element is visible in a view,
+        ///     by Colin Stark, described in
+        ///     http://stackoverflow.com/questions/44012630/determine-is-a-familyinstance-is-visible-in-a-view
+        /// </summary>
+        public static bool IsElementVisibleInView(
             this View view,
             Element el)
         {
@@ -217,11 +217,11 @@ namespace BuildingCoder
         }
     }
 
-  /// <summary>
-  ///     Determine all views displaying
-  ///     a given set of elements.
-  /// </summary>
-  [Transaction(TransactionMode.ReadOnly)]
+    /// <summary>
+    ///     Determine all views displaying
+    ///     a given set of elements.
+    /// </summary>
+    [Transaction(TransactionMode.ReadOnly)]
     internal class CmdViewsShowingElements : IExternalCommand
     {
         public Result Execute(

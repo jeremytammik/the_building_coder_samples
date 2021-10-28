@@ -24,10 +24,10 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Arbitrary sheet data container.
-  /// </summary>
-  internal class SheetData
+    /// <summary>
+    ///     Arbitrary sheet data container.
+    /// </summary>
+    internal class SheetData
     {
         public SheetData(ViewSheet v)
         {
@@ -41,11 +41,11 @@ namespace BuildingCoder
         public string SheetNumber { get; set; }
     }
 
-  /// <summary>
-  ///     Gather sheet data from document
-  ///     and export to XML file.
-  /// </summary>
-  [Transaction(TransactionMode.ReadOnly)]
+    /// <summary>
+    ///     Gather sheet data from document
+    ///     and export to XML file.
+    /// </summary>
+    [Transaction(TransactionMode.ReadOnly)]
     internal class CmdSheetData : IExternalCommand
     {
         public Result Execute(

@@ -21,10 +21,10 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Collect all failure message description strings.
-  /// </summary>
-  internal class MessageDescriptionGatheringPreprocessor : IFailuresPreprocessor
+    /// <summary>
+    ///     Collect all failure message description strings.
+    /// </summary>
+    internal class MessageDescriptionGatheringPreprocessor : IFailuresPreprocessor
     {
         public MessageDescriptionGatheringPreprocessor()
         {

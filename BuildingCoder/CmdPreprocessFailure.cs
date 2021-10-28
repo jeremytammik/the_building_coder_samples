@@ -20,21 +20,21 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Here is some code that is in the RevitAPI.chm
-  ///     as a snippet for IFailuresPreprocessor Interface).
-  ///     It creates an unbounded room and suppresses the
-  ///     warning ("Room is not in a properly enclosed region")
-  ///     that would otherwise be given.
-  ///     The duration for this implementation is only for
-  ///     the transaction in the external command, so after
-  ///     the command is executed manually placed unbounded
-  ///     rooms do result in the warning.
-  ///     However, it is also possible with the new failure
-  ///     API to suppress warnings for the entire Revit session.
-  ///     By Harry Mattison.
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     Here is some code that is in the RevitAPI.chm
+    ///     as a snippet for IFailuresPreprocessor Interface).
+    ///     It creates an unbounded room and suppresses the
+    ///     warning ("Room is not in a properly enclosed region")
+    ///     that would otherwise be given.
+    ///     The duration for this implementation is only for
+    ///     the transaction in the external command, so after
+    ///     the command is executed manually placed unbounded
+    ///     rooms do result in the warning.
+    ///     However, it is also possible with the new failure
+    ///     API to suppress warnings for the entire Revit session.
+    ///     By Harry Mattison.
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     internal class CmdPreprocessFailure : IExternalCommand
     {
         public Result Execute(

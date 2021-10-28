@@ -26,11 +26,11 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Boolean predicate to determine whether a
-  ///     given category supports type parameter.
-  /// </summary>
-  [Transaction(TransactionMode.ReadOnly)]
+    /// <summary>
+    ///     Boolean predicate to determine whether a
+    ///     given category supports type parameter.
+    /// </summary>
+    [Transaction(TransactionMode.ReadOnly)]
     public class CmdCategorySupportsTypeParameter : IExternalCommand
     {
         // How does an enumeration compare with a

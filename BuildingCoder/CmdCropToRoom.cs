@@ -91,7 +91,6 @@ namespace BuildingCoder
 
             foreach (var o in e) // 2013
                 if (o is Solid solid)
-                {
                     // Iterate over all the edges of all solids:
 
                     foreach (Edge edge in solid.Edges)
@@ -100,7 +99,6 @@ namespace BuildingCoder
                         // including duplicates:
 
                         vertices.Add(p);
-                }
 
             var verticesIn3dView = new List<XYZ>();
 

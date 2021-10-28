@@ -10,16 +10,16 @@ namespace BuildingCoder
     /// </summary>
     internal class JtRevisionUsingDisplayName
     {
-      /// <summary>
-      ///     The BIM element.
-      /// </summary>
-      private readonly Element _e;
+        /// <summary>
+        ///     The BIM element.
+        /// </summary>
+        private readonly Element _e;
 
-      /// <summary>
-      ///     Create a Revision parameter accessor
-      ///     for the given BIM element.
-      /// </summary>
-      public JtRevisionUsingDisplayName(Element e)
+        /// <summary>
+        ///     Create a Revision parameter accessor
+        ///     for the given BIM element.
+        /// </summary>
+        public JtRevisionUsingDisplayName(Element e)
         {
             _e = e;
         }
@@ -96,16 +96,16 @@ namespace BuildingCoder
     /// </summary>
     internal class JtRevision
     {
-      /// <summary>
-      ///     The BIM element.
-      /// </summary>
-      private readonly Element _e;
+        /// <summary>
+        ///     The BIM element.
+        /// </summary>
+        private readonly Element _e;
 
-      /// <summary>
-      ///     Create a Revision parameter accessor
-      ///     for the given BIM element.
-      /// </summary>
-      public JtRevision(Element e)
+        /// <summary>
+        ///     Create a Revision parameter accessor
+        ///     for the given BIM element.
+        /// </summary>
+        public JtRevision(Element e)
         {
             _e = e;
         }

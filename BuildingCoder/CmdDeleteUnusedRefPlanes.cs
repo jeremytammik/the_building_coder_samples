@@ -173,7 +173,7 @@ namespace BuildingCoder
             var doc = rp.Document;
 
             using var tx = new Transaction(doc);
-            tx.Start($"Delete ReferencePlane {(++_i)}");
+            tx.Start($"Delete ReferencePlane {++_i}");
 
             // Deletion simply fails if the reference 
             // plane hosts anything. If so, the return 

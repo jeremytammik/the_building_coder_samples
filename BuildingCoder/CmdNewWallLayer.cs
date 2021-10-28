@@ -21,12 +21,12 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Demonstrate that the compound layer structure can be edited
-  ///     and added to prior from Revit 2012 onwards. This was previously
-  ///     impossible, and the whole compound structure was read-only.
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     Demonstrate that the compound layer structure can be edited
+    ///     and added to prior from Revit 2012 onwards. This was previously
+    ///     impossible, and the whole compound structure was read-only.
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     internal class CmdNewWallLayer : IExternalCommand
     {
         public Result Execute(

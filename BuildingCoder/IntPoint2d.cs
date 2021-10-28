@@ -3,48 +3,48 @@ using Autodesk.Revit.DB;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     An integer-based 2D point class.
-  /// </summary>
-  internal class IntPoint2d : IComparable<IntPoint2d>
+    /// <summary>
+    ///     An integer-based 2D point class.
+    /// </summary>
+    internal class IntPoint2d : IComparable<IntPoint2d>
     {
-      /// <summary>
-      ///     Initialise a 2D millimetre integer
-      ///     point to the given values.
-      /// </summary>
-      public IntPoint2d(int x, int y)
+        /// <summary>
+        ///     Initialise a 2D millimetre integer
+        ///     point to the given values.
+        /// </summary>
+        public IntPoint2d(int x, int y)
         {
             X = x;
             Y = y;
         }
 
-      /// <summary>
-      ///     Convert a 2D Revit UV to a 2D millimetre
-      ///     integer point by scaling from feet to mm.
-      /// </summary>
-      public IntPoint2d(UV p)
+        /// <summary>
+        ///     Convert a 2D Revit UV to a 2D millimetre
+        ///     integer point by scaling from feet to mm.
+        /// </summary>
+        public IntPoint2d(UV p)
         {
             X = Util.FootToMmInt(p.U);
             Y = Util.FootToMmInt(p.V);
         }
 
-      /// <summary>
-      ///     Convert a 3D Revit XYZ to a 2D millimetre
-      ///     integer point by discarding the Z coordinate
-      ///     and scaling from feet to mm.
-      /// </summary>
-      public IntPoint2d(XYZ p)
+        /// <summary>
+        ///     Convert a 3D Revit XYZ to a 2D millimetre
+        ///     integer point by discarding the Z coordinate
+        ///     and scaling from feet to mm.
+        /// </summary>
+        public IntPoint2d(XYZ p)
         {
             X = Util.FootToMmInt(p.X);
             Y = Util.FootToMmInt(p.Y);
         }
 
-      /// <summary>
-      ///     Convert Revit coordinates XYZ to a 2D
-      ///     millimetre integer point by scaling
-      ///     from feet to mm.
-      /// </summary>
-      public IntPoint2d(double x, double y)
+        /// <summary>
+        ///     Convert Revit coordinates XYZ to a 2D
+        ///     millimetre integer point by scaling
+        ///     from feet to mm.
+        /// </summary>
+        public IntPoint2d(double x, double y)
         {
             X = Util.FootToMmInt(x);
             Y = Util.FootToMmInt(y);

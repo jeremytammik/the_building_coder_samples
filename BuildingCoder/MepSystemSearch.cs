@@ -28,10 +28,10 @@ namespace BuildingCoder
     public class MepSystemSearch
     {
         private const int MAX_LOOPS = 20;
-        private int m_iLoops;
-        private List<ElementId> m_lVistited, m_lSelectedElts;
         private readonly Document m_pDoc;
         private readonly Selection m_pSelectedElts;
+        private int m_iLoops;
+        private List<ElementId> m_lVistited, m_lSelectedElts;
 
         public MepSystemSearch(UIApplication pUIApp)
         {

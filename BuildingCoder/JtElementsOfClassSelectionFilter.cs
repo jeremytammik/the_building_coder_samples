@@ -4,10 +4,10 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Allow selection of elements of type T only.
-  /// </summary>
-  internal class JtElementsOfClassSelectionFilter<T>
+    /// <summary>
+    ///     Allow selection of elements of type T only.
+    /// </summary>
+    internal class JtElementsOfClassSelectionFilter<T>
         : ISelectionFilter where T : Element
     {
         public bool AllowElement(Element e)

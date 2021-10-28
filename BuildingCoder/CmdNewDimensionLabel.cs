@@ -23,10 +23,10 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Create a new dimension label in a family document.
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     Create a new dimension label in a family document.
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     internal class CmdNewDimensionLabel : IExternalCommand
     {
         public Result Execute(

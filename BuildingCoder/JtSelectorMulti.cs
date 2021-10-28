@@ -13,32 +13,32 @@ using OperationCanceledException = Autodesk.Revit.Exceptions.OperationCanceledEx
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Select multiple elements of the same type using
-  ///     either pre-selection, before launching the
-  ///     command, or post-selection, afterwards.
-  ///     The element type is determined by the template
-  ///     parameter. A filtering method must be provided
-  ///     and is reused for both testing the pre-selection
-  ///     and defining allowable elements for the post-
-  ///     selection.
-  /// </summary>
-  internal class JtSelectorMulti<T> where T : Element
+    /// <summary>
+    ///     Select multiple elements of the same type using
+    ///     either pre-selection, before launching the
+    ///     command, or post-selection, afterwards.
+    ///     The element type is determined by the template
+    ///     parameter. A filtering method must be provided
+    ///     and is reused for both testing the pre-selection
+    ///     and defining allowable elements for the post-
+    ///     selection.
+    /// </summary>
+    internal class JtSelectorMulti<T> where T : Element
     {
-      /// <summary>
-      ///     Determine whether the given element is a valid
-      ///     selectable object. The method passed in is
-      ///     reused for both the interactive selection
-      ///     filter and the pre-selection validation.
-      ///     See below for a sample method.
-      /// </summary>
-      public delegate bool IsSelectable(Element e);
+        /// <summary>
+        ///     Determine whether the given element is a valid
+        ///     selectable object. The method passed in is
+        ///     reused for both the interactive selection
+        ///     filter and the pre-selection validation.
+        ///     See below for a sample method.
+        /// </summary>
+        public delegate bool IsSelectable(Element e);
 
-      /// <summary>
-      ///     Error message in case of invalid pre-selection.
-      /// </summary>
-      private const string _usage_error = "Please pre-select "
-                                          + "only {0}s before launching this command.";
+        /// <summary>
+        ///     Error message in case of invalid pre-selection.
+        /// </summary>
+        private const string _usage_error = "Please pre-select "
+                                            + "only {0}s before launching this command.";
 
         private readonly string _msg;
         private readonly Result _result;
@@ -165,14 +165,12 @@ namespace BuildingCoder
             if (null != cat)
                 if (cat.Id.IntegerValue.Equals(
                     (int) BuiltInCategory.OST_Furniture))
-                {
                     if (e is FamilyInstance fi)
                     {
                         var fname = fi.Symbol.Family.Name;
 
                         rc = fname.Equals("SampleTableFamilyName");
                     }
-                }
 
             return rc;
         }

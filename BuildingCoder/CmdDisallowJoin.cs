@@ -24,10 +24,10 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     For case 1253888 [Allow Join / Disallow Join via Revit API].
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     For case 1253888 [Allow Join / Disallow Join via Revit API].
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     internal class CmdDisallowJoin : IExternalCommand
     {
         public Result Execute(

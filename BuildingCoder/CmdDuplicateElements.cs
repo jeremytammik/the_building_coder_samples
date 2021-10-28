@@ -43,19 +43,19 @@ namespace BuildingCoder
             var group = doc.Create.NewGroup( // 2013
                 uidoc.Selection.GetElementIds());
 
-            var groupType = @group.GroupType;
+            var groupType = group.GroupType;
 
-            var location = @group.Location
+            var location = group.Location
                 as LocationPoint;
 
             var p = location.Point;
             var newPoint = new XYZ(p.X, p.Y + 10, p.Z);
 
             var newGroup = doc.Create.PlaceGroup(
-                newPoint, @group.GroupType);
+                newPoint, group.GroupType);
 
             //group.Ungroup(); // 2012
-            @group.UngroupMembers(); // 2013
+            group.UngroupMembers(); // 2013
 
             //ElementSet eSet = newGroup.Ungroup(); // 2012
 

@@ -32,11 +32,11 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdPlaceFamilyInstance : IExternalCommand
     {
-      /// <summary>
-      ///     Set this flag to true to abort after
-      ///     placing the first instance.
-      /// </summary>
-      private static readonly bool _place_one_single_instance_then_abort
+        /// <summary>
+        ///     Set this flag to true to abort after
+        ///     placing the first instance.
+        /// </summary>
+        private static readonly bool _place_one_single_instance_then_abort
             = true;
 
         private readonly List<ElementId> _added_element_ids

@@ -20,6 +20,7 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.UI;
+
 // todo: report and resolve this, this should not be required: 'RE: ambiguous BoundarySegmentArrayArray'
 //using BoundarySegmentArrayArray = Autodesk.Revit.DB.Architecture.BoundarySegmentArrayArray; // 2011
 //using BoundarySegmentArray = Autodesk.Revit.DB.Architecture.BoundarySegmentArray; // 2011
@@ -31,10 +32,10 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Determine part of wall face area that bounds a room.
-  /// </summary>
-  [Transaction(TransactionMode.ReadOnly)]
+    /// <summary>
+    ///     Determine part of wall face area that bounds a room.
+    /// </summary>
+    [Transaction(TransactionMode.ReadOnly)]
     internal class CmdRoomWallAdjacency : IExternalCommand
     {
         public Result Execute(

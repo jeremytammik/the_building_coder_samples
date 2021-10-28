@@ -32,12 +32,12 @@ namespace BuildingCoder
     [Transaction(TransactionMode.ReadOnly)]
     internal class CmdElevationWatcher : IExternalCommand
     {
-      /// <summary>
-      ///     Keep a reference to the handler, so we know
-      ///     whether we have already registered and need
-      ///     to unregister or vice versa.
-      /// </summary>
-      private static EventHandler<DocumentChangedEventArgs>
+        /// <summary>
+        ///     Keep a reference to the handler, so we know
+        ///     whether we have already registered and need
+        ///     to unregister or vice versa.
+        /// </summary>
+        private static EventHandler<DocumentChangedEventArgs>
             _handler;
 
         public Result Execute(
@@ -147,12 +147,12 @@ namespace BuildingCoder
     [Transaction(TransactionMode.ReadOnly)]
     internal class CmdElevationWatcherUpdater : IExternalCommand
     {
-      /// <summary>
-      ///     Keep a reference to the updater, so we know
-      ///     whether we have already registered and need
-      ///     to unregister or vice versa.
-      /// </summary>
-      private static ElevationWatcherUpdater _updater;
+        /// <summary>
+        ///     Keep a reference to the updater, so we know
+        ///     whether we have already registered and need
+        ///     to unregister or vice versa.
+        /// </summary>
+        private static ElevationWatcherUpdater _updater;
 
         public Result Execute(
             ExternalCommandData commandData,
@@ -213,11 +213,9 @@ namespace BuildingCoder
                 var app = doc.Application;
                 foreach (var id in
                     data.GetAddedElementIds())
-                {
                     if (doc.GetElement(id) is View {ViewType: ViewType.Elevation} view)
                         TaskDialog.Show("ElevationWatcher Updater",
                             $"New elevation view '{view.Name}'");
-                }
             }
 
             public string GetAdditionalInformation()

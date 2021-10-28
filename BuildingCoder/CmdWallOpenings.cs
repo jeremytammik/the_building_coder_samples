@@ -25,11 +25,11 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     A simple class with two coordinates
-  ///     and some other basic info.
-  /// </summary>
-  internal class WallOpening2d
+    /// <summary>
+    ///     A simple class with two coordinates
+    ///     and some other basic info.
+    /// </summary>
+    internal class WallOpening2d
     {
         //public ElementId Id { get; set; }
         public XYZ Start { get; set; }
@@ -44,10 +44,10 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdWallOpenings : IExternalCommand
     {
-      /// <summary>
-      ///     Move out of wall and up from floor a bit
-      /// </summary>
-      private const double _offset = 0.1; // feet
+        /// <summary>
+        ///     Move out of wall and up from floor a bit
+        /// </summary>
+        private const double _offset = 0.1; // feet
 
         public Result Execute(
             ExternalCommandData commandData,
@@ -411,6 +411,7 @@ namespace BuildingCoder
                                             intersectingSlabs.Add(e);
                                             break;
                                     }
+
                                 if (intersectingBeams.Any())
                                 {
                                     var lowestBottomElem = intersectingBeams.First();

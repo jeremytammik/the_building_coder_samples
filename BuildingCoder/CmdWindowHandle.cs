@@ -26,10 +26,10 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Wrapper class for converting IntPtr to IWin32Window.
-  /// </summary>
-  public class WindowHandle : IWin32Window
+    /// <summary>
+    ///     Wrapper class for converting IntPtr to IWin32Window.
+    /// </summary>
+    public class WindowHandle : IWin32Window
     {
         public WindowHandle(IntPtr h)
         {

@@ -23,12 +23,12 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Create sloped slab using the NewSlab method.
-  ///     Also demonstrate checking whether a specific
-  ///     level exists and creating it is not.
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     Create sloped slab using the NewSlab method.
+    ///     Also demonstrate checking whether a specific
+    ///     level exists and creating it is not.
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     public class CmdCreateSlopedSlab : IExternalCommand
     {
         public Result Execute(

@@ -23,10 +23,10 @@ namespace BuildingCoder
     [Transaction(TransactionMode.ReadOnly)]
     internal class CmdParamValuesForCats : IExternalCommand
     {
-      /// <summary>
-      ///     List all built-in categories of interest
-      /// </summary>
-      private static readonly BuiltInCategory[] _categories =
+        /// <summary>
+        ///     List all built-in categories of interest
+        /// </summary>
+        private static readonly BuiltInCategory[] _categories =
         {
             BuiltInCategory.OST_Doors,
             BuiltInCategory.OST_Rooms,

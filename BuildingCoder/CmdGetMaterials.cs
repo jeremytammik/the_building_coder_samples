@@ -171,11 +171,11 @@ namespace BuildingCoder
         /// </summary>
         internal class AssetPropertyPropertyDescriptor : PropertyDescriptor
         {
-          /// <summary>
-          ///     Public class constructor
-          /// </summary>
-          /// <param name="assetProperty">the AssetProperty which a AssetPropertyPropertyDescriptor instance describes</param>
-          public AssetPropertyPropertyDescriptor(AssetProperty assetProperty)
+            /// <summary>
+            ///     Public class constructor
+            /// </summary>
+            /// <param name="assetProperty">the AssetProperty which a AssetPropertyPropertyDescriptor instance describes</param>
+            public AssetPropertyPropertyDescriptor(AssetProperty assetProperty)
                 : base(assetProperty.Name, Array.Empty<Attribute>())
             {
                 m_assetProperty = assetProperty;
@@ -799,23 +799,23 @@ namespace BuildingCoder
     }
 #endif // BEFORE_REVIT_2013
 
-      /// <summary>
-      ///     Return a list of the document's materials
-      ///     from a filtered element collector.
-      /// </summary>
-      private FilteredElementCollector FilterForMaterials(
+        /// <summary>
+        ///     Return a list of the document's materials
+        ///     from a filtered element collector.
+        /// </summary>
+        private FilteredElementCollector FilterForMaterials(
             Document doc)
         {
             return new FilteredElementCollector(doc)
                 .OfClass(typeof(Material));
         }
 
-      /// <summary>
-      ///     Replacement for deprecated property
-      ///     Face.MaterialElement to access material name
-      ///     for a given geometry face.
-      /// </summary>
-      private static string FaceMaterialName(
+        /// <summary>
+        ///     Replacement for deprecated property
+        ///     Face.MaterialElement to access material name
+        ///     for a given geometry face.
+        /// </summary>
+        private static string FaceMaterialName(
             Document doc,
             Face face)
         {
@@ -824,14 +824,14 @@ namespace BuildingCoder
             return m.Name;
         }
 
-      /// <summary>
-      ///     Return family instance element material, either
-      ///     for the given instance or the entire category.
-      ///     If no element material is specified and the
-      ///     ByCategory material information is null, set
-      ///     it to a valid value at the category level.
-      /// </summary>
-      public Material GetMaterial(
+        /// <summary>
+        ///     Return family instance element material, either
+        ///     for the given instance or the entire category.
+        ///     If no element material is specified and the
+        ///     ByCategory material information is null, set
+        ///     it to a valid value at the category level.
+        /// </summary>
+        public Material GetMaterial(
             Document doc,
             FamilyInstance fi)
         {
@@ -890,14 +890,14 @@ namespace BuildingCoder
             return material;
         }
 
-      /// <summary>
-      ///     Return a list of all materials by recursively traversing
-      ///     all the object's solids' faces, retrieving their face
-      ///     materials, and collecting them in a list.
-      ///     Original implementation, not always robust as noted by Andras Kiss in
-      ///     http://thebuildingcoder.typepad.com/blog/2008/10/family-instance-materials.html?cid=6a00e553e1689788330115713e2e3c970b#comment-6a00e553e1689788330115713e2e3c970b
-      /// </summary>
-      public List<string> GetMaterials1(
+        /// <summary>
+        ///     Return a list of all materials by recursively traversing
+        ///     all the object's solids' faces, retrieving their face
+        ///     materials, and collecting them in a list.
+        ///     Original implementation, not always robust as noted by Andras Kiss in
+        ///     http://thebuildingcoder.typepad.com/blog/2008/10/family-instance-materials.html?cid=6a00e553e1689788330115713e2e3c970b#comment-6a00e553e1689788330115713e2e3c970b
+        /// </summary>
+        public List<string> GetMaterials1(
             Document doc,
             GeometryElement geo)
         {
@@ -907,33 +907,29 @@ namespace BuildingCoder
 
             foreach (var o in geo) // 2013
                 if (o is Solid solid)
-                {
                     foreach (Face face in solid.Faces)
                     {
                         //string s = face.MaterialElement.Name; // 2011
                         var s = FaceMaterialName(doc, face); // 2012
                         materials.Add(s);
                     }
-                }
                 else if (o is GeometryInstance instance)
-                {
                     materials.AddRange(GetMaterials1(
                         doc, instance.SymbolGeometry));
-                }
 
             return materials;
         }
 
-      /// <summary>
-      ///     Return a list of all materials by traversing
-      ///     all the object's and its instances' solids'
-      ///     faces, retrieving their face materials,
-      ///     and collecting them in a list.
-      ///     Enhanced more robust implementation suggested
-      ///     by Harry Mattison, but lacking the recursion
-      ///     of the first version.
-      /// </summary>
-      public List<string> GetMaterials(
+        /// <summary>
+        ///     Return a list of all materials by traversing
+        ///     all the object's and its instances' solids'
+        ///     faces, retrieving their face materials,
+        ///     and collecting them in a list.
+        ///     Enhanced more robust implementation suggested
+        ///     by Harry Mattison, but lacking the recursion
+        ///     of the first version.
+        /// </summary>
+        public List<string> GetMaterials(
             Document doc,
             GeometryElement geo)
         {

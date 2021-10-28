@@ -47,7 +47,9 @@ namespace BuildingCoder
             if (room is not Room) room = Util.SelectSingleElement(uidoc, "a room");
 
             if (room is not Room)
+            {
                 message = "Please select a single room element.";
+            }
             else
             {
                 using var t = new Transaction(doc);

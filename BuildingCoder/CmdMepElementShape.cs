@@ -135,7 +135,6 @@ namespace BuildingCoder
 
                 if (is_element_of_category(e,
                     BuiltInCategory.OST_DuctFitting))
-                {
                     if (e is FamilyInstance {MEPModel: MechanicalFitting fitting})
                     {
                         //Parameter p = e.get_Parameter( "Size" ); // 2014
@@ -248,8 +247,7 @@ namespace BuildingCoder
                         }
                         // etc (for other part types)
                     }
-                    // etc (for other categories)
-                }
+                // etc (for other categories)
 
                 return "unknown";
             }
@@ -259,16 +257,16 @@ namespace BuildingCoder
             /// </summary>
             private class RegexCache : Dictionary<string, Regex>
             {
-              /// <summary>
-              ///     Apply regular expression pattern matching
-              ///     to a given input string. The compiled
-              ///     regular expression is cached for efficient
-              ///     future reuse.
-              /// </summary>
-              /// <param name="pattern">Regular expression pattern</param>
-              /// <param name="input">Input string</param>
-              /// <returns>True if input matches pattern, else false</returns>
-              public bool Match(string pattern, string input)
+                /// <summary>
+                ///     Apply regular expression pattern matching
+                ///     to a given input string. The compiled
+                ///     regular expression is cached for efficient
+                ///     future reuse.
+                /// </summary>
+                /// <param name="pattern">Regular expression pattern</param>
+                /// <param name="input">Input string</param>
+                /// <returns>True if input matches pattern, else false</returns>
+                public bool Match(string pattern, string input)
                 {
                     if (!ContainsKey(pattern)) Add(pattern, new Regex(pattern));
                     return this[pattern].IsMatch(input);
@@ -282,17 +280,17 @@ namespace BuildingCoder
 
         private static class MepElementShapeVersion2
         {
-          /// <summary>
-          ///     Determine element shape from its connectors.
-          /// </summary>
-          /// <param name="e">Checked element</param>
-          /// <param name="pe">Previous element (optional), in case badly-connected MEP system</param>
-          /// <param name="ne">
-          ///     Next element (optional), in case you want shape chenge through flow direction only
-          ///     (for elements with more than one output)
-          /// </param>
-          /// <returns>Element shape changes</returns>
-          public static string GetElementShape(
+            /// <summary>
+            ///     Determine element shape from its connectors.
+            /// </summary>
+            /// <param name="e">Checked element</param>
+            /// <param name="pe">Previous element (optional), in case badly-connected MEP system</param>
+            /// <param name="ne">
+            ///     Next element (optional), in case you want shape chenge through flow direction only
+            ///     (for elements with more than one output)
+            /// </param>
+            /// <returns>Element shape changes</returns>
+            public static string GetElementShape(
                 Element e,
                 Element pe = null,
                 Element ne = null)
@@ -394,9 +392,9 @@ namespace BuildingCoder
                                 }
 
                                 if (to != null)
-                                    return $"{@from} 2 {to}";
+                                    return $"{from} 2 {to}";
 
-                                return $"{@from} 2 {string.Join("-", unk.ToArray())}";
+                                return $"{from} 2 {string.Join("-", unk.ToArray())}";
                             }
 
                             foreach (Connector c in connectors)
@@ -419,10 +417,10 @@ namespace BuildingCoder
                             }
 
                             if (to != null)
-                                return $"{@from} 2 {to}";
+                                return $"{from} 2 {to}";
 
                             if (from != null)
-                                return $"{@from} 2 {string.Join("-", unk.ToArray())}";
+                                return $"{from} 2 {string.Join("-", unk.ToArray())}";
 
                             return string.Join("-", unk.ToArray());
                         }
@@ -432,10 +430,10 @@ namespace BuildingCoder
                 return "unknown";
             }
 
-          /// <summary>
-          ///     Check if connector is connected to some connector of the element.
-          /// </summary>
-          public static bool is_connected_to(
+            /// <summary>
+            ///     Check if connector is connected to some connector of the element.
+            /// </summary>
+            public static bool is_connected_to(
                 Connector c,
                 Element e)
             {
@@ -449,10 +447,10 @@ namespace BuildingCoder
                 return false;
             }
 
-          /// <summary>
-          ///     Check if element belongs to the category.
-          /// </summary>
-          public static bool is_element_of_category(
+            /// <summary>
+            ///     Check if element belongs to the category.
+            /// </summary>
+            public static bool is_element_of_category(
                 Element e,
                 BuiltInCategory c)
             {

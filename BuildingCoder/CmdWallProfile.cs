@@ -31,12 +31,12 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdWallProfile : IExternalCommand
     {
-      /// <summary>
-      ///     Offset the generated boundary polygon loop
-      ///     model lines outwards to separate them from
-      ///     the wall edge, measured in feet.
-      /// </summary>
-      private const double _offset = 1.0;
+        /// <summary>
+        ///     Offset the generated boundary polygon loop
+        ///     model lines outwards to separate them from
+        ///     the wall edge, measured in feet.
+        /// </summary>
+        private const double _offset = 1.0;
 
         public Result Execute(
             ExternalCommandData cd,

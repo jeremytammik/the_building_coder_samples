@@ -24,18 +24,18 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Dimension two opposing parallel walls.
-  ///     For simplicity, the dimension is defined from
-  ///     wall midpoint to midpoint, so the walls have
-  ///     to be exactly opposite each other for it to work.
-  ///     Iterate the wall solid faces to find the two
-  ///     closest opposing faces and use references to
-  ///     them to define the dimension element.
-  ///     First sample solution for case
-  ///     1263071 [Revit 2011 Dimension Wall].
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     Dimension two opposing parallel walls.
+    ///     For simplicity, the dimension is defined from
+    ///     wall midpoint to midpoint, so the walls have
+    ///     to be exactly opposite each other for it to work.
+    ///     Iterate the wall solid faces to find the two
+    ///     closest opposing faces and use references to
+    ///     them to define the dimension element.
+    ///     First sample solution for case
+    ///     1263071 [Revit 2011 Dimension Wall].
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     internal class CmdDimensionWallsIterateFaces : IExternalCommand
     {
         private const string _prompt

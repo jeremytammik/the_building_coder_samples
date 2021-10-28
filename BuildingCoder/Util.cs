@@ -2512,12 +2512,12 @@ const T f = ( ay * bx ) - ( ax * by );
 
     public static class JtElementExtensionMethods
     {
-      /// <summary>
-      ///     Predicate to determine whether given element
-      ///     is a physical element, i.e. valid category,
-      ///     not view specific, etc.
-      /// </summary>
-      public static bool IsPhysicalElement(
+        /// <summary>
+        ///     Predicate to determine whether given element
+        ///     is a physical element, i.e. valid category,
+        ///     not view specific, etc.
+        /// </summary>
+        public static bool IsPhysicalElement(
             this Element e)
         {
             if (e.Category == null)
@@ -2534,11 +2534,11 @@ const T f = ( ay * bx ) - ( ax * by );
                    && e.Category.CanAddSubcategory;
         }
 
-      /// <summary>
-      ///     Return the curve from a Revit database Element
-      ///     location curve, if it has one.
-      /// </summary>
-      public static Curve GetCurve(this Element e)
+        /// <summary>
+        ///     Return the curve from a Revit database Element
+        ///     location curve, if it has one.
+        /// </summary>
+        public static Curve GetCurve(this Element e)
         {
             Debug.Assert(null != e.Location,
                 "expected an element with a valid Location");
@@ -2554,18 +2554,18 @@ const T f = ( ay * bx ) - ( ax * by );
 
     public static class JtElementIdExtensionMethods
     {
-      /// <summary>
-      ///     Predicate returning true for invalid element ids.
-      /// </summary>
-      public static bool IsInvalid(this ElementId id)
+        /// <summary>
+        ///     Predicate returning true for invalid element ids.
+        /// </summary>
+        public static bool IsInvalid(this ElementId id)
         {
             return ElementId.InvalidElementId == id;
         }
 
-      /// <summary>
-      ///     Predicate returning true for valid element ids.
-      /// </summary>
-      public static bool IsValid(this ElementId id)
+        /// <summary>
+        ///     Predicate returning true for valid element ids.
+        /// </summary>
+        public static bool IsValid(this ElementId id)
         {
             return !IsInvalid(id);
         }
@@ -2573,17 +2573,17 @@ const T f = ( ay * bx ) - ( ax * by );
 
     public static class JtLineExtensionMethods
     {
-      /// <summary>
-      ///     Return true if the given point is very close
-      ///     to this line, within a very narrow ellipse
-      ///     whose focal points are the line start and end.
-      ///     The tolerance is defined as (1 - e) using the
-      ///     eccentricity e. e = 0 means we have a circle;
-      ///     The closer e is to 1, the more elongated the
-      ///     shape of the ellipse.
-      ///     https://en.wikipedia.org/wiki/Ellipse#Eccentricity
-      /// </summary>
-      public static bool Contains(
+        /// <summary>
+        ///     Return true if the given point is very close
+        ///     to this line, within a very narrow ellipse
+        ///     whose focal points are the line start and end.
+        ///     The tolerance is defined as (1 - e) using the
+        ///     eccentricity e. e = 0 means we have a circle;
+        ///     The closer e is to 1, the more elongated the
+        ///     shape of the ellipse.
+        ///     https://en.wikipedia.org/wiki/Ellipse#Eccentricity
+        /// </summary>
+        public static bool Contains(
             this Line line,
             XYZ p,
             double tolerance = Util._eps)
@@ -2600,11 +2600,11 @@ const T f = ( ay * bx ) - ( ax * by );
 
     public static class JtBoundingBoxXyzExtensionMethods
     {
-      /// <summary>
-      ///     Make this bounding box empty by setting the
-      ///     Min value to plus infinity and Max to minus.
-      /// </summary>
-      public static void Clear(
+        /// <summary>
+        ///     Make this bounding box empty by setting the
+        ///     Min value to plus infinity and Max to minus.
+        /// </summary>
+        public static void Clear(
             this BoundingBoxXYZ bb)
         {
             var infinity = double.MaxValue;
@@ -2612,11 +2612,11 @@ const T f = ( ay * bx ) - ( ax * by );
             bb.Max = -bb.Min;
         }
 
-      /// <summary>
-      ///     Expand the given bounding box to include
-      ///     and contain the given point.
-      /// </summary>
-      public static void ExpandToContain(
+        /// <summary>
+        ///     Expand the given bounding box to include
+        ///     and contain the given point.
+        /// </summary>
+        public static void ExpandToContain(
             this BoundingBoxXYZ bb,
             XYZ p)
         {
@@ -2629,11 +2629,11 @@ const T f = ( ay * bx ) - ( ax * by );
                 Math.Max(bb.Max.Z, p.Z));
         }
 
-      /// <summary>
-      ///     Expand the given bounding box to include
-      ///     and contain the given points.
-      /// </summary>
-      public static void ExpandToContain(
+        /// <summary>
+        ///     Expand the given bounding box to include
+        ///     and contain the given points.
+        /// </summary>
+        public static void ExpandToContain(
             this BoundingBoxXYZ bb,
             IEnumerable<XYZ> pts)
         {
@@ -2648,11 +2648,11 @@ const T f = ( ay * bx ) - ( ax * by );
                 pts.Max<XYZ, double>(p => p.Z)));
         }
 
-      /// <summary>
-      ///     Expand the given bounding box to include
-      ///     and contain the given other one.
-      /// </summary>
-      public static void ExpandToContain(
+        /// <summary>
+        ///     Expand the given bounding box to include
+        ///     and contain the given other one.
+        /// </summary>
+        public static void ExpandToContain(
             this BoundingBoxXYZ bb,
             BoundingBoxXYZ other)
         {
@@ -2663,11 +2663,11 @@ const T f = ( ay * bx ) - ( ax * by );
 
     public static class JtPlaneExtensionMethods
     {
-      /// <summary>
-      ///     Return the signed distance from
-      ///     a plane to a given point.
-      /// </summary>
-      public static double SignedDistanceTo(
+        /// <summary>
+        ///     Return the signed distance from
+        ///     a plane to a given point.
+        /// </summary>
+        public static double SignedDistanceTo(
             this Plane plane,
             XYZ p)
         {
@@ -2680,10 +2680,10 @@ const T f = ( ay * bx ) - ( ax * by );
             return plane.Normal.DotProduct(v);
         }
 
-      /// <summary>
-      ///     Project given 3D XYZ point onto plane.
-      /// </summary>
-      public static XYZ ProjectOnto(
+        /// <summary>
+        ///     Project given 3D XYZ point onto plane.
+        /// </summary>
+        public static XYZ ProjectOnto(
             this Plane plane,
             XYZ p)
         {
@@ -2699,12 +2699,12 @@ const T f = ( ay * bx ) - ( ax * by );
             return q;
         }
 
-      /// <summary>
-      ///     Project given 3D XYZ point into plane,
-      ///     returning the UV coordinates of the result
-      ///     in the local 2D plane coordinate system.
-      /// </summary>
-      public static UV ProjectInto(
+        /// <summary>
+        ///     Project given 3D XYZ point into plane,
+        ///     returning the UV coordinates of the result
+        ///     in the local 2D plane coordinate system.
+        /// </summary>
+        public static UV ProjectInto(
             this Plane plane,
             XYZ p)
         {
@@ -2719,13 +2719,13 @@ const T f = ( ay * bx ) - ( ax * by );
 
     public static class JtEdgeArrayExtensionMethods
     {
-      /// <summary>
-      ///     Return a polygon as a list of XYZ points from
-      ///     an EdgeArray. If any of the edges are curved,
-      ///     we retrieve the tessellated points, i.e. an
-      ///     approximation determined by Revit.
-      /// </summary>
-      public static List<XYZ> GetPolygon(
+        /// <summary>
+        ///     Return a polygon as a list of XYZ points from
+        ///     an EdgeArray. If any of the edges are curved,
+        ///     we retrieve the tessellated points, i.e. an
+        ///     approximation determined by Revit.
+        /// </summary>
+        public static List<XYZ> GetPolygon(
             this EdgeArray ea)
         {
             var n = ea.Size;
@@ -2806,12 +2806,12 @@ const T f = ( ay * bx ) - ( ax * by );
 
     public static class JtBuiltInCategoryExtensionMethods
     {
-      /// <summary>
-      ///     Return a descriptive string for a built-in
-      ///     category by removing the trailing plural 's'
-      ///     and the OST_ prefix.
-      /// </summary>
-      public static string Description(
+        /// <summary>
+        ///     Return a descriptive string for a built-in
+        ///     category by removing the trailing plural 's'
+        ///     and the OST_ prefix.
+        /// </summary>
+        public static string Description(
             this BuiltInCategory bic)
         {
             var s = bic.ToString().ToLower();

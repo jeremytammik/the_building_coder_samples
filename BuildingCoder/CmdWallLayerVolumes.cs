@@ -187,12 +187,12 @@ namespace BuildingCoder
         private class MapLayerToVolume
             : Dictionary<string, double>
         {
-          /// <summary>
-          ///     Add cumulated value.
-          ///     If seen for the first time for
-          ///     this key, initialise with zero.
-          /// </summary>
-          public void Cumulate(
+            /// <summary>
+            ///     Add cumulated value.
+            ///     If seen for the first time for
+            ///     this key, initialise with zero.
+            /// </summary>
+            public void Cumulate(
                 string key,
                 double value)
             {

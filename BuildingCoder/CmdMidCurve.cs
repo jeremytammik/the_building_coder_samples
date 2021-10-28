@@ -28,10 +28,10 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdMidCurve : IExternalCommand
     {
-      /// <summary>
-      ///     Number of approximation segments to generate.
-      /// </summary>
-      private const int _nSegments = 64;
+        /// <summary>
+        ///     Number of approximation segments to generate.
+        /// </summary>
+        private const int _nSegments = 64;
 
         private const string _prompt
             = "Please run this in a model containing "
@@ -91,7 +91,6 @@ namespace BuildingCoder
 
                 if (1 < n)
                     foreach (var id in ids)
-                    {
                         if (doc.GetElement(id) is CurveElement c)
                         {
                             curves.Add(c);
@@ -104,7 +103,6 @@ namespace BuildingCoder
                                 break;
                             }
                         }
-                    }
 
                 // Else, prompt for an 
                 // interactive post-selection.

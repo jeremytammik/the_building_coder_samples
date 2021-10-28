@@ -20,14 +20,14 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     This command will change the path of all linked
-  ///     Revit files the next time the document at the
-  ///     given location is opened.
-  ///     Please refer to the TransmissionData reference
-  ///     for more details.
-  /// </summary>
-  [Transaction(TransactionMode.ReadOnly)]
+    /// <summary>
+    ///     This command will change the path of all linked
+    ///     Revit files the next time the document at the
+    ///     given location is opened.
+    ///     Please refer to the TransmissionData reference
+    ///     for more details.
+    /// </summary>
+    [Transaction(TransactionMode.ReadOnly)]
     public class CmdChangeLinkedFilePath : IExternalCommand
     {
         public Result Execute(

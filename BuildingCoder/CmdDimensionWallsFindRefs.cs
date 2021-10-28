@@ -27,16 +27,16 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Dimension two opposing parallel walls.
-  ///     Prompt user to select the first wall, and
-  ///     the second at the point at which to create
-  ///     the dimensioning. Use FindReferencesByDirection
-  ///     to determine the wall face references.
-  ///     Second sample solution for case 1263303 [Case
-  ///     Number 1263071 [Revit 2011 Dimension Wall]].
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     Dimension two opposing parallel walls.
+    ///     Prompt user to select the first wall, and
+    ///     the second at the point at which to create
+    ///     the dimensioning. Use FindReferencesByDirection
+    ///     to determine the wall face references.
+    ///     Second sample solution for case 1263303 [Case
+    ///     Number 1263071 [Revit 2011 Dimension Wall]].
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     internal class CmdDimensionWallsFindRefs : IExternalCommand
     {
         private const string _prompt

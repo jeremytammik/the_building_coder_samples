@@ -22,11 +22,11 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Based on code by Jared Wilson shared in case 14918470 [Find all ducts that have been tapped into]
-  ///     https://forums.autodesk.com/t5/revit-api-forum/find-all-ducts-that-have-been-tapped-into/m-p/8485269
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     Based on code by Jared Wilson shared in case 14918470 [Find all ducts that have been tapped into]
+    ///     https://forums.autodesk.com/t5/revit-api-forum/find-all-ducts-that-have-been-tapped-into/m-p/8485269
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     internal class CmdDuctResize : IExternalCommand
     {
         private const BuiltInParameter bipDiameter

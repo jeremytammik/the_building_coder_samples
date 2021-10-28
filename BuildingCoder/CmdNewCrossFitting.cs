@@ -29,11 +29,11 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdNewCrossFitting : IExternalCommand
     {
-      /// <summary>
-      ///     External command mainline. Run in the
-      ///     sample model TestCrossFitting.rvt, e.g.
-      /// </summary>
-      public Result Execute(
+        /// <summary>
+        ///     External command mainline. Run in the
+        ///     sample model TestCrossFitting.rvt, e.g.
+        /// </summary>
+        public Result Execute(
             ExternalCommandData commandData,
             ref string message,
             ElementSet elements)
@@ -197,10 +197,10 @@ namespace BuildingCoder
             return Result.Succeeded;
         }
 
-      /// <summary>
-      ///     Return the normalised direction of the given pipe.
-      /// </summary>
-      private XYZ GetPipeDirection(Pipe pipe)
+        /// <summary>
+        ///     Return the normalised direction of the given pipe.
+        /// </summary>
+        private XYZ GetPipeDirection(Pipe pipe)
         {
             var c = pipe.GetCurve();
             var dir = c.GetEndPoint(1) - c.GetEndPoint(1);
@@ -208,10 +208,10 @@ namespace BuildingCoder
             return dir;
         }
 
-      /// <summary>
-      ///     Are the two given pipes parallel?
-      /// </summary>
-      private bool IsPipeParallel(Pipe p1, Pipe p2)
+        /// <summary>
+        ///     Are the two given pipes parallel?
+        /// </summary>
+        private bool IsPipeParallel(Pipe p1, Pipe p2)
         {
             var c1 = p1.GetCurve() as Line;
             var c2 = p2.GetCurve() as Line;

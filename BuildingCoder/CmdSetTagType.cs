@@ -27,11 +27,11 @@ using Autodesk.Revit.UI.Selection;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Create a wall, door, door tag, then
-  ///     create and set a new door tag type.
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     Create a wall, door, door tag, then
+    ///     create and set a new door tag type.
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     internal class CmdSetTagType : IExternalCommand
     {
         private const double MeterToFeet = 3.2808399;

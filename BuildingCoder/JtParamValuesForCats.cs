@@ -20,15 +20,15 @@ using Autodesk.Revit.DB;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Container class for Revit database element
-  ///     parameter data 'param_values'.
-  ///     'param_values' is a list of strings 'name = value'.
-  ///     Each element is identified by its UniqueId string 'uid'.
-  ///     Each category is equipped with a dictionary mapping
-  ///     'uid' to 'param_values'.
-  /// </summary>
-  internal class JtParamValuesForCats :
+    /// <summary>
+    ///     Container class for Revit database element
+    ///     parameter data 'param_values'.
+    ///     'param_values' is a list of strings 'name = value'.
+    ///     Each element is identified by its UniqueId string 'uid'.
+    ///     Each category is equipped with a dictionary mapping
+    ///     'uid' to 'param_values'.
+    /// </summary>
+    internal class JtParamValuesForCats :
 
         // Parameter names are not guaranteed to be 
         // unique! Therefore, it may be impossible to
@@ -46,12 +46,12 @@ namespace BuildingCoder
 #endif // PARAMETER_NAMES_ARE_UNIQUE
 
     {
-      /// <summary>
-      ///     Return all the parameter values
-      ///     deemed relevant for the given element
-      ///     in string form.
-      /// </summary>
-      private static List<string> GetParamValues(Element e)
+        /// <summary>
+        ///     Return all the parameter values
+        ///     deemed relevant for the given element
+        ///     in string form.
+        /// </summary>
+        private static List<string> GetParamValues(Element e)
         {
             // Two choices: 
             // Element.Parameters property -- Retrieves 
@@ -74,11 +74,11 @@ namespace BuildingCoder
             return param_values;
         }
 
-      /// <summary>
-      ///     Return parameter data for all
-      ///     elements of all the given categories
-      /// </summary>
-      private static void GetParamValuesForCats(
+        /// <summary>
+        ///     Return parameter data for all
+        ///     elements of all the given categories
+        /// </summary>
+        private static void GetParamValuesForCats(
             Dictionary<string, Dictionary<string, List<string>>>
                 map_cat_to_uid_to_param_values,
             Document doc,
@@ -153,14 +153,14 @@ namespace BuildingCoder
             }
         }
 
-      /// <summary>
-      ///     Constructor.
-      ///     Input: document and list of categories;
-      ///     Output: dict mapping categories to dicts
-      ///     of element unique ids with list of param
-      ///     data for each element.
-      /// </summary>
-      public JtParamValuesForCats(
+        /// <summary>
+        ///     Constructor.
+        ///     Input: document and list of categories;
+        ///     Output: dict mapping categories to dicts
+        ///     of element unique ids with list of param
+        ///     data for each element.
+        /// </summary>
+        public JtParamValuesForCats(
             Document doc,
             BuiltInCategory[] categories)
         {
@@ -168,12 +168,12 @@ namespace BuildingCoder
         }
 
 #if DEBUG
-      /// <summary>
-      ///     Print categories, number of elements each and
-      ///     some sample data to the Visual Studio debug
-      ///     output window.
-      /// </summary>
-      public void DebugPrint()
+        /// <summary>
+        ///     Print categories, number of elements each and
+        ///     some sample data to the Visual Studio debug
+        ///     output window.
+        /// </summary>
+        public void DebugPrint()
         {
             var keys = new List<string>(
                 Keys);

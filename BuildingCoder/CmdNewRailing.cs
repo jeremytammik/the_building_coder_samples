@@ -26,12 +26,12 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Currently, it is not possible to create a new railing instance:
-  ///     http://thebuildingcoder.typepad.com/blog/2009/02/list-railing-types.html#comments
-  ///     SPR #134260 [API - New Element Creation: Railing]
-  /// </summary>
-  [Transaction(TransactionMode.Manual)]
+    /// <summary>
+    ///     Currently, it is not possible to create a new railing instance:
+    ///     http://thebuildingcoder.typepad.com/blog/2009/02/list-railing-types.html#comments
+    ///     SPR #134260 [API - New Element Creation: Railing]
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
     internal class CmdNewRailing : IExternalCommand
     {
         public Result Execute(

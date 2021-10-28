@@ -24,11 +24,11 @@ using Autodesk.Revit.UI;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     This class contains functions for dealing with
-  ///     nested families within a Revit family document.
-  /// </summary>
-  public class NestedFamilyFunctions
+    /// <summary>
+    ///     This class contains functions for dealing with
+    ///     nested families within a Revit family document.
+    /// </summary>
+    public class NestedFamilyFunctions
     {
         #region Public Methods
 
@@ -175,7 +175,6 @@ namespace BuildingCoder
             collector.WherePasses(f);
 
             foreach (var e in collector)
-            {
                 // See if this is a family file nested into the current family document.
 
                 if (e is Family oNestedFamilyFileCandidate)
@@ -204,7 +203,6 @@ namespace BuildingCoder
                         // definitions.
                         oAllFamilyInstances.Add(oFamilyInstanceCandidate);
                 }
-            } // End iterating over all the elements in the family document exactly once
 
             // See if any matching nested family file definitions were found.  Only do any
             // more work if at least one was found.

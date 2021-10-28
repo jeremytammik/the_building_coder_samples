@@ -74,7 +74,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AddinDll Include="$(TargetDir)$(AssemblyName).dll" />
+        <AddinDll Include="$(TargetDir)$(AssemblyName).dll"/>
     </ItemGroup>
 
     <Target Name="AfterBuildTarget" AfterTargets="CoreBuild">
@@ -83,12 +83,12 @@
             <OutAddinDir>$(AddinDir)$(AssemblyName)\</OutAddinDir>
         </PropertyGroup>
 
-        <Copy SourceFiles="$(TargetDir)TheBuildingCoderSingleSample.addin" DestinationFolder="$(AddinDir)" />
-        <Copy SourceFiles="@(AddinDll)" DestinationFolder="$(OutAddinDir)" />
+        <Copy SourceFiles="$(TargetDir)TheBuildingCoderSingleSample.addin" DestinationFolder="$(AddinDir)"/>
+        <Copy SourceFiles="@(AddinDll)" DestinationFolder="$(OutAddinDir)"/>
 
         <ItemGroup>
-            <OutLibPath Include="$(AddinDir)**\*.*" />
+            <OutLibPath Include="$(AddinDir)**\*.*"/>
         </ItemGroup>
-        <Copy SourceFiles="@(OutLibPath)" DestinationFolder="$(AppData)\Autodesk\Revit\Addins\2022\%(RecursiveDir)" />
+        <Copy SourceFiles="@(OutLibPath)" DestinationFolder="$(AppData)\Autodesk\Revit\Addins\2022\%(RecursiveDir)"/>
     </Target>
 </Project>

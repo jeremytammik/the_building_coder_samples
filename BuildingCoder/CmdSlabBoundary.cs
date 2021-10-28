@@ -26,12 +26,12 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdSlabBoundary : IExternalCommand
     {
-      /// <summary>
-      ///     Offset the generated boundary polygon loop
-      ///     model lines downwards to separate them from
-      ///     the slab edge.
-      /// </summary>
-      private const double _offset = 0.1;
+        /// <summary>
+        ///     Offset the generated boundary polygon loop
+        ///     model lines downwards to separate them from
+        ///     the slab edge.
+        /// </summary>
+        private const double _offset = 0.1;
 
         public Result Execute(
             ExternalCommandData commandData,

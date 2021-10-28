@@ -28,11 +28,11 @@ namespace BuildingCoder
     [Transaction(TransactionMode.ReadOnly)]
     internal class CmdTransformedCoords : IExternalCommand
     {
-      /// <summary>
-      ///     Sample file is at
-      ///     C:\a\j\adn\case\bsd\1242980\attach\mullion.rvt
-      /// </summary>
-      public Result Execute(
+        /// <summary>
+        ///     Sample file is at
+        ///     C:\a\j\adn\case\bsd\1242980\attach\mullion.rvt
+        /// </summary>
+        public Result Execute(
             ExternalCommandData commandData,
             ref string message,
             ElementSet elements)
@@ -46,7 +46,6 @@ namespace BuildingCoder
             string s, msg = string.Empty;
             int n;
             foreach (var id in sel.GetElementIds())
-            {
                 if (doc.GetElement(id) is Mullion mullion)
                 {
                     //Location location = mullion.AsFamilyInstance.Location; // seems to be uninitialised // 2011
@@ -124,7 +123,6 @@ namespace BuildingCoder
                         }
                     }
                 }
-            }
 
             if (0 == msg.Length) msg = "Please select some mullions.";
             Util.InfoMsg(msg);

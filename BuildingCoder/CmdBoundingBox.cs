@@ -65,8 +65,10 @@ namespace BuildingCoder
             }
 
             if (null == b)
+            {
                 Util.InfoMsg(
                     $"{Util.ElementDescription(e)} has no bounding box.");
+            }
             else
             {
                 using var tx = new Transaction(doc);

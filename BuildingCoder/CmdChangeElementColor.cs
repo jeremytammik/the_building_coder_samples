@@ -254,7 +254,6 @@ namespace BuildingCoder
 
             if (null != geomElem)
                 foreach (var geomObj in geomElem)
-                {
                     switch (geomObj)
                     {
                         case Solid solid when solid.Faces.Size > 0:
@@ -265,7 +264,6 @@ namespace BuildingCoder
                                 geomInst.GetInstanceGeometry()));
                             break;
                     }
-                }
 
             return solids;
         }

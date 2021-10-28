@@ -248,12 +248,12 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     public class Command : IExternalCommand
     {
+        private readonly List<Curve> m_referencePlaneReferences
+            = new();
+
         private Application m_app;
         private Document m_doc;
         private DetailCurve m_hLine;
-
-        private readonly List<Curve> m_referencePlaneReferences
-            = new();
 
         private ViewPlan m_targetView;
 

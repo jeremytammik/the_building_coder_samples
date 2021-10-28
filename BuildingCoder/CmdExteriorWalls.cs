@@ -230,7 +230,7 @@ namespace BuildingCoder
                 = new TransactionGroup(doc);
             Room newRoom;
 
-            @group.Start("Find Outermost Walls");
+            group.Start("Find Outermost Walls");
 
             using (var transaction
                 = new Transaction(doc))
@@ -276,7 +276,7 @@ namespace BuildingCoder
                 = RetrieveWallsGeneratingRoomBoundaries(
                     doc, newRoom);
 
-            @group.RollBack(); // 撤销
+            group.RollBack(); // 撤销
 
             return ids;
         }

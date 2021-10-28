@@ -22,12 +22,12 @@ using System.Linq;
 
 namespace BuildingCoder
 {
-  /// <summary>
-  ///     Performance timer for profiling purposes.
-  ///     For a full description, please refer to
-  ///     http://thebuildingcoder.typepad.com/blog/2010/03/performance-profiling.html
-  /// </summary>
-  public class JtTimer : IDisposable
+    /// <summary>
+    ///     Performance timer for profiling purposes.
+    ///     For a full description, please refer to
+    ///     http://thebuildingcoder.typepad.com/blog/2010/03/performance-profiling.html
+    /// </summary>
+    public class JtTimer : IDisposable
     {
         private double _duration;
 
@@ -79,10 +79,10 @@ namespace BuildingCoder
 
         private class TimeRegistry
         {
-          /// <summary>
-          ///     Add new duration for specified key.
-          /// </summary>
-          public static void AddTime(string key, double duration)
+            /// <summary>
+            ///     Add new duration for specified key.
+            /// </summary>
+            public static void AddTime(string key, double duration)
             {
                 Entry e;
                 if (_collection.ContainsKey(key))
@@ -99,10 +99,10 @@ namespace BuildingCoder
                 ++e.Calls;
             }
 
-          /// <summary>
-          ///     Write the report of the results to a text file.
-          /// </summary>
-          public static void WriteResults(
+            /// <summary>
+            ///     Write the report of the results to a text file.
+            /// </summary>
+            public static void WriteResults(
                 string description,
                 double totalTime)
             {

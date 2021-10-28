@@ -90,7 +90,6 @@ namespace BuildingCoder
         {
             var faces = solid.Faces;
             foreach (Face f in faces)
-            {
                 switch (f)
                 {
                     case PlanarFace face:
@@ -106,7 +105,6 @@ namespace BuildingCoder
                         break;
                     }
                 }
-            }
         }
     }
 }
