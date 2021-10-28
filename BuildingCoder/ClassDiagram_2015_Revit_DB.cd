@@ -1,0 +1,5082 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Autodesk.Revit.DB.PolymeshFacet" Collapsed="true">
+    <Position X="873.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.APIObject">
+    <Position X="447.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ObjectFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementId" Collapsed="true">
+    <Position X="885.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Element">
+    <Position X="432.25" Y="18.5" Width="8" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksetPreview">
+    <Position X="56.5" Y="6.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Workset">
+    <Position X="56.5" Y="10.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.XYZ" Collapsed="true">
+    <Position X="859.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.UV" Collapsed="true">
+    <Position X="882" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundingBoxUV" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Group">
+    <Position X="169" Y="36" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BaseArray">
+    <Position X="187.75" Y="36" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.View">
+    <Position X="292.25" Y="36" Width="7.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Control">
+    <Position X="324.5" Y="36" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Family">
+    <Position X="347.75" Y="36" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Color">
+    <Position X="305.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementType">
+    <Position X="448.75" Y="36" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MEPSystemType">
+    <Position X="459.5" Y="40.25" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CombinableElement">
+    <Position X="584.5" Y="36" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GenericForm">
+    <Position X="586.25" Y="38" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Sweep">
+    <Position X="582.5" Y="41.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyParameter">
+    <Position X="578.25" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyParameterSet">
+    <Position X="603.5" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyParameterSetIterator">
+    <Position X="625.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PrintSetup">
+    <Position X="664.25" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PrintManager">
+    <Position X="691.5" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SweepProfile">
+    <Position X="716.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveLoopsProfile">
+    <Position X="714" Y="5.25" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilySymbolProfile">
+    <Position X="717.25" Y="5.25" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Document" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksetId" Collapsed="true">
+    <Position X="878.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LinkElementId" Collapsed="true">
+    <Position X="861" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ScheduleFieldId" Collapsed="true">
+    <Position X="861" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RepeatingReferenceSource" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ComponentRepeater">
+    <Position X="367" Y="36" Width="6.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ComponentRepeaterIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="878.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LabelUtils" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Options">
+    <Position X="406.5" Y="3.5" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GeometryObject">
+    <Position X="496.75" Y="3.5" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BooleanOperationsUtils" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Solid">
+    <Position X="488.75" Y="7.25" Width="6" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Curve">
+    <Position X="514.5" Y="7.25" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BaseExportOptions">
+    <Position X="44.5" Y="41.5" Width="4.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ACADExportOptions">
+    <Position X="42" Y="47.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DWGExportOptions">
+    <Position X="38.25" Y="52.25" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DXFExportOptions">
+    <Position X="44.25" Y="52.25" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SATExportOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DGNExportOptions">
+    <Position X="50" Y="47.75" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CADExportOptions">
+    <Position X="32.25" Y="34.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DWFExportOptions">
+    <Position X="31.5" Y="36.25" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DWFXExportOptions">
+    <Position X="32" Y="40.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FBXExportOptions" Collapsed="true">
+    <Position X="859.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BuildingSiteExportOptions" Collapsed="true">
+    <Position X="869.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpatialElement">
+    <Position X="40" Y="36" Width="6.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Area">
+    <Position X="41.75" Y="39.5" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BasePoint">
+    <Position X="69.25" Y="36" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewOrientation3D" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.View3D">
+    <Position X="287.5" Y="60.75" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PropertyLine">
+    <Position X="125" Y="36" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GenericImportOptions">
+    <Position X="6.75" Y="19.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ImageImportOptions">
+    <Position X="6.5" Y="21.75" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GBXMLImportOptions" Collapsed="true">
+    <Position X="857.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewSet">
+    <Position X="234.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewSetIterator">
+    <Position X="246.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabShapeCrease" Collapsed="true">
+    <Position X="866.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabShapeEditor" Collapsed="true">
+    <Position X="868" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabShapeCreaseArray">
+    <Position X="308.75" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabShapeCreaseArrayIterator">
+    <Position X="332.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Line">
+    <Position X="518" Y="14.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabShapeVertex" Collapsed="true">
+    <Position X="869.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabShapeVertexArray">
+    <Position X="410.25" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabShapeVertexArrayIterator">
+    <Position X="549" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundarySegment">
+    <Position X="582.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AreaVolumeSettings">
+    <Position X="667" Y="36" Width="8.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpatialElementBoundaryOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CategoryNameMap">
+    <Position X="669" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CategoryNameMapIterator">
+    <Position X="695.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Categories">
+    <Position X="668.25" Y="8" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GraphicsStyle">
+    <Position X="755.25" Y="36" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Material">
+    <Position X="790.75" Y="36" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Category">
+    <Position X="761.5" Y="3.5" Width="4.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InsertableObject">
+    <Position X="510.5" Y="40.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilySymbol">
+    <Position X="509" Y="42" Width="4.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveArrArray">
+    <Position X="824.75" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveArrArrayIterator">
+    <Position X="41" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveArray">
+    <Position X="67.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveArrayIterator">
+    <Position X="90.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GeometryElement">
+    <Position X="458" Y="7.25" Width="4" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Parameter">
+    <Position X="115.25" Y="3.5" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Instance">
+    <Position X="87" Y="36" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RevitLinkInstance">
+    <Position X="71.75" Y="38.5" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Reference">
+    <Position X="179" Y="3.5" Width="5.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SketchPlane">
+    <Position X="146.25" Y="36" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Edge">
+    <Position X="462.75" Y="7.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Face">
+    <Position X="473.5" Y="7.25" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.HostObject">
+    <Position X="231.75" Y="36" Width="8.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CeilingAndFloor">
+    <Position X="249" Y="38.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.HostedSweep">
+    <Position X="255.5" Y="38.25" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyInstance">
+    <Position X="88" Y="38.5" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AnnotationSymbol">
+    <Position X="84" Y="49" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AnnotationSymbolType">
+    <Position X="511.5" Y="46.75" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveElement">
+    <Position X="540" Y="36" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpatialElementTag">
+    <Position X="605.75" Y="36" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AreaTag">
+    <Position X="605.5" Y="38.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AreaTagType">
+    <Position X="514.25" Y="46.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Location">
+    <Position X="587.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointLocationOnCurve" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="871.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferencePoint">
+    <Position X="685" Y="36" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferencePointArray">
+    <Position X="673.5" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferencePointArrayIterator">
+    <Position X="699.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointElementReference">
+    <Position X="14.5" Y="6.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointOnPlane">
+    <Position X="1.75" Y="8.25" Width="6.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointOnEdge">
+    <Position X="8.75" Y="8.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointOnFace">
+    <Position X="13" Y="8.25" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointOnEdgeFaceIntersection">
+    <Position X="17" Y="8.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointOnEdgeEdgeIntersection">
+    <Position X="21.25" Y="8.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointRelativeToPoint">
+    <Position X="25.5" Y="8.25" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveByPoints">
+    <Position X="528.25" Y="39.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveByPointsArray">
+    <Position X="71" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveByPointsArrayIterator">
+    <Position X="94.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DetailCurve">
+    <Position X="535.75" Y="39.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DetailArc">
+    <Position X="532.5" Y="41.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DetailEllipse">
+    <Position X="534.75" Y="41.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DetailLine">
+    <Position X="537" Y="41.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DetailNurbSpline">
+    <Position X="539.25" Y="41.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Definition">
+    <Position X="23.75" Y="52.5" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalDefinition">
+    <Position X="27.5" Y="55" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalDefinitonCreationOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelCurve">
+    <Position X="545" Y="39.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelArc">
+    <Position X="541.5" Y="42.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelEllipse">
+    <Position X="543.75" Y="42.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelHermiteSpline">
+    <Position X="546" Y="42.75" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelLine">
+    <Position X="548.5" Y="42.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelNurbSpline">
+    <Position X="550.75" Y="42.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Mullion">
+    <Position X="88.75" Y="49" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Panel">
+    <Position X="92.25" Y="49" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DefinitionBindingMap">
+    <Position X="415.5" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DefinitionBindingMapIterator">
+    <Position X="552.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BindingMap">
+    <Position X="414.25" Y="8" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DefinitionFile">
+    <Position X="607.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DefinitionGroup">
+    <Position X="628.75" Y="3.5" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PlanCircuit">
+    <Position X="677.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PlanTopology">
+    <Position X="702.75" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PrintParameters">
+    <Position X="720.5" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabEdge">
+    <Position X="256.5" Y="43" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SymbolicCurve">
+    <Position X="553" Y="39.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferenceableViewUtils" Collapsed="true">
+    <Position X="876.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewSection">
+    <Position X="307.75" Y="60.75" Width="8.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ConnectorElement">
+    <Position X="822.5" Y="36" Width="10.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InternalDefinition">
+    <Position X="20" Y="55" Width="6.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CategorySet">
+    <Position X="707" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CategorySetIterator">
+    <Position X="724.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CombinableElementArray">
+    <Position X="731.75" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CombinableElementArrayIterator">
+    <Position X="747.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.HermiteSplineTangents" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementArray">
+    <Position X="782.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementArrayIterator">
+    <Position X="800" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementSet">
+    <Position X="828.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementSetIterator">
+    <Position X="44.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyElementVisibility">
+    <Position X="75" Y="3.5" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Arc">
+    <Position X="495.5" Y="14.25" Width="6.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundingBoxXYZ">
+    <Position X="104.75" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DoubleArray">
+    <Position X="119.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DoubleArrayIterator">
+    <Position X="141.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Ellipse">
+    <Position X="502.5" Y="14.25" Width="7.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FaceArray">
+    <Position X="185.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FaceArrayIterator">
+    <Position X="196" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.HermiteSpline">
+    <Position X="511" Y="14.25" Width="6.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.NurbSpline">
+    <Position X="522.25" Y="14.25" Width="8" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Plane">
+    <Position X="238.25" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Point">
+    <Position X="485.75" Y="7.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferenceArray">
+    <Position X="258" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferenceArrayIterator">
+    <Position X="284" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.IntersectionResultArray">
+    <Position X="313" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.IntersectionResultArrayIterator">
+    <Position X="335.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MaterialSet">
+    <Position X="361.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MaterialSetIterator">
+    <Position X="384" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Binding">
+    <Position X="423" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementBinding">
+    <Position X="422.5" Y="5.25" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InstanceBinding">
+    <Position X="420.5" Y="7.25" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TypeBinding">
+    <Position X="424.25" Y="7.25" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ProjectPosition">
+    <Position X="631.75" Y="3.5" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Blend">
+    <Position X="595.5" Y="41.25" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SweptBlend">
+    <Position X="600.5" Y="41.25" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.VertexIndexPair" Collapsed="true">
+    <Position X="857.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.VertexIndexPairArray">
+    <Position X="736" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.VertexIndexPairArrayIterator">
+    <Position X="751" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.City">
+    <Position X="767" Y="3.5" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CitySet">
+    <Position X="786.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CitySetIterator">
+    <Position X="803.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DocumentSet">
+    <Position X="832" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DocumentSetIterator">
+    <Position X="48" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AddInId" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelPath">
+    <Position X="12.75" Y="48.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilePath">
+    <Position X="10.75" Y="52.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ServerPath">
+    <Position X="15" Y="52.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.OpenOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelPathUtils" Collapsed="true">
+    <Position X="871.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveLoop" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveLoopIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DimensionSegment">
+    <Position X="204" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Dimension">
+    <Position X="173.25" Y="36" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SubTransaction" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DimensionSegmentArray">
+    <Position X="249.75" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DimensionSegmentArrayIterator">
+    <Position X="261.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DetailCurveArray">
+    <Position X="287.5" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DetailCurveArrayIterator">
+    <Position X="317.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GeomCombination">
+    <Position X="567.5" Y="38" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelCurveArray">
+    <Position X="365" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelCurveArrayIterator">
+    <Position X="387.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SymbolicCurveArray">
+    <Position X="427.75" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SymbolicCurveArrayIterator">
+    <Position X="556" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyManager">
+    <Position X="614.5" Y="3.5" Width="10" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilySymbolSet">
+    <Position X="637" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilySymbolSetIterator">
+    <Position X="681" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AreaScheme">
+    <Position X="715.75" Y="36" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewPlan">
+    <Position X="301" Y="60.75" Width="6" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.IFCExportOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferenceWithContext" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Transform">
+    <Position X="770" Y="3.5" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InSessionPrintSetting" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PrintSetting">
+    <Position X="818.75" Y="36" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewSheetSets">
+    <Position X="51.5" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewSheetSetsIterator">
+    <Position X="80" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Level">
+    <Position X="47" Y="36" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Phase">
+    <Position X="50.25" Y="36" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PlanTopologySet">
+    <Position X="123.25" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PlanTopologySetIterator">
+    <Position X="145" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AnnotationSymbolTypeSet">
+    <Position X="167.25" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AnnotationSymbolTypeSetIterator">
+    <Position X="189" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BeamSystemType">
+    <Position X="390" Y="40.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BeamSystemTypeSet">
+    <Position X="207.5" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BeamSystemTypeSetIterator">
+    <Position X="223.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.HostObjAttributes">
+    <Position X="423" Y="40.25" Width="4.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ContFootingType">
+    <Position X="422.5" Y="42.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ContFootingTypeSet">
+    <Position X="265.25" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ContFootingTypeSetIterator">
+    <Position X="291.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainSystemType">
+    <Position X="424.75" Y="42.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainSystemTypeSet">
+    <Position X="339.25" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainSystemTypeSetIterator">
+    <Position X="368.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DimensionType">
+    <Position X="464" Y="40.25" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DimensionTypeSet">
+    <Position X="431.75" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DimensionTypeSetIterator">
+    <Position X="559.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.IndependentTag">
+    <Position X="639" Y="36" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.HostedSweepType">
+    <Position X="431.75" Y="42.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FloorType">
+    <Position X="434" Y="42.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FloorTypeSet">
+    <Position X="684.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FloorTypeSetIterator">
+    <Position X="710.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LineAndTextAttrSymbol">
+    <Position X="500" Y="40.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GridType">
+    <Position X="502.5" Y="42" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GridTypeSet">
+    <Position X="754.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GridTypeSetIterator">
+    <Position X="775.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LevelType">
+    <Position X="504.75" Y="42" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LevelTypeSet">
+    <Position X="807" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LevelTypeSetIterator">
+    <Position X="835.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MullionType">
+    <Position X="507" Y="46.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MullionTypeSet">
+    <Position X="83.5" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MullionTypeSetIterator">
+    <Position X="97.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PanelType">
+    <Position X="509.25" Y="46.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PanelTypeSet">
+    <Position X="127" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PanelTypeSetIterator">
+    <Position X="148.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PhaseArray">
+    <Position X="171.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PhaseArrayIterator">
+    <Position X="192.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RoofType">
+    <Position X="409" Y="42.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RoofTypeSet">
+    <Position X="211.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RoofTypeSetIterator">
+    <Position X="227" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Settings">
+    <Position X="242.5" Y="3.5" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabEdgeType">
+    <Position X="431.75" Y="44.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabEdgeTypeSet">
+    <Position X="269.25" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SlabEdgeTypeSetIterator">
+    <Position X="294.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpotDimensionTypeSet">
+    <Position X="320.75" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpotDimensionTypeSetIterator">
+    <Position X="343.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpotDimensionType">
+    <Position X="464.5" Y="44.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TextElementType">
+    <Position X="496" Y="42" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TextNoteType">
+    <Position X="496" Y="43.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TextNoteTypeSet">
+    <Position X="563" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TextNoteTypeSetIterator">
+    <Position X="592.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InSessionViewSheetSet" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewSheetSet">
+    <Position X="691" Y="36" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WallType">
+    <Position X="438.25" Y="42.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WallTypeSet">
+    <Position X="728.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WallTypeSetIterator">
+    <Position X="740" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BeamSystem">
+    <Position X="797" Y="36" Width="7.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Connector" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ConnectorManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ConnectorSet">
+    <Position X="810.5" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ConnectorSetIterator">
+    <Position X="839.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ContFooting">
+    <Position X="202.5" Y="38.25" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainSystemBase">
+    <Position X="207" Y="38.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainSystem">
+    <Position X="206.25" Y="40" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewDrafting">
+    <Position X="276" Y="60.75" Width="4.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewSheet">
+    <Position X="281.5" Y="60.75" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MEPSystem">
+    <Position X="106.75" Y="36" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RoofBase">
+    <Position X="227" Y="38.25" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExtrusionRoof">
+    <Position X="225" Y="41" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MEPCurve">
+    <Position X="240.25" Y="38.25" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MEPCurveType">
+    <Position X="413.25" Y="42.5" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Floor">
+    <Position X="249.5" Y="40.25" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FootPrintRoof">
+    <Position X="228.5" Y="41" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Form">
+    <Position X="586.75" Y="41.25" Width="8" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Grid">
+    <Position X="336" Y="36" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GroupType">
+    <Position X="446.75" Y="40.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LocationCurve">
+    <Position X="585.75" Y="5.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LocationPoint">
+    <Position X="590" Y="5.75" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Opening">
+    <Position X="557.25" Y="36" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PlanCircuitSet">
+    <Position X="391" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PlanCircuitSetIterator">
+    <Position X="435.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferencePlane">
+    <Position X="615.75" Y="36" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpotDimension">
+    <Position X="173" Y="41.25" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TextElement">
+    <Position X="663.25" Y="36" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TextNote">
+    <Position X="663" Y="39.25" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Wall">
+    <Position X="261.25" Y="38.25" Width="8.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ProjectInfo">
+    <Position X="719" Y="36" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ProjectLocation">
+    <Position X="102.25" Y="38.5" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ProjectLocationSet">
+    <Position X="743.5" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ProjectLocationSetIterator">
+    <Position X="758" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementFilter">
+    <Position X="71.75" Y="10.5" Width="3.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementQuickFilter">
+    <Position X="51.25" Y="14.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementSlowFilter">
+    <Position X="113.75" Y="14.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExclusionFilter">
+    <Position X="86.25" Y="16.25" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementWorksetFilter">
+    <Position X="16.25" Y="16.25" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementCategoryFilter">
+    <Position X="21" Y="16.25" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementMulticategoryFilter">
+    <Position X="26" Y="16.25" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementMulticlassFilter">
+    <Position X="32" Y="16.25" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementClassFilter">
+    <Position X="36.75" Y="16.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementIsElementTypeFilter">
+    <Position X="41" Y="16.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementOwnerViewFilter">
+    <Position X="45.25" Y="16.25" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementDesignOptionFilter">
+    <Position X="50" Y="16.25" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementIsCurveDrivenFilter">
+    <Position X="55.25" Y="16.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundingBoxIntersectsFilter">
+    <Position X="59.5" Y="16.25" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundingBoxIsInsideFilter">
+    <Position X="65.25" Y="16.25" Width="4.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundingBoxContainsPointFilter">
+    <Position X="70.75" Y="16.25" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementLevelFilter">
+    <Position X="100.25" Y="16.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementParameterFilter">
+    <Position X="104.5" Y="16.25" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PrimaryDesignOptionMemberFilter">
+    <Position X="115.25" Y="16.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementPhaseStatusFilter">
+    <Position X="119.5" Y="16.25" Width="7" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportFontKey" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportFontInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportFontTableIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportFontTable" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LayerModifier" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLayerKey" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLayerInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLayerTableIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLayerTable" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="871.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLinetypeKey" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLinetypeInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLinetypeTableIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLinetypeTable" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="878.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLineweightKey" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLineweightInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLineweightTableIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="857.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportLineweightTable" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportPatternKey" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportPatternInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="859.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportPatternTableIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportPatternTable" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Extrusion">
+    <Position X="576.5" Y="41.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PlanarFace">
+    <Position X="473.25" Y="13.75" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelText">
+    <Position X="127.25" Y="36" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelTextType">
+    <Position X="392.25" Y="40.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Revolution">
+    <Position X="579.5" Y="41.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TilePattern">
+    <Position X="398.75" Y="40.25" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DividedSurface">
+    <Position X="317" Y="36" Width="6.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferenceArrayArray">
+    <Position X="273" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferenceArrayArrayIterator">
+    <Position X="298.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FormArray">
+    <Position X="325" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FormArrayIterator">
+    <Position X="347" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyType">
+    <Position X="372.25" Y="3.5" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyTypeSet">
+    <Position X="394.75" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyTypeSetIterator">
+    <Position X="439.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilteredElementIdIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilteredElementIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilteredElementCollector" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilteredWorksetIdIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="871.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilteredWorksetIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilteredWorksetCollector" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksetFilter">
+    <Position X="0.75" Y="56.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksetKindFilter">
+    <Position X="0.5" Y="60" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GuidEnum">
+    <Position X="34.75" Y="29.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Viewport">
+    <Position X="812" Y="36" Width="6" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Leader">
+    <Position X="789.75" Y="3.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LeaderArray">
+    <Position X="814.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LeaderArrayIterator">
+    <Position X="842.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PaperSize">
+    <Position X="55.25" Y="3.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PaperSizeSet">
+    <Position X="87.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PaperSizeSetIterator">
+    <Position X="101.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PaperSource">
+    <Position X="109" Y="3.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PaperSourceSet">
+    <Position X="130.5" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PaperSourceSetIterator">
+    <Position X="152" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewSheetSetting">
+    <Position X="175" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FillPatternElement">
+    <Position X="131.5" Y="36" Width="6.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LinePatternElement">
+    <Position X="152" Y="36" Width="5.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TilePatterns">
+    <Position X="215" Y="3.5" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ParameterSet">
+    <Position X="846.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ParameterSetIterator">
+    <Position X="57.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Units" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="871.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.UnitUtils" Collapsed="true">
+    <Position X="873.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FormatOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ParameterMap">
+    <Position X="134.25" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ParameterMapIterator">
+    <Position X="155.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DefinitionGroups" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Definitions">
+    <Position X="0.5" Y="11.5" Width="5.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalDefinitions">
+    <Position X="0.75" Y="16" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InternalDefinitions">
+    <Position X="3.5" Y="16" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ConicalFace">
+    <Position X="476.25" Y="13.75" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.IntersectionResult">
+    <Position X="350.5" Y="3.5" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CylindricalFace">
+    <Position X="479.25" Y="13.75" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CylindricalHelix">
+    <Position X="531" Y="14.25" Width="8" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.EdgeArray">
+    <Position X="442.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.EdgeArrayIterator">
+    <Position X="566.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.EdgeArrayArray">
+    <Position X="596.25" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.EdgeArrayArrayIterator">
+    <Position X="611" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GeometryObjectArray">
+    <Position X="640.75" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GeometryObjectArrayIterator">
+    <Position X="688" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MeshTriangle" Collapsed="true">
+    <Position X="869.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Mesh">
+    <Position X="539.75" Y="7.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.HermiteFace">
+    <Position X="482.25" Y="13.75" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GeometryInstance">
+    <Position X="544" Y="7.25" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InstanceArray">
+    <Position X="778.75" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InstanceArrayIterator">
+    <Position X="792.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MeshArray">
+    <Position X="817.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MeshArrayIterator">
+    <Position X="849.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PolyLine">
+    <Position X="449.75" Y="7.25" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Outline" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Profile">
+    <Position X="453.75" Y="7.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RevolvedFace">
+    <Position X="467" Y="13.75" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RuledFace">
+    <Position X="470" Y="13.75" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TriangleInShellComponent" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TriangulatedShellComponent" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TriangulatedSolidOrShell" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SolidOrShellTessellationControls" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SolidCurveIntersectionOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveExtents" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SolidCurveIntersection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="871.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SolidUtils" Collapsed="true">
+    <Position X="880.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SolidArray">
+    <Position X="277" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SolidArrayIterator">
+    <Position X="301.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundarySegmentArray">
+    <Position X="353.75" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundarySegmentArrayIterator">
+    <Position X="377" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundarySegmentArrayArray">
+    <Position X="398.5" Y="3.5" Width="3.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BoundarySegmentArrayArrayIterator">
+    <Position X="446.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AreaTagTypeSet">
+    <Position X="570.25" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AreaTagTypeSetIterator">
+    <Position X="600" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyInstance">
+    <Position X="676.25" Y="36" Width="8" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LayoutRule">
+    <Position X="653.25" Y="3.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LayoutRuleFixedDistance">
+    <Position X="644.75" Y="5.5" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LayoutRuleFixedNumber">
+    <Position X="650.5" Y="5.5" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LayoutRuleMaximumSpacing">
+    <Position X="654.5" Y="5.5" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LayoutRuleClearSpacing">
+    <Position X="658.5" Y="5.5" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SketchBase">
+    <Position X="807.25" Y="36" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Sketch">
+    <Position X="808.75" Y="37.75" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GeomCombinationSet">
+    <Position X="796" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GeomCombinationSetIterator">
+    <Position X="821.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainCell">
+    <Position X="853.25" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainGrid">
+    <Position X="61.25" Y="3.5" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainGridLine">
+    <Position X="210.5" Y="38.25" Width="5.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementTransformUtils" Collapsed="true">
+    <Position X="859.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainGridSet">
+    <Position X="111.5" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurtainGridSetIterator">
+    <Position X="138" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpacingRule">
+    <Position X="159" Y="3.5" Width="7.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DesignOption">
+    <Position X="120.25" Y="36" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ChangeType" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MEPModel">
+    <Position X="199.5" Y="3.5" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyPointPlacementReference">
+    <Position X="220" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyPointLocation">
+    <Position X="230.5" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyThermalProperties" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelCurveArrArray">
+    <Position X="254" Y="3.5" Width="3.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ModelCurveArrArrayIterator">
+    <Position X="280.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Path3d">
+    <Position X="805" Y="37.75" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GenericFormSet">
+    <Position X="328.5" Y="3.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GenericFormSetIterator">
+    <Position X="358" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GroupSet">
+    <Position X="380.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GroupSetIterator">
+    <Position X="403" Y="3.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WallSweepInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CompoundStructureLayer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CompoundStructure" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ImageType">
+    <Position X="485.25" Y="40.25" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ImportInstance">
+    <Position X="98" Y="38.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LinearArray">
+    <Position X="177.5" Y="39" Width="12" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RadialArray">
+    <Position X="190.25" Y="39" Width="11.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SchedulableField" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SunAndShadowSettings">
+    <Position X="270.75" Y="36" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SiteLocation">
+    <Position X="449.5" Y="40.25" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Construction" Collapsed="true">
+    <Position X="857.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils" Collapsed="true">
+    <Position X="857.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AdaptiveComponentInstanceUtils" Collapsed="true">
+    <Position X="859.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ThermalProperties">
+    <Position X="574" Y="3.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AppearanceAssetElement">
+    <Position X="645.25" Y="36" Width="6" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailureDefinitionRegistry" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AreaFilter">
+    <Position X="132.5" Y="16.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AreaTagFilter">
+    <Position X="136.75" Y="16.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeyBasedTreeEntryTable">
+    <Position X="745.75" Y="36" Width="8.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyCodeTable">
+    <Position X="750" Y="39" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyViewUtils" Collapsed="true">
+    <Position X="862.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyDifference">
+    <Position X="10" Y="34.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyDifferenceNone">
+    <Position X="10" Y="37.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyDifferenceNamingCategory">
+    <Position X="14.25" Y="37.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyDifferenceMemberCount">
+    <Position X="18.5" Y="37.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyDifferenceConfiguration">
+    <Position X="1.25" Y="37.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyDifferenceMemberDifference">
+    <Position X="5.5" Y="37.5" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyMemberDifference">
+    <Position X="26.5" Y="40.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyMemberDifferentGeometry">
+    <Position X="20.25" Y="43.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyMemberDifferentCategory">
+    <Position X="24.5" Y="43.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyMemberDifferentType">
+    <Position X="28.75" Y="43.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyMemberDifferentParameters">
+    <Position X="33" Y="43.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.AssemblyType">
+    <Position X="385.75" Y="40.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TableMergedCell" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TableCellStyleOverrideOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TableCellStyle" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TableCellCombinedParameterData" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TableCellCalculatedValueData" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TableSectionData" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TableData" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="871.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TableView">
+    <Position X="294" Y="60.75" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewSchedule">
+    <Position X="293.5" Y="65.75" Width="6.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RenderingQualitySettings" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="859.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BackgroundSettings">
+    <Position X="37.75" Y="6.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SkyBackgroundSettings">
+    <Position X="31.25" Y="9.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ColorBackgroundSettings">
+    <Position X="35.5" Y="9.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GradientBackgroundSettings">
+    <Position X="39.75" Y="9.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ImageBackgroundSettings">
+    <Position X="44" Y="9.5" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RenderingImageExposureSettings" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="857.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RenderingSettings" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BaseImportOptions">
+    <Position X="7.5" Y="40.5" Width="4" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DWGImportOptions">
+    <Position X="1.25" Y="46" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DGNImportOptions">
+    <Position X="5.5" Y="46" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SATImportOptions">
+    <Position X="10" Y="46" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DWFImportOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SKPImportOptions">
+    <Position X="14.25" Y="46" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BasicFileInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DocumentVersion" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FolderItemInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BrowserOrganization">
+    <Position X="479" Y="40.25" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BuildingPadType">
+    <Position X="427.25" Y="42.5" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterRule">
+    <Position X="59.5" Y="20.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterInverseRule">
+    <Position X="43.5" Y="23.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterableValueProvider">
+    <Position X="38.5" Y="55.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterValueRule">
+    <Position X="62" Y="23.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringRuleEvaluator">
+    <Position X="16.75" Y="0.5" Width="3.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringBeginsWith">
+    <Position X="6.25" Y="3.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringEndsWith">
+    <Position X="10.5" Y="3.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringContains">
+    <Position X="14.75" Y="3.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringEquals">
+    <Position X="19" Y="3.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringGreater">
+    <Position X="23.25" Y="3.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringGreaterOrEqual">
+    <Position X="27.5" Y="3.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringLess">
+    <Position X="31.75" Y="3.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringLessOrEqual">
+    <Position X="2" Y="3.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterStringRule">
+    <Position X="47.75" Y="26" Width="7.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterNumericRuleEvaluator">
+    <Position X="9.75" Y="28.5" Width="3.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterNumericLess">
+    <Position X="1.25" Y="32" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterNumericLessOrEqual">
+    <Position X="5.5" Y="32" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterNumericGreater">
+    <Position X="9.75" Y="32" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterNumericGreaterOrEqual">
+    <Position X="14" Y="32" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterNumericEquals">
+    <Position X="18.25" Y="32" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterNumericValueRule">
+    <Position X="66" Y="26" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterDoubleRule">
+    <Position X="56.25" Y="28.75" Width="7.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterIntegerRule">
+    <Position X="64.75" Y="28.75" Width="6.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterElementIdRule">
+    <Position X="72.25" Y="28.75" Width="7.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterCategoryRule">
+    <Position X="38.5" Y="23.75" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveElementFilter">
+    <Position X="109.75" Y="16.25" Width="4.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementStructuralTypeFilter">
+    <Position X="76.5" Y="16.25" Width="4.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilySymbolFilter">
+    <Position X="82" Y="16.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyInstanceFilter">
+    <Position X="127.25" Y="16.25" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PartMakerMethodToDivideVolumes" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RenderNode">
+    <Position X="16.75" Y="20.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewNode">
+    <Position X="23.25" Y="23.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GroupNode">
+    <Position X="29.5" Y="23.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InstanceNode">
+    <Position X="27.5" Y="26.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LinkNode">
+    <Position X="31.75" Y="26.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FaceNode">
+    <Position X="2" Y="23.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ContentNode">
+    <Position X="10.5" Y="23.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RPCNode">
+    <Position X="6.25" Y="26.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DaylightPortalNode">
+    <Position X="10.5" Y="26.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LightNode">
+    <Position X="14.75" Y="26.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MaterialNode">
+    <Position X="19" Y="23.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CameraInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Ceiling">
+    <Position X="245.25" Y="40.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CeilingType">
+    <Position X="418.25" Y="42.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeyBasedTreeEntry">
+    <Position X="54.25" Y="51.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeyBasedTreeEntriesIterator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeyBasedTreeEntries">
+    <Position X="55.75" Y="39.5" Width="4.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ClassificationEntry">
+    <Position X="50.75" Y="55.25" Width="6" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ClassificationEntries">
+    <Position X="51" Y="43.25" Width="6.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceLoadContent">
+    <Position X="3.25" Y="49.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeyBasedTreeEntriesLoadContent">
+    <Position X="5" Y="53" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ColumnAttachment" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ComponentRepeaterSlot">
+    <Position X="627" Y="36" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CopyPasteOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="859.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DuplicateTypeNamesHandlerArgs" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CurveByPointsUtils" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CustomExporter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SolidSolidCutUtils" Collapsed="true">
+    <Position X="878.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.OverrideGraphicSettings" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="857.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewCropRegionShapeManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewDisplayBackground" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewDisplaySketchyLines" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewDisplayModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PlanViewRange" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ImageView">
+    <Position X="276.25" Y="63.25" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ScheduleDefinition" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="857.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewScheduleExportOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewFamilyType">
+    <Position X="442.5" Y="40.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Part">
+    <Position X="352.5" Y="36" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PartMaker">
+    <Position X="374.25" Y="36" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DefaultDivideSettings">
+    <Position X="516.5" Y="36" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailureResolution">
+    <Position X="44" Y="55.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DeleteElements">
+    <Position X="43.5" Y="58.5" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DetailElementOrderUtils" Collapsed="true">
+    <Position X="871.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ViewShapeBuilder" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="871.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DirectShape">
+    <Position X="652" Y="36" Width="10.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DirectShapeLibrary" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DirectShapeType">
+    <Position X="490" Y="40.25" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DisplacementElement">
+    <Position X="699" Y="36" Width="11.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DisplacementPath">
+    <Position X="722.75" Y="36" Width="7.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PolymeshTopology" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DividedPath">
+    <Position X="759.25" Y="36" Width="8" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DocumentPreviewSettings" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailureMessage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="871.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailureMessageAccessor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailureMessageKey" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GBXMLExportOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ImageExportOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.NavisworksExportOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksetTable" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReloadLatestOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SaveAsOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SaveOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RelinquishOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SynchronizeWithCentralOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TransactWithCentralOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="859.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.DocumentValidation" Collapsed="true">
+    <Position X="878.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.EditScope">
+    <Position X="32.75" Y="52.5" Width="3.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceReference" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceType">
+    <Position X="30.75" Y="32.5" Width="5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceMatchOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="878.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalFileReference" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementIntersectsFilter">
+    <Position X="93.25" Y="16.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementIntersectsElementFilter">
+    <Position X="90.75" Y="19" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementIntersectsSolidFilter">
+    <Position X="95.75" Y="19" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementLogicalFilter">
+    <Position X="9.5" Y="14.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LogicalAndFilter">
+    <Position X="7" Y="16.25" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LogicalOrFilter">
+    <Position X="11.75" Y="16.25" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElementRecord" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="857.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportDGNSettings">
+    <Position X="561" Y="36" Width="5.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportDWGSettings">
+    <Position X="609" Y="36" Width="6" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExportUtils" Collapsed="true">
+    <Position X="866.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalFileUtils" Collapsed="true">
+    <Position X="871.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceBrowserData" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceLoadContext" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceLoadData" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceServerExtensions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RevitLinkOperations" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceServerUtils" Collapsed="true">
+    <Position X="883.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceServiceUtils" Collapsed="true">
+    <Position X="885.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceTypes" Collapsed="true">
+    <Position X="857.5" Y="4.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Autodesk.Revit.DB.ExternalResourceTypes.BuiltInExternalResourceTypes" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExternalResourceUtils" Collapsed="true">
+    <Position X="859.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ExtrusionAnalyzer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FaceSplitter">
+    <Position X="59.5" Y="36" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FaceWall">
+    <Position X="217" Y="38.25" Width="7.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TriOrQuadFacet" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TriangulationInterface">
+    <Position X="25.75" Y="46.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TriangulationInterfaceForTriangulatedSolidOrShell">
+    <Position X="20" Y="49.5" Width="6.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TriangulationInterfaceForTriangulatedShellComponent">
+    <Position X="27.5" Y="49.5" Width="7.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FacetingUtils" Collapsed="true">
+    <Position X="862.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailureDefinition" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailureDefinitionAccessor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailureDefinitionId">
+    <Position X="36.5" Y="32.5" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.BuiltInFailures" Collapsed="true">
+    <Position X="871.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.FormFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.MechanicalFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.WorksharingFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DuctFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DividedSurfaceFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.LegendFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.BlendFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.FabricFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.MirrorFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.AnalyticalModelFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RebarFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ProfileFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ExtrusionFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SiteImportFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.PartMakerMethodForFamilyInstanceFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.OpeningFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CurtainGridFamilyFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.FaceSplitterFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.KeynoteTagFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SketchFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SplineFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.InfillFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.GenericMEPFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.JoinElementsFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CurtainWallFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.PipingFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RenderFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ElectricityFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.LevelFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.KeynoteFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ParameterFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.MultiReferenceAnnotationFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CopyMonitorFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CurveByPointFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.BendFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.TagFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SystemNavigatorFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DatumPlaneFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SweepFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.BeamFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.TextFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.GenericFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.LinkFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.HvacFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.HostObjFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.FabricSheetFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CreationFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.FilledRegionFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.KeyBasedTreeEntryFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.EnergyAnalysisUtilitiesDBFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.FluidFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ColorFillFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.FabricAreaFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.LooseDimensionFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ElevationFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CopyPasteFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.WallFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ConversionFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ColumnFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SiteFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.PartMakerMethodForMergePartFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CutFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.InaccurateFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DesignOptionFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ArrayFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ComponentRepeaterSlotFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DebugTabBindingFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ConnectorFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RegenFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.BeamSystemFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.GeometryFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.WallJoinRoofFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.AutoJoinFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SectionViewFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DimensionFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SystemsFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DividedPathFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DisplacementElementFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.PlanRegionFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DPartFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SlabFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SculptingFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DecalFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DetailFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SlantedColumnFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.PathFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ElementFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.PropertySetElementFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.MEPCalculationFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CuttingFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.IlluminationFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.AutoRouteFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ConstraintFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.LoadFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SpanDirectionSymbolFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.GridFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SelectionFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ImageFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ColumnInsideWallFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SlabShapeFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.PerformanceFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SkylightFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RebarShapeFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ElectricalFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.StructuralAssetFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RevolutionFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.StairRampFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.MatchlineFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SheetFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.GroupFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.OffsetFacesCellLegacyFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.GridChainSketchFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ScheduleViewFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.EditingFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CurveFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RevisionCloudFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ViewFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ImportFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RebarSystemFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.PointFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.KeyBasedTreeFileFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.NumberingFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ExportFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.MassFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.GlobalParameterFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.DocumentFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.TrussFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.GeneralFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.MEPFabricationFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.CutterFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RefPlaneFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.OverlapFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.InterferenceFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RoofFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.SweptBlendFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.FloorFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ElementTypeFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.FamilyFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.EnergyAnalysisFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.PartMakerMethodForWallFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.RoomFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.ComponentRepeaterFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="Autodesk.Revit.DB.BuiltInFailures.AssemblyFailures" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailureHandlingOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="869.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FailuresAccessor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilySizeTableErrorInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilySizeTableColumn" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilySizeTable" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="878.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilySizeTableManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FamilyUtils" Collapsed="true">
+    <Position X="857.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ValueAtPointBase" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FillGrid" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FillPattern" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilledRegion">
+    <Position X="730.75" Y="36" Width="7" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilledRegionType">
+    <Position X="498.25" Y="42" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FilterElement">
+    <Position X="772.5" Y="36" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ReferenceIntersector" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="878.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MEPCalculationServerInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FormUtils" Collapsed="true">
+    <Position X="882" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FormatUtils" Collapsed="true">
+    <Position X="878.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FormatValueOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Frame" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.FreeFormElement">
+    <Position X="571.5" Y="41.25" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SolidOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.GeometryCreationUtilities" Collapsed="true">
+    <Position X="859.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.VertexPair" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="859.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MultiSegmentGrid">
+    <Position X="340.25" Y="36" Width="6.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.HostObjectUtils" Collapsed="true">
+    <Position X="862.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LinkConversionData" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="859.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RevitLinkType">
+    <Position X="469.25" Y="40.25" Width="9" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.StartingViewSettings">
+    <Position X="694" Y="36" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InstanceVoidCutUtils" Collapsed="true">
+    <Position X="871.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.IntegerRange" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ElevationMarker">
+    <Position X="781.75" Y="36" Width="8.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.JoinGeometryUtils" Collapsed="true">
+    <Position X="875" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeyBasedTreeEntryError" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeyBasedTreeEntriesLoadResults" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="878.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeynoteEntries">
+    <Position X="58.25" Y="43.25" Width="6.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeynoteEntry">
+    <Position X="57.5" Y="55.25" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.KeynoteTable">
+    <Position X="745.75" Y="39" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LinePatternSegment" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="857.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LinePattern" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.LinkLoadContent">
+    <Position X="0.75" Y="53" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RevitLinkLoadResult" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MassInstanceUtils" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.CADLinkType">
+    <Position X="394.5" Y="40.25" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TessellatedBuildIssue" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TessellatedFace" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="878.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TessellatedShapeBuilderResult" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MeshFromGeometryOperationResult" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="868" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TessellatedShapeBuilder" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MultiReferenceAnnotation">
+    <Position X="357.5" Y="36" Width="8.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MultiReferenceAnnotationOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MultiReferenceAnnotationType">
+    <Position X="454.25" Y="40.25" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.NamingUtils" Collapsed="true">
+    <Position X="875" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.NumberSystem">
+    <Position X="711" Y="36" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.NumberingSchema">
+    <Position X="738.5" Y="36" Width="6.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.NumberingSchemaType">
+    <Position X="41.75" Y="32.5" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.NumberingSchemaTypes" Collapsed="true">
+    <Position X="878.5" Y="7.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Autodesk.Revit.DB.NumberingSchemaTypes.StructuralNumberingSchemas" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksetConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.OptionalFunctionalityUtils" Collapsed="true">
+    <Position X="883.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ParameterValueProvider">
+    <Position X="38.5" Y="60" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SharedParameterApplicableRule">
+    <Position X="80.25" Y="23.75" Width="3.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ParameterFilterRuleFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="859.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ParameterFilterElement">
+    <Position X="768" Y="38.5" Width="7.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ParameterFilterUtilities" Collapsed="true">
+    <Position X="861" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PartUtils" Collapsed="true">
+    <Position X="864.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PerformanceAdviser" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PerformanceAdviserRuleId">
+    <Position X="24.5" Y="32.5" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PerformanceAdviserRules" Collapsed="true">
+    <Position X="868" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PhaseFilter">
+    <Position X="139" Y="36" Width="6.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Segment">
+    <Position X="158.5" Y="36" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.MEPSize" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="866.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointCloudType">
+    <Position X="402.5" Y="40.25" Width="5.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PointCloudInstance">
+    <Position X="77.5" Y="38.5" Width="5.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RoutingPreferenceManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RoutingCriterionBase">
+    <Position X="11" Y="55.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PrimarySizeCriterion">
+    <Position X="10.5" Y="58.75" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Revision">
+    <Position X="379.5" Y="36" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PropertySetElement">
+    <Position X="522.25" Y="36" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.StructuralAsset" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="859.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ThermalAsset" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.PropertySetLibrary">
+    <Position X="618.75" Y="36" Width="7.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.InsulationLiningBase">
+    <Position X="239.25" Y="41.5" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RelinquishedItems" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RepeaterBounds" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RepeaterCoordinates" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RevisionCloud">
+    <Position X="52.5" Y="36" Width="6.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RevisionSettings">
+    <Position X="63.75" Y="36" Width="4.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RevitLinkOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="871.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpatialElementCalculationLocation">
+    <Position X="113.5" Y="36" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpatialElementCalculationPoint">
+    <Position X="111.25" Y="38.5" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpatialElementFromToCalculationPoints">
+    <Position X="115.5" Y="38.5" Width="4" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpatialElementBoundarySubface" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpatialElementGeometryResults" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="857.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SpatialElementGeometryCalculator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RoutingCondition" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="873.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RoutingConditions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.RoutingPreferenceRule" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="878.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksharingSaveAsOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="883.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ScheduleField" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="859.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ScheduleFilter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="862.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ScheduleSheetInstance">
+    <Position X="631.25" Y="36" Width="7" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ScheduleSortGroupField" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="864.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.SelectionFilterElement">
+    <Position X="776.5" Y="38.5" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.StairsEditScope">
+    <Position X="32.5" Y="56.25" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TransactionGroup" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="857.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.Transaction" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.TransmissionData" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="861" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.UnitFormatUtils" Collapsed="true">
+    <Position X="869.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.ValueParsingOptions" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.UpdaterData" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="875" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.UpdaterId" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="876.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.UpdaterInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="878.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.UpdaterRegistry" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="880.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WallSweep">
+    <Position X="233" Y="38.25" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WallUtils" Collapsed="true">
+    <Position X="875" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksetDefaultVisibilitySettings">
+    <Position X="162.75" Y="36" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksharingTooltipInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="885.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksharingUtils" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="857.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksharingDisplayGraphicSettings" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="882" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Autodesk.Revit.DB.WorksharingDisplaySettings">
+    <Position X="327.5" Y="36" Width="7.75" />
+    <TypeIdentifier />
+  </Class>
+  <Struct Name="Autodesk.Revit.DB.GridNode" Collapsed="true">
+    <Position X="857.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Struct>
+  <Interface Name="Autodesk.Revit.DB.IConnector" Collapsed="true">
+    <Position X="859.25" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IFamilyLoadOptions" Collapsed="true">
+    <Position X="873.25" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IPrintSetting" Collapsed="true">
+    <Position X="882" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IViewSheetSet" Collapsed="true">
+    <Position X="859.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IExtension" Collapsed="true">
+    <Position X="864.5" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IExternalDBApplication" Collapsed="true">
+    <Position X="866.25" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IFailuresProcessor" Collapsed="true">
+    <Position X="871.5" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IExternalResourceServer" Collapsed="true">
+    <Position X="868" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IDuplicateTypeNamesHandler" Collapsed="true">
+    <Position X="861" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IExportContext" Collapsed="true">
+    <Position X="862.75" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IFailuresPreprocessor" Collapsed="true">
+    <Position X="869.75" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.ITransactionFinalizer" Collapsed="true">
+    <Position X="885.5" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.ICentralLockedCallback" Collapsed="true">
+    <Position X="857.5" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IGetLocalPathForOpenCallback" Collapsed="true">
+    <Position X="875" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.INavisworksExporter" Collapsed="true">
+    <Position X="876.75" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IOnLocalLinkSharedCoordinatesSavedCallback" Collapsed="true">
+    <Position X="878.5" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IPerformanceAdviserRule" Collapsed="true">
+    <Position X="880.25" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.ISaveSharedCoordinatesCallback" Collapsed="true">
+    <Position X="883.75" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Autodesk.Revit.DB.IUpdater" Collapsed="true">
+    <Position X="857.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="Autodesk.Revit.DB.DocumentType" Collapsed="true">
+    <Position X="876.75" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FailureProcessingResult" Collapsed="true">
+    <Position X="861" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ImportExportFileFormat" Collapsed="true">
+    <Position X="878.5" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewDiscipline" Collapsed="true">
+    <Position X="857.5" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BuiltInCategory" Collapsed="true">
+    <Position X="866.25" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DisplayUnitType" Collapsed="true">
+    <Position X="869.75" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.UnitType" Collapsed="true">
+    <Position X="878.5" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DisplayUnit" Collapsed="true">
+    <Position X="868" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BeamSystemJustifyType" Collapsed="true">
+    <Position X="885.5" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TextAlignFlags" Collapsed="true">
+    <Position X="885.5" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TextAlignMask" Collapsed="true">
+    <Position X="857.5" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TextNoteLeaderTypes" Collapsed="true">
+    <Position X="862.75" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TextNoteLeaderStyles" Collapsed="true">
+    <Position X="861" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SetComparisonResult" Collapsed="true">
+    <Position X="861" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TextElementBackground" Collapsed="true">
+    <Position X="859.25" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BoxPlacement" Collapsed="true">
+    <Position X="862.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewType" Collapsed="true">
+    <Position X="873.25" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewPlanType" Collapsed="true">
+    <Position X="868" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AreaElemType" Collapsed="true">
+    <Position X="871.5" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PageOrientationType" Collapsed="true">
+    <Position X="869.75" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PaperPlacementType" Collapsed="true">
+    <Position X="871.5" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.MarginType" Collapsed="true">
+    <Position X="871.5" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.HiddenLineViewsType" Collapsed="true">
+    <Position X="866.25" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ZoomType" Collapsed="true">
+    <Position X="866.25" Y="30" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RasterQualityType" Collapsed="true">
+    <Position X="880.25" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ColorDepthType" Collapsed="true">
+    <Position X="878.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PrintRange" Collapsed="true">
+    <Position X="873.25" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SlabShapeVertexType" Collapsed="true">
+    <Position X="869.75" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SlabShapeCreaseType" Collapsed="true">
+    <Position X="868" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.EaveCutterType" Collapsed="true">
+    <Position X="885.5" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CurtainGridAlignType" Collapsed="true">
+    <Position X="873.25" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.VirtualPrinterType" Collapsed="true">
+    <Position X="875" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DimensionShape" Collapsed="true">
+    <Position X="859.25" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExportPaperFormat" Collapsed="true">
+    <Position X="871.5" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ElementReferenceType" Collapsed="true">
+    <Position X="861" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.HorizontalAlign" Collapsed="true">
+    <Position X="868" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ReferenceType" Collapsed="true">
+    <Position X="883.75" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DWFImageQuality" Collapsed="true">
+    <Position X="883.75" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DWFImageFormat" Collapsed="true">
+    <Position X="882" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.GridNodeLocation" Collapsed="true">
+    <Position X="862.75" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BorderTile" Collapsed="true">
+    <Position X="861" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ComponentRotation" Collapsed="true">
+    <Position X="883.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.GridSegmentDirection" Collapsed="true">
+    <Position X="864.5" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.StructuralReleaseType" Collapsed="true">
+    <Position X="866.25" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.StickSymbolLocation" Collapsed="true">
+    <Position X="857.5" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AnalyzesAsType" Collapsed="true">
+    <Position X="869.75" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SlantedOrVerticalColumnType" Collapsed="true">
+    <Position X="871.5" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ElementTypeGroup" Collapsed="true">
+    <Position X="862.75" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.MassDisplayTemporaryOverrideType" Collapsed="true">
+    <Position X="873.25" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TemporaryViewMode" Collapsed="true">
+    <Position X="876.75" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DisplayStyle" Collapsed="true">
+    <Position X="866.25" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ElementOnPhaseStatus" Collapsed="true">
+    <Position X="859.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BuiltInParameter" Collapsed="true">
+    <Position X="868" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BuiltInParameterGroup" Collapsed="true">
+    <Position X="869.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PartsVisibility" Collapsed="true">
+    <Position X="878.5" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewDetailLevel" Collapsed="true">
+    <Position X="885.5" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewDuplicateOption" Collapsed="true">
+    <Position X="864.5" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.WorksetKind" Collapsed="true">
+    <Position X="859.25" Y="30" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.WorksetVisibility" Collapsed="true">
+    <Position X="861" Y="30" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.WorksharingDisplayMode" Collapsed="true">
+    <Position X="862.75" Y="30" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ControlShape" Collapsed="true">
+    <Position X="869.75" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FamilyPlacementType" Collapsed="true">
+    <Position X="869.75" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TilePatternsBuiltIn" Collapsed="true">
+    <Position X="868" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ConnectorJointType" Collapsed="true">
+    <Position X="864.5" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ConnectorGenderType" Collapsed="true">
+    <Position X="862.75" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ConnectorDomainType" Collapsed="true">
+    <Position X="861" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.Domain" Collapsed="true">
+    <Position X="878.5" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AutomaticConnectionBehaviorType" Collapsed="true">
+    <Position X="878.5" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ConnectorType" Collapsed="true">
+    <Position X="868" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ConnectorProfileType" Collapsed="true">
+    <Position X="866.25" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FlowDirectionType" Collapsed="true">
+    <Position X="859.25" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BehaviorType" Collapsed="true">
+    <Position X="857.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.MEPSystemClassification" Collapsed="true">
+    <Position X="880.25" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.JunctionType" Collapsed="true">
+    <Position X="885.5" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BaseLoadOn" Collapsed="true">
+    <Position X="883.75" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CompoundStructureLayerFunction" Collapsed="true">
+    <Position X="859.25" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CompoundStructureDeckUsage" Collapsed="true">
+    <Position X="885.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ProfilePlaneLocation" Collapsed="true">
+    <Position X="876.75" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ParameterType" Collapsed="true">
+    <Position X="875" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.StorageType" Collapsed="true">
+    <Position X="859.25" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.UnitSymbolType" Collapsed="true">
+    <Position X="875" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.Visibility" Collapsed="true">
+    <Position X="876.75" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BooleanOperationsType" Collapsed="true">
+    <Position X="859.25" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PropOverrideMode" Collapsed="true">
+    <Position X="878.5" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.LineScaling" Collapsed="true">
+    <Position X="866.25" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TextTreatment" Collapsed="true">
+    <Position X="864.5" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExportColorMode" Collapsed="true">
+    <Position X="866.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SolidGeometry" Collapsed="true">
+    <Position X="875" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ACAObjectPreference" Collapsed="true">
+    <Position X="859.25" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExportUnit" Collapsed="true">
+    <Position X="878.5" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ACADVersion" Collapsed="true">
+    <Position X="857.5" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DGNFileFormat" Collapsed="true">
+    <Position X="883.75" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExportSheetType" Collapsed="true">
+    <Position X="875" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BuildingType" Collapsed="true">
+    <Position X="864.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ServiceType" Collapsed="true">
+    <Position X="859.25" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SpatialElementType" Collapsed="true">
+    <Position X="883.75" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SpatialElementBoundaryLocation" Collapsed="true">
+    <Position X="882" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CategoryType" Collapsed="true">
+    <Position X="871.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.GraphicsStyleType" Collapsed="true">
+    <Position X="861" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.MaterialAspect" Collapsed="true">
+    <Position X="875" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FaceIntersectionFaceResult" Collapsed="true">
+    <Position X="859.25" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CurveElementType" Collapsed="true">
+    <Position X="875" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CoordinatePlaneVisibility" Collapsed="true">
+    <Position X="871.5" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PointOnCurveMeasurementType" Collapsed="true">
+    <Position X="868" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PointOnCurveMeasureFrom" Collapsed="true">
+    <Position X="866.25" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FamilyElementVisibilityType" Collapsed="true">
+    <Position X="866.25" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DetachFromCentralOption" Collapsed="true">
+    <Position X="882" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TransactionStatus" Collapsed="true">
+    <Position X="869.75" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FamilySource" Collapsed="true">
+    <Position X="873.25" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ParametersOrder" Collapsed="true">
+    <Position X="873.25" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PlanViewRangeError" Collapsed="true">
+    <Position X="859.25" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.IFCVersion" Collapsed="true">
+    <Position X="871.5" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AlternateUnits" Collapsed="true">
+    <Position X="868" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DimensionStyleType" Collapsed="true">
+    <Position X="861" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.LeaderEndCondition" Collapsed="true">
+    <Position X="861" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TagOrientation" Collapsed="true">
+    <Position X="875" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TagMode" Collapsed="true">
+    <Position X="873.25" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.WallKind" Collapsed="true">
+    <Position X="880.25" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.WallFunction" Collapsed="true">
+    <Position X="878.5" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FloorFace" Collapsed="true">
+    <Position X="857.5" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.JoinType" Collapsed="true">
+    <Position X="883.75" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ModifierType" Collapsed="true">
+    <Position X="885.5" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SpecialType" Collapsed="true">
+    <Position X="885.5" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.LayerCategoryType" Collapsed="true">
+    <Position X="859.25" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FillPatternTarget" Collapsed="true">
+    <Position X="878.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FillPatternHostOrientation" Collapsed="true">
+    <Position X="876.75" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewportRotation" Collapsed="true">
+    <Position X="869.75" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DecimalSymbol" Collapsed="true">
+    <Position X="880.25" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DigitGroupingAmount" Collapsed="true">
+    <Position X="885.5" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DigitGroupingSymbol" Collapsed="true">
+    <Position X="857.5" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.UnitSystem" Collapsed="true">
+    <Position X="876.75" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.UnitGroup" Collapsed="true">
+    <Position X="873.25" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SolidCurveIntersectionMode" Collapsed="true">
+    <Position X="873.25" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SpacingRuleJustification" Collapsed="true">
+    <Position X="878.5" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SpacingRuleLayout" Collapsed="true">
+    <Position X="880.25" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ChangePriority" Collapsed="true">
+    <Position X="875" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PartType" Collapsed="true">
+    <Position X="880.25" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.EndCapCondition" Collapsed="true">
+    <Position X="864.5" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.OpeningWrappingCondition" Collapsed="true">
+    <Position X="866.25" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CompoundStructureError" Collapsed="true">
+    <Position X="857.5" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.MaterialFunctionAssignment" Collapsed="true">
+    <Position X="876.75" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.StructDeckEmbeddingType" Collapsed="true">
+    <Position X="861" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ShellLayerType" Collapsed="true">
+    <Position X="862.75" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RectangularGridSegmentOrientation" Collapsed="true">
+    <Position X="882" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.WallLocationLine" Collapsed="true">
+    <Position X="882" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.WallSweepType" Collapsed="true">
+    <Position X="885.5" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.WallSide" Collapsed="true">
+    <Position X="883.75" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DistanceMeasuredFrom" Collapsed="true">
+    <Position X="871.5" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ArrayAnchorMember" Collapsed="true">
+    <Position X="873.25" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ScheduleFieldType" Collapsed="true">
+    <Position X="876.75" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SunAndShadowType" Collapsed="true">
+    <Position X="869.75" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SunStudyTimeInterval" Collapsed="true">
+    <Position X="871.5" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExternalDBApplicationResult" Collapsed="true">
+    <Position X="880.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AdaptivePointConstraintType" Collapsed="true">
+    <Position X="861" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AdaptivePointOrientationType" Collapsed="true">
+    <Position X="862.75" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AdaptivePointType" Collapsed="true">
+    <Position X="864.5" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AllowedValues" Collapsed="true">
+    <Position X="866.25" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExternalResourceLoadStatus" Collapsed="true">
+    <Position X="883.75" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.LoadOperationType" Collapsed="true">
+    <Position X="869.75" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ResourceVersionStatus" Collapsed="true">
+    <Position X="862.75" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AssemblyDetailViewOrientation" Collapsed="true">
+    <Position X="875" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.HorizontalAlignmentStyle" Collapsed="true">
+    <Position X="869.75" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.VerticalAlignmentStyle" Collapsed="true">
+    <Position X="883.75" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SectionType" Collapsed="true">
+    <Position X="885.5" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CellType" Collapsed="true">
+    <Position X="873.25" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.LinkedFileStatus" Collapsed="true">
+    <Position X="868" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PathType" Collapsed="true">
+    <Position X="882" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.AttachmentType" Collapsed="true">
+    <Position X="876.75" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TransmittedModelOptions" Collapsed="true">
+    <Position X="871.5" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RevitLinkLoadResultType" Collapsed="true">
+    <Position X="869.75" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SaveModifiedLinksOptions" Collapsed="true">
+    <Position X="875" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BackgroundImageFit" Collapsed="true">
+    <Position X="880.25" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RenderEngine" Collapsed="true">
+    <Position X="885.5" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ResolutionTarget" Collapsed="true">
+    <Position X="861" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PrinterResolution" Collapsed="true">
+    <Position X="871.5" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.LightingSource" Collapsed="true">
+    <Position X="862.75" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RenderingQuality" Collapsed="true">
+    <Position X="857.5" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.BackgroundStyle" Collapsed="true">
+    <Position X="882" Y="18.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ImportUnit" Collapsed="true">
+    <Position X="882" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ImportColorMode" Collapsed="true">
+    <Position X="876.75" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ImportPlacement" Collapsed="true">
+    <Position X="880.25" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SortingOrder" Collapsed="true">
+    <Position X="876.75" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PartEdgeConditionOrientation" Collapsed="true">
+    <Position X="876.75" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CheckoutStatus" Collapsed="true">
+    <Position X="876.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ColumnAttachmentJustification" Collapsed="true">
+    <Position X="882" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ColumnAttachmentCutStyle" Collapsed="true">
+    <Position X="880.25" Y="19.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DuplicateTypeAction" Collapsed="true">
+    <Position X="880.25" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CurveProjectionType" Collapsed="true">
+    <Position X="876.75" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RenderNodeAction" Collapsed="true">
+    <Position X="859.25" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.CutFailureReason" Collapsed="true">
+    <Position X="878.5" Y="20.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.NumberSystemDisplayRule" Collapsed="true">
+    <Position X="862.75" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.NumberSystemJustifyOption" Collapsed="true">
+    <Position X="864.5" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.OverridePermissions" Collapsed="true">
+    <Position X="868" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PointCloudColorMode" Collapsed="true">
+    <Position X="862.75" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewDisplayEdges" Collapsed="true">
+    <Position X="862.75" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewDisplayBackgroundType" Collapsed="true">
+    <Position X="861" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewDisplayBackgroundImageFlags" Collapsed="true">
+    <Position X="859.25" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ShowHiddenLinesValues" Collapsed="true">
+    <Position X="864.5" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PlanViewPlane" Collapsed="true">
+    <Position X="857.5" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExportColumnHeaders" Collapsed="true">
+    <Position X="868" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExportTextQualifier" Collapsed="true">
+    <Position X="876.75" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PlanViewDirection" Collapsed="true">
+    <Position X="885.5" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewFamily" Collapsed="true">
+    <Position X="866.25" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DividedPathMeasurementType" Collapsed="true">
+    <Position X="875" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.UVGridlineType" Collapsed="true">
+    <Position X="880.25" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DirectShapeTargetViewType" Collapsed="true">
+    <Position X="862.75" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DisplacementPathStyle" Collapsed="true">
+    <Position X="864.5" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.DistributionOfNormals" Collapsed="true">
+    <Position X="873.25" Y="21" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FailureResolutionType" Collapsed="true">
+    <Position X="862.75" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FailureSeverity" Collapsed="true">
+    <Position X="864.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExportEnergyModelType" Collapsed="true">
+    <Position X="869.75" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ImageFileType" Collapsed="true">
+    <Position X="873.25" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FitDirectionType" Collapsed="true">
+    <Position X="882" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ZoomFitType" Collapsed="true">
+    <Position X="864.5" Y="30" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExportRange" Collapsed="true">
+    <Position X="873.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ImageResolution" Collapsed="true">
+    <Position X="875" Y="23.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.NavisworksParameters" Collapsed="true">
+    <Position X="861" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.NavisworksCoordinates" Collapsed="true">
+    <Position X="857.5" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.NavisworksExportScope" Collapsed="true">
+    <Position X="859.25" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExternalFileReferenceType" Collapsed="true">
+    <Position X="882" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.MaterialPropertyPathType" Collapsed="true">
+    <Position X="878.5" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ElementComparisonResult" Collapsed="true">
+    <Position X="857.5" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExternalResourceUIBrowseResultType" Collapsed="true">
+    <Position X="885.5" Y="21.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ExtrusionAnalyzerFaceAlignment" Collapsed="true">
+    <Position X="857.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FamilyHostingBehavior" Collapsed="true">
+    <Position X="868" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FamilySizeTableErrorType" Collapsed="true">
+    <Position X="871.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ProfileFamilyUsage" Collapsed="true">
+    <Position X="875" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ValueAtPointFlags" Collapsed="true">
+    <Position X="882" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FilledRegionBackground" Collapsed="true">
+    <Position X="875" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FindReferenceTarget" Collapsed="true">
+    <Position X="880.25" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FittingAndAccessoryCalculationType" Collapsed="true">
+    <Position X="883.75" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.FittingAngleUsage" Collapsed="true">
+    <Position X="885.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.KeyBasedTreeEntryErrorType" Collapsed="true">
+    <Position X="857.5" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.LinePatternSegmentType" Collapsed="true">
+    <Position X="864.5" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TessellatedBuildIssueType" Collapsed="true">
+    <Position X="878.5" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.MeshFromGeometryOperationIssue" Collapsed="true">
+    <Position X="882" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TessellatedShapeBuilderTarget" Collapsed="true">
+    <Position X="883.75" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TessellatedShapeBuilderFallback" Collapsed="true">
+    <Position X="880.25" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.TessellatedShapeBuilderOutcome" Collapsed="true">
+    <Position X="882" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ModelUpdatesStatus" Collapsed="true">
+    <Position X="883.75" Y="24" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.WorksetConfigurationOption" Collapsed="true">
+    <Position X="857.5" Y="30" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PhaseStatusPresentation" Collapsed="true">
+    <Position X="883.75" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PlanViewRangeLevel" Collapsed="true">
+    <Position X="861" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PointCloudFoundStatus" Collapsed="true">
+    <Position X="864.5" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SelectionFilterAction" Collapsed="true">
+    <Position X="857.5" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RoutingPreferenceRuleGroupType" Collapsed="true">
+    <Position X="873.25" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.PreferredJunctionType" Collapsed="true">
+    <Position X="869.75" Y="25.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RevisionNumberType" Collapsed="true">
+    <Position X="866.25" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RevisionVisibility" Collapsed="true">
+    <Position X="868" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.StructuralAssetClass" Collapsed="true">
+    <Position X="862.75" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.StructuralBehavior" Collapsed="true">
+    <Position X="864.5" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ThermalMaterialType" Collapsed="true">
+    <Position X="866.25" Y="28.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RevisionNumbering" Collapsed="true">
+    <Position X="864.5" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SubfaceType" Collapsed="true">
+    <Position X="868" Y="27.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.RoutingPreferenceErrorLevel" Collapsed="true">
+    <Position X="871.5" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.SimpleWorksetConfiguration" Collapsed="true">
+    <Position X="866.25" Y="27" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ScheduleHeadingOrientation" Collapsed="true">
+    <Position X="880.25" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ScheduleHorizontalAlignment" Collapsed="true">
+    <Position X="882" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ScheduleFilterType" Collapsed="true">
+    <Position X="878.5" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ScheduleSortOrder" Collapsed="true">
+    <Position X="883.75" Y="26.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Autodesk.Revit.DB.ViewTemplateApplicationOption" Collapsed="true">
+    <Position X="871.5" Y="29.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
