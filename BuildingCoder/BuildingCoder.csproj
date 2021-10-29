@@ -4,7 +4,7 @@
         <UseWindowsForms>True</UseWindowsForms>
         <UseWpf>True</UseWpf>
         <TargetFramework>net48</TargetFramework>
-        <Version>2022.0.152.2</Version>
+        <Version>2022.1.152.2</Version>
         <OutputType>Library</OutputType>
         <RootNamespace>BuildingCoder</RootNamespace>
         <AssemblyName>BuildingCoder</AssemblyName>
