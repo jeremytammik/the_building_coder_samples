@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <UseWindowsForms>True</UseWindowsForms>
+        <UseWpf>True</UseWpf>
+        <TargetFramework>net48</TargetFramework>
+        <Version>2022.0.152.2</Version>
+        <OutputType>Library</OutputType>
+        <RootNamespace>BuildingCoder</RootNamespace>
+        <AssemblyName>BuildingCoder</AssemblyName>
+        <LangVersion>9</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>none</DebugType>
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="AdWindows">
+            <HintPath>C:\Program Files\Autodesk\Revit 2022\AdWindows.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="log4net">
+            <HintPath>C:\Program Files\Autodesk\Revit 2022\log4net.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="RevitAPI">
+            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="RevitAPIIFC">
+            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPIIFC.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="RevitAPIMacros">
+            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPIMacros.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="RevitAPIUI">
+            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPIUI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="RevitAPIUIMacros">
+            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPIUIMacros.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UIFrameworkServices">
+            <HintPath>C:\Program Files\Autodesk\Revit 2022\UIFrameworkServices.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="WindowsBase">
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="CmdLinkedFileElementsForm.resx">
+            <SubType>Designer</SubType>
+            <DependentUpon>CmdLinkedFileElementsForm.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="CmdWindowHandleForm.resx">
+            <SubType>Designer</SubType>
+            <DependentUpon>CmdWindowHandleForm.cs</DependentUpon>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="TheBuildingCoderSingleSample.addin">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AddinDll Include="$(TargetDir)$(AssemblyName).dll"/>
+    </ItemGroup>
+
+    <Target Name="AfterBuildTarget" AfterTargets="CoreBuild">
+        <PropertyGroup>
+            <AddinDir>bin\AddIn 2022 $(Configuration)\</AddinDir>
+            <OutAddinDir>$(AddinDir)$(AssemblyName)\</OutAddinDir>
+        </PropertyGroup>
+
+        <Copy SourceFiles="$(TargetDir)TheBuildingCoderSingleSample.addin" DestinationFolder="$(AddinDir)"/>
+        <Copy SourceFiles="@(AddinDll)" DestinationFolder="$(OutAddinDir)"/>
+
+        <ItemGroup>
+            <OutLibPath Include="$(AddinDir)**\*.*"/>
+        </ItemGroup>
+        <Copy SourceFiles="@(OutLibPath)" DestinationFolder="$(AppData)\Autodesk\Revit\Addins\2022\%(RecursiveDir)"/>
+    </Target>
+</Project>
