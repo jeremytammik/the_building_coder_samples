@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 
 //
 // CmdChangeElementColor.cs - Change element colour using OverrideGraphicSettings for active view

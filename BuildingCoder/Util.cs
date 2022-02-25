@@ -177,7 +177,6 @@ namespace BuildingCoder
                         d = Compare(qa.GetLength(), qb.GetLength());
                 }
             }
-
             return d;
         }
 
@@ -194,7 +193,6 @@ namespace BuildingCoder
                     d = Compare(a.XVec.AngleOnPlaneTo(
                         b.XVec, b.Normal), 0);
             }
-
             return d;
         }
 
