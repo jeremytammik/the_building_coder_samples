@@ -1051,7 +1051,6 @@ namespace BuildingCoder
                 .Cast<IndependentTag>()
                 .Where(tag => IsRectangularFabricationPartTag(tag));
         }
-
         #endregion // Retrieve tags associated with rectangular fabrication parts
 
         #region Retrieve openings in wall
