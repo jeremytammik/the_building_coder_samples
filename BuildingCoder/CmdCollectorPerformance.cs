@@ -685,7 +685,7 @@ namespace BuildingCoder
 
         #region Electrical stuff for Martin Schmid
 
-        private void f()
+        private void F()
         {
             // how to get the TemperatureRatingTypeSet?
 
@@ -718,7 +718,7 @@ namespace BuildingCoder
 
         #region Filter for various classes
 
-        private void f3()
+        private void F3()
         {
             var a
                 = new List<ElementFilter>(3);
@@ -738,7 +738,7 @@ namespace BuildingCoder
 
         // from RevitAPI.chm description of BoundingBoxIntersectsFilter Class
         // case 1260682 [Find walls in a specific area]
-        private void f2()
+        private void F2()
         {
             // Use BoundingBoxIntersects filter to find
             // elements with a bounding box that intersects
@@ -958,12 +958,12 @@ namespace BuildingCoder
         {
             var doc = door_inst.Document;
             var symbol = door_inst.Symbol;
-            var CW_doors
+            var cw_doors
                 = new FilteredElementCollector(
                         doc, symbol.GetSimilarTypes())
                     .OfCategory(BuiltInCategory.OST_Doors)
                     .Cast<FamilySymbol>();
-            return CW_doors;
+            return cw_doors;
         }
 
         #endregion // Retrieve door family symbols that can be used in a curtain wall
@@ -974,7 +974,7 @@ namespace BuildingCoder
         ///     Return all tags, optionally
         ///     material tags only
         /// </summary>
-        private IEnumerable<IndependentTag> GetMaterialTags(
+        IEnumerable<IndependentTag> GetMaterialTags(
             Document doc,
             bool material_only)
         {
@@ -988,7 +988,6 @@ namespace BuildingCoder
                 : tags.Where(
                     tag => tag.IsMaterialTag);
         }
-
         #endregion // Retrieve All (Material) Tags
 
         #region Pull Text from Annotation Tags
@@ -1011,6 +1010,49 @@ namespace BuildingCoder
         }
 
         #endregion // Pull Text from Annotation Tags
+
+        #region Retrieve tags associated with rectangular fabrication parts
+        // Filter Fabrication rectangular ducts and the tag associated with it.
+        // https://forums.autodesk.com/t5/revit-api-forum/filter-fabrication-rectangular-ducts-and-the-tag-associated-with/m-p/10971268
+        private bool IsRectangularFabricationPart(Element e)
+        {
+            FabricationPart f = e as FabricationPart;
+            return (null != f)
+                && ((int) BuiltInCategory.OST_FabricationDuctwork 
+                    == f.Category.Id.IntegerValue)
+                && f.ConnectorManager.Connectors.Cast<Connector>().Any(
+                    conn => conn.Shape == ConnectorProfileType.Rectangular);
+        }
+
+        private bool IsRectangularFabricationPartTag(IndependentTag t)
+        {
+            bool rc = false;
+            double tagValue;
+            Element f = t.GetTaggedLocalElements().First();
+            if(IsRectangularFabricationPart(f))
+            {
+                Parameter p = f.LookupParameter("Length");
+                if( null != p)
+                {
+                    double length = p.AsDouble();
+                    rc = double.TryParse(t.TagText, out tagValue)
+                        && (Math.Round(length, 4) == Math.Round(tagValue, 4));
+                }
+            }
+            return rc;
+        }
+
+        IEnumerable<IndependentTag> RetrieveRectangularFabricationPartTags(Document doc)
+        {
+            return new FilteredElementCollector(doc)
+                .WhereElementIsNotElementType()
+                .OfCategory(BuiltInCategory.OST_FabricationDuctworkTags)
+                .OfClass(typeof(IndependentTag))
+                .Cast<IndependentTag>()
+                .Where(tag => IsRectangularFabricationPartTag(tag));
+        }
+
+        #endregion // Retrieve tags associated with rectangular fabrication parts
 
         #region Retrieve openings in wall
 
@@ -2156,7 +2198,7 @@ namespace BuildingCoder
         /// <summary>
         ///     Retrieve all ramps
         /// </summary>
-        private void f_ramps(Document doc)
+        private void GetRamps(Document doc)
         {
             var collector
                 = new FilteredElementCollector(doc)
@@ -2169,7 +2211,7 @@ namespace BuildingCoder
         /// <summary>
         ///     Retrieve all concrete ramps
         /// </summary>
-        private IEnumerable<Element> findConcreteRamps(Document doc)
+        private IEnumerable<Element> GetConcreteRamps(Document doc)
         {
             return new FilteredElementCollector(doc)
                 .WhereElementIsNotElementType()
@@ -2194,7 +2236,7 @@ namespace BuildingCoder
 
         #region Filter for detail curves
 
-        private void f_detail_curves()
+        private void GetDetailCurves()
         {
             var collector
                 = new FilteredElementCollector(_doc);
@@ -2755,7 +2797,7 @@ TaskDialog.Show( "Revit", collector.Count() +
 
         // 383_param_filter.htm
 
-        private void f1(Document doc)
+        private void F1(Document doc)
         {
             var collector
                 = new FilteredElementCollector(doc);
@@ -2781,7 +2823,7 @@ TaskDialog.Show( "Revit", collector.Count() +
             }
         }
 
-        private void f2(Document doc, Level level)
+        private void F2(Document doc, Level level)
         {
             var collector
                 = new FilteredElementCollector(doc);
@@ -2856,7 +2898,7 @@ TaskDialog.Show( "Revit", collector.Count() +
             }
         }
 
-        private void f3(Document doc)
+        private void F3(Document doc)
         {
             var collector
                 = new FilteredElementCollector(doc);
@@ -2881,7 +2923,7 @@ TaskDialog.Show( "Revit", collector.Count() +
                 = new ElementParameterFilter(rule);
         }
 
-        private void f4(Document doc)
+        private void F4(Document doc)
         {
             // Use numeric evaluator and integer rule to test ElementId parameter
             // Filter levels whose id is greater than specified id value

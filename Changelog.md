@@ -365,3 +365,5 @@
 - 2021-09-21 2022.0.152.1 implemented FilterForSheetsByBrowserOrganisation for https://forums.autodesk.com/t5/revit-api-forum/change-the-sheet-issue-date-on-sheets-filtered-by-project/td-p/10633770
 - 2021-09-21 2022.0.152.2 implemented HighlightLastElement for https://forums.autodesk.com/t5/revit-api-forum/getting-the-last-element-placed-in-a-model/m-p/10645949
 - 2021-09-29 2022.1.152.2 refactoring by Roman @Nice3point in pull request [#18](https://github.com/jeremytammik/the_building_coder_samples/pull/18)
+- 2022-02-25 2022.1.152.3 implemented RetrieveRectangularFabricationPartTags for https://forums.autodesk.com/t5/revit-api-forum/filter-fabrication-rectangular-ducts-and-the-tag-associated-with/m-p/10971268
+- 2022-02-25 2022.1.152.3 fixed camel case naming rule violations 
