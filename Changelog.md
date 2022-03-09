@@ -367,3 +367,4 @@
 - 2021-09-29 2022.1.152.2 refactoring by Roman @Nice3point in pull request [#18](https://github.com/jeremytammik/the_building_coder_samples/pull/18)
 - 2022-02-25 2022.1.152.3 implemented RetrieveRectangularFabricationPartTags for https://forums.autodesk.com/t5/revit-api-forum/filter-fabrication-rectangular-ducts-and-the-tag-associated-with/m-p/10971268
 - 2022-02-25 2022.1.152.3 fixed camel case naming rule violations 
+- 2022-03-09 2022.1.152.4 return pipe instance count for https://forums.autodesk.com/t5/revit-api-forum/most-efficient-way-to-count-all-pipe-instances-in-the-project/m-p/10993859

@@ -1107,6 +1107,12 @@ namespace BuildingCoder
         {
             var doc = wall.Document;
 
+            // Return a count of all pipe instances
+
+            int nPipes = new FilteredElementCollector(doc)
+                .OfClass(typeof(Pipe))
+                .GetElementCount();
+
             var cats = new List<BuiltInCategory>
             {
                 BuiltInCategory.OST_DuctCurves,
