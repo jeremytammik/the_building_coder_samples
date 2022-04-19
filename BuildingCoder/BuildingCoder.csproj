@@ -20,36 +20,30 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="AdWindows">
-            <HintPath>C:\Program Files\Autodesk\Revit 2022\AdWindows.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="log4net">
-            <HintPath>C:\Program Files\Autodesk\Revit 2022\log4net.dll</HintPath>
-            <Private>False</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2023\AdWindows.dll</HintPath>
+          <Private>false</Private>
         </Reference>
         <Reference Include="RevitAPI">
-            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPI.dll</HintPath>
-            <Private>False</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPI.dll</HintPath>
+          <Private>false</Private>
         </Reference>
         <Reference Include="RevitAPIIFC">
-            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPIIFC.dll</HintPath>
-            <Private>False</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPIIFC.dll</HintPath>
+          <Private>false</Private>
         </Reference>
         <Reference Include="RevitAPIMacros">
-            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPIMacros.dll</HintPath>
-            <Private>False</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPIMacros.dll</HintPath>
+          <Private>false</Private>
         </Reference>
         <Reference Include="RevitAPIUI">
-            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPIUI.dll</HintPath>
-            <Private>False</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPIUI.dll</HintPath>
+          <Private>false</Private>
         </Reference>
         <Reference Include="RevitAPIUIMacros">
-            <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPIUIMacros.dll</HintPath>
-            <Private>False</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPIUIMacros.dll</HintPath>
         </Reference>
         <Reference Include="UIFrameworkServices">
-            <HintPath>C:\Program Files\Autodesk\Revit 2022\UIFrameworkServices.dll</HintPath>
-            <Private>False</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2023\UIFrameworkServices.dll</HintPath>
         </Reference>
         <Reference Include="WindowsBase">
         </Reference>
@@ -72,7 +66,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AddinDll Include="$(TargetDir)$(AssemblyName).dll"/>
+        <AddinDll Include="$(TargetDir)$(AssemblyName).dll" />
     </ItemGroup>
 
     <Target Name="AfterBuildTarget" AfterTargets="CoreBuild">
@@ -81,12 +75,12 @@
             <OutAddinDir>$(AddinDir)$(AssemblyName)\</OutAddinDir>
         </PropertyGroup>
 
-        <Copy SourceFiles="$(TargetDir)TheBuildingCoderSingleSample.addin" DestinationFolder="$(AddinDir)"/>
-        <Copy SourceFiles="@(AddinDll)" DestinationFolder="$(OutAddinDir)"/>
+        <Copy SourceFiles="$(TargetDir)TheBuildingCoderSingleSample.addin" DestinationFolder="$(AddinDir)" />
+        <Copy SourceFiles="@(AddinDll)" DestinationFolder="$(OutAddinDir)" />
 
         <ItemGroup>
-            <OutLibPath Include="$(AddinDir)**\*.*"/>
+            <OutLibPath Include="$(AddinDir)**\*.*" />
         </ItemGroup>
-        <Copy SourceFiles="@(OutLibPath)" DestinationFolder="$(AppData)\Autodesk\Revit\Addins\2022\%(RecursiveDir)"/>
+        <Copy SourceFiles="@(OutLibPath)" DestinationFolder="$(AppData)\Autodesk\Revit\Addins\2022\%(RecursiveDir)" />
     </Target>
 </Project>
