@@ -2612,12 +2612,19 @@ namespace BuildingCoder
             Document doc,
             string familySymbolName)
         {
+            //return GetStructuralColumnSymbolCollector(doc)
+            //    .WherePasses(
+            //        new ElementParameterFilter(
+            //            ParameterFilterRuleFactory.CreateEqualsRule(
+            //                new ElementId(BuiltInParameter.SYMBOL_NAME_PARAM),
+            //                familySymbolName, true))); // 2022
+
             return GetStructuralColumnSymbolCollector(doc)
                 .WherePasses(
                     new ElementParameterFilter(
                         ParameterFilterRuleFactory.CreateEqualsRule(
                             new ElementId(BuiltInParameter.SYMBOL_NAME_PARAM),
-                            familySymbolName, true)));
+                            familySymbolName))); // 2023
         }
 
         #endregion // Retrieve named family symbols using either LINQ or a parameter filter

@@ -85,7 +85,11 @@ namespace BuildingCoder
 
             foreach (Wall wall in walls)
             {
-                var am = wall.GetAnalyticalModel();
+                var am = wall.GetAnalyticalModel(); // 2022
+
+                //AnalyticalToPhysicalRelationManager.GetCounterpartsIds
+
+                //AnalyticalElement ae = null;
 
                 foreach (var ct in CurveTypes)
                 {
