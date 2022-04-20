@@ -1,7 +1,7 @@
 # The Building Coder Samples
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Revit%20API-2022-blue.svg?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Revit%20API-2023-blue.svg?style=for-the-badge">
   <img src="https://img.shields.io/badge/platform-Windows-lightgray.svg?style=for-the-badge">
   <img src="https://img.shields.io/badge/.NET-4.8-blue.svg?style=for-the-badge">
   <a href="http://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/jeremytammik/RevitLookup?style=for-the-badge"></a>
