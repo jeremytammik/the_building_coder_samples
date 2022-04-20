@@ -1,3 +1,4 @@
+#if USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
 #region Header
 
 //
@@ -143,7 +144,9 @@ namespace BuildingCoder
                         //  loadSymbol, skplane ); // 2015
 
                         var amstick = e.GetAnalyticalModel()
-                            as AnalyticalModelStick;
+                            as AnalyticalModelStick; // 2022
+
+                        //AnalyticalMember amstick2 = e.
 
                         var lineLoad = LineLoad.Create(doc,
                             amstick, forces[0], moments[0], loadSymbol); // 2016
@@ -210,3 +213,4 @@ namespace BuildingCoder
         }
     }
 }
+#endif // USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023

@@ -1,3 +1,4 @@
+#if USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
 #region Header
 
 //
@@ -113,3 +114,4 @@ namespace BuildingCoder
         }
     }
 }
+#endif // USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
