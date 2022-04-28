@@ -1,10 +1,9 @@
-#if USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
 #region Header
 
 //
 // CmdAnalyticalModelGeom.cs - retrieve analytical model geometry
 //
-// Copyright (C) 2011-2021 by Jeremy Tammik, Autodesk Inc. All rights reserved.
+// Copyright (C) 2011-2022 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //
@@ -29,11 +28,14 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdAnalyticalModelGeom : IExternalCommand
     {
+#if USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
         /// <summary>
         ///     A list of all analytical curve types.
         /// </summary>
         private static readonly IEnumerable<AnalyticalCurveType>
-            CurveTypes = Enum.GetValues(typeof(AnalyticalCurveType)).Cast<AnalyticalCurveType>();
+            CurveTypes = Enum.GetValues(typeof(AnalyticalCurveType))
+                .Cast<AnalyticalCurveType>();
+#endif // USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
 
         /// <summary>
         ///     Offset at which to create a model curve copy
@@ -48,10 +50,28 @@ namespace BuildingCoder
         //static Transform _t = Transform.get_Translation( _offset ); // 2013
         private static readonly Transform T = Transform.CreateTranslation(Offset); // 2014
 
+        ElementId GetAnalyticalElementId(Element e)
+        {
+            Document doc = e.Document;
+
+            AnalyticalToPhysicalAssociationManager m 
+                = AnalyticalToPhysicalAssociationManager
+                  .GetAnalyticalToPhysicalAssociationManager(
+                    doc);
+
+            if (null == m)
+            {
+                throw new System.ArgumentException(
+                    "No AnalyticalToPhysicalAssociationManager found");
+            }
+
+            return m.GetAssociatedElementId(e.Id);
+        }
+
         public Result Execute(
-            ExternalCommandData commandData,
-            ref string message,
-            ElementSet elements)
+                    ExternalCommandData commandData,
+                    ref string message,
+                    ElementSet elements)
         {
             var uiapp = commandData.Application;
             var uidoc = uiapp.ActiveUIDocument;
@@ -86,6 +106,10 @@ namespace BuildingCoder
 
             foreach (Wall wall in walls)
             {
+                // The analytical model changed in Revit 2023
+                // This approach was possible previously:
+
+#if USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
                 var am = wall.GetAnalyticalModel(); // 2022
 
                 //AnalyticalToPhysicalRelationManager.GetCounterpartsIds
@@ -106,6 +130,10 @@ namespace BuildingCoder
 
                         creator.CreateModelCurve(curve.CreateTransformed(T)); // 2014
                 }
+#endif // USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
+
+                ElementId id = GetAnalyticalElementId(wall);
+
             }
 
             tx.Commit();
@@ -114,4 +142,4 @@ namespace BuildingCoder
         }
     }
 }
-#endif // USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
+//#endif // USING_ANALYTICAL_MODEL_BEFORE_REVIT_2023
