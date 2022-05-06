@@ -1,7 +1,7 @@
 #region Header
 
 //
-// CmdPreprocessFailure.cs - suppress warning message by implementing the IFailuresPreprocessor interface
+// CmdPreprocesseFailure.cs - suppress warning message by implementing the IFailuresPreprocessor interface
 //
 // Copyright (C) 2010-2021 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
@@ -12,6 +12,8 @@
 
 #region Namespaces
 
+using System.Collections.Generic;
+using System.Linq;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;

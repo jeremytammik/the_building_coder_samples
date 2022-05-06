@@ -368,3 +368,6 @@
 - 2022-02-25 2022.1.152.3 implemented RetrieveRectangularFabricationPartTags for https://forums.autodesk.com/t5/revit-api-forum/filter-fabrication-rectangular-ducts-and-the-tag-associated-with/m-p/10971268
 - 2022-02-25 2022.1.152.3 fixed camel case naming rule violations 
 - 2022-03-09 2022.1.152.4 return pipe instance count for https://forums.autodesk.com/t5/revit-api-forum/most-efficient-way-to-count-all-pipe-instances-in-the-project/m-p/10993859
+- 2022-04-19 2022.1.152.4 before migrating to Revit 2023
+- 2022-04-20 2023.1.152.0 flat migration to Revit 2023
+- 2022-04-28 2023.1.152.1 implemented GetAnalyticalElementId

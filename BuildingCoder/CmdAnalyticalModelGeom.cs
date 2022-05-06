@@ -50,6 +50,10 @@ namespace BuildingCoder
         //static Transform _t = Transform.get_Translation( _offset ); // 2013
         private static readonly Transform T = Transform.CreateTranslation(Offset); // 2014
 
+        /// <summary>
+        /// Return the associated analytical element id 
+        /// for the given element
+        /// </summary>
         ElementId GetAnalyticalElementId(Element e)
         {
             Document doc = e.Document;
