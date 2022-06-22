@@ -1137,6 +1137,28 @@ namespace BuildingCoder
 
         #endregion // Retrieve ducts and pipes intersecting wall
 
+        #region Retrieve fitting types with a specific part type
+
+        /// <summary>
+        ///     Retrieve all fitting types with a specific part type, cf.
+        ///     https://forums.autodesk.com/t5/revit-api-forum/enumerate-pipefittings-familysymbols-with-part-type-union-in-c/td-p/11248684
+        /// </summary>
+        IEnumerable<Element> GetFittingTypesOfPartType(
+            Document doc,
+            PartType parttype )
+        {
+            BuiltInParameter bip = BuiltInParameter.FAMILY_CONTENT_PART_TYPE;
+
+            return new FilteredElementCollector(doc)
+                .WhereElementIsElementType()
+                .OfCategory(BuiltInCategory.OST_PipeFitting)
+                .OfClass(typeof(FamilySymbol))
+                .Cast<FamilySymbol>()
+                .Where(f => f.Family.get_Parameter(bip)?.AsInteger() == (int) parttype);
+        }
+
+        #endregion // Retrieve fitting types with a specific part type
+
         #region Retrieve pipes belonging to specific system type
 
         /// <summary>
