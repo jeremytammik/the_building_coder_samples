@@ -1,7 +1,7 @@
 #region Header
 
 //
-// CmdPreprocesseFailure.cs - suppress warning message by implementing the IFailuresPreprocessor interface
+// CmdPreprocessFailure.cs - suppress warning message by implementing the IFailuresPreprocessor interface
 //
 // Copyright (C) 2010-2021 by Jeremy Tammik, Autodesk Inc. All rights reserved.
 //
