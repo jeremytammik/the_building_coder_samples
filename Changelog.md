@@ -371,3 +371,4 @@
 - 2022-04-19 2022.1.152.4 before migrating to Revit 2023
 - 2022-04-20 2023.1.152.0 flat migration to Revit 2023
 - 2022-04-28 2023.1.152.1 implemented GetAnalyticalElementId
+- 2022-06-22 2023.1.152.2 implemented GetFittingTypesOfPartType for https://forums.autodesk.com/t5/revit-api-forum/enumerate-pipefittings-familysymbols-with-part-type-union-in-c/m-p/11250754
