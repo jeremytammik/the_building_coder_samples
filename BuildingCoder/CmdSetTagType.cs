@@ -32,9 +32,9 @@ namespace BuildingCoder
     ///     create and set a new door tag type.
     /// </summary>
     [Transaction(TransactionMode.Manual)]
-    internal class CmdSetTagType : IExternalCommand
+    class CmdSetTagType : IExternalCommand
     {
-        private const double MeterToFeet = 3.2808399;
+        const double MeterToFeet = 3.2808399;
 
         public Result Execute(
             ExternalCommandData commandData,
@@ -172,7 +172,7 @@ namespace BuildingCoder
         ///     i.e. System.Type, matching the given built-in
         ///     category in the given document.
         /// </summary>
-        private static FilteredElementCollector
+        static FilteredElementCollector
             GetElementsOfType(
                 Document doc,
                 Type type,
@@ -192,7 +192,7 @@ namespace BuildingCoder
         ///     matching the given built-in category.
         ///     Todo: Compare this with the FamilySymbolFilter class.
         /// </summary>
-        private static FilteredElementCollector
+        static FilteredElementCollector
             GetFamilySymbols(
                 Document doc,
                 BuiltInCategory bic)
@@ -205,7 +205,7 @@ namespace BuildingCoder
         ///     Return the first family symbol found in the given document
         ///     matching the given built-in category, or null if none is found.
         /// </summary>
-        private static FamilySymbol GetFirstFamilySymbol(
+        static FamilySymbol GetFirstFamilySymbol(
             Document doc,
             BuiltInCategory bic)
         {
@@ -223,7 +223,7 @@ namespace BuildingCoder
         ///     'Level 1' and 'Level 2' will be returned.
         /// </summary>
         /// <returns>True if the two levels are successfully determined.</returns>
-        private static bool GetBottomAndTopLevels(
+        static bool GetBottomAndTopLevels(
             Document doc,
             ref Level levelBottom,
             ref Level levelTop)
@@ -381,5 +381,57 @@ namespace BuildingCoder
         }
 
         #endregion // Set Tag Colour to Element Colour
+
+        #region Determine Tag Extents Width and Height
+        /// <summary>
+        /// Determine tag extents, width and height
+        /// By AmitMetz in 
+        /// https://forums.autodesk.com/t5/revit-api-forum/tag-width-height-or-accurate-boundingbox-of-independenttag/m-p/11274095
+        /// </summary>
+        public static Tuple<double, double> GetTagExtents(
+            Document doc, 
+            IndependentTag tag)
+        {
+            Debug.Assert(
+                tag.Document.GetProjectId().Equals(doc.GetProjectId()), 
+                "expected same document");
+
+            //Dimension to return
+            double tagWidth;
+            double tagHeight;
+
+            //Tag's View and Element
+            View sec = doc.GetElement(tag.OwnerViewId) as View;
+            XYZ rightDirection = sec.RightDirection;
+            XYZ upDirection = sec.UpDirection;
+            Reference pipeReference = tag.GetTaggedReferences().First();
+            //Reference pipeReference = tag.GetTaggedReference(); //Older Revit Version
+
+            using (TransactionGroup transG = new TransactionGroup(doc))
+            {
+                transG.Start("Determine Tag Dimension");
+
+                using (Transaction trans = new Transaction(doc, "Determine Tag Dimension"))
+                {
+                    trans.Start();
+
+                    tag.LeaderEndCondition = LeaderEndCondition.Free;
+                    XYZ leaderEndPoint = tag.GetLeaderEnd(pipeReference);
+                    tag.TagHeadPosition = leaderEndPoint;
+                    tag.SetLeaderElbow(pipeReference, leaderEndPoint);
+
+                    trans.Commit();
+                }
+
+                //Tag Dimension
+                BoundingBoxXYZ tagBox = tag.get_BoundingBox(sec);
+                tagWidth = (tagBox.Max - tagBox.Min).DotProduct(rightDirection);
+                tagHeight = (tagBox.Max - tagBox.Min).DotProduct(upDirection);
+
+                transG.RollBack();
+            }
+            return Tuple.Create(tagWidth, tagHeight);
+        }
+        #endregion // Determine Tag Extents Widht and Height
     }
 }
