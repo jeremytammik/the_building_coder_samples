@@ -389,12 +389,9 @@ namespace BuildingCoder
         /// https://forums.autodesk.com/t5/revit-api-forum/tag-width-height-or-accurate-boundingbox-of-independenttag/m-p/11274095
         /// </summary>
         public static Tuple<double, double> GetTagExtents(
-            Document doc, 
             IndependentTag tag)
         {
-            Debug.Assert(
-                tag.Document.GetProjectId().Equals(doc.GetProjectId()), 
-                "expected same document");
+            Document doc = tag.Document;
 
             //Dimension to return
             double tagWidth;
