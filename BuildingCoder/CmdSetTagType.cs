@@ -411,9 +411,9 @@ namespace BuildingCoder
             {
                 transG.Start("Determine Tag Dimension");
 
-                using (Transaction trans = new Transaction(doc, "Determine Tag Dimension"))
+                using (Transaction trans = new Transaction(doc))
                 {
-                    trans.Start();
+                    trans.Start("Determine Tag Dimension");
 
                     tag.LeaderEndCondition = LeaderEndCondition.Free;
                     XYZ leaderEndPoint = tag.GetLeaderEnd(pipeReference);
