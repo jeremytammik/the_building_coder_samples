@@ -31,6 +31,7 @@ using View = Autodesk.Revit.DB.View;
 
 namespace BuildingCoder
 {
+
     #region Type filter versus anonymous method versus LINQ by Piotr Zurek
 
     //
@@ -2931,7 +2932,6 @@ TaskDialog.Show( "Revit", collector.Count() +
                 return Result.Succeeded;
             }
         }
-
         private void F3(Document doc)
         {
             var collector

@@ -373,3 +373,4 @@
 - 2022-04-28 2023.1.152.1 implemented GetAnalyticalElementId
 - 2022-06-22 2023.1.152.2 implemented GetFittingTypesOfPartType for https://forums.autodesk.com/t5/revit-api-forum/enumerate-pipefittings-familysymbols-with-part-type-union-in-c/m-p/11250754
 - 2022-07-12 2023.1.152.3 implemented GetTagExtents from https://forums.autodesk.com/t5/revit-api-forum/tag-width-height-or-accurate-boundingbox-of-independenttag/m-p/11274095
+- 2022-07-12 2023.1.152.4 removed doc argument

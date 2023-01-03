@@ -197,7 +197,7 @@ namespace BuildingCoder
         }
 
         /// <summary>
-        ///     Predicate to test whewther two points or
+        ///     Predicate to test whether two points or
         ///     vectors can be considered equal with the
         ///     given tolerance.
         /// </summary>
@@ -236,6 +236,10 @@ namespace BuildingCoder
             // c * c < _eps * a * b
         }
 
+        /// <summary>
+        ///     Return true if the vectors p and Q are parallel, 
+        ///     or at least one of them is zero length.
+        /// </summary>
         public static bool IsParallel(XYZ p, XYZ q)
         {
             return p.CrossProduct(q).IsZeroLength();
