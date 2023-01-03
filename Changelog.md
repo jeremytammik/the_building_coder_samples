@@ -374,3 +374,4 @@
 - 2022-06-22 2023.1.152.2 implemented GetFittingTypesOfPartType for https://forums.autodesk.com/t5/revit-api-forum/enumerate-pipefittings-familysymbols-with-part-type-union-in-c/m-p/11250754
 - 2022-07-12 2023.1.152.3 implemented GetTagExtents from https://forums.autodesk.com/t5/revit-api-forum/tag-width-height-or-accurate-boundingbox-of-independenttag/m-p/11274095
 - 2022-07-12 2023.1.152.4 removed doc argument
+- 2023-01-03 2023.1.152.5 updated version number and install directory for Revit 2023
