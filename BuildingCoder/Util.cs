@@ -1737,6 +1737,17 @@ const T f = ( ay * bx ) - ( ax * by );
             d.Show();
         }
 
+        public static void InfoMsg3(
+            string instruction,
+            IList<string> content)
+        {
+            Debug.WriteLine($"{instruction}\r\n{content}");
+            var d = new TaskDialog(_caption);
+            d.MainInstruction = instruction;
+            d.MainContent = string.Join("\r\n",content);
+            d.Show();
+        }
+
         public static void ErrorMsg(string msg)
         {
             Debug.WriteLine(msg);
@@ -2312,18 +2323,18 @@ const T f = ( ay * bx ) - ( ax * by );
             if (!exists)
                 Directory.CreateDirectory(sDir);
 
-            var XElementAddIn = new XElement("AddIn",
+            var xElementAddIn = new XElement("AddIn",
                 new XAttribute("Type", "Application"));
 
-            XElementAddIn.Add(new XElement("Name", dll_name));
-            XElementAddIn.Add(new XElement("Assembly", $"{dll_folder}{dll_name}.dll"));
-            XElementAddIn.Add(new XElement("AddInId", Guid.NewGuid().ToString()));
-            XElementAddIn.Add(new XElement("FullClassName", $"{dll_name}.SettingUpRibbon"));
-            XElementAddIn.Add(new XElement("VendorId", "01"));
-            XElementAddIn.Add(new XElement("VendorDescription", "Joshua Lumley Secrets, twitter @joshnewzealand"));
+            xElementAddIn.Add(new XElement("Name", dll_name));
+            xElementAddIn.Add(new XElement("Assembly", $"{dll_folder}{dll_name}.dll"));
+            xElementAddIn.Add(new XElement("AddInId", Guid.NewGuid().ToString()));
+            xElementAddIn.Add(new XElement("FullClassName", $"{dll_name}.SettingUpRibbon"));
+            xElementAddIn.Add(new XElement("VendorId", "01"));
+            xElementAddIn.Add(new XElement("VendorDescription", "Joshua Lumley Secrets, twitter @joshnewzealand"));
 
-            var XElementRevitAddIns = new XElement("RevitAddIns");
-            XElementRevitAddIns.Add(XElementAddIn);
+            var xElementRevitAddIns = new XElement("RevitAddIns");
+            xElementRevitAddIns.Add(xElementAddIn);
 
             foreach (var d in Directory.GetDirectories(sDir))
             {
@@ -2338,7 +2349,7 @@ const T f = ( ay * bx ) - ( ax * by );
 
                     if (myInt_FromTextBox >= 2017)
                     {
-                        new XDocument(XElementRevitAddIns).Save(
+                        new XDocument(xElementRevitAddIns).Save(
                             myString_ManifestPath);
                     }
                     else
@@ -2416,17 +2427,17 @@ const T f = ( ay * bx ) - ( ax * by );
     {
         // (C) Jonathan Skeet
         // from https://github.com/morelinq/MoreLINQ/blob/master/MoreLinq/MinBy.cs
-        public static tsource MinBy<tsource, tkey>(
-            this IEnumerable<tsource> source,
-            Func<tsource, tkey> selector)
+        public static TSource MinBy<TSource, TKey>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> selector)
         {
-            return source.MinBy(selector, Comparer<tkey>.Default);
+            return source.MinBy(selector, Comparer<TKey>.Default);
         }
 
-        public static tsource MinBy<tsource, tkey>(
-            this IEnumerable<tsource> source,
-            Func<tsource, tkey> selector,
-            IComparer<tkey> comparer)
+        public static TSource MinBy<TSource, TKey>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> selector,
+            IComparer<TKey> comparer)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
