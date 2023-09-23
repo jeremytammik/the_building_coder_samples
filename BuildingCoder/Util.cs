@@ -1467,19 +1467,20 @@ const T f = ( ay * bx ) - ( ax * by );
         ///     Return a string representation in degrees
         ///     for an angle given in radians.
         /// </summary>
-        public static string AngleString(double angle)
+        public static string AngleString(double angle, bool addUnits = true)
         {
-            return $"{RealString(angle * 180 / Math.PI)} degrees";
+            string sunits = addUnits ? " degrees" : string.Empty;
+            return $"{RealString(angle * 180 / Math.PI)}" + sunits;
         }
 
         /// <summary>
         ///     Return a string for a length in millimetres
         ///     formatted as an integer value.
         /// </summary>
-        public static string MmString(double length)
+        public static string MmString(double length, bool addUnits = true)
         {
-            //return RealString( FootToMm( length ) ) + " mm";
-            return $"{Math.Round(FootToMm(length))} mm";
+            string sunits = addUnits ? " mm" : string.Empty;
+            return $"{Math.Round(FootToMm(length))}" + sunits;
         }
 
         /// <summary>
@@ -1830,6 +1831,10 @@ const T f = ( ay * bx ) - ( ax * by );
                     rc = true;
                 }
             }
+
+            // Todo: if thew Location property is null,
+            // try using the BuondingBox. If that is null
+            // or empty, try to retrieve geometry vertices
 
             return rc;
         }
