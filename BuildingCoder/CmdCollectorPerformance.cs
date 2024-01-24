@@ -1761,7 +1761,7 @@ namespace BuildingCoder
         {
             var provider
                 = new ParameterValueProvider(new ElementId(
-                    (int) BuiltInParameter.ID_PARAM));
+                    (long) BuiltInParameter.ID_PARAM));
 
             var rule
                 = new FilterElementIdRule(provider,

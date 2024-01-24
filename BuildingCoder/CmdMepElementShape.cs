@@ -86,9 +86,10 @@ namespace BuildingCoder
 
         #region MEP Element Shape Version 1
 
+        /*
         private static class MepElementShapeV1
         {
-            private static readonly RegexCache RegexCache = new();
+            //private static readonly RegexCache RegexCache2 = new();
 
             private static bool Is_element_of_category(
                 Element e,
@@ -222,25 +223,25 @@ namespace BuildingCoder
                                 return "rectangular2rectangular";
                             if (size.Split('/').Length == 3) // but if in imperial units size is in fractional inches format it has to be replaced by another regular expression
                                 return "oval2oval";
-                            if (RegexCache.Match(
+                            if (RegexCache2.Match(
                                 "[0-9]+\"?x[0-9]+\"?-[0-9]+\"?/[0-9]+\"?", size))
                                 return "rectangular2oval";
-                            if (RegexCache.Match(
+                            if (RegexCache2.Match(
                                 "[0-9]+\"?/[0-9]+\"?-[0-9]+\"?x[0-9]+\"?", size))
                                 return "oval2rectangular";
-                            if (RegexCache.Match(
+                            if (RegexCache2.Match(
                                 "[0-9]+\"?[^0-9]-[0-9]+\"?x[0-9]+\"?", size))
                                 return "round2rectangular";
-                            if (RegexCache.Match(
+                            if (RegexCache2.Match(
                                 "[0-9]+\"?x[0-9]+\"?-[0-9]+\"?[^0-9]", size))
                                 return "rectangular2round";
-                            if (RegexCache.Match(
+                            if (RegexCache2.Match(
                                 "[0-9]+\"?[^0-9]-[0-9]+\"?/[0-9]+\"?", size))
                                 return "round2oval";
-                            if (RegexCache.Match(
+                            if (RegexCache2.Match(
                                 "[0-9]+\"?/[0-9]+\"?-[0-9]+\"?[^0-9]", size))
                                 return "oval2round";
-                            if (RegexCache.Match(
+                            if (RegexCache2.Match(
                                 "[0-9]+\"?[^0-9]-[0-9]+\"?[^0-9]", size))
                                 return "round2round";
                             return "other case";
@@ -255,7 +256,7 @@ namespace BuildingCoder
             /// <summary>
             ///     Helper class to cache compiled regular expressions.
             /// </summary>
-            private class RegexCache : Dictionary<string, Regex>
+            private class RegexCache2 : Dictionary<string, Regex>
             {
                 /// <summary>
                 ///     Apply regular expression pattern matching
@@ -273,6 +274,7 @@ namespace BuildingCoder
                 }
             }
         }
+        */
 
         #endregion // MEP Element Shape Version 1
 
@@ -354,7 +356,7 @@ namespace BuildingCoder
                             {
                                 if (pe != null)
                                 {
-                                    if (is_connected_to(c, pe))
+                                    if (Is_connected_to(c, pe))
                                         tmp[0] = c.Shape.ToString();
                                     else
                                         tmp[1] = c.Shape.ToString();
@@ -387,7 +389,7 @@ namespace BuildingCoder
                                     else
                                         unk.Add(c.Shape.ToString());
 
-                                    if (ne != null && is_connected_to(c, ne))
+                                    if (ne != null && Is_connected_to(c, ne))
                                         to = c.Shape.ToString();
                                 }
 
@@ -399,14 +401,14 @@ namespace BuildingCoder
 
                             foreach (Connector c in connectors)
                             {
-                                if (ne != null && is_connected_to(
+                                if (ne != null && Is_connected_to(
                                     c, ne))
                                 {
                                     to = c.Shape.ToString();
                                     continue;
                                 }
 
-                                if (pe != null && is_connected_to(
+                                if (pe != null && Is_connected_to(
                                     c, pe))
                                 {
                                     from = c.Shape.ToString();
@@ -433,7 +435,7 @@ namespace BuildingCoder
             /// <summary>
             ///     Check if connector is connected to some connector of the element.
             /// </summary>
-            public static bool is_connected_to(
+            public static bool Is_connected_to(
                 Connector c,
                 Element e)
             {

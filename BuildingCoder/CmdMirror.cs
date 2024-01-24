@@ -200,7 +200,7 @@ namespace BuildingCoder
                 t.Start();
 
                 app.DocumentChanged
-                    += app_DocumentChanged;
+                    += OnDocumentChanged;
 
                 //doc.Mirror( els, line ); // 2011
 
@@ -211,7 +211,7 @@ namespace BuildingCoder
                     doc, elementIds, plane, true); // 2016
 
                 app.DocumentChanged
-                    -= app_DocumentChanged;
+                    -= OnDocumentChanged;
 
                 Debug.Assert(null == _addedElementIds,
                     "never expected the event handler to be called");
@@ -349,7 +349,7 @@ namespace BuildingCoder
             return input.WherePasses(filter);
         }
 
-        private void app_DocumentChanged(
+        private void OnDocumentChanged(
             object sender,
             DocumentChangedEventArgs e)
         {

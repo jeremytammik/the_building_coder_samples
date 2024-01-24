@@ -284,7 +284,7 @@ namespace BuildingCoder
     /// </summary>
     internal class CmdAlignTwoViews : IExternalCommand
     {
-        private const BuiltInParameter _bipFarOffset
+        private const BuiltInParameter BipFarOffset
             = BuiltInParameter.VIEWER_BOUND_OFFSET_FAR;
 
         public Result Execute(
@@ -324,12 +324,12 @@ namespace BuildingCoder
             savedBoxFront = frontView.CropBox;
             frontCropActive = frontView.CropBoxActive;
             frontCropVisible = frontView.CropBoxVisible;
-            param = frontView.get_Parameter(_bipFarOffset);
+            param = frontView.get_Parameter(BipFarOffset);
             if (param != null) farClipFront = param.AsDouble();
             savedBoxLeft = leftView.CropBox;
             leftCropActive = leftView.CropBoxActive;
             leftCropVisible = leftView.CropBoxVisible;
-            param = leftView.get_Parameter(_bipFarOffset);
+            param = leftView.get_Parameter(BipFarOffset);
             if (param != null) farClipLeft = param.AsDouble();
 
             // Here my approach differs from yours. 
@@ -438,7 +438,7 @@ namespace BuildingCoder
             frontView.CropBoxActive = frontCropActive;
             frontView.CropBoxVisible = frontCropVisible;
 
-            param = frontView.get_Parameter(_bipFarOffset);
+            param = frontView.get_Parameter(BipFarOffset);
 
             if (param != null) param.Set(farClipFront);
 
@@ -446,7 +446,7 @@ namespace BuildingCoder
             leftView.CropBoxActive = leftCropActive;
             leftView.CropBoxVisible = leftCropVisible;
 
-            param = leftView.get_Parameter(_bipFarOffset);
+            param = leftView.get_Parameter(BipFarOffset);
 
             if (param != null) param.Set(farClipLeft);
 

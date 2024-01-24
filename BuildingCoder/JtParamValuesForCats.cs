@@ -101,7 +101,7 @@ namespace BuildingCoder
             var ids
                 = new List<BuiltInCategory>(cats)
                     .ConvertAll(c
-                        => new ElementId((int) c));
+                        => new ElementId((long) c));
 
             var r
                 = new FilterCategoryRule(ids);

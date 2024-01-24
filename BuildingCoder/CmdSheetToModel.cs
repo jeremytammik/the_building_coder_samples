@@ -134,9 +134,9 @@ namespace BuildingCoder
 
                 foreach (var e in dwfMarkups)
                 {
-                    var GeoElem = e.get_Geometry(new Options());
+                    var geoElem = e.get_Geometry(new Options());
 
-                    var gi = GeoElem.Cast<GeometryInstance>().First();
+                    var gi = geoElem.Cast<GeometryInstance>().First();
 
                     var gei = gi.GetSymbolGeometry();
 

@@ -44,6 +44,8 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdWallOpenings : IExternalCommand
     {
+#pragma warning disable IDE1006
+
         /// <summary>
         ///     Move out of wall and up from floor a bit
         /// </summary>

@@ -161,7 +161,7 @@ namespace BuildingCoder
 
         #region Isolate element in new view
 
-        public void testTwo(UIDocument uidoc)
+        public void TestTwo(UIDocument uidoc)
         {
             var doc = uidoc.Document;
 
@@ -175,7 +175,7 @@ namespace BuildingCoder
                 // properties for ouw newly to create ViewPlan.
 
                 var existingView = doc.GetElement(
-                    new ElementId(312)) as View;
+                    new ElementId((long)312)) as View;
 
                 // Create new Floorplan.
 
@@ -192,7 +192,7 @@ namespace BuildingCoder
 
                 // Try to isolate a Wall. Fails.
 
-                newView.IsolateElementTemporary(new ElementId(317443));
+                newView.IsolateElementTemporary(new ElementId((long)317443));
 
                 t.Commit();
             }

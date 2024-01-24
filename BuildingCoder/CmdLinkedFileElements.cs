@@ -55,7 +55,7 @@ namespace BuildingCoder
 
         public string Element { get; }
 
-        public int Id { get; }
+        public long Id { get; }
 
         public string X => Util.RealString(_x);
 
@@ -143,7 +143,7 @@ namespace BuildingCoder
 
             // Get symbol
 
-            var symbolId = new ElementId(126580);
+            var symbolId = new ElementId((long)126580);
 
             var fs = doc.GetElement(symbolId)
                 as FamilySymbol;

@@ -25,6 +25,8 @@ namespace BuildingCoder
     /// </summary>
     internal class JtSelectorMulti<T> where T : Element
     {
+#pragma warning disable IDE1006
+
         /// <summary>
         ///     Determine whether the given element is a valid
         ///     selectable object. The method passed in is
