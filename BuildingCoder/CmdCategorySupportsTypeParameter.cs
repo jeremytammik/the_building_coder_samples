@@ -4,7 +4,9 @@
 // CmdCategorySupportsTypeParameter.cs - Boolean predicate to 
 // determine whether a given category supports type parameter
 //
-// Copyright (C) 2008-2021 by Jeremy Tammik,
+// Removed this entire module while porting to Revit 2024.
+
+// Copyright (C) 2008-2024 by Jeremy Tammik,
 // Autodesk Inc. All rights reserved.
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
@@ -12,6 +14,7 @@
 
 #endregion // Header
 
+/*
 #region Namespaces
 
 using System;
@@ -652,6 +655,7 @@ namespace BuildingCoder
                 : "does not support";
         }
 
+        /*
         #region Todd's enums
 
         public enum BIC_AllowsBoundParametersAsType
@@ -1317,5 +1321,7 @@ namespace BuildingCoder
         }
 
         #endregion // Todd's enums
+        
     }
 }
+*/

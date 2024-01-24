@@ -20,30 +20,32 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="AdWindows">
-          <HintPath>C:\Program Files\Autodesk\Revit 2023\AdWindows.dll</HintPath>
-          <Private>false</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2024\AdWindows.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="RevitAPI">
-          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPI.dll</HintPath>
-          <Private>false</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2024\RevitAPI.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="RevitAPIIFC">
-          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPIIFC.dll</HintPath>
-          <Private>false</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2024\RevitAPIIFC.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="RevitAPIMacros">
-          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPIMacros.dll</HintPath>
-          <Private>false</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2024\RevitAPIMacros.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="RevitAPIUI">
-          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPIUI.dll</HintPath>
-          <Private>false</Private>
+          <HintPath>C:\Program Files\Autodesk\Revit 2024\RevitAPIUI.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="RevitAPIUIMacros">
-          <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPIUIMacros.dll</HintPath>
+          <HintPath>C:\Program Files\Autodesk\Revit 2024\RevitAPIUIMacros.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="UIFrameworkServices">
-          <HintPath>C:\Program Files\Autodesk\Revit 2023\UIFrameworkServices.dll</HintPath>
+          <HintPath>C:\Program Files\Autodesk\Revit 2024\UIFrameworkServices.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="WindowsBase">
         </Reference>
