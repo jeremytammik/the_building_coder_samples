@@ -193,7 +193,7 @@ namespace BuildingCoder
                 Debug.Assert(null != p,
                     "expected valid sheet number");
 
-                var s_sheet_number = p.AsString();
+                var sheet_number = p.AsString();
 
                 p = tb.get_Parameter(
                     BuiltInParameter.PROJECT_AUTHOR);
@@ -201,7 +201,7 @@ namespace BuildingCoder
                 Debug.Assert(null != p,
                     "expected valid project author");
 
-                var s_project_author = p.AsValueString();
+                var project_author = p.AsValueString();
 
                 p = tb.get_Parameter(
                     BuiltInParameter.CLIENT_NAME);
@@ -209,15 +209,15 @@ namespace BuildingCoder
                 Debug.Assert(null != p,
                     "expected valid client name");
 
-                var s_client_name = p.AsValueString();
+                var client_name = p.AsValueString();
 
                 Debug.Print(
                     "Title block {0} <{1}> of type {2} <{3}>: "
                     + "{4} project author {5} for client {6}",
                     tb.Name, tb.Id.Value,
                     type.Name, typeId.Value,
-                    s_sheet_number, s_project_author,
-                    s_client_name);
+                    sheet_number, project_author,
+                    client_name);
             }
         }
 

@@ -186,7 +186,7 @@ namespace BuildingCoder
 
             var provider
                 = new ParameterValueProvider(
-                    new ElementId((int)
+                    new ElementId((Int64)
                         BuiltInParameter.PHASE_CREATED));
 
             FilterNumericRuleEvaluator evaluator
@@ -330,7 +330,7 @@ namespace BuildingCoder
         ///     dictionary mapping all element ids to the
         ///     corresponding param values.
         /// </summary>
-        private Dictionary<int, double>
+        private Dictionary<long, double>
             GetAllDetailComponentCustomParamValues(
                 Document doc)
         {
@@ -345,7 +345,7 @@ namespace BuildingCoder
             const string param_name = "Custom_Param";
 
             var d
-                = new Dictionary<int, double>(n);
+                = new Dictionary<long, double>(n);
 
             foreach (var dc in dcs)
             {
@@ -2967,14 +2967,14 @@ TaskDialog.Show( "Revit", collector.Count() +
 
             var pvp
                 = new ParameterValueProvider(
-                    new ElementId((int) testParam));
+                    new ElementId((Int64) testParam));
 
             FilterNumericRuleEvaluator fnrv
                 = new FilterNumericGreater();
 
             // filter elements whose Id is greater than 99
 
-            var ruleValId = new ElementId(99);
+            var ruleValId = new ElementId((Int64)99);
 
             FilterRule paramFr = new FilterElementIdRule(
                 pvp, fnrv, ruleValId);
@@ -2996,7 +2996,7 @@ TaskDialog.Show( "Revit", collector.Count() +
             testParam = BuiltInParameter.VIEWER_CROP_REGION;
 
             pvp = new ParameterValueProvider(
-                new ElementId((int) testParam));
+                new ElementId((Int64) testParam));
 
             fnrv = new FilterNumericEquals();
 
@@ -3019,7 +3019,7 @@ TaskDialog.Show( "Revit", collector.Count() +
                 BuiltInParameter.VIEWER_BOUND_OFFSET_TOP;
 
             pvp = new ParameterValueProvider(
-                new ElementId((int) testParam));
+                new ElementId((Int64) testParam));
 
             fnrv = new FilterNumericGreater();
 
@@ -3039,7 +3039,7 @@ TaskDialog.Show( "Revit", collector.Count() +
             testParam = BuiltInParameter.VIEW_NAME;
 
             pvp = new ParameterValueProvider(
-                new ElementId((int) testParam));
+                new ElementId((Int64) testParam));
 
             FilterStringRuleEvaluator fnrvStr
                 = new FilterStringContains();

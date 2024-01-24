@@ -34,7 +34,7 @@ namespace BuildingCoder
         public ElementData(
             string path,
             string elementName,
-            int id,
+            long id,
             double x,
             double y,
             double z,
@@ -139,7 +139,7 @@ namespace BuildingCoder
 
         public void AddFaceBasedFamilyToLinks(Document doc)
         {
-            var alignedLinkId = new ElementId(125929);
+            var alignedLinkId = new ElementId((Int64)125929);
 
             // Get symbol
 

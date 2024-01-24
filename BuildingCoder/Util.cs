@@ -35,6 +35,8 @@ namespace BuildingCoder
 {
     internal class Util
     {
+#pragma warning disable IDE1006 // Naming Styles
+
         #region Geometrical Comparison
 
         /// <summary>

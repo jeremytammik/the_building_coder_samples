@@ -227,7 +227,7 @@ namespace BuildingCoder
         /// <summary>
         ///     Simulate VSTA macro Application class member variable:
         /// </summary>
-        private Application Create;
+        private Application _create;
 
         /// <summary>
         ///     Return a view with the given name in the document.
@@ -436,7 +436,7 @@ namespace BuildingCoder
             //ElementId instanceId = Create.NewElementId();
             //instanceId.IntegerValue = 230298;
 
-            var instanceId = new ElementId(230298);
+            var instanceId = new ElementId((Int64)230298);
 
             if (doc.GetElement(
                 instanceId) is not FamilyInstance beam)
@@ -462,10 +462,10 @@ namespace BuildingCoder
                     0.5 * i, true);
 
                 var bendPnt = lCurvePnt.Add(
-                    Create.NewXYZ(0, 1, 4));
+                    _create.NewXYZ(0, 1, 4));
 
                 var endPnt = lCurvePnt.Add(
-                    Create.NewXYZ(0, 2, 4));
+                    _create.NewXYZ(0, 2, 4));
 
                 // NewSpotElevation arguments:
                 // View view, Reference reference,
@@ -494,7 +494,7 @@ namespace BuildingCoder
         {
             var app = commandData.Application;
             var doc = app.ActiveUIDocument.Document;
-            Create = app.Application.Create;
+            _create = app.Application.Create;
 
             return NewSpotElevation(doc)
                 ? Result.Succeeded

@@ -88,9 +88,9 @@ namespace BuildingCoder
 
         private static class MepElementShapeV1
         {
-            private static readonly RegexCache _regexCache = new();
+            private static readonly RegexCache RegexCache = new();
 
-            private static bool is_element_of_category(
+            private static bool Is_element_of_category(
                 Element e,
                 BuiltInCategory c)
             {
@@ -111,7 +111,7 @@ namespace BuildingCoder
             /// </summary>
             public static string GetElementShape(Element e)
             {
-                if (is_element_of_category(e,
+                if (Is_element_of_category(e,
                     BuiltInCategory.OST_DuctCurves))
                 {
                     // simple case, no need to use regular expression
@@ -133,7 +133,7 @@ namespace BuildingCoder
                     return "round";
                 }
 
-                if (is_element_of_category(e,
+                if (Is_element_of_category(e,
                     BuiltInCategory.OST_DuctFitting))
                     if (e is FamilyInstance {MEPModel: MechanicalFitting fitting})
                     {
@@ -222,25 +222,25 @@ namespace BuildingCoder
                                 return "rectangular2rectangular";
                             if (size.Split('/').Length == 3) // but if in imperial units size is in fractional inches format it has to be replaced by another regular expression
                                 return "oval2oval";
-                            if (_regexCache.Match(
+                            if (RegexCache.Match(
                                 "[0-9]+\"?x[0-9]+\"?-[0-9]+\"?/[0-9]+\"?", size))
                                 return "rectangular2oval";
-                            if (_regexCache.Match(
+                            if (RegexCache.Match(
                                 "[0-9]+\"?/[0-9]+\"?-[0-9]+\"?x[0-9]+\"?", size))
                                 return "oval2rectangular";
-                            if (_regexCache.Match(
+                            if (RegexCache.Match(
                                 "[0-9]+\"?[^0-9]-[0-9]+\"?x[0-9]+\"?", size))
                                 return "round2rectangular";
-                            if (_regexCache.Match(
+                            if (RegexCache.Match(
                                 "[0-9]+\"?x[0-9]+\"?-[0-9]+\"?[^0-9]", size))
                                 return "rectangular2round";
-                            if (_regexCache.Match(
+                            if (RegexCache.Match(
                                 "[0-9]+\"?[^0-9]-[0-9]+\"?/[0-9]+\"?", size))
                                 return "round2oval";
-                            if (_regexCache.Match(
+                            if (RegexCache.Match(
                                 "[0-9]+\"?/[0-9]+\"?-[0-9]+\"?[^0-9]", size))
                                 return "oval2round";
-                            if (_regexCache.Match(
+                            if (RegexCache.Match(
                                 "[0-9]+\"?[^0-9]-[0-9]+\"?[^0-9]", size))
                                 return "round2round";
                             return "other case";
@@ -295,7 +295,7 @@ namespace BuildingCoder
                 Element pe = null,
                 Element ne = null)
             {
-                if (is_element_of_category(e,
+                if (Is_element_of_category(e,
                     BuiltInCategory.OST_DuctCurves))
                 {
                     // assuming that transition is using to change shape..
@@ -306,7 +306,7 @@ namespace BuildingCoder
                     foreach (Connector c in cm.Connectors)
                         return $"{c.Shape} 2 {c.Shape}";
                 }
-                else if (is_element_of_category(e,
+                else if (Is_element_of_category(e,
                     BuiltInCategory.OST_DuctFitting))
                 {
                     var system
@@ -450,7 +450,7 @@ namespace BuildingCoder
             /// <summary>
             ///     Check if element belongs to the category.
             /// </summary>
-            public static bool is_element_of_category(
+            public static bool Is_element_of_category(
                 Element e,
                 BuiltInCategory c)
             {

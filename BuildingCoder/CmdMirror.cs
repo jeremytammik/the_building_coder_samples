@@ -384,7 +384,7 @@ namespace BuildingCoder
                 .Where(e => null != e.LevelId
                             && ElementId.InvalidElementId != e.LevelId)
                 .Where(e => null != e.get_Geometry(opt))
-                .Max<Element, int>(e => e.Id.Value);
+                .Max<Element, long>(e => e.Id.Value);
 
             var last_eid = new ElementId(id_max);
 

@@ -32,7 +32,7 @@ namespace BuildingCoder
 
     internal class FindTextureBitmapPathsWrapper
     {
-        private readonly string[] targetMaterialNames =
+        private readonly string[] _targetMaterialNames =
         {
             // A standard Revit material, with 
             // textures in standard paths. 
@@ -53,7 +53,7 @@ namespace BuildingCoder
 
             var targetMaterials
                 = fec.Cast<Material>().Where(mtl =>
-                    targetMaterialNames.Contains(mtl.Name));
+                    _targetMaterialNames.Contains(mtl.Name));
 
             foreach (var material in targetMaterials)
             {
@@ -178,7 +178,7 @@ namespace BuildingCoder
             public AssetPropertyPropertyDescriptor(AssetProperty assetProperty)
                 : base(assetProperty.Name, Array.Empty<Attribute>())
             {
-                m_assetProperty = assetProperty;
+                _assetProperty = assetProperty;
             }
 
             #region Properties
@@ -186,7 +186,7 @@ namespace BuildingCoder
             /// <summary>
             ///     Property to get internal AssetProperty
             /// </summary>
-            public AssetProperty AssetProperty => m_assetProperty;
+            public AssetProperty AssetProperty => _assetProperty;
 
             #endregion
 
@@ -227,18 +227,18 @@ namespace BuildingCoder
             /// <summary>
             ///     A reference to an AssetProperty
             /// </summary>
-            private readonly AssetProperty m_assetProperty;
+            private readonly AssetProperty _assetProperty;
 
             /// <summary>
             ///     The type of AssetProperty's property "Value"
             /// </summary>
             /// m
-            private Type m_valueType;
+            private Type _valueType;
 
             /// <summary>
             ///     The value of AssetProperty's property "Value"
             /// </summary>
-            private object m_value;
+            private object _value;
 
             #endregion
 
@@ -252,12 +252,12 @@ namespace BuildingCoder
             /// <summary>
             ///     Gets the type of the component this property is bound to.
             /// </summary>
-            public override Type ComponentType => m_assetProperty.GetType();
+            public override Type ComponentType => _assetProperty.GetType();
 
             /// <summary>
             ///     Gets the type of the property.
             /// </summary>
-            public override Type PropertyType => m_valueType;
+            public override Type PropertyType => _valueType;
 
             #endregion
 
@@ -270,7 +270,7 @@ namespace BuildingCoder
             /// <returns></returns>
             public override bool Equals(object obj)
             {
-                return obj is AssetPropertyPropertyDescriptor other && other.AssetProperty.Equals(m_assetProperty);
+                return obj is AssetPropertyPropertyDescriptor other && other.AssetProperty.Equals(_assetProperty);
             }
 
             /// <summary>
@@ -280,7 +280,7 @@ namespace BuildingCoder
             /// <returns></returns>
             public override int GetHashCode()
             {
-                return m_assetProperty.GetHashCode();
+                return _assetProperty.GetHashCode();
             }
 
             /// <summary>
@@ -319,11 +319,11 @@ namespace BuildingCoder
             /// <returns>The value of a property for a given component.</returns>
             public override object GetValue(object component)
             {
-                var typeAndValue = GetTypeAndValue(m_assetProperty, 0);
-                m_value = typeAndValue.Item2;
-                m_valueType = typeAndValue.Item1;
+                var typeAndValue = GetTypeAndValue(_assetProperty, 0);
+                _value = typeAndValue.Item2;
+                _valueType = typeAndValue.Item1;
 
-                return m_value;
+                return _value;
             }
 
             private static Tuple<Type, object> GetTypeAndValue(AssetProperty assetProperty, int level)
@@ -472,7 +472,7 @@ namespace BuildingCoder
             /// <param name="asset">an Asset object</param>
             public RenderAppearanceDescriptor(Asset asset)
             {
-                m_asset = asset;
+                _asset = asset;
                 GetAssetProperties();
             }
 
@@ -483,12 +483,12 @@ namespace BuildingCoder
             /// <summary>
             ///     Reference to Asset
             /// </summary>
-            private readonly Asset m_asset;
+            private readonly Asset _asset;
 
             /// <summary>
             ///     Asset's property descriptors
             /// </summary>
-            private PropertyDescriptorCollection m_propertyDescriptors;
+            private PropertyDescriptorCollection _propertyDescriptors;
 
             #endregion
 
@@ -502,7 +502,7 @@ namespace BuildingCoder
             /// <returns>Asset's attributes</returns>
             public AttributeCollection GetAttributes()
             {
-                return TypeDescriptor.GetAttributes(m_asset, false);
+                return TypeDescriptor.GetAttributes(_asset, false);
             }
 
             /// <summary>
@@ -511,7 +511,7 @@ namespace BuildingCoder
             /// <returns>Asset's class name</returns>
             public string GetClassName()
             {
-                return TypeDescriptor.GetClassName(m_asset, false);
+                return TypeDescriptor.GetClassName(_asset, false);
             }
 
             /// <summary>
@@ -520,7 +520,7 @@ namespace BuildingCoder
             /// <returns>The name of Asset</returns>
             public string GetComponentName()
             {
-                return TypeDescriptor.GetComponentName(m_asset, false);
+                return TypeDescriptor.GetComponentName(_asset, false);
             }
 
             /// <summary>
@@ -529,7 +529,7 @@ namespace BuildingCoder
             /// <returns>The converter of the Asset</returns>
             public TypeConverter GetConverter()
             {
-                return TypeDescriptor.GetConverter(m_asset, false);
+                return TypeDescriptor.GetConverter(_asset, false);
             }
 
             /// <summary>
@@ -541,7 +541,7 @@ namespace BuildingCoder
             /// </returns>
             public EventDescriptor GetDefaultEvent()
             {
-                return TypeDescriptor.GetDefaultEvent(m_asset, false);
+                return TypeDescriptor.GetDefaultEvent(_asset, false);
             }
 
             /// <summary>
@@ -553,7 +553,7 @@ namespace BuildingCoder
             /// </returns>
             public PropertyDescriptor GetDefaultProperty()
             {
-                return TypeDescriptor.GetDefaultProperty(m_asset, false);
+                return TypeDescriptor.GetDefaultProperty(_asset, false);
             }
 
             /// <summary>
@@ -566,7 +566,7 @@ namespace BuildingCoder
             /// </returns>
             public object GetEditor(Type editorBaseType)
             {
-                return TypeDescriptor.GetEditor(m_asset, editorBaseType, false);
+                return TypeDescriptor.GetEditor(_asset, editorBaseType, false);
             }
 
             /// <summary>
@@ -576,7 +576,7 @@ namespace BuildingCoder
             /// <returns>An EventDescriptorCollection that represents the filtered events for this Asset instance.</returns>
             public EventDescriptorCollection GetEvents(Attribute[] attributes)
             {
-                return TypeDescriptor.GetEvents(m_asset, attributes, false);
+                return TypeDescriptor.GetEvents(_asset, attributes, false);
             }
 
             /// <summary>
@@ -585,7 +585,7 @@ namespace BuildingCoder
             /// <returns>An EventDescriptorCollection that represents the events for this Asset instance.</returns>
             public EventDescriptorCollection GetEvents()
             {
-                return TypeDescriptor.GetEvents(m_asset, false);
+                return TypeDescriptor.GetEvents(_asset, false);
             }
 
             /// <summary>
@@ -598,7 +598,7 @@ namespace BuildingCoder
             /// </returns>
             public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
             {
-                return m_propertyDescriptors;
+                return _propertyDescriptors;
             }
 
             /// <summary>
@@ -610,7 +610,7 @@ namespace BuildingCoder
             /// </returns>
             public PropertyDescriptorCollection GetProperties()
             {
-                return m_propertyDescriptors;
+                return _propertyDescriptors;
             }
 
             /// <summary>
@@ -620,7 +620,7 @@ namespace BuildingCoder
             /// <returns>Asset object</returns>
             public object GetPropertyOwner(PropertyDescriptor pd)
             {
-                return m_asset;
+                return _asset;
             }
 
             #endregion
@@ -630,22 +630,22 @@ namespace BuildingCoder
             /// </summary>
             private void GetAssetProperties()
             {
-                if (null == m_propertyDescriptors)
-                    m_propertyDescriptors = new PropertyDescriptorCollection(Array.Empty<AssetPropertyPropertyDescriptor>());
+                if (null == _propertyDescriptors)
+                    _propertyDescriptors = new PropertyDescriptorCollection(Array.Empty<AssetPropertyPropertyDescriptor>());
                 else
                     return;
 
                 //For each AssetProperty in Asset, create an AssetPropertyPropertyDescriptor.
                 //It means that each AssetProperty will be a property of Asset
-                for (var index = 0; index < m_asset.Size; index++)
+                for (var index = 0; index < _asset.Size; index++)
                 {
                     //AssetProperty assetProperty = m_asset[index]; // 2018
-                    var assetProperty = m_asset.Get(index); // 2019
+                    var assetProperty = _asset.Get(index); // 2019
 
                     if (null != assetProperty)
                     {
                         var assetPropertyPropertyDescriptor = new AssetPropertyPropertyDescriptor(assetProperty);
-                        m_propertyDescriptors.Add(assetPropertyPropertyDescriptor);
+                        _propertyDescriptors.Add(assetPropertyPropertyDescriptor);
                     }
                 }
             }

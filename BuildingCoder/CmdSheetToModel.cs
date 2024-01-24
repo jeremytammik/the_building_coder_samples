@@ -87,17 +87,17 @@ namespace BuildingCoder
                         (int) BuiltInParameter.VIEWER_CROP_REGION))
                     .Set(1);
 
-                var VC = (plan.CropBox.Min + plan.CropBox.Max) / 2;
+                var vc = (plan.CropBox.Min + plan.CropBox.Max) / 2;
 
-                var BC = vp.GetBoxCenter();
+                var bc = vp.GetBoxCenter();
 
                 t.RollBack();
 
                 foreach (var e in dwfMarkups)
                 {
-                    var GeoElem = e.get_Geometry(new Options());
+                    var geoElem = e.get_Geometry(new Options());
 
-                    var gi = GeoElem.Cast<GeometryInstance>().First();
+                    var gi = geoElem.Cast<GeometryInstance>().First();
 
                     var gei = gi.GetSymbolGeometry();
 
@@ -122,11 +122,11 @@ namespace BuildingCoder
                             med = (min + max) / 2;
                         }
 
-                        med = med - BC;
+                        med = med - bc;
 
                         // Convert DWF sheet coordinates into model coordinates
 
-                        var a = VC + new XYZ(med.X * scale, med.Y * scale, 0);
+                        var a = vc + new XYZ(med.X * scale, med.Y * scale, 0);
                     }
                 }
 
@@ -151,9 +151,9 @@ namespace BuildingCoder
 
                             var med = c.Evaluate(0.5, true);
 
-                            med = med - BC;
+                            med = med - bc;
 
-                            var a = VC + new XYZ(med.X * scale, med.Y * scale, 0);
+                            var a = vc + new XYZ(med.X * scale, med.Y * scale, 0);
 
                             // Warning CS0618: 
                             // Autodesk.Revit.Creation.ItemFactoryBase.NewTextNote(
@@ -190,6 +190,8 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     public class CmdMiroTest2 : IExternalCommand
     {
+#pragma warning disable IDE1006
+
         public ApplicationRvt _app;
 
         // KIS - public fields

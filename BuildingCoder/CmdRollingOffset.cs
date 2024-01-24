@@ -28,6 +28,8 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdRollingOffset : IExternalCommand
     {
+#pragma warning disable IDE1006
+
         private const string _prompt
             = "Please run this in a model containing "
               + "exactly two parallel offset pipe elements, "

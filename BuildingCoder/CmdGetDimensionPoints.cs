@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 
 //
 // CmdGetDimensionPoints.cs - determine dimension segment start and end points
@@ -174,7 +174,7 @@ namespace BuildingCoder
         /// </summary>
         private Reference GetGridRef(Document doc)
         {
-            var idGrid = new ElementId(397028);
+            var idGrid = new ElementId((long) 397028);
             var eGrid = doc.GetElement(idGrid);
             return new Reference(eGrid);
         }
@@ -263,14 +263,14 @@ namespace BuildingCoder
                 {
                     //View v = doc.ActiveView;
                     var v = dim.View;
-                    var WorkPlane = v.SketchPlane.GetPlane();
-                    var normal = WorkPlane.Normal.Normalize();
+                    var workPlane = v.SketchPlane.GetPlane();
+                    var normal = workPlane.Normal.Normalize();
 
                     // Project the "globalpoint" of the reference onto the sketchplane
 
                     var refPtonPlane = refPoint.Subtract(
                         normal.Multiply(normal.DotProduct(
-                            refPoint - WorkPlane.Origin)));
+                            refPoint - workPlane.Origin)));
 
                     var lineNormal = normal.CrossProduct(
                         dimLine.Direction).Normalize();

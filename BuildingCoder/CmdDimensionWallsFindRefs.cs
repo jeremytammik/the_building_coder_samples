@@ -13,6 +13,7 @@
 
 #region Namespaces
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
@@ -39,6 +40,8 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdDimensionWallsFindRefs : IExternalCommand
     {
+#pragma warning disable IDE1006
+
         private const string _prompt
             = "Please select two parallel straight walls"
               + " with a partial projected overlap.";
@@ -78,7 +81,7 @@ namespace BuildingCoder
                 //rPoint = sel.PickObject( ObjectType.PointOnElement,
                 //  "Please select point on first wall" );
             }
-            catch (OperationCanceledException)
+            catch (Autodesk.Revit.Exceptions.OperationCanceledException)
             {
                 message = "No two walls selected";
                 return Result.Failed;
@@ -90,7 +93,7 @@ namespace BuildingCoder
             // calculations:
 
             var walls = new Wall[2];
-            var ids = new List<int>(2);
+            var ids = new List<long>(2);
             var pts = new XYZ[2];
             var lines = new Line[2];
             IntersectionResult ir;
@@ -396,8 +399,8 @@ namespace BuildingCoder
 
         private void TestGetCeilingReferenceAbove(Document doc)
         {
-            var view = doc.GetElement(new ElementId(147335)) as View3D;
-            var space = doc.GetElement(new ElementId(151759)) as Space;
+            var view = doc.GetElement(new ElementId((Int64)147335)) as View3D;
+            var space = doc.GetElement(new ElementId((Int64) 151759)) as Space;
             var center = ((LocationPoint) space.Location).Point;
 
             var r = GetCeilingReferenceAbove(view, center);

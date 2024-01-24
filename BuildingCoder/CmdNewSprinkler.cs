@@ -25,6 +25,8 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     internal class CmdNewSprinkler : IExternalCommand
     {
+#pragma warning disable IDE1006 // Naming Styles
+
         private const string _path = "C:/Documents and Settings/All Users/Application Data/Autodesk/RME 2010/Metric Library/Fire Protection/Sprinklers/";
         private const string _name = "M_Sprinkler - Pendent - Hosted";
         private const string _ext = ".rfa";

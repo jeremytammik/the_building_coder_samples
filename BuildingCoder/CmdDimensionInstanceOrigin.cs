@@ -43,7 +43,7 @@ namespace BuildingCoder
             Top = 8
         }
 
-        private void f()
+        private void F()
         {
             Document dbDoc = null;
             Reference myReference = null;
@@ -248,80 +248,80 @@ namespace BuildingCoder
     [Transaction(TransactionMode.Manual)]
     public class Command : IExternalCommand
     {
-        private readonly List<Curve> m_referencePlaneReferences
+        private readonly List<Curve> _referencePlaneReferences
             = new();
 
-        private Application m_app;
-        private Document m_doc;
-        private DetailCurve m_hLine;
+        private Application _app;
+        private Document _doc;
+        private DetailCurve _hLine;
 
-        private ViewPlan m_targetView;
+        private ViewPlan _targetView;
 
-        private UIApplication m_uiApp;
-        private UIDocument m_uiDoc;
+        private UIApplication _uiApp;
+        private UIDocument _uiDoc;
 
-        private DetailCurve m_vLine;
-        private TextWriter m_writer;
+        private DetailCurve _vLine;
+        private TextWriter _writer;
 
         public Result Execute(
             ExternalCommandData revit,
             ref string message,
             ElementSet elements)
         {
-            m_uiApp = revit.Application;
-            m_app = m_uiApp.Application;
-            m_uiDoc = m_uiApp.ActiveUIDocument;
-            m_doc = m_uiDoc.Document;
+            _uiApp = revit.Application;
+            _app = _uiApp.Application;
+            _uiDoc = _uiApp.ActiveUIDocument;
+            _doc = _uiDoc.Document;
 
             TaskDialog.Show("Test application",
-                $"Revit version: {m_app.VersionBuild}");
+                $"Revit version: {_app.VersionBuild}");
 
-            m_writer = new StreamWriter(@"C:\SRD201483.txt");
+            _writer = new StreamWriter(@"C:\SRD201483.txt");
 
             WriteDimensionReferences(161908);
             WriteElementGeometry(161900);
 
-            m_writer.Close();
+            _writer.Close();
 
             return Result.Succeeded;
         }
 
         private void WriteDimensionReferences(Int64 dimId)
         {
-            var dim = m_doc.GetElement(
+            var dim = _doc.GetElement(
                 new ElementId(dimId)) as Dimension;
 
             var references = dim.References;
 
             foreach (Reference reference in references)
-                m_writer.WriteLine($"Dim reference - {reference.ConvertToStableRepresentation(m_doc)}");
+                _writer.WriteLine($"Dim reference - {reference.ConvertToStableRepresentation(_doc)}");
         }
 
         private void WriteElementGeometry(int elementId)
         {
-            var viewCollector = new FilteredElementCollector(m_doc);
+            var viewCollector = new FilteredElementCollector(_doc);
             viewCollector.OfClass(typeof(ViewPlan));
             Func<ViewPlan, bool> isLevel1FloorPlan = v => !v.IsTemplate && v.Name == "Level 1" && v.ViewType == ViewType.FloorPlan;
 
-            m_targetView = viewCollector.Cast<ViewPlan>().First(isLevel1FloorPlan);
+            _targetView = viewCollector.Cast<ViewPlan>().First(isLevel1FloorPlan);
 
-            var createCurve = new Transaction(m_doc, "Create reference curves");
+            var createCurve = new Transaction(_doc, "Create reference curves");
             createCurve.Start();
             const double xReferenceLocation = 30;
             var vLine = Line.CreateBound(new XYZ(xReferenceLocation, 0, 0), new XYZ(xReferenceLocation, 20, 0));
-            m_vLine = m_doc.Create.NewDetailCurve(m_targetView, vLine);
+            _vLine = _doc.Create.NewDetailCurve(_targetView, vLine);
 
             const double yReferenceLocation = -10;
             var hLine = Line.CreateBound(new XYZ(0, yReferenceLocation, 0), new XYZ(20, yReferenceLocation, 0));
-            m_hLine = m_doc.Create.NewDetailCurve(m_targetView, hLine);
+            _hLine = _doc.Create.NewDetailCurve(_targetView, hLine);
             createCurve.Commit();
 
-            var e = m_doc.GetElement(new ElementId(elementId));
+            var e = _doc.GetElement(new ElementId((Int64) elementId));
 
             var options = new Options();
             options.ComputeReferences = true;
             options.IncludeNonVisibleObjects = true;
-            options.View = m_targetView;
+            options.View = _targetView;
 
             var geomElem = e.get_Geometry(options);
 
@@ -335,23 +335,23 @@ namespace BuildingCoder
                         TraverseGeometryInstance(instance);
                         break;
                     default:
-                        m_writer.WriteLine($"Something else - {geomObj.GetType().Name}");
+                        _writer.WriteLine($"Something else - {geomObj.GetType().Name}");
                         break;
                 }
 
-            foreach (var curve in m_referencePlaneReferences)
+            foreach (var curve in _referencePlaneReferences)
             {
                 // Try to get the geometry object from reference
                 var curveReference = curve.Reference;
                 var geomObj = e.GetGeometryObjectFromReference(curveReference);
 
-                if (geomObj != null) m_writer.WriteLine($"Curve reference leads to: {geomObj.GetType().Name}");
+                if (geomObj != null) _writer.WriteLine($"Curve reference leads to: {geomObj.GetType().Name}");
             }
 
             // Dimension to reference curves
-            foreach (var curve in m_referencePlaneReferences)
+            foreach (var curve in _referencePlaneReferences)
             {
-                var targetLine = m_vLine;
+                var targetLine = _vLine;
 
                 var line = (Line) curve;
                 var lineStartPoint = line.GetEndPoint(0);
@@ -360,7 +360,7 @@ namespace BuildingCoder
                 Line dimensionLine = null;
                 if (Math.Abs(direction.Y) < 0.0001)
                 {
-                    targetLine = m_hLine;
+                    targetLine = _hLine;
                     var dimensionLineStart = new XYZ(lineStartPoint.X + 5, lineStartPoint.Y, 0);
                     var dimensionLineEnd = new XYZ(dimensionLineStart.X, dimensionLineStart.Y + 10, 0);
 
@@ -368,7 +368,7 @@ namespace BuildingCoder
                 }
                 else
                 {
-                    targetLine = m_vLine;
+                    targetLine = _vLine;
                     var dimensionLineStart = new XYZ(lineStartPoint.X, lineStartPoint.Y + 5, 0);
                     var dimensionLineEnd = new XYZ(dimensionLineStart.X + 10, dimensionLineStart.Y, 0);
                     dimensionLine = Line.CreateBound(dimensionLineStart, dimensionLineEnd);
@@ -378,9 +378,9 @@ namespace BuildingCoder
                 references.Append(curve.Reference);
                 references.Append(targetLine.GeometryCurve.Reference);
 
-                var t = new Transaction(m_doc, "Create dimension");
+                var t = new Transaction(_doc, "Create dimension");
                 t.Start();
-                m_doc.Create.NewDimension(m_targetView, dimensionLine, references);
+                _doc.Create.NewDimension(_targetView, dimensionLine, references);
                 t.Commit();
             }
         }
@@ -396,25 +396,25 @@ namespace BuildingCoder
                         break;
                     case Curve curve:
                     {
-                        var createCurve = new Transaction(m_doc, "Create curve");
+                        var createCurve = new Transaction(_doc, "Create curve");
                         createCurve.Start();
-                        m_doc.Create.NewDetailCurve(m_targetView, curve);
+                        _doc.Create.NewDetailCurve(_targetView, curve);
                         createCurve.Commit();
 
                         if (curve.Reference != null)
                         {
-                            m_writer.WriteLine($"Geometry curve - {curve.Reference.ConvertToStableRepresentation(m_doc)}");
-                            m_referencePlaneReferences.Add(curve);
+                            _writer.WriteLine($"Geometry curve - {curve.Reference.ConvertToStableRepresentation(_doc)}");
+                            _referencePlaneReferences.Add(curve);
                         }
                         else
                         {
-                            m_writer.WriteLine("Geometry curve - but reference is null");
+                            _writer.WriteLine("Geometry curve - but reference is null");
                         }
 
                         break;
                     }
                     default:
-                        m_writer.WriteLine($"Something else - {instGeomObj.GetType().Name}");
+                        _writer.WriteLine($"Something else - {instGeomObj.GetType().Name}");
                         break;
                 }
         }
@@ -425,9 +425,9 @@ namespace BuildingCoder
             {
                 var reference = face.Reference;
                 if (reference != null)
-                    m_writer.WriteLine($"Geometry face - {reference.ConvertToStableRepresentation(m_doc)}");
+                    _writer.WriteLine($"Geometry face - {reference.ConvertToStableRepresentation(_doc)}");
                 else
-                    m_writer.WriteLine("Geometry face - but reference is null");
+                    _writer.WriteLine("Geometry face - but reference is null");
             }
         }
     }

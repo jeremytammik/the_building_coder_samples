@@ -45,7 +45,7 @@ namespace BuildingCoder
 
             // Grab wall element id
 
-            var wall_id = new ElementId(25122);
+            var wall_id = new ElementId((Int64)25122);
             wall_id = wall_picked.Id;
 
             var ids = new List<ElementId>(1);
