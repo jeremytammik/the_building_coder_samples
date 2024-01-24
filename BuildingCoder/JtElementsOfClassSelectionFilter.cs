@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI.Selection;
 
@@ -33,7 +33,7 @@ namespace BuildingCoder
                     (int) BuiltInCategory.OST_StructuralFraming,
                     (int) BuiltInCategory.OST_Walls
                 };
-                var icat = e.Category.Id.IntegerValue;
+                var icat = e.Category.Id.Value;
                 rc = targets.Any(i => i.Equals(icat));
             }
 

@@ -132,7 +132,7 @@ namespace BuildingCoder
                 t.Start();
 
                 var a = GetElements(doc);
-                var i = a.Max(e => e.Id.IntegerValue);
+                var i = a.Max(e => e.Id.Value);
                 var maxId = new ElementId(i);
 
                 // doc.Mirror( els, line ); // 2011
@@ -162,7 +162,7 @@ namespace BuildingCoder
                 t.Start();
 
                 var a = GetElements(doc);
-                var i = a.Max(e => e.Id.IntegerValue);
+                var i = a.Max(e => e.Id.Value);
                 var maxId = new ElementId(i);
 
                 //doc.Mirror( els, line ); // 2011
@@ -384,7 +384,7 @@ namespace BuildingCoder
                 .Where(e => null != e.LevelId
                             && ElementId.InvalidElementId != e.LevelId)
                 .Where(e => null != e.get_Geometry(opt))
-                .Max<Element, int>(e => e.Id.IntegerValue);
+                .Max<Element, int>(e => e.Id.Value);
 
             var last_eid = new ElementId(id_max);
 

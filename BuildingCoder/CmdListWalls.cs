@@ -62,7 +62,7 @@ namespace BuildingCoder
                     = "Wall <{0} {1}> length {2} area {3} ({4})";
 
                 Debug.Print(format,
-                    wall.Id.IntegerValue.ToString(), wall.Name,
+                    wall.Id.Value.ToString(), wall.Name,
                     Util.RealString(l), Util.RealString(a),
                     s);
             }

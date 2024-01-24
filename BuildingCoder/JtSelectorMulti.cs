@@ -1,4 +1,4 @@
-﻿#region Namespaces
+#region Namespaces
 
 using System;
 using System.Collections.Generic;
@@ -163,7 +163,7 @@ namespace BuildingCoder
             var cat = e.Category;
 
             if (null != cat)
-                if (cat.Id.IntegerValue.Equals(
+                if (cat.Id.Value.Equals(
                     (int) BuiltInCategory.OST_Furniture))
                     if (e is FamilyInstance fi)
                     {
@@ -229,7 +229,7 @@ namespace BuildingCoder
             {
                 return null == _bic
                        || null != e.Category
-                       && e.Category.Id.IntegerValue.Equals(
+                       && e.Category.Id.Value.Equals(
                            (int) _bic);
             }
         }

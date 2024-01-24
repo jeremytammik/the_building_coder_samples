@@ -63,7 +63,7 @@ namespace BuildingCoder
             var plan = doc.GetElement(vp.ViewId) as View;
 
             var scale = vp.Parameters.Cast<Parameter>()
-                .First(x => x.Id.IntegerValue.Equals(
+                .First(x => x.Id.Value.Equals(
                     (int) BuiltInParameter.VIEW_SCALE))
                 .AsInteger();
 
@@ -72,8 +72,8 @@ namespace BuildingCoder
                     .OfClass(typeof(ImportInstance))
                     .WhereElementIsNotElementType()
                     .Where(x => x.Name.StartsWith("Markup")
-                                && x.OwnerViewId.IntegerValue.Equals(
-                                    activeView.Id.IntegerValue));
+                                && x.OwnerViewId.Value.Equals(
+                                    activeView.Id.Value));
 
             using var tg = new TransactionGroup(doc);
             tg.Start("DWF markups placeholders");
@@ -83,7 +83,7 @@ namespace BuildingCoder
                 t.Start("DWF Transfer");
 
                 plan.Parameters.Cast<Parameter>()
-                    .First(x => x.Id.IntegerValue.Equals(
+                    .First(x => x.Id.Value.Equals(
                         (int) BuiltInParameter.VIEWER_CROP_REGION))
                     .Set(1);
 

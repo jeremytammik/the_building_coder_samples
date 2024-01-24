@@ -44,7 +44,7 @@ namespace BuildingCoder
 
             if (null == beam
                 || null == beam.Category
-                || !beam.Category.Id.IntegerValue.Equals((int) bic))
+                || !beam.Category.Id.Value.Equals((int) bic))
             {
                 message = "Please select a single beam element.";
             }

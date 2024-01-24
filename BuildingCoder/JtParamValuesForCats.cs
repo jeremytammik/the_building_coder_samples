@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 
 //
 // JtParamValuesForCats.cs - retrieve all parameter values for all elements of the given categories
@@ -143,7 +143,7 @@ namespace BuildingCoder
                 var param_values = GetParamValues(e);
 
                 var bic = (BuiltInCategory)
-                    e.Category.Id.IntegerValue;
+                    e.Category.Id.Value;
 
                 var catkey = bic.Description();
                 var uid = e.UniqueId;

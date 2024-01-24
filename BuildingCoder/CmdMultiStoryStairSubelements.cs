@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 
 //
 // CmdMultistoryStairSubelements.cs - Access all subelements of all MultistoryStair instances
@@ -90,7 +90,7 @@ namespace BuildingCoder
                     {
                         Debug.Print(
                             "Subelement {0} of type {1}",
-                            se.UniqueId, se.TypeId.IntegerValue);
+                            se.UniqueId, se.TypeId.Value);
 
                         var e2 = doc.GetElement(se.UniqueId); // null
                         var e2t = doc.GetElement(se.TypeId); // StairsType

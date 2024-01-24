@@ -361,7 +361,7 @@ namespace BuildingCoder
 
                         // Check if element is column
 
-                        if ((BuiltInCategory) elem.Category.Id.IntegerValue
+                        if ((BuiltInCategory) elem.Category.Id.Value
                             == BuiltInCategory.OST_StructuralColumns)
                         {
                             allColumns++;
@@ -489,7 +489,7 @@ namespace BuildingCoder
             {
                 var elem = doc.GetElement(elemId);
 
-                if ((BuiltInCategory) elem.Category.Id.IntegerValue
+                if ((BuiltInCategory) elem.Category.Id.Value
                     == BuiltInCategory.OST_StructuralColumns)
                 {
                     allColumns++;

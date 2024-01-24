@@ -356,7 +356,7 @@ namespace BuildingCoder
                     throw new Exception(
                         "expected exactly one custom parameter");
 
-                d.Add(dc.Id.IntegerValue, ps[0].AsDouble());
+                d.Add(dc.Id.Value, ps[0].AsDouble());
             }
 
             return d;
@@ -548,8 +548,8 @@ namespace BuildingCoder
                 .WhereElementIsNotElementType()
                 .OfClass(typeof(SpatialElement))
                 .Where(e => e.GetType() == typeof(Room))
-                .Where(e => e.LevelId.IntegerValue.Equals(
-                    idLevel.IntegerValue))
+                .Where(e => e.LevelId.Value.Equals(
+                    idLevel.Value))
                 .Cast<Room>();
         }
 
@@ -935,7 +935,7 @@ namespace BuildingCoder
 
             var s = string.Join(", ",
                 false_positive_ids.Select(
-                    id => id.IntegerValue.ToString()));
+                    id => id.Value.ToString()));
 
             var dlg = new TaskDialog("False Positives");
             dlg.MainInstruction = "False filtered walls ids: ";
@@ -1020,7 +1020,7 @@ namespace BuildingCoder
             FabricationPart f = e as FabricationPart;
             return (null != f)
                 && ((int) BuiltInCategory.OST_FabricationDuctwork 
-                    == f.Category.Id.IntegerValue)
+                    == f.Category.Id.Value)
                 && f.ConnectorManager.Connectors.Cast<Connector>().Any(
                     conn => conn.Shape == ConnectorProfileType.Rectangular);
         }
@@ -1773,8 +1773,8 @@ namespace BuildingCoder
             return new FilteredElementCollector(view.Document)
                 .WherePasses(filter)
                 .ToElementIds()
-                .Where(a => a.IntegerValue
-                            != view.Id.IntegerValue)
+                .Where(a => a.Value
+                            != view.Id.Value)
                 .FirstOrDefault();
         }
 
@@ -1995,7 +1995,7 @@ namespace BuildingCoder
                 : doc.GetElement(ids.First()).Category;
 
             return null != cat
-                   && cat.Id.IntegerValue.Equals((int) bic);
+                   && cat.Id.Value.Equals((int) bic);
         }
 
         private static void GetFamiliesOfCategory(
@@ -2244,7 +2244,7 @@ namespace BuildingCoder
             return new FilteredElementCollector(doc)
                 .WhereElementIsNotElementType()
                 .OfCategory(BuiltInCategory.OST_Ramps)
-                //.Where( e => e.Category.Id.IntegerValue.Equals( 
+                //.Where( e => e.Category.Id.Value.Equals( 
                 //  (int) BuiltInCategory.OST_Ramps ) )
                 .Where(e =>
                 {
@@ -2323,8 +2323,8 @@ namespace BuildingCoder
                 = new FilteredElementCollector(doc)
                     .OfClass(typeof(GraphicsStyle))
                     .Cast<GraphicsStyle>()
-                    .Where(gs => gs.GraphicsStyleCategory.Id.IntegerValue
-                                 == targetLineStyle.Id.IntegerValue);
+                    .Where(gs => gs.GraphicsStyleCategory.Id.Value
+                                 == targetLineStyle.Id.Value);
 
             var targetGraphicsStyleId
                 = gstyles.FirstOrDefault().Id;
@@ -2502,11 +2502,11 @@ namespace BuildingCoder
         private static IEnumerable<Element> GetInstancesOfElementType(
             ElementType type)
         {
-            var iid = type.Id.IntegerValue;
+            var iid = type.Id.Value;
             return new FilteredElementCollector(type.Document)
                 .WhereElementIsNotElementType()
                 //.OfClass( typeof( FamilyInstance ) ) // excludes walls, floors, pipes, etc.; all system family elements
-                .Where(e => e.GetTypeId().IntegerValue.Equals(
+                .Where(e => e.GetTypeId().Value.Equals(
                     iid));
         }
 
@@ -2736,7 +2736,7 @@ TaskDialog.Show( "Revit", collector.Count() +
 
             var id_list = 0 == n
                 ? string.Empty
-                : $"{string.Join(", ", intersectingInstances.Select(x => x.Id.IntegerValue.ToString()))}.";
+                : $"{string.Join(", ", intersectingInstances.Select(x => x.Id.Value.ToString()))}.";
 
             Util.InfoMsg2(result, id_list);
         }
@@ -2775,7 +2775,7 @@ TaskDialog.Show( "Revit", collector.Count() +
 
             var id_list = 0 == n
                 ? string.Empty
-                : $"{string.Join(", ", intersectingStructuralFramingElements.Select(x => x.Id.IntegerValue.ToString()))}.";
+                : $"{string.Join(", ", intersectingStructuralFramingElements.Select(x => x.Id.Value.ToString()))}.";
 
             Util.InfoMsg2(result, id_list);
 

@@ -50,24 +50,23 @@ namespace BuildingCoder
 
                 var ip = topLevel.AsElementId();
                 var top = doc.GetElement(ip) as Level;
-                var t_value = top.ProjectElevation;
+                var tv = top.ProjectElevation;
 
                 // Get base level of the column 
 
-                var BotLevel = e.get_Parameter(
+                var botLevel = e.get_Parameter(
                     BuiltInParameter.FAMILY_BASE_LEVEL_PARAM);
 
-                var bip = BotLevel.AsElementId();
+                var bip = botLevel.AsElementId();
                 var bot = doc.GetElement(bip) as Level;
-                var b_value = bot.ProjectElevation;
+                var bv = bot.ProjectElevation;
 
                 // At this point, there are a number of 
                 // additional Z offsets that may also affect
                 // the result.
 
-                height = t_value - b_value;
+                height = tv - bv;
             }
-
             return height;
         }
 
@@ -151,7 +150,7 @@ namespace BuildingCoder
             // Optional stronger test:
             //
             //  && (int) BuiltInCategory.OST_Columns
-            //    == e.Category.Id.IntegerValue )
+            //    == e.Category.Id.Value )
         }
 
         public Result Execute(

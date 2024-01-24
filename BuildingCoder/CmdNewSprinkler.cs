@@ -94,7 +94,7 @@ namespace BuildingCoder
                 uidoc, "ceiling to host sprinkler");
 
             if (null == ceiling
-                || !ceiling.Category.Id.IntegerValue.Equals(
+                || !ceiling.Category.Id.Value.Equals(
                     (int) BuiltInCategory.OST_Ceilings))
             {
                 message = "No ceiling selected.";

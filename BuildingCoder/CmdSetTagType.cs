@@ -276,7 +276,7 @@ namespace BuildingCoder
             var sel = uiDoc.Selection.PickObject(ObjectType.Element);
             var ele = doc.GetElement(sel.ElementId);
             var cat = ele.Category;
-            var builtInCat = (BuiltInCategory) cat.Id.IntegerValue;
+            var builtInCat = (BuiltInCategory) cat.Id.Value;
             //BuiltInCategory builtInCat = (BuiltInCategory) Enum.Parse(
             //  typeof( BuiltInCategory ), cat.Category.Id.ToString() );
 

@@ -73,7 +73,7 @@ namespace BuildingCoder
                     s = string.Format(
                         "Mullion <{0} {1}> at {2} rotation"
                         + " {3} has {4} geo object{5}:",
-                        mullion.Name, mullion.Id.IntegerValue,
+                        mullion.Name, mullion.Id.Value,
                         Util.PointString(lp.Point),
                         Util.RealString(lp.Rotation),
                         n, Util.PluralSuffix(n));

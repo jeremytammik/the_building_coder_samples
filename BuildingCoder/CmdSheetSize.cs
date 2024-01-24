@@ -95,7 +95,7 @@ namespace BuildingCoder
             foreach (FamilySymbol symbol in a)
                 Debug.Print(
                     "Title block element type {0} {1}",
-                    symbol.Name, symbol.Id.IntegerValue);
+                    symbol.Name, symbol.Id.Value);
 
             // Retrieve the title block instances:
 
@@ -142,8 +142,8 @@ namespace BuildingCoder
                     sheet_number, swidth, sheight,
                     Util.RealString(width),
                     Util.RealString(height),
-                    e.Id.IntegerValue,
-                    type.Name, typeId.IntegerValue);
+                    e.Id.Value,
+                    type.Name, typeId.Value);
             }
 
             // Retrieve the view sheet instances:
@@ -159,7 +159,7 @@ namespace BuildingCoder
                 Debug.Print(
                     "View sheet name {0} number {1} id {2}",
                     vs.Name, vs.SheetNumber,
-                    vs.Id.IntegerValue);
+                    vs.Id.Value);
             }
 
             return Result.Succeeded;
@@ -214,8 +214,8 @@ namespace BuildingCoder
                 Debug.Print(
                     "Title block {0} <{1}> of type {2} <{3}>: "
                     + "{4} project author {5} for client {6}",
-                    tb.Name, tb.Id.IntegerValue,
-                    type.Name, typeId.IntegerValue,
+                    tb.Name, tb.Id.Value,
+                    type.Name, typeId.Value,
                     s_sheet_number, s_project_author,
                     s_client_name);
             }
@@ -241,7 +241,7 @@ namespace BuildingCoder
                         break;
 
                     case StorageType.ElementId:
-                        s = p.AsElementId().IntegerValue.ToString();
+                        s = p.AsElementId().Value.ToString();
                         break;
 
                     case StorageType.Double:

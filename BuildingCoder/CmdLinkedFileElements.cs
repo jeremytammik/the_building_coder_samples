@@ -122,7 +122,7 @@ namespace BuildingCoder
                     {
                         var p = lp.Point;
                         data.Add(new ElementData(doc.PathName, e.Name,
-                            e.Id.IntegerValue, p.X, p.Y, p.Z, e.UniqueId));
+                            e.Id.Value, p.X, p.Y, p.Z, e.UniqueId));
                     }
                 }
             }

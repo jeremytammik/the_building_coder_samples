@@ -1791,7 +1791,7 @@ const T f = ( ay * bx ) - ( ax * by );
                 ? string.Empty
                 : $"{fi.Symbol.Name} ";
 
-            return $"{typeName} {categoryName}{familyName}{symbolName}<{e.Id.IntegerValue} {e.Name}>";
+            return $"{typeName} {categoryName}{familyName}{symbolName}<{e.Id.Value} {e.Name}>";
         }
 
         /// <summary>
@@ -2641,7 +2641,7 @@ const T f = ( ay * bx ) - ( ax * by );
             if (e.ViewSpecific)
                 return false;
             // exclude specific unwanted categories
-            if ((BuiltInCategory) e.Category.Id.IntegerValue
+            if ((BuiltInCategory) e.Category.Id.Value
                 == BuiltInCategory.OST_HVAC_Zones)
                 return false;
             return e.Category.CategoryType == CategoryType.Model

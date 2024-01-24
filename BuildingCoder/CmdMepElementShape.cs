@@ -98,7 +98,7 @@ namespace BuildingCoder
                 //  e.Document.Settings.Categories.get_Item(
                 //    c ).Id );
 
-                return e.Category.Id.IntegerValue.Equals(
+                return e.Category.Id.Value.Equals(
                     (int) c);
             }
 
@@ -458,7 +458,7 @@ namespace BuildingCoder
                 //  e.Document.Settings.Categories.get_Item(
                 //    c ).Id );
 
-                return e.Category.Id.IntegerValue.Equals(
+                return e.Category.Id.Value.Equals(
                     (int) c);
             }
 

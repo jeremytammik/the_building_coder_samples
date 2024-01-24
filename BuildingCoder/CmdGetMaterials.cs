@@ -135,7 +135,7 @@ namespace BuildingCoder
             if (x == null || y == null)
                 return false;
 
-            return x.Id.IntegerValue == y.Id.IntegerValue && x.GetType() == y.GetType() && x.Document.Equals(y.Document);
+            return x.Id.Value == y.Id.Value && x.GetType() == y.GetType() && x.Document.Equals(y.Document);
         }
 
         public int GetHashCode(Element obj)
@@ -850,7 +850,7 @@ namespace BuildingCoder
                 {
                     var materialId = p.AsElementId();
 
-                    if (-1 == materialId.IntegerValue)
+                    if (-1 == materialId.Value)
                         // invalid element id, so we assume
                         // the material is "By Category":
 

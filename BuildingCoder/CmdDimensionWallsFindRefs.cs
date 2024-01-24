@@ -107,7 +107,7 @@ namespace BuildingCoder
                 var wall = doc.GetElement(r) as Wall; // 2012
 
                 walls[i] = wall;
-                ids.Add(wall.Id.IntegerValue);
+                ids.Add(wall.Id.Value);
 
                 // Obtain location curve and
                 // check that it is straight:
@@ -159,7 +159,7 @@ namespace BuildingCoder
 
                 Debug.Print(
                     "Wall {0} id {1} at {2}, {3} --> point {4}",
-                    i, wall.Id.IntegerValue,
+                    i, wall.Id.Value,
                     Util.PointString(lines[i].GetEndPoint(0)),
                     Util.PointString(lines[i].GetEndPoint(1)),
                     Util.PointString(pts[i]));
@@ -267,7 +267,7 @@ namespace BuildingCoder
 
     if( e is Wall )
     {
-      i = ids.IndexOf( e.Id.IntegerValue );
+      i = ids.IndexOf( e.Id.Value );
 
       if( -1 < i
         && ElementReferenceType.REFERENCE_TYPE_SURFACE
@@ -286,7 +286,7 @@ namespace BuildingCoder
           Debug.Print(
             "Wall {0} at {1}, {2} surface {3} "
             + "normal {4} proximity {5}",
-            e.Id.IntegerValue,
+            e.Id.Value,
             Util.PointString( line.GetEndPoint( 0 ) ),
             Util.PointString( line.GetEndPoint( 1 ) ),
             Util.PointString( face.Origin ),

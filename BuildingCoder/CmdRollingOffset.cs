@@ -194,8 +194,8 @@ namespace BuildingCoder
                 = pipes[0].MEPSystem.GetTypeId();
 
             Debug.Assert(pipes[1].MEPSystem.GetTypeId()
-                    .IntegerValue.Equals(
-                        systemTypeId.IntegerValue),
+                    .Value.Equals(
+                        systemTypeId.Value),
                 "expected two similar pipes");
 
             // Check for same pipe level.
@@ -203,8 +203,8 @@ namespace BuildingCoder
             var levelId = pipes[0].LevelId;
 
             Debug.Assert(
-                pipes[1].LevelId.IntegerValue.Equals(
-                    levelId.IntegerValue),
+                pipes[1].LevelId.Value.Equals(
+                    levelId.Value),
                 "expected two pipes on same level");
 
             // Extract data from the two selected pipes.
@@ -336,8 +336,8 @@ namespace BuildingCoder
                     .FirstOrDefault();
 
             Debug.Assert(
-                pipe_type_standard.Id.IntegerValue.Equals(
-                    pipe.PipeType.Id.IntegerValue),
+                pipe_type_standard.Id.Value.Equals(
+                    pipe.PipeType.Id.Value),
                 "expected all pipes in this simple "
                 + "model to use the same pipe type");
 
@@ -528,8 +528,8 @@ namespace BuildingCoder
 
                     Debug.Assert(pipe.get_Parameter(
                                 BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM)
-                            .AsElementId().IntegerValue.Equals(
-                                idSystem.IntegerValue),
+                            .AsElementId().Value.Equals(
+                                idSystem.Value),
                         "expected same piping system element id");
 
                     // Retrieve the PipeType.
@@ -550,12 +550,12 @@ namespace BuildingCoder
 
                     Debug.Assert(pipe.get_Parameter(
                                 BuiltInParameter.ELEM_TYPE_PARAM)
-                            .AsElementId().IntegerValue.Equals(
-                                idType.IntegerValue),
+                            .AsElementId().Value.Equals(
+                                idType.Value),
                         "expected same pipe type element id");
 
-                    Debug.Assert(pipe.PipeType.Id.IntegerValue
-                            .Equals(idType.IntegerValue),
+                    Debug.Assert(pipe.PipeType.Id.Value
+                            .Equals(idType.Value),
                         "expected same pipe type element id");
 
                     // Retrieve the reference level.

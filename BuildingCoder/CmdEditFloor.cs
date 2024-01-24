@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 
 //
 // CmdEditFloor.cs - read existing floor geometry and create a new floor
@@ -435,7 +435,7 @@ namespace BuildingCoder
 
             // Get first level not used by floor
 
-            var levelIdInt = floor.LevelId.IntegerValue;
+            var levelIdInt = floor.LevelId.Value;
 
             var level
                 = new FilteredElementCollector(doc)
@@ -443,7 +443,7 @@ namespace BuildingCoder
                     .OfCategory(BuiltInCategory.OST_Levels)
                     .OfClass(typeof(Level))
                     .FirstOrDefault(e
-                        => e.Id.IntegerValue.Equals(
+                        => e.Id.Value.Equals(
                             levelIdInt));
 
             if (null != level)

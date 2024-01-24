@@ -87,7 +87,7 @@ namespace BuildingCoder
                         // process each duct:
 
                         Trace.WriteLine("========================");
-                        Trace.WriteLine($"Duct: Id = {duct.Id.IntegerValue}");
+                        Trace.WriteLine($"Duct: Id = {duct.Id.Value}");
 
                         AnalyseDuct(duct);
                     }

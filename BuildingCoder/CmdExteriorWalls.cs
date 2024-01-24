@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 
 //
 // CmdExteriorWalls.cs - retrieve all parameter values for all elements of the given categories
@@ -12,6 +12,7 @@
 
 #region Namespaces
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.Attributes;
@@ -290,7 +291,7 @@ namespace BuildingCoder
         {
             return new List<ElementId>(x.Split('\n')
                 .Select(s
-                    => new ElementId(int.Parse(s))));
+                    => new ElementId(Int64.Parse(s))));
         }
     }
 }

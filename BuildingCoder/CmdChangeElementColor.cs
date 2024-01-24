@@ -82,7 +82,7 @@ namespace BuildingCoder
 
             if (null != e.Category)
             {
-                var im = e.Category.Material.Id.IntegerValue;
+                var im = e.Category.Material.Id.Value;
 
                 var materials = new List<Material>(
                     new FilteredElementCollector(doc)
@@ -90,7 +90,7 @@ namespace BuildingCoder
                         .OfClass(typeof(Material))
                         .ToElements()
                         .Where(m
-                            => m.Id.IntegerValue != im)
+                            => m.Id.Value != im)
                         .Cast<Material>());
 
                 var r = new Random();
@@ -124,7 +124,7 @@ namespace BuildingCoder
 
             var fc = geoObject as Face;
 
-            if (elem.Category.Id.IntegerValue == -2000120) // Stairs
+            if (elem.Category.Id.Value == -2000120) // Stairs
             {
                 var flag = false;
                 var str = elem as Stairs;
@@ -177,11 +177,11 @@ namespace BuildingCoder
             using var transaction = new Transaction(doc);
             transaction.Start("Paint Selected Face");
 
-            if (elem.Category.Id.IntegerValue.Equals(
+            if (elem.Category.Id.Value.Equals(
                 (int) BuiltInCategory.OST_Stairs))
             {
                 var str = elem as Stairs;
-                var IsLand = false;
+                var isLand = false;
 
                 var landings = str.GetStairsLandings();
                 var runs = str.GetStairsRuns();
@@ -192,12 +192,12 @@ namespace BuildingCoder
                     var solids = GetElemSolids(
                         land.get_Geometry(new Options()));
 
-                    IsLand = SolidsContainFace(solids, selected_face);
+                    isLand = SolidsContainFace(solids, selected_face);
 
-                    if (IsLand) break;
+                    if (isLand) break;
                 }
 
-                if (IsLand)
+                if (isLand)
                     foreach (var id in landings)
                     {
                         doc.Paint(id, selected_face, mat.Id);

@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 
 //
 // CmdDimensionInstanceOrigin.cs - create dimensioning between the origins of family instances
@@ -286,7 +286,7 @@ namespace BuildingCoder
             return Result.Succeeded;
         }
 
-        private void WriteDimensionReferences(int dimId)
+        private void WriteDimensionReferences(Int64 dimId)
         {
             var dim = m_doc.GetElement(
                 new ElementId(dimId)) as Dimension;

@@ -155,7 +155,7 @@ namespace BuildingCoder
                 case StorageType.ElementId:
                     var id = t.AsElementId(fp);
                     var e = doc.GetElement(id);
-                    value = $"{id.IntegerValue} ({Util.ElementDescription(e)})";
+                    value = $"{id.Value} ({Util.ElementDescription(e)})";
                     break;
 
                 case StorageType.Integer:

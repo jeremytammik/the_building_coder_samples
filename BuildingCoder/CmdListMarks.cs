@@ -108,7 +108,7 @@ namespace BuildingCoder
                     if (e is FamilyInstance
                         && null != e.Category
                         && (int) BuiltInCategory.OST_Doors
-                        == e.Category.Id.IntegerValue)
+                        == e.Category.Id.Value)
                     {
                         e.get_Parameter(
                                 BuiltInParameter.ALL_MODEL_MARK)

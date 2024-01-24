@@ -191,7 +191,7 @@ namespace BuildingCoder
 
         private string ProcessWall(Wall wall)
         {
-            var msg = $"Wall <{wall.Name} {wall.Id.IntegerValue}>:";
+            var msg = $"Wall <{wall.Name} {wall.Id.Value}>:";
 
             Debug.WriteLine(msg);
 

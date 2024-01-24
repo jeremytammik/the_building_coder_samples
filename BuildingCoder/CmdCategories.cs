@@ -49,7 +49,7 @@ namespace BuildingCoder
                 var p = c.Parent;
 
                 Debug.Print("  {0} ({1}), parent {2}",
-                    c.Name, c.Id.IntegerValue,
+                    c.Name, c.Id.Value,
                     null == p ? "<none>" : p.Name);
             }
 
@@ -83,7 +83,7 @@ namespace BuildingCoder
                     }
                     else
                     {
-                        s = $"{cat.Name} ({cat.Id.IntegerValue})";
+                        s = $"{cat.Name} ({cat.Id.Value})";
                     }
                 }
                 catch (Exception ex)

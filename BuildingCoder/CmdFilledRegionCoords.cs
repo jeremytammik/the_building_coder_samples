@@ -107,7 +107,7 @@ namespace BuildingCoder
             var result = new List<XYZ>();
 
             var id = new ElementId(
-                region.Id.IntegerValue - 1);
+                region.Id.Value - 1);
 
             if (region.Document.GetElement(
                 id) is Sketch sketch)

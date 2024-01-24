@@ -79,7 +79,7 @@ namespace BuildingCoder
                     ? "<nil>"
                     : string.Join(", ",
                         ids.Select(
-                            id => id.IntegerValue.ToString()));
+                            id => id.Value.ToString()));
 
                 Debug.Print(
                     $"CmdSelectionChanged: selection changed: {s}");

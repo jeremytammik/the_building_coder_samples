@@ -298,12 +298,12 @@ namespace BuildingCoder
             using var trans = new Transaction(doc);
             trans.Start("Place views");
 
-            var frontView = doc.GetElement(new ElementId(180041)) as View;
-            var leftView = doc.GetElement(new ElementId(180032)) as View;
+            var frontView = doc.GetElement(new ElementId((Int64)180041)) as View;
+            var leftView = doc.GetElement(new ElementId((Int64)180032)) as View;
 
-            var assemblyInst = doc.GetElement(new ElementId(179915)) as AssemblyInstance;
+            var assemblyInst = doc.GetElement(new ElementId((Int64)179915)) as AssemblyInstance;
 
-            var vSheet = doc.GetElement(new ElementId(180049)) as ViewSheet;
+            var vSheet = doc.GetElement(new ElementId((Int64) 180049)) as ViewSheet;
 
             // Assume that the scale is the same for both views
 
