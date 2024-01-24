@@ -85,11 +85,9 @@ namespace BuildingCoder
         }
 
         #region MEP Element Shape Version 1
-
-        /*
         private static class MepElementShapeV1
         {
-            //private static readonly RegexCache RegexCache2 = new();
+            private static RegexCache _regex_cache = new RegexCache();
 
             private static bool Is_element_of_category(
                 Element e,
@@ -223,25 +221,25 @@ namespace BuildingCoder
                                 return "rectangular2rectangular";
                             if (size.Split('/').Length == 3) // but if in imperial units size is in fractional inches format it has to be replaced by another regular expression
                                 return "oval2oval";
-                            if (RegexCache2.Match(
+                            if (_regex_cache.Match(
                                 "[0-9]+\"?x[0-9]+\"?-[0-9]+\"?/[0-9]+\"?", size))
                                 return "rectangular2oval";
-                            if (RegexCache2.Match(
+                            if (_regex_cache.Match(
                                 "[0-9]+\"?/[0-9]+\"?-[0-9]+\"?x[0-9]+\"?", size))
                                 return "oval2rectangular";
-                            if (RegexCache2.Match(
+                            if (_regex_cache.Match(
                                 "[0-9]+\"?[^0-9]-[0-9]+\"?x[0-9]+\"?", size))
                                 return "round2rectangular";
-                            if (RegexCache2.Match(
+                            if (_regex_cache.Match(
                                 "[0-9]+\"?x[0-9]+\"?-[0-9]+\"?[^0-9]", size))
                                 return "rectangular2round";
-                            if (RegexCache2.Match(
+                            if (_regex_cache.Match(
                                 "[0-9]+\"?[^0-9]-[0-9]+\"?/[0-9]+\"?", size))
                                 return "round2oval";
-                            if (RegexCache2.Match(
+                            if (_regex_cache.Match(
                                 "[0-9]+\"?/[0-9]+\"?-[0-9]+\"?[^0-9]", size))
                                 return "oval2round";
-                            if (RegexCache2.Match(
+                            if (_regex_cache.Match(
                                 "[0-9]+\"?[^0-9]-[0-9]+\"?[^0-9]", size))
                                 return "round2round";
                             return "other case";
@@ -256,7 +254,7 @@ namespace BuildingCoder
             /// <summary>
             ///     Helper class to cache compiled regular expressions.
             /// </summary>
-            private class RegexCache2 : Dictionary<string, Regex>
+            private class RegexCache : Dictionary<string, Regex>
             {
                 /// <summary>
                 ///     Apply regular expression pattern matching
@@ -274,8 +272,7 @@ namespace BuildingCoder
                 }
             }
         }
-        */
-
+        
         #endregion // MEP Element Shape Version 1
 
         #region MEP Element Shape Version 2
