@@ -50,8 +50,7 @@ namespace BuildingCoder
             var xmlDoc = new XmlDocument();
             xmlDoc.Load(dlg.FileName);
 
-            var pnts
-                = xmlDoc.GetElementsByTagName("Pnts");
+            var pnts = xmlDoc.GetElementsByTagName("Pnts");
 
             var separator = new[] {' '};
             double x = 0, y = 0, z = 0;
@@ -82,10 +81,8 @@ namespace BuildingCoder
                             z = double.Parse(coord);
                             break;
                     }
-
                     j++;
                 }
-
                 pts.Add(new XYZ(x, y, z));
             }
 
@@ -96,7 +93,11 @@ namespace BuildingCoder
 
             //TopographySurface surface = doc.Create.NewTopographySurface( pts ); // 2013
 
-            var surface = TopographySurface.Create(doc, pts); // 2014
+            //var surface = TopographySurface.Create(doc, pts); // 2014-2023
+
+            ElementId idType = null;
+            ElementId idLevel = null;
+            var toposolid = Toposolid.Create(doc, pts, idType, idLevel);
 
             t.Commit();
 
