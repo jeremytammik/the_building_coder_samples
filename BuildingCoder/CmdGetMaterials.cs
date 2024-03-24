@@ -844,7 +844,8 @@ namespace BuildingCoder
                 // the material is stored as element id:
 
                 if (p.StorageType == StorageType.ElementId
-                    && def.ParameterGroup == BuiltInParameterGroup.PG_MATERIALS
+                    //&& def.ParameterGroup == BuiltInParameterGroup.PG_MATERIALS // 2023
+                    && GroupTypeId.Materials == def.GetGroupTypeId() // 2024
                     //&& def.ParameterType == ParameterType.Material // 2021)
                     && def.GetDataType() == SpecTypeId.Reference.Material) // 2022
                 {

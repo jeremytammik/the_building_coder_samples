@@ -248,7 +248,8 @@ namespace BuildingCoder
                 = app.Create.NewInstanceBinding(catset);
 
             doc.ParameterBindings.Insert(def, binding,
-                BuiltInParameterGroup.PG_CONSTRUCTION);
+                //BuiltInParameterGroup.PG_CONSTRUCTION // 2023
+                GroupTypeId.Construction ); // 2024
         }
 
         #endregion // ProblemAddingParameterBindingForCategory
