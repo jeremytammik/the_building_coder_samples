@@ -2,8 +2,8 @@
   "profiles": {
     "BuildingCoder": {
       "commandName": "Executable",
-      "executablePath": "C:\\Program Files\\Autodesk\\Revit 2024\\Revit.exe",
-      "commandLineArgs": "Y:\\a\\rvt\\rac_2024_empty.rvt"
+      "executablePath": "C:\\Program Files\\Autodesk\\Revit 2025\\Revit.exe",
+      "commandLineArgs": "Y:\\a\\rvt\\rac_2025_empty.rvt"
     }
   }
 }

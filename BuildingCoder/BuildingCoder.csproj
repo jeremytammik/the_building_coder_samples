@@ -82,4 +82,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(OutLibPath)" DestinationFolder="$(AppData)\Autodesk\Revit\Addins\2023\%(RecursiveDir)" />
   </Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy RvtSamples.addin C:\Users\jta\AppData\Roaming\Autodesk\Revit\Addins\2025&#xD;&#xA;copy RvtSamples.txt C:\Users\jta\AppData\Roaming\Autodesk\Revit\Addins\2025&#xD;&#xA;" />
+  </Target>
 </Project>
