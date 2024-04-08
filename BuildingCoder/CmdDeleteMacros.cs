@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 
 //
 // CmdDeleteMacros.cs - retrieve MacroManager and delete all macros
@@ -39,15 +39,17 @@ namespace BuildingCoder
             var uiapp_mgr = UIMacroManager
                 .GetMacroManager(uiapp);
 
+            var nModulesApp = uiapp_mgr.MacroManager.Count;
+
+#if SUPPORT_DOCUMENT_MACROS
+            // Document-level macros removed in Revit 2025:
+
             var uidoc_mgr = UIMacroManager
                 .GetMacroManager(uidoc);
 
-            var nModulesApp = uiapp_mgr.MacroManager.Count;
             var nModulesDoc = uidoc_mgr.MacroManager.Count;
-
-            var nMacrosDoc = uidoc_mgr.MacroManager
-                .Aggregate(0,
-                    (n, m) => n + m.Count());
+            var nMacrosDoc = uidoc_mgr.MacroManager.Aggregate(0,
+                (n, m) => n + m.Count());
 
             var dlg = new TaskDialog("Delete Document Macros");
 
@@ -56,11 +58,12 @@ namespace BuildingCoder
 
             dlg.MainContent = string.Format(
                 "{0} application module{1} "
-                + "and {2} document macro module{3} "
-                + "defining {4} macro{5}.",
-                nModulesApp, Util.PluralSuffix(nModulesApp),
-                nModulesDoc, Util.PluralSuffix(nModulesDoc),
-                nMacrosDoc, Util.PluralSuffix(nMacrosDoc));
+                //+ "and {2} document macro module{3} "
+                + "defining {4} macro{5}."
+                , nModulesApp, Util.PluralSuffix(nModulesApp)
+                //, nModulesDoc, Util.PluralSuffix(nModulesDoc)
+                //, nMacrosDoc, Util.PluralSuffix(nMacrosDoc)
+            );
 
             dlg.MainIcon = TaskDialogIcon.TaskDialogIconWarning;
 
@@ -98,6 +101,7 @@ namespace BuildingCoder
                 TaskDialog.Show("Document Macros Deleted",
                     $"{n} document macro{Util.PluralSuffix(n)} deleted.");
             }
+#endif // SUPPORT_DOCUMENT_MACROS
 
             return Result.Succeeded;
         }
