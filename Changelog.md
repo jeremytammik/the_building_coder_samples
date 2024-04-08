@@ -375,3 +375,8 @@
 - 2022-07-12 2023.1.152.3 implemented GetTagExtents from https://forums.autodesk.com/t5/revit-api-forum/tag-width-height-or-accurate-boundingbox-of-independenttag/m-p/11274095
 - 2022-07-12 2023.1.152.4 removed doc argument
 - 2023-01-03 2023.1.152.5 updated version number and install directory for Revit 2023
+- 2023-05-24 2023.1.153.6 added GetDefaultWorksetNames by Julian Wandzilak from https://forums.autodesk.com/t5/revit-api-forum/doc-enableworksharing-amp-language-versions/m-p/11845252
+- 2024-01-24 2024.0.153.0 flat migration to Revit 2024
+- 2024-04-08 2024.0.153.1 removed deprecated API usage, compile with zero warnings
+- 2024-04-08 2025.0.153.0 flat migration to Revit 2025
+
