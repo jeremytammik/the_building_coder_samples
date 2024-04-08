@@ -201,7 +201,7 @@ namespace BuildingCoder
 
             collector.WherePasses(parafilter);
 
-            TaskDialog.Show("Element Count",
+            Autodesk.Revit.UI.TaskDialog.Show("Element Count",
                 $"There are {collector.Count()} elements in the current view created with phase New Construction");
 
             tx.Commit();
@@ -286,7 +286,7 @@ namespace BuildingCoder
                     .OfClass(typeof(Wall))
                     .ToElements();
 
-            TaskDialog.Show("Revit", $"Walls found: {lessOrEqualFounds.Count}");
+            Autodesk.Revit.UI.TaskDialog.Show("Revit", $"Walls found: {lessOrEqualFounds.Count}");
 
             return Result.Succeeded;
         }
@@ -937,7 +937,7 @@ namespace BuildingCoder
                 false_positive_ids.Select(
                     id => id.Value.ToString()));
 
-            var dlg = new TaskDialog("False Positives");
+            var dlg = new Autodesk.Revit.UI.TaskDialog("False Positives");
             dlg.MainInstruction = "False filtered walls ids: ";
             dlg.MainContent = s;
             dlg.Show();
@@ -2280,7 +2280,7 @@ namespace BuildingCoder
             var subcats = c.SubCategories;
 
             foreach (Category lineStyle in subcats)
-                TaskDialog.Show("Line style", $"Linestyle {lineStyle.Name} id {lineStyle.Id}");
+                Autodesk.Revit.UI.TaskDialog.Show("Line style", $"Linestyle {lineStyle.Name} id {lineStyle.Id}");
 
 
             var collector
@@ -2295,7 +2295,7 @@ namespace BuildingCoder
                     .WherePasses(fi)
                     .ToElements();
 
-            TaskDialog.Show("Number of curves",
+            Autodesk.Revit.UI.TaskDialog.Show("Number of curves",
                 collection.Count.ToString());
 
             var detail_lines = new List<Element>();
@@ -2304,7 +2304,7 @@ namespace BuildingCoder
                 if (e is DetailLine)
                     detail_lines.Add(e);
 
-            TaskDialog.Show("Number of Detail Lines",
+            Autodesk.Revit.UI.TaskDialog.Show("Number of Detail Lines",
                 detail_lines.Count.ToString());
 
             var some_detail_lines = new List<Element>();
@@ -2312,7 +2312,7 @@ namespace BuildingCoder
                 if (dl.LineStyle.Name == "MyNewLineStyle")
                     some_detail_lines.Add(dl);
 
-            TaskDialog.Show(
+            Autodesk.Revit.UI.TaskDialog.Show(
                 "Number of Detail Lines of MyNewLineStyle",
                 some_detail_lines.Count.ToString());
 
