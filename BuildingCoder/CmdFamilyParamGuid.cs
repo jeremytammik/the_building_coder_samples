@@ -77,7 +77,6 @@ namespace BuildingCoder
             out string guid)
         {
             guid = string.Empty;
-
             var isShared = false;
 
             var fi
@@ -91,9 +90,8 @@ namespace BuildingCoder
 
                 isShared = p.IsShared;
 
-                if (isShared && null != p.GUID) guid = p.GUID.ToString();
+                if (isShared) guid = p.GUID.ToString();
             }
-
             return isShared;
         }
     }

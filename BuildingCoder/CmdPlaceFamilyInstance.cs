@@ -36,7 +36,7 @@ namespace BuildingCoder
         ///     Set this flag to true to abort after
         ///     placing the first instance.
         /// </summary>
-        private static readonly bool _place_one_single_instance_then_abort
+        private static readonly bool Place_one_single_instance_then_abort
             = true;
 
         private readonly List<ElementId> _added_element_ids
@@ -95,7 +95,7 @@ namespace BuildingCoder
 
             var n = _added_element_ids.Count;
 
-            TaskDialog.Show(
+            Autodesk.Revit.UI.TaskDialog.Show(
                 "Place Family Instance",
                 $"{n} element{(1 == n ? "" : "s")} added.");
 
@@ -122,7 +122,7 @@ namespace BuildingCoder
 
             _added_element_ids.AddRange(idsAdded);
 
-            if (_place_one_single_instance_then_abort
+            if (Place_one_single_instance_then_abort
                 && 0 < n)
             {
                 // Why do we send the WM_KEYDOWN message twice?

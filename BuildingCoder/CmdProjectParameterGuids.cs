@@ -480,8 +480,7 @@ namespace BuildingCoder
             projectParameterDataToFill.IsSharedStatusKnown = true;
             projectParameterDataToFill.IsShared = parameter.IsShared;
             if (parameter.IsShared)
-                if (parameter.GUID != null)
-                    projectParameterDataToFill.GUID = parameter.GUID.ToString();
+                projectParameterDataToFill.GUID = parameter.GUID.ToString();
         } // end of PopulateProjectParameterData
 
         #endregion // Private helper methods
