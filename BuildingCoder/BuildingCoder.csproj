@@ -42,25 +42,32 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AdWindows">
-      <HintPath>C:\Program Files\Autodesk\Revit 2025\AdWindows.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\Revit 2026\AdWindows.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPI">
-      <HintPath>C:\Program Files\Autodesk\Revit 2025\RevitAPI.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\Revit 2026\RevitAPI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIIFC">
-      <HintPath>C:\Program Files\Autodesk\Revit 2025\RevitAPIIFC.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\Revit 2026\RevitAPIIFC.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIMacros">
-      <HintPath>C:\Program Files\Autodesk\Revit 2025\RevitAPIMacros.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\Revit 2026\RevitAPIMacros.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
-      <HintPath>C:\Program Files\Autodesk\Revit 2025\RevitAPIUI.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\Revit 2026\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUIMacros">
-      <HintPath>C:\Program Files\Autodesk\Revit 2025\RevitAPIUIMacros.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\Revit 2026\RevitAPIUIMacros.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UIFrameworkServices">
-      <HintPath>C:\Program Files\Autodesk\Revit 2025\UIFrameworkServices.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\Revit 2026\UIFrameworkServices.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +90,6 @@
     <Copy SourceFiles="@(OutLibPath)" DestinationFolder="$(AppData)\Autodesk\Revit\Addins\2023\%(RecursiveDir)" />
   </Target>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy RvtSamples.addin C:\Users\jta\AppData\Roaming\Autodesk\Revit\Addins\2025&#xD;&#xA;copy RvtSamples.txt C:\Users\jta\AppData\Roaming\Autodesk\Revit\Addins\2025&#xD;&#xA;" />
+    <Exec Command="rem copy RvtSamples.addin C:\Users\jta\AppData\Roaming\Autodesk\Revit\Addins\2026&#xD;&#xA;rem copy RvtSamples.txt C:\Users\jta\AppData\Roaming\Autodesk\Revit\Addins\2026&#xD;&#xA;" />
   </Target>
 </Project>

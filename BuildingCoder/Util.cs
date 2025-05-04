@@ -2325,7 +2325,6 @@ const T f = ( ay * bx ) - ( ax * by );
                     minDist = d;
                 }
             }
-
             return targetConnector;
         }
 

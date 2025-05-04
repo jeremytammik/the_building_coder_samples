@@ -1,3 +1,4 @@
+#if BEFORE_REVIT_2026
 #region Header
 
 //
@@ -79,3 +80,4 @@ namespace BuildingCoder
         }
     }
 }
+#endif
